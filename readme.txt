@@ -1,1 +1,0 @@
-This is based on pdm-tool (Angular) and implemented in React Native for mobile and Mac.
