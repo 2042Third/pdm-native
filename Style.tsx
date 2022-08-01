@@ -22,7 +22,7 @@ export const colors = {
 
 };
 
-export const styles = StyleSheet.create({
+export const styless = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors["--background-default"],
