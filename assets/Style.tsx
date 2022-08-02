@@ -23,25 +23,7 @@ export const colors = {
 };
 
 export const styles = StyleSheet.create({
-    item: {
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    label: {
-        // margin: 16,
-        fontWeight: 'bold',
-        color: 'rgba(0, 0, 0, .87)',
-    },
-    iconContainer: {
-        // marginHorizontal: 16,
-        // width: 24,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    icon: {
-        width: 24,
-        height: 24,
-    },
+
     // TEST END
     container: {
         flex: 1,
@@ -80,6 +62,9 @@ export const styles = StyleSheet.create({
     drawerContentStyle: {
         backgroundColor: colors["--background-secondary"],
         color: colors["--foreground-default"],
+        flexDirection: "column",
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     drawerHeaderStyle:{
         backgroundColor: colors["--background-tertiary"],
@@ -87,8 +72,41 @@ export const styles = StyleSheet.create({
     drawerHeaderTitleStyle:{
         color: colors["--foreground-secondary"],
         fontWeight: 'bold',
+    },
+    openSpace:{
+        flexDirection: 'column',
+
+    },
+    drawerItemStyle:{
+
+        flex: 1,
+        color: colors["--foreground-default"],
+        flexDirection: "column",
+    },
+    menuContentCenter:{
+        color: colors["--foreground-default"],
+        flexDirection: "column",
+        paddingTop: 100,
+    },
+    footerViewStyle:{
+        borderStyle: "solid",
+        borderWidth:2,
+        borderTopColor: colors['--foreground-light'],
+        borderBottomColor: colors['--background-secondary'],
+        borderLeftColor: colors['--background-secondary'],
+        borderRightColor: colors['--background-secondary'],
+        // borderRadius:8,
+    },
+    footerContent:{
+        fontSize: 20,
+        padding: 20,
+        color: 'green',
+        // color: colors["--foreground-default"]
+    },
+    footerContentText:{
+        fontSize: 12,
+        padding: 20,
+        color: 'greenyellow',
+        // color: colors["--foreground-default"]
     }
 });
-
-// export default class styles {
-// }
