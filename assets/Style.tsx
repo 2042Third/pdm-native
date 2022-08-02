@@ -22,7 +22,7 @@ export const colors = {
 
 };
 
-export const styless = StyleSheet.create({
+export const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors["--background-default"],
@@ -32,6 +32,30 @@ export const styless = StyleSheet.create({
     },
     welcome: {
         fontSize: 20
+    },
+    mview:{
+        backgroundColor: colors["--background-secondary"],
+        color: colors["--foreground-default"],
+        flex: 1, alignItems: 'center', justifyContent: 'center'
+    },
+    somet: {
+        fontSize: 20,
+        color: colors["--foreground-default"]
+    },
+    drawerStyle: {
+        backgroundColor: colors["--background-secondary"],
+        color: colors["--foreground-default"],
+    },
+    drawerContentStyle: {
+        backgroundColor: colors["--background-secondary"],
+        color: colors["--foreground-default"],
+    },
+    drawerHeaderStyle:{
+        backgroundColor: colors["--background-tertiary"],
+    },
+    drawerHeaderTitleStyle:{
+        color: colors["--foreground-secondary"],
+        fontWeight: 'bold',
     }
 });
 
