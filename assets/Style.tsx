@@ -23,6 +23,26 @@ export const colors = {
 };
 
 export const styles = StyleSheet.create({
+    item: {
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    label: {
+        // margin: 16,
+        fontWeight: 'bold',
+        color: 'rgba(0, 0, 0, .87)',
+    },
+    iconContainer: {
+        // marginHorizontal: 16,
+        // width: 24,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    icon: {
+        width: 24,
+        height: 24,
+    },
+    // TEST END
     container: {
         flex: 1,
         backgroundColor: colors["--background-default"],
@@ -37,6 +57,17 @@ export const styles = StyleSheet.create({
         backgroundColor: colors["--background-secondary"],
         color: colors["--foreground-default"],
         flex: 1, alignItems: 'center', justifyContent: 'center'
+    },
+    bottommview:{
+        backgroundColor: colors["--background-secondary"],
+        color: colors["--foreground-default"],
+        // flex: 1,
+        flexDirection: "column",
+        flexGrow: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        // marginTop: 'auto'
+
     },
     somet: {
         fontSize: 20,
