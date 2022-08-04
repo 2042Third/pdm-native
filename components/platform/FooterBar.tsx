@@ -1,13 +1,14 @@
-import {styles} from "../../assets/Style";
+import {colors, styles} from "../../assets/Style";
 import {Text, View} from "react-native";
-import {Ionicons, } from "@expo/vector-icons";
 import * as React from "react";
+import Icon from 'react-native-ionicons';
 
 let FooterBar;
 export default  FooterBar =()=> {
     return (
         <View style={styles.container}>
-            <Ionicons name="settings-outline" size={24} color="black" />
+            <Icon ios="cog" android="cog" size={24}
+                  color={colors["--foreground-default"]}  />
             <Text style={styles.somet}>Hi</Text>
         </View>
     );

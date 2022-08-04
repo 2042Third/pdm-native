@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     // TEST END
     // GENERAL STYLES
     inputAreaColor:{
-        backgroundColor: colors["--background-light"],
+        backgroundColor: colors["--background-tertiary"],
         color: colors["--foreground-default"]
     },
     inputAreaColorSecond:{
@@ -138,8 +138,9 @@ export const styles = StyleSheet.create({
         flexGrow:1,
         border: "none",
         padding: 15,
-        borderRadius: 5,
-        margin: 7,
+        paddingTop: 15,
+        borderRadius: 24,
+        margin: 10,
         resize: 'none',
         wordWrap: 'breakWord',
     },

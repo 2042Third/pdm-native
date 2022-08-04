@@ -6,7 +6,7 @@ import SettingView from "../views/SettingPage";
 import {NavigationContainer, useLinkTo} from "@react-navigation/native";
 import * as React from 'react';
 import {Button, Linking, SafeAreaView, Text, TouchableOpacity, useWindowDimensions, View,} from "react-native";
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-ionicons';
 import {
     DrawerContentScrollView,
     DrawerItemList,
@@ -28,7 +28,9 @@ function CustomDrawerContent(props) {
                 <View style={styles.mview}>
                     <Text style={styles.somet}></Text>
                     <Text style={styles.somet}></Text>
-                    <MaterialCommunityIcons name="account" size={24} color="red" />
+                    {/*<ion-icon name="person"></ion-icon>*/}
+                    <Icon ios="person" android="person" size={24} color="red" />
+                    {/*<MaterialCommunityIcons name="account" size={24} color="red" />*/}
                 </View>
                 <Animated.View style={{ transform: [{ translateX }] }}>
                     <DrawerItemList {...props} />
@@ -39,7 +41,7 @@ function CustomDrawerContent(props) {
                 {/*<Text style={styles.footerContentText}>pdm Notes</Text>*/}
                 {/*<FooterBar ></FooterBar>*/}
                 <View style={styles.footerContent}>
-                    <Ionicons name="settings-outline" size={24}
+                    <Icon ios="cog" android="cog" size={24}
                               onPress={()=> props.navigation.navigate("Settings")}
                               color={colors["--foreground-default"]}  />
                 </View>
