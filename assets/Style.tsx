@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
         color: colors["--foreground-default"]
     },
     inputAreaColorSecond:{
-        backgroundColor: colors["--background-default"],
+        // backgroundColor: isFocused?colors["--background-default"],
         color: colors["--foreground-default"]
     },
     container: {
@@ -132,7 +132,6 @@ export const styles = StyleSheet.create({
         paddingRight: 7,
     },
     notesEditStyle:{
-
         alignItems: 'stretch',
         fontSize: 16,
         outline: 0,

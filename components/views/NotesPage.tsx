@@ -1,26 +1,32 @@
-import {Button, TextInput, View} from "react-native";
+import {Button, StyleSheet, TextInput, View} from "react-native";
 import {styles, colors} from "../../assets/Style";
-import React from "react";
+import React, {Component} from "react";
 
-export default function NotesView({ navigation }) {
 
-    const [text, onChangeText] = React.useState("Useless Text");
-    const [number, onChangeNumber] = React.useState(null);
-    return (
-        <View style={[styles.notesBox, styles.container]}>
-            <TextInput
-                style={[styles.notesHeaderStyle, styles.inputAreaColorSecond]}
-                onChangeText={onChangeText}
-                placeholder="Unnamed Note"
-                placeholderTextColor= {colors['--foreground-tertiary']}
-                value={text}
-            />
-            <TextInput
-                multiline
-                style={[styles.notesEditStyle, styles.inputAreaColor]}
-                onChangeText={onChangeNumber}
-                value={number}
-            />
-        </View>
-    );
-}
+const NotesView =()=>{
+    const [headerValue, onChangeText] = React.useState(null);
+    const [noteValue, onChangeNote] = React.useState('');
+    const [isFocused, onFocusingHeader] = React.useState(false);
+        return (
+            <View style={[styles.notesBox, styles.container]}>
+                <TextInput
+                    style={[styles.notesHeaderStyle, styles.inputAreaColorSecond,{
+                        backgroundColor: isFocused? colors["--background-light"]: colors["--background-default"]
+                    }]}
+                    onFocus={()=>onFocusingHeader(true)}
+                    onBlur={()=>onFocusingHeader(false)}
+                    onChangeText={onChangeText}
+                    placeholder="Unnamed Note"
+                    placeholderTextColor= {colors['--foreground-tertiary']}
+                    value={headerValue}
+                />
+                <TextInput
+                    multiline
+                    style={[styles.notesEditStyle, styles.inputAreaColor]}
+                    onChangeText={onChangeNote}
+                    value={noteValue}
+                />
+            </View>
+        );
+};
+export default NotesView;
