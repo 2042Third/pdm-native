@@ -15,10 +15,13 @@ import Animated from 'react-native-reanimated';
 let Nav;
 function CustomDrawerContent(props) {
     const progress = useDrawerProgress();
-    const translateX = Animated.interpolateNode(progress, {
-        inputRange: [0, 1],
-        outputRange: [-50, 0],
-    });
+    let translateX;
+    // @ts-ignore
+    translateX = Animated.interpolateNode(progress,
+        {
+            inputRange: [0, 1],
+            outputRange: [-50, 0],
+        });
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <DrawerContentScrollView style{...props}>
