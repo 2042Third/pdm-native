@@ -7,19 +7,12 @@ import {NavigationContainer, useLinkTo} from "@react-navigation/native";
 import * as React from 'react';
 import {Button, Linking, SafeAreaView, Text, TouchableOpacity, useWindowDimensions, View,} from "react-native";
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import { getHeaderTitle } from '@react-navigation/elements';
 import {
-    createDrawerNavigator,
     DrawerContentScrollView,
     DrawerItemList,
-    DrawerItem,
     useDrawerProgress,} from "@react-navigation/drawer";
-
 import Animated from 'react-native-reanimated';
-import FooterBar from "./FooterBar";
-import {createStackNavigator} from "@react-navigation/stack";
 let Nav;
-
 function CustomDrawerContent(props) {
     const progress = useDrawerProgress();
     const translateX = Animated.interpolateNode(progress, {
@@ -35,7 +28,6 @@ function CustomDrawerContent(props) {
                     <MaterialCommunityIcons name="account" size={24} color="red" />
                 </View>
                 <Animated.View style={{ transform: [{ translateX }] }}>
-
                     <DrawerItemList {...props} />
                 </Animated.View>
             </DrawerContentScrollView>
@@ -47,7 +39,6 @@ function CustomDrawerContent(props) {
                     <Ionicons name="settings-outline" size={24}
                               onPress={()=> props.navigation.navigate("Settings")}
                               color={colors["--foreground-default"]}  />
-
                 </View>
             </View>
         </SafeAreaView>

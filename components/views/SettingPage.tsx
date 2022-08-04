@@ -6,7 +6,6 @@ export default function SettingsScreen({ navigation }) {
     return (
         <View style={styles.mview}>
             <Text style={styles.somet}>Settings Screen</Text>
-
         </View>
     );
 }

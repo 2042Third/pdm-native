@@ -1,9 +1,7 @@
-
 import {styles} from "../../assets/Style";
 import {Text, View} from "react-native";
 import {Ionicons, } from "@expo/vector-icons";
 import * as React from "react";
-
 
 let FooterBar;
 export default  FooterBar =()=> {
