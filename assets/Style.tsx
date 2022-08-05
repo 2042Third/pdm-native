@@ -20,6 +20,8 @@ export const colors = {
     "--error-dark": "#800600",
     "--error-light": "#ffcecc",
 
+    "--chat-box-1": "#6fc02c",
+    "--chat-box-2": "#ffffff",
 };
 
 export const styles = StyleSheet.create({
@@ -146,25 +148,37 @@ export const styles = StyleSheet.create({
     },
 
     // CHAT STYLES
-  chatMainBox:{
-    flexDirection: 'column',
-    alignItems: 'stretch',
-  },
-  chatDisplayBox:{
-    flexGrow:70,
-  },
-  chatEditStyle:{
-    // alignItems: 'stretch',
-    fontSize: 16,
-    outline: 0,
-    flexGrow:1,
-    border: "none",
-    padding: 15,
-    paddingTop: 15,
-    borderRadius: 24,
-    margin: 10,
-    resize: 'none',
-    wordWrap: 'breakWord',
-  },
+    chatMainBox:{
+        flexDirection: 'column',
+        alignItems: 'stretch',
+    },
+    chatDisplayBox:{
+        flexGrow:70,
+    },
+    chatEditStyle:{
+        // alignItems: 'stretch',
+        fontSize: 16,
+        outline: 0,
+        flexGrow:1,
+        border: "none",
+        padding: 15,
+        paddingTop: 15,
+        borderRadius: 24,
+        margin: 10,
+        resize: 'none',
+        wordWrap: 'breakWord',
+    },
+    chatBox:{
+        margin:6,
+        padding: 10,
+        paddingRight:15,
+        paddingLeft: 15,
+        borderRadius: 12,
+        flexShrink: 1,
+    },
+    chatDisplay:{
+        flexDirection: "row",
+        alignItems: "flex-end",
+    },
 
 });
