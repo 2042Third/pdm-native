@@ -1,8 +1,8 @@
-import { Button, ScrollView, TextInput, useWindowDimensions, View } from "react-native";
+import { Button, FlatList, ScrollView, TextInput, useWindowDimensions, View } from "react-native";
 import {styles} from "../../assets/Style";
 import React from "react";
 import { useSelector, shallowEqual, Provider, useDispatch } from "react-redux";
-import {store} from "../handle/redux/store";
+import ChatBox from "./ChatBox";
 export default function ChatView({navigation}) {
 
   const [chatInputValue, onChangeNote] = React.useState('');
@@ -24,23 +24,34 @@ export default function ChatView({navigation}) {
     // And clear out the text input
     onChangeNote('')
   }
-  return (
-    <Provider store={store}>
-      <View style={[styles.chatMainBox,styles.container]}>
-        <ScrollView style={[styles.chatDisplayBox, styles.inputAreaColor]}>
+  // CHAT DATA
 
-        </ScrollView>
-        <TextInput
-          multiline={true}
-          textAlignVertical={'top'}
-          style={[styles.chatEditStyle, styles.inputAreaColor]}
-          onChangeText={onChangeNote}
-          // onKeyDown={handleKeyDown}
-          value={chatInputValue}></TextInput>
-        <Button title={"Send"}
-          onPress={handlePress}
-        ></Button>
-      </View>
-    </Provider>
+  const selectChatIds = (state) => state.chat.messages.map((chat) => chat.id);
+  const chatIds = useSelector(selectChatIds, shallowEqual);
+
+  return (
+      <View style={[styles.chatMainBox,styles.container]}>
+          {/*<ScrollView style={[styles.chatDisplayBox, styles.inputAreaColor]}>*/}
+            <FlatList
+              style={[styles.chatDisplayBox, styles.inputAreaColor]}
+              data={chatIds}
+              renderItem={({item}) =>
+                <ChatBox key={item} id={item}></ChatBox>
+              }
+            >
+            </FlatList>
+          {/*</ScrollView>*/}
+          <TextInput
+            multiline={true}
+            textAlignVertical={'top'}
+            style={[styles.chatEditStyle, styles.inputAreaColor]}
+            onChangeText={onChangeNote}
+            // onKeyDown={handleKeyDown}
+            value={chatInputValue}></TextInput>
+          <Button title={"Send"}
+            onPress={handlePress}
+          ></Button>
+
+    </View>
   );
 }

@@ -3,7 +3,7 @@ import  ChatViewReducer  from './reducers/chatViewReducer';
 import { configureStore } from '@reduxjs/toolkit'
 export const store = configureStore({
   reducer: {
-    posts: ChatViewReducer,
+    chat: ChatViewReducer,
   }
 })
 
