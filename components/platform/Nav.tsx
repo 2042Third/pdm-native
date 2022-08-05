@@ -16,7 +16,7 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-import Icon from "react-native-ionicons";
+import Icon from "../icons/Icon";
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -43,7 +43,7 @@ function CustomDrawerContent(props: (JSX.IntrinsicAttributes & ScrollViewProps &
                     <Text style={styles.somet}></Text>
                     <Text style={styles.somet}></Text>
                     {/*<ion-icon name="person"></ion-icon>*/}
-                    <Icon ios="person" android="person" size={24} color="red" />
+                    <Icon name={'account'}   size={24} color="red" />
                     {/*<MaterialCommunityIcons name="account" size={24} color="red" />*/}
                 </View>
                 <Animated.View style={{ transform: [{ translateX }] }}>
@@ -55,7 +55,7 @@ function CustomDrawerContent(props: (JSX.IntrinsicAttributes & ScrollViewProps &
                 {/*<Text style={styles.footerContentText}>pdm Notes</Text>*/}
                 {/*<FooterBar ></FooterBar>*/}
                 <View style={styles.footerContent}>
-                    <Icon ios="cog" android="cog" size={24}
+                    <Icon name={'cog-outline'} size={24}
                               onPress={()=> props.navigation.navigate("Settings")}
                               color={colors["--foreground-default"]}  />
                 </View>
@@ -64,7 +64,7 @@ function CustomDrawerContent(props: (JSX.IntrinsicAttributes & ScrollViewProps &
     );
 }
 
-export default  Nav =(props)=> {
+export default  Nav =(props: { Drawer: any; })=> {
     const window = useWindowDimensions();
     const Drawer = props.Drawer;
     return (

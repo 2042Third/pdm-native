@@ -3,7 +3,7 @@ import { styles, colors } from "../../assets/Style";
 import React from "react";
 
 const NotesView =()=>{
-    const [headerValue, onChangeText] = React.useState(null);
+    const [headerValue, onChangeText] = React.useState('');
     const [noteValue, onChangeNote] = React.useState('');
     const [isFocused, onFocusingHeader] = React.useState(false);
     return (
