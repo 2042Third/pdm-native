@@ -145,5 +145,26 @@ export const styles = StyleSheet.create({
         wordWrap: 'breakWord',
     },
 
+    // CHAT STYLES
+  chatMainBox:{
+    flexDirection: 'column',
+    alignItems: 'stretch',
+  },
+  chatDisplayBox:{
+    flexGrow:70,
+  },
+  chatEditStyle:{
+    // alignItems: 'stretch',
+    fontSize: 16,
+    outline: 0,
+    flexGrow:1,
+    border: "none",
+    padding: 15,
+    paddingTop: 15,
+    borderRadius: 24,
+    margin: 10,
+    resize: 'none',
+    wordWrap: 'breakWord',
+  },
 
 });

@@ -3,16 +3,11 @@ import NotesView from "../views/NotesPage";
 import ChatView from '../views/ChatPage';
 import UserView from '../views/UserPage';
 import SettingView from "../views/SettingPage";
-import {DrawerNavigationState, NavigationContainer, ParamListBase, useLinkTo } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
 import {
-  Button,
-  Linking,
   SafeAreaView,
-  ScrollView,
-  ScrollViewProps,
   Text,
-  TouchableOpacity,
   useWindowDimensions,
   View,
 } from "react-native";
@@ -23,11 +18,10 @@ import {
   useDrawerProgress,
 } from "@react-navigation/drawer";
 import Animated from "react-native-reanimated";
-import { DrawerNavigationHelpers, DrawerDescriptorMap } from "@react-navigation/drawer/lib/typescript/src/types";
 
 let Nav;
 
-function CustomDrawerContent(props: (JSX.IntrinsicAttributes & ScrollViewProps & { children: React.ReactNode; } & React.RefAttributes<ScrollView>) | (JSX.IntrinsicAttributes & { state: DrawerNavigationState<ParamListBase>; navigation: DrawerNavigationHelpers; descriptors: DrawerDescriptorMap; })) {
+function CustomDrawerContent(props) {
     const progress = useDrawerProgress();
     let translateX;
     // @ts-ignore
@@ -42,9 +36,7 @@ function CustomDrawerContent(props: (JSX.IntrinsicAttributes & ScrollViewProps &
                 <View style={styles.mview}>
                     <Text style={styles.somet}></Text>
                     <Text style={styles.somet}></Text>
-                    {/*<ion-icon name="person"></ion-icon>*/}
                     <Icon name={'account'}   size={24} color="red" />
-                    {/*<MaterialCommunityIcons name="account" size={24} color="red" />*/}
                 </View>
                 <Animated.View style={{ transform: [{ translateX }] }}>
                     <DrawerItemList {...props} />

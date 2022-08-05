@@ -24,10 +24,11 @@ const NotesView =()=>{
                 value={headerValue}
             />
             <TextInput
-                multiline
-                style={[styles.notesEditStyle, styles.inputAreaColor]}
-                onChangeText={onChangeNote}
-                value={noteValue}
+              multiline={true}
+              textAlignVertical={'top'}
+              style={[styles.notesEditStyle, styles.inputAreaColor]}
+              onChangeText={onChangeNote}
+              value={noteValue}
             />
         </View>
     );
