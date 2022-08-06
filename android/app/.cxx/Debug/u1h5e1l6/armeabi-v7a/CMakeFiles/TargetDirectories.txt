@@ -1,0 +1,2 @@
+C:/Users/18604/Desktop/net/PDMNotes/android/app/.cxx/Debug/u1h5e1l6/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/18604/Desktop/net/PDMNotes/android/app/.cxx/Debug/u1h5e1l6/armeabi-v7a/CMakeFiles/rebuild_cache.dir

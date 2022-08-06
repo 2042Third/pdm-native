@@ -129,6 +129,13 @@ def reactNativeArchitectures() {
 }
 
 android {
+
+    externalNativeBuild {
+        cmake {
+            path file('src/main/pdm-crypt-module/CMakeLists.txt')
+            version '3.18.1'
+        }
+    }
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -140,6 +147,11 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
+        externalNativeBuild {
+            cmake {
+                cppFlags ''
+            }
+        }
 
         if (isNewArchitectureEnabled()) {
             // We configure the NDK build only if you decide to opt-in for the New Architecture.
@@ -163,6 +175,9 @@ android {
             if (!enableSeparateBuildPerCPUArchitecture) {
                 ndk {
                     abiFilters (*reactNativeArchitectures())
+                    moduleName "cc20"
+                    ldLibs "log"
+                    cppFlags  "-fpermissive -std=c++17 -O3 -DLINUX -DWEB_RELEASE -DWEB_RELEASE_LINUX_TEST"
                 }
             }
         }

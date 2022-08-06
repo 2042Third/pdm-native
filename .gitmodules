@@ -1,0 +1,3 @@
+[submodule "android/app/src/main/pdm-crypt-module"]
+	path = android/app/src/main/pdm-crypt-module
+	url = https://github.com/2042third/pdm-crypt-module.git
