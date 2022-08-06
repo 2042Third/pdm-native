@@ -1,0 +1,2 @@
+C:/Users/18604/Desktop/net/PDMNotes/android/app/.cxx/RelWithDebInfo/4os6t3x2/x86/CMakeFiles/edit_cache.dir
+C:/Users/18604/Desktop/net/PDMNotes/android/app/.cxx/RelWithDebInfo/4os6t3x2/x86/CMakeFiles/rebuild_cache.dir

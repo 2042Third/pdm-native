@@ -130,12 +130,7 @@ def reactNativeArchitectures() {
 
 android {
 
-    externalNativeBuild {
-        cmake {
-            path file('src/main/pdm-crypt-module/CMakeLists.txt')
-            version '3.18.1'
-        }
-    }
+
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -175,9 +170,6 @@ android {
             if (!enableSeparateBuildPerCPUArchitecture) {
                 ndk {
                     abiFilters (*reactNativeArchitectures())
-                    moduleName "cc20"
-                    ldLibs "log"
-                    cppFlags  "-fpermissive -std=c++17 -O3 -DLINUX -DWEB_RELEASE -DWEB_RELEASE_LINUX_TEST"
                 }
             }
         }
@@ -265,6 +257,15 @@ android {
                 output.versionCodeOverride =
                         defaultConfig.versionCode * 1000 + versionCodes.get(abi)
             }
+
+        }
+    }
+
+
+    externalNativeBuild {
+        cmake {
+            path file('src/main/pdm-crypt-module/CMakeLists.txt')
+            version '3.18.1'
 
         }
     }

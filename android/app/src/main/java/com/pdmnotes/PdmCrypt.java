@@ -5,7 +5,7 @@ import java.util.List;
 public class PdmCrypt {
 
 
-    private static final String LIB_NAME = "cc20";
+    private static final String LIB_NAME = "c20";
 
     static {
         // load the native library
@@ -17,7 +17,7 @@ public class PdmCrypt {
     }
 
     // Native method declaration
-    public native String getHash();
+    public native String getHash(String a);
 
     public void callback(String string) {
         System.out.println("Callback: " + string);
@@ -30,7 +30,10 @@ public class PdmCrypt {
                 + arrayList.get(0));
         return arrayList.get(0);
     }
-
+    public String getHashTest(){
+        String a = "hello";
+        return getHash(a);
+    }
 //    public static void main(String[] args) {
 //        PdmCrypt jni = new PdmCrypt();
 //        System.out.println(jni.getHash());
