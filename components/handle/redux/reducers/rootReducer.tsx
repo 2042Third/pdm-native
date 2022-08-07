@@ -1,8 +1,8 @@
-import chatViewReducer from "./chatViewReducer";
-import { combineReducers } from "redux";
+import chatViewReducer from './chatViewReducer';
+import {combineReducers} from 'redux';
 
-const rootReducer=combineReducers({
-    chat: chatViewReducer
+const rootReducer = combineReducers({
+  chat: chatViewReducer,
 });
 
-export default rootReducer
+export default rootReducer;
