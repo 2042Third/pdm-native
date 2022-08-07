@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, NativeModules, SectionList, Text, View } from "react-native";
+import { Button, NativeModules, SectionList, StyleSheet, Text, TextInput, View } from "react-native";
 import { styles } from "../../assets/Style";
 
 // interface SettingsObjects {
@@ -17,6 +17,10 @@ export function SettingList({navigation}){
         },
         {
           title:"TestCppHash",
+          data: ""
+        },
+        {
+          title:"TestCppEncDec",
           data: ""
         },
       ]
@@ -54,6 +58,12 @@ export function TestsJavaEcho({...props}){
       onNativeReturn(back);
     });
   };
+
+  // const help = () =>{
+  //   PdmNativeCryptModule.help(inputText, back => {
+  //     onNativeReturn(back);
+  //   });
+  // };
   return (
     <View style={[styles.container]}>
       <View style={[styles.settingsContainer]}>
@@ -64,22 +74,134 @@ export function TestsJavaEcho({...props}){
           color="#841584"
           accessibilityLabel='Test Native modules(Java).'
         />
+
+        {/*<Button title={'GetHash'}*/}
+        {/*        onPress={help}></Button>*/}
       </View>
     </View>
   );
-
-
 }
-export function TestCppHash({...props}){
 
+export function TestCppHash({...props}){
+  const [inputText, onChangeInput] = React.useState("Hello!!!!");
+  const [outputText, onChangeOutput] = React.useState("");
   const {PdmNativeCryptModule} = NativeModules;
+  const getHash = () =>{
+    PdmNativeCryptModule.getHash(inputText, back => {
+      onChangeOutput(back);
+    });
+  };
+  return (
+    <View style={[styles.container,]}>
+      <Text style={[styles.somet,styles.header]}>C++ Hash</Text>
+      <View style={[lstyle.debugTextBoxOut]}>
+        <Text style={[styles.somet]}>SHA3 256 bit hash code: </Text>
+        <TextInput
+          multiline={true}
+          textAlignVertical={'top'}
+          style={[ styles.inputAreaColor,lstyle.debugTextBox]}
+          onChangeText={onChangeOutput}
+          // onKeyDown={handleKeyDown}
+          value={outputText}
+          editable={false} selectTextOnFocus={false}
+        />
+      </View>
+      <TextInput
+        multiline={true}
+        textAlignVertical={'top'}
+        style={[styles.chatEditStyle, styles.inputAreaColor]}
+        onChangeText={onChangeInput}
+        // onKeyDown={handleKeyDown}
+        value={inputText}
+      />
+      <Button title={'GetHash'}
+              onPress={getHash}></Button>
+    </View>
+  );
+}
+
+export function TestCppEncDec({...props}){
+  const [inputText, onChangeInput] = React.useState("Hello!!!!");
+  const [psText, onChangeps] = React.useState("12345");
+  const [dec, onDec] = React.useState("");
+  const [outputText, onChangeOutput] = React.useState("");
+  const {PdmNativeCryptModule} = NativeModules;
+  const onPress = () =>{
+    PdmNativeCryptModule.enc(psText,inputText, back => {
+      onChangeOutput(back);
+      PdmNativeCryptModule.dec(psText,back, backCall => {
+        onDec(backCall);
+      });
+    });
+
+  };
 
   return (
     <View style={[styles.container,]}>
+      <Text style={[styles.somet,styles.header]}>C++ Hash</Text>
+      <View style={[lstyle.debugTextBoxOut]}>
+        <Text style={[styles.somet]}>XChaCha20 256-bit Stream Cypher : </Text>
+        <TextInput
+          multiline={true}
+          textAlignVertical={'top'}
+          style={[ styles.inputAreaColor,lstyle.debugTextBox]}
+          onChangeText={onChangeOutput}
+          // onKeyDown={handleKeyDown}
+          value={outputText}
+          editable={false} selectTextOnFocus={false}
+        />
+      </View>
+      <View style={[lstyle.debugTextBoxOut]}>
+        <Text style={[styles.somet]}>Decrypted: </Text>
+        <TextInput
+          multiline={true}
+          textAlignVertical={'top'}
+          style={[ styles.inputAreaColor,lstyle.debugTextBox]}
+          onChangeText={onDec}
 
-      <Text style={[styles.somet]}>C++ Hash</Text>
+          // onKeyDown={handleKeyDown}
+          value={dec}
+          editable={false} selectTextOnFocus={false}
+        />
+      </View>
+      <View style={[lstyle.debugTextBoxOut]}>
+        <Text style={[styles.somet]}>password: </Text>
+        <TextInput
+          multiline={true}
+          textAlignVertical={'top'}
+          style={[ styles.inputAreaColor,lstyle.debugTextBox]}
+          onChangeText={onChangeps}
+          value={psText}
+        />
+      </View>
+
+      <Text style={[styles.somet]}>Type something to encrypt </Text>
+      <TextInput
+        multiline={true}
+        textAlignVertical={'top'}
+        style={[styles.chatEditStyle, styles.inputAreaColor]}
+        onChangeText={onChangeInput}
+        // onKeyDown={handleKeyDown}
+        value={inputText}
+      />
+      <Button title={'encrypt'}
+              onPress={onPress}></Button>
     </View>
   );
-
-
 }
+const lstyle = StyleSheet.create({
+  debugTextBox: {
+    borderRadius: 7,
+    padding: 7,
+    margin: 3,
+  },
+  debugTextBoxOut: {
+    flexGrow:1,
+    flexDirection: "column",
+    alignItems: "stretch",
+    borderRadius: 7,
+    padding: 7,
+    margin: 3,
+
+  },
+});

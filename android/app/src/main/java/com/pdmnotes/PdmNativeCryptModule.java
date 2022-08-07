@@ -17,6 +17,7 @@ public class PdmNativeCryptModule extends ReactContextBaseJavaModule {
     PdmNativeCryptModule(ReactApplicationContext context) {
         super(context);
     }
+    PdmCrypt jni = new PdmCrypt();
 
     @NonNull
     @Override
@@ -34,5 +35,27 @@ public class PdmNativeCryptModule extends ReactContextBaseJavaModule {
         System.out.println(jni.help("asdfxvcbiojdasaisdf hello world,,,"));
         System.out.println("THIS IS HASH!!");
         System.out.println(jni.getHash(input));
+    }
+    @ReactMethod
+    public void getHash(String input , Callback callback ) {
+        callback.invoke(jni.getHash(input));
+    }
+    @ReactMethod
+    public void enc(String a ,String b, Callback callback ) {
+//        PdmCrypt jni = new PdmCrypt();
+        System.out.println("THIS IS ENC!!");
+        System.out.println("input key"+a);
+        System.out.println("input value"+b);
+
+        callback.invoke(jni.loaderCheck(a,b));
+    }
+    @ReactMethod
+    public void dec(String a ,String b, Callback callback ) {
+//        PdmCrypt jni = new PdmCrypt();
+        System.out.println("THIS IS DEC!!");
+        System.out.println("input key"+a);
+        System.out.println("input value"+b);
+
+        callback.invoke(jni.loaderOut(a,b));
     }
 }

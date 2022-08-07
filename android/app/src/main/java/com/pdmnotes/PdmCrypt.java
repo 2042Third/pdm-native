@@ -19,6 +19,8 @@ public class PdmCrypt {
     // Native method declaration
     public native String getHash(String a);
     public native String help(String a);
+    public native String loaderCheck(String a, String b);
+    public native String loaderOut(String a, String b);
 
     public void callback(String string) {
         System.out.println("Callback: " + string);

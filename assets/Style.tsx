@@ -144,7 +144,10 @@ export const styles = StyleSheet.create({
     resize: 'none',
     wordWrap: 'breakWord',
   },
-
+  row:{
+    flexDirection:"row",
+    overflow: "visible",
+  },
   // CHAT STYLES
   chatMainBox: {
     flexDirection: 'column',
