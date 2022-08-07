@@ -30,6 +30,9 @@ public class PdmNativeCryptModule extends ReactContextBaseJavaModule {
                 + " and location: " + input);
         System.out.printf("Java echoer %s \n",input);
         callback.invoke(input);
-        jni.getHashTest();
+        System.out.println("THIS IS THE STRING MANIPULATOR!!");
+        System.out.println(jni.help("asdfxvcbiojdasaisdf hello world,,,"));
+        System.out.println("THIS IS HASH!!");
+        System.out.println(jni.getHash(input));
     }
 }

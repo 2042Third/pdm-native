@@ -18,6 +18,7 @@ public class PdmCrypt {
 
     // Native method declaration
     public native String getHash(String a);
+    public native String help(String a);
 
     public void callback(String string) {
         System.out.println("Callback: " + string);
@@ -30,9 +31,9 @@ public class PdmCrypt {
                 + arrayList.get(0));
         return arrayList.get(0);
     }
-    public String getHashTest(){
-        String a = "hello";
-        return getHash(a);
+    public void getHashTest(){
+        String a = new String("hello");
+        help(a);
     }
 //    public static void main(String[] args) {
 //        PdmCrypt jni = new PdmCrypt();
