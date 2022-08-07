@@ -264,8 +264,8 @@ android {
 
     externalNativeBuild {
         cmake {
-            path file('src/main/pdm-crypt-module/CMakeLists.txt')
-            version '3.18.1'
+//            path file('src/main/pdm-crypt-module/CMakeLists.txt')
+//            version '3.18.1'
 
         }
     }
@@ -273,6 +273,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation fileTree(include: ['*.aar'], dir: 'libs')
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules

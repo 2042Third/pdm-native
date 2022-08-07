@@ -11,8 +11,8 @@
 #define STRING_CALLBACK_STATIC "Hello world static callback!"
 #define STRING_PAYLOAD "Simple payload string"
 
-JNIEXPORT jstring JNICALL Java_com_pdmnotes_PdmCrypt_getHash(JNIEnv *env,
-                                          jobject thiz) {
+JNIEXPORT jstring JNICALL Java_com_pdmnotes_PdmCrypt_getHash
+        (JNIEnv *env, jobject thiz, jstring a){
     // get the class of an object
     jclass cls_foo = (*env)->GetObjectClass(env, thiz);
     // callback instance method with one String parameter
@@ -80,7 +80,7 @@ JNIEXPORT jstring JNICALL Java_com_pdmnotes_PdmCrypt_getHash(JNIEnv *env,
                                              (jstring) resultString,
                                                 NULL);
     // print returned string
-    printf(str);
+    printf("%s", str);
     (*env)->ReleaseStringUTFChars(env, resultString, str);
     (*env)->DeleteLocalRef(env, jStringPayload);
     (*env)->DeleteLocalRef(env, arraylist);

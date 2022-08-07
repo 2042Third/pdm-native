@@ -1,0 +1,2 @@
+C:/Users/18604/Desktop/net/rebase/pdm-native/android/app/.cxx/Debug/4n685x5p/x86/CMakeFiles/edit_cache.dir
+C:/Users/18604/Desktop/net/rebase/pdm-native/android/app/.cxx/Debug/4n685x5p/x86/CMakeFiles/rebuild_cache.dir

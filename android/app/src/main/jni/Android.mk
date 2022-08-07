@@ -52,7 +52,7 @@ include $(CLEAR_VARS)
 
 # # pdm files
 #
-# LOCAL_MODULE := cc20
+LOCAL_MODULE := c20
 # LOCAL_SRC_FILES := -I../pdm-crypt-module/src/app/pdm-crypt-module/src/include \
 #                    -I../pdm-crypt-module/src/app/pdm-crypt-module/src/lib \
 #                    -I../pdm-crypt-module/src/app/pdm-crypt-module/src/lib/wasm \

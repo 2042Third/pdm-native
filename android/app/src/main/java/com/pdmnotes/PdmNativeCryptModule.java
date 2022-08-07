@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class PdmNativeCryptModule extends ReactContextBaseJavaModule {
-    PdmCrypt jni = new PdmCrypt();
     //        System.out.println(jni.getHash());
     PdmNativeCryptModule(ReactApplicationContext context) {
         super(context);
@@ -26,6 +25,7 @@ public class PdmNativeCryptModule extends ReactContextBaseJavaModule {
     }
     @ReactMethod
     public void echoer(String input , Callback callback ) {
+        PdmCrypt jni = new PdmCrypt();
         Log.d("CryptModule", "echoer called with name: " + getName()
                 + " and location: " + input);
         System.out.printf("Java echoer %s \n",input);

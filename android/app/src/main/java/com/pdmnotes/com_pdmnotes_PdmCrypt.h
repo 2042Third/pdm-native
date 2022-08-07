@@ -12,8 +12,10 @@ extern "C" {
  * Method:    getHash
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_pdmnotes_PdmCrypt_getHash
-  (JNIEnv *, jobject);
+JNIEXPORT jstring JNICALL Java_com_pdmnotes_PdmCrypt_getHash
+(JNIEnv *, jobject, jstring a);
+//JNIEXPORT void JNICALL Java_com_pdmnotes_PdmCrypt_getHash
+//(JNIEnv *, jobject);
 
 #ifdef __cplusplus
 }
