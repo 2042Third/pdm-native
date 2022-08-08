@@ -31,12 +31,20 @@ export const styles = StyleSheet.create({
     backgroundColor: colors['--background-tertiary'],
     color: colors['--foreground-default'],
   },
+  mainColor: {
+    backgroundColor: colors['--background-default'],
+    color: colors['--foreground-default'],
+  },
   inputAreaColorSecond: {
     // backgroundColor: isFocused?colors["--background-default"],
     color: colors['--foreground-default'],
   },
+  tooLongScroll:{
+    overflow:"scroll"
+  },
   container: {
     flex: 1,
+    flexDirection:"column",
     backgroundColor: colors['--background-default'],
     color: colors['--foreground-default'],
     // alignItems: 'center',
@@ -67,6 +75,7 @@ export const styles = StyleSheet.create({
   drawerStyle: {
     backgroundColor: colors['--background-secondary'],
     color: colors['--foreground-default'],
+
   },
   drawerContentStyle: {
     backgroundColor: colors['--background-secondary'],
@@ -153,21 +162,16 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'stretch',
   },
-  chatDisplayBox: {
-    flexGrow: 70,
-  },
+  chatDisplayBox: {},
   chatEditStyle: {
-    // alignItems: 'stretch',
+    // alignItems: ,
     fontSize: 16,
     outline: 0,
-    flexGrow: 1,
     border: 'none',
     padding: 15,
     paddingTop: 15,
     borderRadius: 24,
     margin: 10,
-    resize: 'none',
-    wordWrap: 'breakWord',
   },
   chatBox: {
     margin: 6,
@@ -198,5 +202,17 @@ export const styles = StyleSheet.create({
     margin:3,
     padding:7,
     borderRadius: 6,
+  },
+
+  // button
+  styledButton1:{
+    alignContent:"space-around",
+    justifyContent: "space-evenly",
+    outline: 0,
+    border: 'none',
+    padding: 15,
+    paddingTop: 15,
+    borderRadius: 24,
+    margin: 10,
   },
 });

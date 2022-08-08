@@ -1,13 +1,13 @@
 import {
   Button,
   FlatList,
-  Keyboard,
-  ScrollView,
-  TextInput,
+  Keyboard, KeyboardAvoidingView,
+  ScrollView, Text,
+  TextInput, TouchableOpacity,
   useWindowDimensions,
   View,
-} from 'react-native';
-import {styles} from '../../assets/Style';
+} from "react-native";
+import { colors, styles } from "../../assets/Style";
 import React, {useState} from 'react';
 import {useSelector, shallowEqual, Provider, useDispatch} from 'react-redux';
 import ChatBox from './ChatBox';
@@ -42,10 +42,13 @@ export default function ChatView({navigation}) {
   // const thisFlatlist:React.MutableRefObject<FlatList> = useRef(null);
   const selectChatIds = state => state.chat.messages.map(chat => chat.id);
   const chatIds = useSelector(selectChatIds, shallowEqual);
+
   return (
-    <View style={[styles.chatMainBox, styles.container]}>
-      <FlatList
-        style={[styles.chatDisplayBox, styles.inputAreaColor]}
+    <KeyboardAvoidingView style={[{flexGrow:1},styles.chatMainBox, styles.mainColor,{flexDirection:"column"}]}>
+
+      <View style={[{ flexGrow:1, maxHeight: window.height*0.88}]}>
+        <FlatList
+        style={[ styles.inputAreaColor,]}
         data={chatIds}
         renderItem={({item}) => <ChatBox key={item} id={item} self={true} />}
         onTouchStart={() => Keyboard.dismiss()}
@@ -56,15 +59,29 @@ export default function ChatView({navigation}) {
         onContentSizeChange={() => thisFlatlist.scrollToEnd({animated: true})}
         onLayout={() => thisFlatlist.scrollToEnd({animated: true})}
       />
-      <TextInput
+      </View>
+
+      <View style={[{flexDirection: "row",  maxHeight: window.height*0.1, minHeight: window.height*0.1, }]}>
+        <TextInput
         multiline={true}
         textAlignVertical={'top'}
-        style={[styles.chatEditStyle, styles.inputAreaColor]}
+        style={[styles.chatEditStyle, styles.inputAreaColor,{flexGrow:1}]}
         onChangeText={onChangeNote}
         // onKeyDown={handleKeyDown}
         value={chatInputValue}
       />
-      <Button title={'Send'} onPress={handlePress} />
-    </View>
+        <TouchableOpacity style={[{ backgroundColor: colors['--background-tertiary'], },
+          styles.styledButton1]}>
+          <Text style={[ {
+                    backgroundColor: colors['--background-tertiary'],
+                }
+                ]} onPress={handlePress} >
+            Send
+          </Text>
+        </TouchableOpacity>
+
+      </View>
+
+    </KeyboardAvoidingView>
   );
 }

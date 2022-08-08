@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import { Button, NativeModules, SectionList, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  KeyboardAvoidingView,
+  NativeModules, ScrollView,
+  SectionList,
+  StyleSheet,
+  Text,
+  TextInput, useWindowDimensions,
+  View,
+} from "react-native";
 import { styles } from "../../assets/Style";
 
 // interface SettingsObjects {
@@ -92,8 +101,7 @@ export function TestCppHash({...props}){
     });
   };
   return (
-    <View style={[styles.container,]}>
-      <Text style={[styles.somet,styles.header]}>C++ Hash</Text>
+    <ScrollView style={[styles.container,]}>
       <View style={[lstyle.debugTextBoxOut]}>
         <Text style={[styles.somet]}>SHA3 256 bit hash code: </Text>
         <TextInput
@@ -103,7 +111,7 @@ export function TestCppHash({...props}){
           onChangeText={onChangeOutput}
           // onKeyDown={handleKeyDown}
           value={outputText}
-          editable={false} selectTextOnFocus={false}
+          editable={false} selectTextOnFocus={true}
         />
       </View>
       <TextInput
@@ -116,7 +124,7 @@ export function TestCppHash({...props}){
       />
       <Button title={'GetHash'}
               onPress={getHash}></Button>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -136,36 +144,33 @@ export function TestCppEncDec({...props}){
 
   };
 
+  const window = useWindowDimensions();
   return (
-    <View style={[styles.container,]}>
-      <Text style={[styles.somet,styles.header]}>C++ Hash</Text>
-      <View style={[lstyle.debugTextBoxOut]}>
-        <Text style={[styles.somet]}>XChaCha20 256-bit Stream Cypher : </Text>
+    <View style={[styles.mainColor,{flexDirection:"column", flexGrow:3}]}>
+      <View {...props} style={[lstyle.debugTextBoxOut,{flexGrow:3, maxHeight: window.height/5}]}>
+        <Text style={[styles.mainColor]}>XChaCha20 256-bit Stream Cypher : </Text>
         <TextInput
           multiline={true}
           textAlignVertical={'top'}
           style={[ styles.inputAreaColor,lstyle.debugTextBox]}
           onChangeText={onChangeOutput}
-          // onKeyDown={handleKeyDown}
           value={outputText}
-          editable={false} selectTextOnFocus={false}
+          editable={false}
         />
       </View>
-      <View style={[lstyle.debugTextBoxOut]}>
-        <Text style={[styles.somet]}>Decrypted: </Text>
+      <View {...props} style={[lstyle.debugTextBoxOut,{flexGrow:3,alignContent:"stretch", maxHeight: window.height/5}]}>
+        <Text style={[styles.mainColor]}>Decrypted: </Text>
         <TextInput
           multiline={true}
           textAlignVertical={'top'}
           style={[ styles.inputAreaColor,lstyle.debugTextBox]}
           onChangeText={onDec}
-
-          // onKeyDown={handleKeyDown}
           value={dec}
-          editable={false} selectTextOnFocus={false}
+          editable={false}
         />
       </View>
-      <View style={[lstyle.debugTextBoxOut]}>
-        <Text style={[styles.somet]}>password: </Text>
+      <View  {...props} style={[lstyle.debugTextBoxOut,{flexGrow:3, maxHeight: window.height/7}]}>
+        <Text style={[styles.mainColor]}>password: </Text>
         <TextInput
           multiline={true}
           textAlignVertical={'top'}
@@ -174,31 +179,31 @@ export function TestCppEncDec({...props}){
           value={psText}
         />
       </View>
+      <View {...props}  style={[lstyle.debugTextBoxOut,{ flexGrow:3, maxHeight: window.height/5}]}>
+        <Text style={[styles.mainColor]}>Type something to encrypt </Text>
+        <TextInput
+          multiline={true}
+          textAlignVertical={'top'}
+          style={[,lstyle.debugTextBox, styles.inputAreaColor]}
+          onChangeText={onChangeInput}
+          // onKeyDown={handleKeyDown}
+          value={inputText}
+        />
+        <Button title={'encrypt'}
+                onPress={onPress}></Button>
+      </View>
 
-      <Text style={[styles.somet]}>Type something to encrypt </Text>
-      <TextInput
-        multiline={true}
-        textAlignVertical={'top'}
-        style={[styles.chatEditStyle, styles.inputAreaColor]}
-        onChangeText={onChangeInput}
-        // onKeyDown={handleKeyDown}
-        value={inputText}
-      />
-      <Button title={'encrypt'}
-              onPress={onPress}></Button>
     </View>
   );
 }
 const lstyle = StyleSheet.create({
   debugTextBox: {
+    overflow: "scroll",
     borderRadius: 7,
     padding: 7,
     margin: 3,
   },
   debugTextBoxOut: {
-    flexGrow:1,
-    flexDirection: "column",
-    alignItems: "stretch",
     borderRadius: 7,
     padding: 7,
     margin: 3,

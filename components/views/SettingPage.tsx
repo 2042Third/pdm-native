@@ -29,7 +29,7 @@ export default function SettingsScreen({...props}) {
     // <View style={styles.mview}>
     //   {testsJavaEcho.openView({...props})}
     // </View>
-  <SafeAreaView style={styles.container}>
+  <SafeAreaView style={[styles.container, styles.tooLongScroll]}>
 
   <NavigationContainer independent={true} >
     <Stack.Navigator initialRouteName={"Settings"} >
