@@ -8,27 +8,27 @@
 #import <React/RCTConvert.h>
 
 #import <Foundation/Foundation.h>
-#pragma mark - RCTPdmNativeCryptModule
+//#pragma mark - RCTPdmNativeCryptModule
 
 @implementation RCTPdmNativeCryptModule
 // Export native 'PdmNativeCryptModule'
-RCT_EXPORT_MODULE();
+RCT_EXPORT_MODULE(PdmNativeCryptModule);
 
 + (BOOL)requiresMainQueueSetup
 {
   return NO;
 }
 
-RCT_EXPORT_METHOD(echoer1:(nonnull NSString*)a withB:(nonnull NSString*)b resolver:(RCTPromiseResolveBlock)resolve
-withReject:(RCTPromiseRejectBlock)reject)
-{
-  NSString log_info = (@"Pretending to create an event (this is from a objective-c++ module) %@ at %@", a, b);
-  RCTLogInfo(log_info);
-
-  resolve(@{
-            @"result": @(result)
-  });
-}
+//RCT_EXPORT_METHOD(echoer1:(nonnull NSString*)a withB:(nonnull NSString*)b resolver:(RCTPromiseResolveBlock)resolve
+//withReject:(RCTPromiseRejectBlock)reject)
+//{
+//  NSString log_info = (@"Pretending to create an event (this is from a objective-c++ module) %@ at %@", a, b);
+//  RCTLogInfo(log_info);
+//
+//  resolve(@{
+//            @"result": @(result)
+//  });
+//}
 RCT_EXPORT_METHOD(echoer:(nonnull NSString*)a  resolver:(RCTPromiseResolveBlock)resolve)
 {
   RCTLogInfo(@"Pretending to create an event (this is from a objective-c++ module) %@", a);
