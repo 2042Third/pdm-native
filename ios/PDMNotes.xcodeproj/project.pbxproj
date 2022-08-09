@@ -573,6 +573,7 @@
 				INFOPLIST_FILE = PDMNotes/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Pdm Notes";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -604,6 +605,7 @@
 				INFOPLIST_FILE = PDMNotes/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Pdm Notes";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

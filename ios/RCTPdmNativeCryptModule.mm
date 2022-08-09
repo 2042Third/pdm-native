@@ -29,13 +29,12 @@ RCT_EXPORT_MODULE(PdmNativeCryptModule);
 //            @"result": @(result)
 //  });
 //}
-RCT_EXPORT_METHOD(echoer:(nonnull NSString*)a  resolver:(RCTPromiseResolveBlock)resolve)
+RCT_EXPORT_METHOD(echoer:( NSString*)a  callback: (RCTResponseSenderBlock)callback)
 {
   RCTLogInfo(@"Pretending to create an event (this is from a objective-c++ module) %@", a);
 
-  resolve(@{
-            @"result": @("from Objective-C++ .mm")
-  });
+  
+  callback(@[@"from Objective-C++ .mm"]);
 }
 
 @end

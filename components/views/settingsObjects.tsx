@@ -59,15 +59,16 @@ export function SettingList({navigation}) {
     </View>
   );
 }
+
 export function TestsJavaEcho({...props}) {
   const [nativeReturn, onNativeReturn] = React.useState('Nothing');
   const {PdmNativeCryptModule} = NativeModules;
-
   const onPress = () => {
-    PdmNativeCryptModule.echoer('This from react native!!!', back => {
+    PdmNativeCryptModule.echoer('This from react native!!!'.toString(), back => {
       onNativeReturn(back);
     });
   };
+
 
   return (
     <View style={[styles.container]}>
