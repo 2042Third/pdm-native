@@ -30,7 +30,14 @@ function CustomDrawerContent({...props}) {
         <View style={styles.mview}>
           <Text style={styles.somet} />
           <Text style={styles.somet} />
-          <Icon onPress={()=>{props.navigation.navigate("User")}} name={'account'} size={24} color="red" />
+          <Icon
+            onPress={() => {
+              props.navigation.navigate('User');
+            }}
+            name={'account'}
+            size={24}
+            color="red"
+          />
         </View>
         <Animated.View style={{transform: [{translateX}]}}>
           <DrawerItemList {...props} />
@@ -60,7 +67,7 @@ export default Nav = (props: {Drawer: any}) => {
     <NavigationContainer>
       <Drawer.Navigator
         screenOptions={{
-          drawerStyle:[ styles.drawerStyle, {width:window.width}],
+          drawerStyle: [styles.drawerStyle, {width: window.width}],
           drawerContentStyle: styles.drawerContentStyle,
           drawerItemStyle: styles.drawerItemStyle,
           drawerInactiveTintColor: colors['--foreground-default'],
@@ -103,7 +110,7 @@ export default Nav = (props: {Drawer: any}) => {
             headerStyle: styles.drawerHeaderStyle,
             headerTitleStyle: styles.drawerHeaderTitleStyle,
             drawerItemStyle: {display: 'none'},
-            headerShown: false
+            headerShown: false,
           }}
         />
       </Drawer.Navigator>

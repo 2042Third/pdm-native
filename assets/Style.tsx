@@ -39,12 +39,12 @@ export const styles = StyleSheet.create({
     // backgroundColor: isFocused?colors["--background-default"],
     color: colors['--foreground-default'],
   },
-  tooLongScroll:{
-    overflow:"scroll"
+  tooLongScroll: {
+    overflow: 'scroll',
   },
   container: {
     flex: 1,
-    flexDirection:"column",
+    flexDirection: 'column',
     backgroundColor: colors['--background-default'],
     color: colors['--foreground-default'],
     // alignItems: 'center',
@@ -75,7 +75,6 @@ export const styles = StyleSheet.create({
   drawerStyle: {
     backgroundColor: colors['--background-secondary'],
     color: colors['--foreground-default'],
-
   },
   drawerContentStyle: {
     backgroundColor: colors['--background-secondary'],
@@ -153,9 +152,9 @@ export const styles = StyleSheet.create({
     resize: 'none',
     wordWrap: 'breakWord',
   },
-  row:{
-    flexDirection:"row",
-    overflow: "visible",
+  row: {
+    flexDirection: 'row',
+    overflow: 'visible',
   },
   // CHAT STYLES
   chatMainBox: {
@@ -187,27 +186,27 @@ export const styles = StyleSheet.create({
   },
 
   // SETTINGS
-  header : {
-    fontSize:20,
+  header: {
+    fontSize: 20,
   },
-  settingsContainer:{
-    margin:3,
-    padding:7,
+  settingsContainer: {
+    margin: 3,
+    padding: 7,
   },
-  settingsMenu:{
-    margin:0,
-    padding:7,
+  settingsMenu: {
+    margin: 0,
+    padding: 7,
   },
-  settingsItem:{
-    margin:3,
-    padding:7,
+  settingsItem: {
+    margin: 3,
+    padding: 7,
     borderRadius: 6,
   },
 
   // button
-  styledButton1:{
-    alignContent:"space-around",
-    justifyContent: "space-evenly",
+  styledButton1: {
+    alignContent: 'space-around',
+    justifyContent: 'space-evenly',
     outline: 0,
     border: 'none',
     padding: 15,
