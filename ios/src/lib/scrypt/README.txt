@@ -1,1 +1,0 @@
-This implemenntation is modified based on https://github.com/sgmenda/cpp-scrypt under BSD-3 license. 

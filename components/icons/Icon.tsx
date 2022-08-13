@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 let Icons;
 
+Icon.loadFont();
 export default Icons = ({...props}) => {
   // console.log( `Loading icon: ${props.name}`);
   return (

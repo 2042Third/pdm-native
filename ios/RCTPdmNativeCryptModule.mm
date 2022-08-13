@@ -15,7 +15,7 @@
 @implementation RCTPdmNativeCryptModule
 // Export native 'PdmNativeCryptModule'
 RCT_EXPORT_MODULE(PdmNativeCryptModule);
-EmppIOS * _h;
+EmppIOS * empp_lib;
 //EmppIOS _h;
 + (BOOL)requiresMainQueueSetup
 {
@@ -32,7 +32,7 @@ RCT_EXPORT_METHOD(echoer:( NSString*)a  callback: (RCTResponseSenderBlock)callba
 
 RCT_EXPORT_METHOD(getHash:( NSString*)a  callback: (RCTResponseSenderBlock)callback)
 {
-  NSString* b =[_h getHash:(NSString*)a ];
+  NSString* b =[empp_lib getHash:(NSString*)a ];
   callback(@[b]);
 //  callback(@[@(get_hash_arr(([a UTF8String]), a.length).c_str())]);
 }

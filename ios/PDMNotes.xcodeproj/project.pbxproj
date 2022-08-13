@@ -12,9 +12,9 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-PDMNotes-PDMNotesTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-PDMNotes-PDMNotesTests.a */; };
+		D577641F28A7524C00A6CB61 /* libcc20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D577641E28A7524C00A6CB61 /* libcc20.a */; };
 		D57DABD628A6FBA000B9124F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D57DABD528A6FBA000B9124F /* libc++.tbd */; };
 		D57DABDC28A70E8800B9124F /* StringsConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DABDB28A70E8800B9124F /* StringsConvert.m */; };
-		D5CE524E28A7506900542EA3 /* libcc20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CE522828A74FA200542EA3 /* libcc20.a */; };
 		D5E3089F28A210AE008EEEF8 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5E3088E28A210AE008EEEF8 /* Fontisto.ttf */; };
 		D5E308A128A210AE008EEEF8 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5E3088F28A210AE008EEEF8 /* Octicons.ttf */; };
 		D5E308A328A210AE008EEEF8 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5E3089028A210AE008EEEF8 /* Feather.ttf */; };
@@ -49,10 +49,20 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstSubfolderSpec = 7;
 			files = (
 			);
 			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5B834D428A8392E005AF1C0 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -74,51 +84,48 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-PDMNotes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PDMNotes.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PDMNotes/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-PDMNotes-PDMNotesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDMNotes-PDMNotesTests.release.xcconfig"; path = "Target Support Files/Pods-PDMNotes-PDMNotesTests/Pods-PDMNotes-PDMNotesTests.release.xcconfig"; sourceTree = "<group>"; };
+		D57763FC28A7524200A6CB61 /* scrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrypt.h; sourceTree = "<group>"; };
+		D57763FD28A7524200A6CB61 /* cc20_file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_file.h; sourceTree = "<group>"; };
+		D57763FE28A7524200A6CB61 /* poly1305-donna-8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-8.h"; sourceTree = "<group>"; };
+		D57763FF28A7524200A6CB61 /* cc20_parts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_parts.h; sourceTree = "<group>"; };
+		D577640028A7524200A6CB61 /* poly1305-donna-16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-16.h"; sourceTree = "<group>"; };
+		D577640128A7524200A6CB61 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		D577640228A7524200A6CB61 /* endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = endian.h; sourceTree = "<group>"; };
+		D577640328A7524200A6CB61 /* poly1305-donna.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna.h"; sourceTree = "<group>"; };
+		D577640428A7524200A6CB61 /* sha3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha3.h; sourceTree = "<group>"; };
+		D577640528A7524200A6CB61 /* poly1305-donna-64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-64.h"; sourceTree = "<group>"; };
+		D577640628A7524200A6CB61 /* test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
+		D577640728A7524200A6CB61 /* sha256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha256.h; sourceTree = "<group>"; };
+		D577640828A7524200A6CB61 /* empp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = empp.hpp; sourceTree = "<group>"; };
+		D577640928A7524200A6CB61 /* cc20_poly.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cc20_poly.hpp; sourceTree = "<group>"; };
+		D577640A28A7524200A6CB61 /* cc20_multi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_multi.h; sourceTree = "<group>"; };
+		D577640B28A7524200A6CB61 /* pbkdf2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pbkdf2.h; sourceTree = "<group>"; };
+		D577640C28A7524200A6CB61 /* fe25519.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fe25519.h; sourceTree = "<group>"; };
+		D577640D28A7524200A6CB61 /* salsa20.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = salsa20.h; sourceTree = "<group>"; };
+		D577640E28A7524200A6CB61 /* memory_mapped_file.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = memory_mapped_file.hpp; sourceTree = "<group>"; };
+		D577640F28A7524200A6CB61 /* pdm-service.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "pdm-service.hpp"; sourceTree = "<group>"; };
+		D577641028A7524200A6CB61 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		D577641128A7524200A6CB61 /* hmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
+		D577641228A7524200A6CB61 /* ec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ec.h; sourceTree = "<group>"; };
+		D577641328A7524200A6CB61 /* ecdh_curve25519.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ecdh_curve25519.h; sourceTree = "<group>"; };
+		D577641428A7524200A6CB61 /* bigint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bigint.h; sourceTree = "<group>"; };
+		D577641528A7524200A6CB61 /* xCc20.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xCc20.h; sourceTree = "<group>"; };
+		D577641628A7524200A6CB61 /* avrnacl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avrnacl.h; sourceTree = "<group>"; };
+		D577641728A7524200A6CB61 /* cc20_diff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_diff.h; sourceTree = "<group>"; };
+		D577641828A7524200A6CB61 /* cc20_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_wrapper.h; sourceTree = "<group>"; };
+		D577641928A7524200A6CB61 /* poly1305-donna-32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-32.h"; sourceTree = "<group>"; };
+		D577641A28A7524200A6CB61 /* cc20_dev.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cc20_dev.hpp; sourceTree = "<group>"; };
+		D577641B28A7524200A6CB61 /* cc20_scrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_scrypt.h; sourceTree = "<group>"; };
+		D577641C28A7524200A6CB61 /* emppIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = emppIOS.h; sourceTree = "<group>"; };
+		D577641D28A7524200A6CB61 /* empp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = empp.h; sourceTree = "<group>"; };
+		D577641E28A7524C00A6CB61 /* libcc20.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcc20.a; sourceTree = "<group>"; };
 		D57DABD528A6FBA000B9124F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		D57DABDB28A70E8800B9124F /* StringsConvert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StringsConvert.m; sourceTree = "<group>"; };
 		D57DABDD28A70EB200B9124F /* StringsConvert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringsConvert.h; sourceTree = "<group>"; };
-		D57DAC1228A74B3100B9124F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		D57DAC1328A74B3100B9124F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		D57DAC1428A74B3100B9124F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D57DAC1528A74B3100B9124F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		D57DAC1628A74B3100B9124F /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
-		D57DAC1728A74B3100B9124F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D5CE522628A74F3700542EA3 /* libcc20.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcc20.a; path = "../../pdm-crypt-module/pdm-native-lib/libs/ios/pdm-lib/static/libcc20.a"; sourceTree = "<group>"; };
-		D5CE522828A74FA200542EA3 /* libcc20.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcc20.a; sourceTree = "<group>"; };
-		D5CE522B28A74FB100542EA3 /* scrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrypt.h; sourceTree = "<group>"; };
-		D5CE522C28A74FB100542EA3 /* cc20_file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_file.h; sourceTree = "<group>"; };
-		D5CE522D28A74FB100542EA3 /* poly1305-donna-8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-8.h"; sourceTree = "<group>"; };
-		D5CE522E28A74FB100542EA3 /* cc20_parts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_parts.h; sourceTree = "<group>"; };
-		D5CE522F28A74FB100542EA3 /* poly1305-donna-16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-16.h"; sourceTree = "<group>"; };
-		D5CE523028A74FB100542EA3 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
-		D5CE523128A74FB100542EA3 /* endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = endian.h; sourceTree = "<group>"; };
-		D5CE523228A74FB100542EA3 /* poly1305-donna.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna.h"; sourceTree = "<group>"; };
-		D5CE523328A74FB100542EA3 /* sha3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha3.h; sourceTree = "<group>"; };
-		D5CE523428A74FB100542EA3 /* poly1305-donna-64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-64.h"; sourceTree = "<group>"; };
-		D5CE523528A74FB100542EA3 /* test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
-		D5CE523628A74FB100542EA3 /* sha256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha256.h; sourceTree = "<group>"; };
-		D5CE523728A74FB100542EA3 /* empp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = empp.hpp; sourceTree = "<group>"; };
-		D5CE523828A74FB100542EA3 /* cc20_poly.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cc20_poly.hpp; sourceTree = "<group>"; };
-		D5CE523928A74FB100542EA3 /* cc20_multi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_multi.h; sourceTree = "<group>"; };
-		D5CE523A28A74FB100542EA3 /* pbkdf2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pbkdf2.h; sourceTree = "<group>"; };
-		D5CE523B28A74FB100542EA3 /* fe25519.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fe25519.h; sourceTree = "<group>"; };
-		D5CE523C28A74FB100542EA3 /* salsa20.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = salsa20.h; sourceTree = "<group>"; };
-		D5CE523D28A74FB100542EA3 /* memory_mapped_file.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = memory_mapped_file.hpp; sourceTree = "<group>"; };
-		D5CE523E28A74FB100542EA3 /* pdm-service.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "pdm-service.hpp"; sourceTree = "<group>"; };
-		D5CE523F28A74FB100542EA3 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
-		D5CE524028A74FB100542EA3 /* hmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
-		D5CE524128A74FB100542EA3 /* ec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ec.h; sourceTree = "<group>"; };
-		D5CE524228A74FB100542EA3 /* ecdh_curve25519.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ecdh_curve25519.h; sourceTree = "<group>"; };
-		D5CE524328A74FB100542EA3 /* bigint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bigint.h; sourceTree = "<group>"; };
-		D5CE524428A74FB100542EA3 /* xCc20.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xCc20.h; sourceTree = "<group>"; };
-		D5CE524528A74FB100542EA3 /* avrnacl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avrnacl.h; sourceTree = "<group>"; };
-		D5CE524628A74FB100542EA3 /* cc20_diff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_diff.h; sourceTree = "<group>"; };
-		D5CE524728A74FB100542EA3 /* cc20_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_wrapper.h; sourceTree = "<group>"; };
-		D5CE524828A74FB100542EA3 /* poly1305-donna-32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-32.h"; sourceTree = "<group>"; };
-		D5CE524928A74FB100542EA3 /* cc20_dev.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cc20_dev.hpp; sourceTree = "<group>"; };
-		D5CE524A28A74FB100542EA3 /* cc20_scrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_scrypt.h; sourceTree = "<group>"; };
-		D5CE524B28A74FB100542EA3 /* emppIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = emppIOS.h; sourceTree = "<group>"; };
-		D5CE524C28A74FB100542EA3 /* empp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = empp.h; sourceTree = "<group>"; };
+		D5B834C728A8392E005AF1C0 /* ShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
+		D5B834C828A8392E005AF1C0 /* ShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
+		D5B834CB28A8392E005AF1C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		D5B834CD28A8392E005AF1C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5E3088E28A210AE008EEEF8 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		D5E3088F28A210AE008EEEF8 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		D5E3089028A210AE008EEEF8 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
@@ -153,9 +160,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5CE524E28A7506900542EA3 /* libcc20.a in Frameworks */,
 				D57DABD628A6FBA000B9124F /* libc++.tbd in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-PDMNotes.a in Frameworks */,
+				D577641F28A7524C00A6CB61 /* libcc20.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,7 +207,6 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D57DAC1128A74B3100B9124F /* PDMNotes */,
 				D57DABD528A6FBA000B9124F /* libc++.tbd */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-PDMNotes.a */,
@@ -219,12 +225,12 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				D5CE522A28A74FB100542EA3 /* include */,
-				D5CE522628A74F3700542EA3 /* libcc20.a */,
-				D5CE522828A74FA200542EA3 /* libcc20.a */,
+				D577641E28A7524C00A6CB61 /* libcc20.a */,
 				13B07FAE1A68108700A75B9A /* PDMNotes */,
+				D57763FB28A7524200A6CB61 /* include */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* PDMNotesTests */,
+				D5B834C628A8392E005AF1C0 /* PDM */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -254,58 +260,56 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		D57DAC1128A74B3100B9124F /* PDMNotes */ = {
+		D57763FB28A7524200A6CB61 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				D57DAC1228A74B3100B9124F /* LaunchScreen.storyboard */,
-				D57DAC1328A74B3100B9124F /* AppDelegate.h */,
-				D57DAC1428A74B3100B9124F /* main.m */,
-				D57DAC1528A74B3100B9124F /* Images.xcassets */,
-				D57DAC1628A74B3100B9124F /* AppDelegate.mm */,
-				D57DAC1728A74B3100B9124F /* Info.plist */,
-			);
-			path = PDMNotes;
-			sourceTree = "<group>";
-		};
-		D5CE522A28A74FB100542EA3 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				D5CE522B28A74FB100542EA3 /* scrypt.h */,
-				D5CE522C28A74FB100542EA3 /* cc20_file.h */,
-				D5CE522D28A74FB100542EA3 /* poly1305-donna-8.h */,
-				D5CE522E28A74FB100542EA3 /* cc20_parts.h */,
-				D5CE522F28A74FB100542EA3 /* poly1305-donna-16.h */,
-				D5CE523028A74FB100542EA3 /* types.h */,
-				D5CE523128A74FB100542EA3 /* endian.h */,
-				D5CE523228A74FB100542EA3 /* poly1305-donna.h */,
-				D5CE523328A74FB100542EA3 /* sha3.h */,
-				D5CE523428A74FB100542EA3 /* poly1305-donna-64.h */,
-				D5CE523528A74FB100542EA3 /* test.h */,
-				D5CE523628A74FB100542EA3 /* sha256.h */,
-				D5CE523728A74FB100542EA3 /* empp.hpp */,
-				D5CE523828A74FB100542EA3 /* cc20_poly.hpp */,
-				D5CE523928A74FB100542EA3 /* cc20_multi.h */,
-				D5CE523A28A74FB100542EA3 /* pbkdf2.h */,
-				D5CE523B28A74FB100542EA3 /* fe25519.h */,
-				D5CE523C28A74FB100542EA3 /* salsa20.h */,
-				D5CE523D28A74FB100542EA3 /* memory_mapped_file.hpp */,
-				D5CE523E28A74FB100542EA3 /* pdm-service.hpp */,
-				D5CE523F28A74FB100542EA3 /* common.h */,
-				D5CE524028A74FB100542EA3 /* hmac.h */,
-				D5CE524128A74FB100542EA3 /* ec.h */,
-				D5CE524228A74FB100542EA3 /* ecdh_curve25519.h */,
-				D5CE524328A74FB100542EA3 /* bigint.h */,
-				D5CE524428A74FB100542EA3 /* xCc20.h */,
-				D5CE524528A74FB100542EA3 /* avrnacl.h */,
-				D5CE524628A74FB100542EA3 /* cc20_diff.h */,
-				D5CE524728A74FB100542EA3 /* cc20_wrapper.h */,
-				D5CE524828A74FB100542EA3 /* poly1305-donna-32.h */,
-				D5CE524928A74FB100542EA3 /* cc20_dev.hpp */,
-				D5CE524A28A74FB100542EA3 /* cc20_scrypt.h */,
-				D5CE524B28A74FB100542EA3 /* emppIOS.h */,
-				D5CE524C28A74FB100542EA3 /* empp.h */,
+				D57763FC28A7524200A6CB61 /* scrypt.h */,
+				D57763FD28A7524200A6CB61 /* cc20_file.h */,
+				D57763FE28A7524200A6CB61 /* poly1305-donna-8.h */,
+				D57763FF28A7524200A6CB61 /* cc20_parts.h */,
+				D577640028A7524200A6CB61 /* poly1305-donna-16.h */,
+				D577640128A7524200A6CB61 /* types.h */,
+				D577640228A7524200A6CB61 /* endian.h */,
+				D577640328A7524200A6CB61 /* poly1305-donna.h */,
+				D577640428A7524200A6CB61 /* sha3.h */,
+				D577640528A7524200A6CB61 /* poly1305-donna-64.h */,
+				D577640628A7524200A6CB61 /* test.h */,
+				D577640728A7524200A6CB61 /* sha256.h */,
+				D577640828A7524200A6CB61 /* empp.hpp */,
+				D577640928A7524200A6CB61 /* cc20_poly.hpp */,
+				D577640A28A7524200A6CB61 /* cc20_multi.h */,
+				D577640B28A7524200A6CB61 /* pbkdf2.h */,
+				D577640C28A7524200A6CB61 /* fe25519.h */,
+				D577640D28A7524200A6CB61 /* salsa20.h */,
+				D577640E28A7524200A6CB61 /* memory_mapped_file.hpp */,
+				D577640F28A7524200A6CB61 /* pdm-service.hpp */,
+				D577641028A7524200A6CB61 /* common.h */,
+				D577641128A7524200A6CB61 /* hmac.h */,
+				D577641228A7524200A6CB61 /* ec.h */,
+				D577641328A7524200A6CB61 /* ecdh_curve25519.h */,
+				D577641428A7524200A6CB61 /* bigint.h */,
+				D577641528A7524200A6CB61 /* xCc20.h */,
+				D577641628A7524200A6CB61 /* avrnacl.h */,
+				D577641728A7524200A6CB61 /* cc20_diff.h */,
+				D577641828A7524200A6CB61 /* cc20_wrapper.h */,
+				D577641928A7524200A6CB61 /* poly1305-donna-32.h */,
+				D577641A28A7524200A6CB61 /* cc20_dev.hpp */,
+				D577641B28A7524200A6CB61 /* cc20_scrypt.h */,
+				D577641C28A7524200A6CB61 /* emppIOS.h */,
+				D577641D28A7524200A6CB61 /* empp.h */,
 			);
 			path = include;
+			sourceTree = "<group>";
+		};
+		D5B834C628A8392E005AF1C0 /* PDM */ = {
+			isa = PBXGroup;
+			children = (
+				D5B834C728A8392E005AF1C0 /* ShareViewController.h */,
+				D5B834C828A8392E005AF1C0 /* ShareViewController.m */,
+				D5B834CA28A8392E005AF1C0 /* MainInterface.storyboard */,
+				D5B834CD28A8392E005AF1C0 /* Info.plist */,
+			);
+			path = PDM;
 			sourceTree = "<group>";
 		};
 		D5E3088D28A210AE008EEEF8 /* Fonts */ = {
@@ -368,6 +372,7 @@
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
 				D57DABCE28A6B53C00B9124F /* Embed Libraries */,
+				D5B834D428A8392E005AF1C0 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -620,12 +625,24 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		D5B834CA28A8392E005AF1C0 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D5B834CB28A8392E005AF1C0 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-PDMNotes-PDMNotesTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = Q7QKH6M4GJ;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -642,7 +659,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = pdm.pw.notes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PDMNotes.app/PDMNotes";
 			};
@@ -654,6 +671,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = Q7QKH6M4GJ;
 				INFOPLIST_FILE = PDMNotesTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -666,7 +684,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = pdm.pw.notes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PDMNotes.app/PDMNotes";
 			};
@@ -691,6 +709,7 @@
 					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/Flipper-Glog\"",
 					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal\"",
 					"\"${PROJECT_DIR}/include\"",
+					"\"$(SRCROOT)/../node_modules/react-native-vector-icons/Fonts\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -808,17 +827,21 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.--PRODUCT-NAME-rfc1034identifier-";
+				PRODUCT_BUNDLE_IDENTIFIER = pdm.pw.notes;
 				PRODUCT_NAME = PDMNotes;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				SYSTEM_FRAMEWORK_SEARCH_PATHS = "\"${PROJECT_DIR}/include\"";
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (
+					"\"${PROJECT_DIR}/include\"",
+					"\"$(SRCROOT)/../node_modules/react-native-vector-icons/Fonts\"",
+				);
 				SYSTEM_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/include\"/**";
 				USER_HEADER_SEARCH_PATHS = (
 					"\"${PROJECT_DIR}/Pods\"/**",
 					"\"${PROJECT_DIR}/pdm-crypt-module\"/**",
 					"\"${PROJECT_DIR}/include\"/**",
+					"\"$(SRCROOT)/../node_modules/react-native-vector-icons/Fonts\"",
 				);
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -833,7 +856,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q7QKH6M4GJ;
-				FRAMEWORK_SEARCH_PATHS = "\"${PROJECT_DIR}/include\"";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"${PROJECT_DIR}/include\"",
+					"\"$(SRCROOT)/../node_modules/react-native-vector-icons/Fonts\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_NO_COMMON_BLOCKS = NO;
 				HEADER_SEARCH_PATHS = (
@@ -901,6 +927,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/include",
+					"\"$(SRCROOT)/../node_modules/react-native-vector-icons/Fonts\"",
 				);
 				MARKETING_VERSION = 0.1.0;
 				OTHER_CFLAGS = (
@@ -955,16 +982,20 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.--PRODUCT-NAME-rfc1034identifier-";
+				PRODUCT_BUNDLE_IDENTIFIER = pdm.pw.notes;
 				PRODUCT_NAME = PDMNotes;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SWIFT_VERSION = 5.0;
-				SYSTEM_FRAMEWORK_SEARCH_PATHS = "\"${PROJECT_DIR}/include\"";
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (
+					"\"${PROJECT_DIR}/include\"",
+					"\"$(SRCROOT)/../node_modules/react-native-vector-icons/Fonts\"",
+				);
 				SYSTEM_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/include\"/**";
 				USER_HEADER_SEARCH_PATHS = (
 					"\"${PROJECT_DIR}/Pods\"/**",
 					"\"${PROJECT_DIR}/pdm-crypt-module\"/**",
 					"\"${PROJECT_DIR}/include\"/**",
+					"\"$(SRCROOT)/../node_modules/react-native-vector-icons/Fonts\"",
 				);
 				VERSIONING_SYSTEM = "apple-generic";
 			};
