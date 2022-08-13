@@ -12,7 +12,7 @@ import {
   View,
 } from 'react-native';
 import {styles} from '../../assets/Style';
-
+import PdmNativeCryptModule from '../handle/native/NativeModule';
 // interface SettingsObjects {
 //   static openView({...props}): JSX.Element;
 // }
@@ -62,7 +62,7 @@ export function SettingList({navigation}) {
 
 export function TestsJavaEcho({...props}) {
   const [nativeReturn, onNativeReturn] = React.useState('Nothing');
-  const {PdmNativeCryptModule} = NativeModules;
+  // const {PdmNativeCryptModule} = NativeModules;
   const onPress = () => {
     PdmNativeCryptModule.echoer('This from react native!!!'.toString(), back => {
       onNativeReturn(back);

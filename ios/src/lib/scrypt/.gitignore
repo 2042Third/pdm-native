@@ -1,0 +1,6 @@
+out/
+build/
+tools/gyp
+*.xcodeproj
+node_modules/
+npm-debug.log

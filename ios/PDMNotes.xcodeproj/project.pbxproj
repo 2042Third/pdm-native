@@ -10,10 +10,11 @@
 		00E356F31AD99517003FC87E /* PDMNotesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PDMNotesTests.m */; };
 		0C80B921A6F3F58F76C31292 /* libPods-PDMNotes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-PDMNotes.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-PDMNotes-PDMNotesTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-PDMNotes-PDMNotesTests.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		D57DABD628A6FBA000B9124F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D57DABD528A6FBA000B9124F /* libc++.tbd */; };
+		D57DABDC28A70E8800B9124F /* StringsConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = D57DABDB28A70E8800B9124F /* StringsConvert.m */; };
+		D5CE524E28A7506900542EA3 /* libcc20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CE522828A74FA200542EA3 /* libcc20.a */; };
 		D5E3089F28A210AE008EEEF8 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5E3088E28A210AE008EEEF8 /* Fontisto.ttf */; };
 		D5E308A128A210AE008EEEF8 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5E3088F28A210AE008EEEF8 /* Octicons.ttf */; };
 		D5E308A328A210AE008EEEF8 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5E3089028A210AE008EEEF8 /* Feather.ttf */; };
@@ -31,7 +32,6 @@
 		D5E308BB28A210AE008EEEF8 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5E3089C28A210AE008EEEF8 /* SimpleLineIcons.ttf */; };
 		D5E308BD28A210AE008EEEF8 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5E3089D28A210AE008EEEF8 /* MaterialIcons.ttf */; };
 		D5E308C028A2155A008EEEF8 /* RCTPdmNativeCryptModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5E308BF28A2155A008EEEF8 /* RCTPdmNativeCryptModule.mm */; };
-		D5F7163628A1A1AB005D7ED1 /* Pods-PDMNotes.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3B4392A12AC88292D35C810B /* Pods-PDMNotes.debug.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +43,19 @@
 			remoteInfo = PDMNotes;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D57DABCE28A6B53C00B9124F /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* PDMNotesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PDMNotesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +74,51 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-PDMNotes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PDMNotes.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PDMNotes/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-PDMNotes-PDMNotesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDMNotes-PDMNotesTests.release.xcconfig"; path = "Target Support Files/Pods-PDMNotes-PDMNotesTests/Pods-PDMNotes-PDMNotesTests.release.xcconfig"; sourceTree = "<group>"; };
+		D57DABD528A6FBA000B9124F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		D57DABDB28A70E8800B9124F /* StringsConvert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StringsConvert.m; sourceTree = "<group>"; };
+		D57DABDD28A70EB200B9124F /* StringsConvert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringsConvert.h; sourceTree = "<group>"; };
+		D57DAC1228A74B3100B9124F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D57DAC1328A74B3100B9124F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D57DAC1428A74B3100B9124F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D57DAC1528A74B3100B9124F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		D57DAC1628A74B3100B9124F /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		D57DAC1728A74B3100B9124F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5CE522628A74F3700542EA3 /* libcc20.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcc20.a; path = "../../pdm-crypt-module/pdm-native-lib/libs/ios/pdm-lib/static/libcc20.a"; sourceTree = "<group>"; };
+		D5CE522828A74FA200542EA3 /* libcc20.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcc20.a; sourceTree = "<group>"; };
+		D5CE522B28A74FB100542EA3 /* scrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrypt.h; sourceTree = "<group>"; };
+		D5CE522C28A74FB100542EA3 /* cc20_file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_file.h; sourceTree = "<group>"; };
+		D5CE522D28A74FB100542EA3 /* poly1305-donna-8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-8.h"; sourceTree = "<group>"; };
+		D5CE522E28A74FB100542EA3 /* cc20_parts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_parts.h; sourceTree = "<group>"; };
+		D5CE522F28A74FB100542EA3 /* poly1305-donna-16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-16.h"; sourceTree = "<group>"; };
+		D5CE523028A74FB100542EA3 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		D5CE523128A74FB100542EA3 /* endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = endian.h; sourceTree = "<group>"; };
+		D5CE523228A74FB100542EA3 /* poly1305-donna.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna.h"; sourceTree = "<group>"; };
+		D5CE523328A74FB100542EA3 /* sha3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha3.h; sourceTree = "<group>"; };
+		D5CE523428A74FB100542EA3 /* poly1305-donna-64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-64.h"; sourceTree = "<group>"; };
+		D5CE523528A74FB100542EA3 /* test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
+		D5CE523628A74FB100542EA3 /* sha256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha256.h; sourceTree = "<group>"; };
+		D5CE523728A74FB100542EA3 /* empp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = empp.hpp; sourceTree = "<group>"; };
+		D5CE523828A74FB100542EA3 /* cc20_poly.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cc20_poly.hpp; sourceTree = "<group>"; };
+		D5CE523928A74FB100542EA3 /* cc20_multi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_multi.h; sourceTree = "<group>"; };
+		D5CE523A28A74FB100542EA3 /* pbkdf2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pbkdf2.h; sourceTree = "<group>"; };
+		D5CE523B28A74FB100542EA3 /* fe25519.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fe25519.h; sourceTree = "<group>"; };
+		D5CE523C28A74FB100542EA3 /* salsa20.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = salsa20.h; sourceTree = "<group>"; };
+		D5CE523D28A74FB100542EA3 /* memory_mapped_file.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = memory_mapped_file.hpp; sourceTree = "<group>"; };
+		D5CE523E28A74FB100542EA3 /* pdm-service.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "pdm-service.hpp"; sourceTree = "<group>"; };
+		D5CE523F28A74FB100542EA3 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		D5CE524028A74FB100542EA3 /* hmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
+		D5CE524128A74FB100542EA3 /* ec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ec.h; sourceTree = "<group>"; };
+		D5CE524228A74FB100542EA3 /* ecdh_curve25519.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ecdh_curve25519.h; sourceTree = "<group>"; };
+		D5CE524328A74FB100542EA3 /* bigint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bigint.h; sourceTree = "<group>"; };
+		D5CE524428A74FB100542EA3 /* xCc20.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xCc20.h; sourceTree = "<group>"; };
+		D5CE524528A74FB100542EA3 /* avrnacl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avrnacl.h; sourceTree = "<group>"; };
+		D5CE524628A74FB100542EA3 /* cc20_diff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_diff.h; sourceTree = "<group>"; };
+		D5CE524728A74FB100542EA3 /* cc20_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_wrapper.h; sourceTree = "<group>"; };
+		D5CE524828A74FB100542EA3 /* poly1305-donna-32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-32.h"; sourceTree = "<group>"; };
+		D5CE524928A74FB100542EA3 /* cc20_dev.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cc20_dev.hpp; sourceTree = "<group>"; };
+		D5CE524A28A74FB100542EA3 /* cc20_scrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_scrypt.h; sourceTree = "<group>"; };
+		D5CE524B28A74FB100542EA3 /* emppIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = emppIOS.h; sourceTree = "<group>"; };
+		D5CE524C28A74FB100542EA3 /* empp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = empp.h; sourceTree = "<group>"; };
 		D5E3088E28A210AE008EEEF8 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		D5E3088F28A210AE008EEEF8 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		D5E3089028A210AE008EEEF8 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
@@ -95,6 +153,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5CE524E28A7506900542EA3 /* libcc20.a in Frameworks */,
+				D57DABD628A6FBA000B9124F /* libc++.tbd in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-PDMNotes.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -131,6 +191,8 @@
 				D5E308BE28A21440008EEEF8 /* RCTPdmNativeCryptModule.h */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				D5E308BF28A2155A008EEEF8 /* RCTPdmNativeCryptModule.mm */,
+				D57DABDB28A70E8800B9124F /* StringsConvert.m */,
+				D57DABDD28A70EB200B9124F /* StringsConvert.h */,
 			);
 			name = PDMNotes;
 			sourceTree = "<group>";
@@ -138,6 +200,8 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D57DAC1128A74B3100B9124F /* PDMNotes */,
+				D57DABD528A6FBA000B9124F /* libc++.tbd */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-PDMNotes.a */,
 				19F6CBCC0A4E27FBF8BF4A61 /* libPods-PDMNotes-PDMNotesTests.a */,
@@ -155,6 +219,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D5CE522A28A74FB100542EA3 /* include */,
+				D5CE522628A74F3700542EA3 /* libcc20.a */,
+				D5CE522828A74FA200542EA3 /* libcc20.a */,
 				13B07FAE1A68108700A75B9A /* PDMNotes */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* PDMNotesTests */,
@@ -185,6 +252,60 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-PDMNotes-PDMNotesTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		D57DAC1128A74B3100B9124F /* PDMNotes */ = {
+			isa = PBXGroup;
+			children = (
+				D57DAC1228A74B3100B9124F /* LaunchScreen.storyboard */,
+				D57DAC1328A74B3100B9124F /* AppDelegate.h */,
+				D57DAC1428A74B3100B9124F /* main.m */,
+				D57DAC1528A74B3100B9124F /* Images.xcassets */,
+				D57DAC1628A74B3100B9124F /* AppDelegate.mm */,
+				D57DAC1728A74B3100B9124F /* Info.plist */,
+			);
+			path = PDMNotes;
+			sourceTree = "<group>";
+		};
+		D5CE522A28A74FB100542EA3 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				D5CE522B28A74FB100542EA3 /* scrypt.h */,
+				D5CE522C28A74FB100542EA3 /* cc20_file.h */,
+				D5CE522D28A74FB100542EA3 /* poly1305-donna-8.h */,
+				D5CE522E28A74FB100542EA3 /* cc20_parts.h */,
+				D5CE522F28A74FB100542EA3 /* poly1305-donna-16.h */,
+				D5CE523028A74FB100542EA3 /* types.h */,
+				D5CE523128A74FB100542EA3 /* endian.h */,
+				D5CE523228A74FB100542EA3 /* poly1305-donna.h */,
+				D5CE523328A74FB100542EA3 /* sha3.h */,
+				D5CE523428A74FB100542EA3 /* poly1305-donna-64.h */,
+				D5CE523528A74FB100542EA3 /* test.h */,
+				D5CE523628A74FB100542EA3 /* sha256.h */,
+				D5CE523728A74FB100542EA3 /* empp.hpp */,
+				D5CE523828A74FB100542EA3 /* cc20_poly.hpp */,
+				D5CE523928A74FB100542EA3 /* cc20_multi.h */,
+				D5CE523A28A74FB100542EA3 /* pbkdf2.h */,
+				D5CE523B28A74FB100542EA3 /* fe25519.h */,
+				D5CE523C28A74FB100542EA3 /* salsa20.h */,
+				D5CE523D28A74FB100542EA3 /* memory_mapped_file.hpp */,
+				D5CE523E28A74FB100542EA3 /* pdm-service.hpp */,
+				D5CE523F28A74FB100542EA3 /* common.h */,
+				D5CE524028A74FB100542EA3 /* hmac.h */,
+				D5CE524128A74FB100542EA3 /* ec.h */,
+				D5CE524228A74FB100542EA3 /* ecdh_curve25519.h */,
+				D5CE524328A74FB100542EA3 /* bigint.h */,
+				D5CE524428A74FB100542EA3 /* xCc20.h */,
+				D5CE524528A74FB100542EA3 /* avrnacl.h */,
+				D5CE524628A74FB100542EA3 /* cc20_diff.h */,
+				D5CE524728A74FB100542EA3 /* cc20_wrapper.h */,
+				D5CE524828A74FB100542EA3 /* poly1305-donna-32.h */,
+				D5CE524928A74FB100542EA3 /* cc20_dev.hpp */,
+				D5CE524A28A74FB100542EA3 /* cc20_scrypt.h */,
+				D5CE524B28A74FB100542EA3 /* emppIOS.h */,
+				D5CE524C28A74FB100542EA3 /* empp.h */,
+			);
+			path = include;
 			sourceTree = "<group>";
 		};
 		D5E3088D28A210AE008EEEF8 /* Fonts */ = {
@@ -243,10 +364,10 @@
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
-				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				D57DABCE28A6B53C00B9124F /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -314,16 +435,6 @@
 				D5E308B128A210AE008EEEF8 /* FontAwesome5_Solid.ttf in Resources */,
 				D5E308BB28A210AE008EEEF8 /* SimpleLineIcons.ttf in Resources */,
 				D5E308B928A210AE008EEEF8 /* EvilIcons.ttf in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		13B07F8E1A680F5B00A75B9A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				D5F7163628A1A1AB005D7ED1 /* Pods-PDMNotes.debug.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,6 +605,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				D5E308C028A2155A008EEEF8 /* RCTPdmNativeCryptModule.mm in Sources */,
+				D57DABDC28A70E8800B9124F /* StringsConvert.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -570,6 +682,71 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q7QKH6M4GJ;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Flipper-DoubleConversion/Frameworks\"",
+					"\"${PODS_ROOT}/Flipper-Glog/Frameworks\"",
+					"\"${PODS_ROOT}/OpenSSL-Universal/Frameworks\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/Flipper-DoubleConversion\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/Flipper-Glog\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal\"",
+					"\"${PROJECT_DIR}/include\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_NO_COMMON_BLOCKS = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/CocoaAsyncSocket\"",
+					"\"${PODS_ROOT}/Headers/Public/DoubleConversion\"",
+					"\"${PODS_ROOT}/Headers/Public/FBLazyVector\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-Fmt\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-Folly\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-PeerTalk\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-RSocket\"",
+					"\"${PODS_ROOT}/Headers/Public/FlipperKit\"",
+					"\"${PODS_ROOT}/Headers/Public/RCT-Folly\"",
+					"\"${PODS_ROOT}/Headers/Public/RCTRequired\"",
+					"\"${PODS_ROOT}/Headers/Public/RCTTypeSafety\"",
+					"\"${PODS_ROOT}/Headers/Public/RNGestureHandler\"",
+					"\"${PODS_ROOT}/Headers/Public/RNReanimated\"",
+					"\"${PODS_ROOT}/Headers/Public/RNScreens\"",
+					"\"${PODS_ROOT}/Headers/Public/React-Codegen\"",
+					"\"${PODS_ROOT}/Headers/Public/React-Core\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTAnimation\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTBlob\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTText\"",
+					"\"${PODS_ROOT}/Headers/Public/React-bridging\"",
+					"\"${PODS_ROOT}/Headers/Public/React-callinvoker\"",
+					"\"${PODS_ROOT}/Headers/Public/React-cxxreact\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsi\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsiexecutor\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsinspector\"",
+					"\"${PODS_ROOT}/Headers/Public/React-logger\"",
+					"\"${PODS_ROOT}/Headers/Public/React-perflogger\"",
+					"\"${PODS_ROOT}/Headers/Public/React-runtimeexecutor\"",
+					"\"${PODS_ROOT}/Headers/Public/ReactCommon\"",
+					"\"${PODS_ROOT}/Headers/Public/SocketRocket\"",
+					"\"${PODS_ROOT}/Headers/Public/Yoga\"",
+					"\"${PODS_ROOT}/Headers/Public/YogaKit\"",
+					"\"${PODS_ROOT}/Headers/Public/fmt\"",
+					"\"${PODS_ROOT}/Headers/Public/glog\"",
+					"\"${PODS_ROOT}/Headers/Public/libevent\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-safe-area-context\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-webview\"",
+					"\"$(PODS_ROOT)/DoubleConversion\"",
+					"\"$(PODS_ROOT)/boost\"",
+					"\"$(PODS_ROOT)/boost\"",
+					"\"$(PODS_ROOT)/boost-for-react-native\"",
+					"\"$(PODS_ROOT)/glog\"",
+					"\"$(PODS_ROOT)/RCT-Folly\"",
+					"\"${PODS_ROOT}/Headers/Public/React-hermes\"",
+					"\"${PODS_ROOT}/Headers/Public/hermes-engine\"",
+					"\"$(PODS_ROOT)/Headers/Private/React-Core\"",
+					"\"$(PODS_TARGET_SRCROOT)/include/\"",
+					"\"${PROJECT_DIR}/include\"/**",
+				);
 				INFOPLIST_FILE = PDMNotes/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Pdm Notes";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -578,7 +755,54 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/include",
+				);
 				MARKETING_VERSION = 0.1.0;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit/YogaKit.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/FlipperKit/FlipperKit.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/RCTTypeSafety/RCTTypeSafety.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/React/React-Core.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/ReactCommon/ReactCommon.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/React_Codegen/React-Codegen.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/folly/RCT-Folly.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/yoga/Yoga.modulemap\"",
+					"$(inherited)",
+					"-DFOLLY_NO_CONFIG",
+					"-DFOLLY_MOBILE=1",
+					"-DFOLLY_USE_LIBCPP=1",
+					"-DRNVERSION=69",
+					"-I./pdm-crypt-module/src/include",
+					"-I./pdm-crypt-module/src/lib",
+					"-I./pdm-crypt-module/src/lib/cpp-mmf",
+					"-I./pdm-crypt-module/src/lib/poly1305-donna-master",
+					"-I./pdm-crypt-module/src/lib/ecc",
+					"-I./pdm-crypt-module/src/lib/scrypt/include",
+					"-I./pdm-crypt-module/src/lib/scrypt",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DFOLLY_NO_CONFIG",
+					"-DFOLLY_MOBILE=1",
+					"-DFOLLY_USE_LIBCPP=1",
+					"-DLINUX",
+					"-lpthread",
+					"-Wall",
+					"-DANDROID",
+					"-I./pdm-crypt-module/src/include",
+					"-I./pdm-crypt-module/src/lib",
+					"-I./pdm-crypt-module/src/lib/cpp-mmf",
+					"-I./pdm-crypt-module/src/lib/poly1305-donna-master",
+					"-I./pdm-crypt-module/src/lib/ecc",
+					"-I./pdm-crypt-module/src/lib/scrypt/include",
+					"-I./pdm-crypt-module/src/lib/scrypt",
+					"-lpthread",
+					"-O3",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -586,9 +810,16 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.--PRODUCT-NAME-rfc1034identifier-";
 				PRODUCT_NAME = PDMNotes;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "\"${PROJECT_DIR}/include\"";
+				SYSTEM_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/include\"/**";
+				USER_HEADER_SEARCH_PATHS = (
+					"\"${PROJECT_DIR}/Pods\"/**",
+					"\"${PROJECT_DIR}/pdm-crypt-module\"/**",
+					"\"${PROJECT_DIR}/include\"/**",
+				);
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -602,6 +833,62 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q7QKH6M4GJ;
+				FRAMEWORK_SEARCH_PATHS = "\"${PROJECT_DIR}/include\"";
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_NO_COMMON_BLOCKS = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/CocoaAsyncSocket\"",
+					"\"${PODS_ROOT}/Headers/Public/DoubleConversion\"",
+					"\"${PODS_ROOT}/Headers/Public/FBLazyVector\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-Fmt\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-Folly\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-PeerTalk\"",
+					"\"${PODS_ROOT}/Headers/Public/Flipper-RSocket\"",
+					"\"${PODS_ROOT}/Headers/Public/FlipperKit\"",
+					"\"${PODS_ROOT}/Headers/Public/RCT-Folly\"",
+					"\"${PODS_ROOT}/Headers/Public/RCTRequired\"",
+					"\"${PODS_ROOT}/Headers/Public/RCTTypeSafety\"",
+					"\"${PODS_ROOT}/Headers/Public/RNGestureHandler\"",
+					"\"${PODS_ROOT}/Headers/Public/RNReanimated\"",
+					"\"${PODS_ROOT}/Headers/Public/RNScreens\"",
+					"\"${PODS_ROOT}/Headers/Public/React-Codegen\"",
+					"\"${PODS_ROOT}/Headers/Public/React-Core\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTAnimation\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTBlob\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTText\"",
+					"\"${PODS_ROOT}/Headers/Public/React-bridging\"",
+					"\"${PODS_ROOT}/Headers/Public/React-callinvoker\"",
+					"\"${PODS_ROOT}/Headers/Public/React-cxxreact\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsi\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsiexecutor\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsinspector\"",
+					"\"${PODS_ROOT}/Headers/Public/React-logger\"",
+					"\"${PODS_ROOT}/Headers/Public/React-perflogger\"",
+					"\"${PODS_ROOT}/Headers/Public/React-runtimeexecutor\"",
+					"\"${PODS_ROOT}/Headers/Public/ReactCommon\"",
+					"\"${PODS_ROOT}/Headers/Public/SocketRocket\"",
+					"\"${PODS_ROOT}/Headers/Public/Yoga\"",
+					"\"${PODS_ROOT}/Headers/Public/YogaKit\"",
+					"\"${PODS_ROOT}/Headers/Public/fmt\"",
+					"\"${PODS_ROOT}/Headers/Public/glog\"",
+					"\"${PODS_ROOT}/Headers/Public/libevent\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-safe-area-context\"",
+					"\"${PODS_ROOT}/Headers/Public/react-native-webview\"",
+					"\"$(PODS_ROOT)/DoubleConversion\"",
+					"\"$(PODS_ROOT)/boost\"",
+					"\"$(PODS_ROOT)/boost\"",
+					"\"$(PODS_ROOT)/boost-for-react-native\"",
+					"\"$(PODS_ROOT)/glog\"",
+					"\"$(PODS_ROOT)/RCT-Folly\"",
+					"\"${PODS_ROOT}/Headers/Public/React-hermes\"",
+					"\"${PODS_ROOT}/Headers/Public/hermes-engine\"",
+					"\"$(PODS_ROOT)/Headers/Private/React-Core\"",
+					"\"$(PODS_TARGET_SRCROOT)/include/\"",
+					"\"${PROJECT_DIR}/include\"/**",
+				);
 				INFOPLIST_FILE = PDMNotes/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Pdm Notes";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
@@ -610,7 +897,59 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/include",
+				);
 				MARKETING_VERSION = 0.1.0;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit/YogaKit.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/RCTTypeSafety/RCTTypeSafety.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/React/React-Core.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/ReactCommon/ReactCommon.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/React_Codegen/React-Codegen.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/folly/RCT-Folly.modulemap\"",
+					"-fmodule-map-file=\"${PODS_ROOT}/Headers/Public/yoga/Yoga.modulemap\"",
+					"$(inherited)",
+					"-DFOLLY_NO_CONFIG",
+					"-DFOLLY_MOBILE=1",
+					"-DFOLLY_USE_LIBCPP=1",
+					"-DRNVERSION=69",
+					"-I./pdm-crypt-module/src/include",
+					"-I./pdm-crypt-module/src/lib",
+					"-I./pdm-crypt-module/src/lib/cpp-mmf",
+					"-I./pdm-crypt-module/src/lib/poly1305-donna-master",
+					"-I./pdm-crypt-module/src/lib/ecc",
+					"-I./pdm-crypt-module/src/lib/scrypt/include",
+					"-I./pdm-crypt-module/src/lib/scrypt",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DFOLLY_NO_CONFIG",
+					"-DFOLLY_MOBILE=1",
+					"-DFOLLY_USE_LIBCPP=1",
+					"-D",
+					LINUX,
+					"-lpthread",
+					"-Wall",
+					"-DANDROID",
+					"-Ipdm-crypt-module/src/include",
+					"-Ipdm-crypt-module/src/lib",
+					"-Ipdm-crypt-module/src/lib/cpp-mmf",
+					"-Ipdm-crypt-module/src/lib/poly1305-donna-master",
+					"-Ipdm-crypt-module/src/lib/ecc",
+					"-Ipdm-crypt-module/src/lib/scrypt/include",
+					"-I./pdm-crypt-module/src/include",
+					"-I./pdm-crypt-module/src/lib",
+					"-I./pdm-crypt-module/src/lib/cpp-mmf",
+					"-I./pdm-crypt-module/src/lib/poly1305-donna-master",
+					"-I./pdm-crypt-module/src/lib/ecc",
+					"-I./pdm-crypt-module/src/lib/scrypt/include",
+					"-I./pdm-crypt-module/src/lib/scrypt",
+					"-Ipdm-crypt-module/src/lib/scrypt",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -618,8 +957,15 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.--PRODUCT-NAME-rfc1034identifier-";
 				PRODUCT_NAME = PDMNotes;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SWIFT_VERSION = 5.0;
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "\"${PROJECT_DIR}/include\"";
+				SYSTEM_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/include\"/**";
+				USER_HEADER_SEARCH_PATHS = (
+					"\"${PROJECT_DIR}/Pods\"/**",
+					"\"${PROJECT_DIR}/pdm-crypt-module\"/**",
+					"\"${PROJECT_DIR}/include\"/**",
+				);
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

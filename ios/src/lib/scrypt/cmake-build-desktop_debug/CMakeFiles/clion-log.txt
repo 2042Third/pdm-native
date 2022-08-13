@@ -1,0 +1,1 @@
+CMakeLists.txt not found in C:\Users\18604\Desktop\pdm\pdm-crypt-module\src\lib\scrypt Select CMakeLists.txt
