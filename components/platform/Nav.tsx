@@ -19,10 +19,11 @@ let Nav;
 function CustomDrawerContent({...props}) {
   const progress = useDrawerProgress();
   let translateX;
+  const window = useWindowDimensions();
   // @ts-ignore
   translateX = Animated.interpolateNode(progress, {
     inputRange: [0, 1],
-    outputRange: [-50, 0],
+    outputRange: [-(window.width/2), 0],
   });
   return (
     <SafeAreaView style={{flex: 1}}>

@@ -27,6 +27,13 @@ export const colors = {
 export const styles = StyleSheet.create({
   // TEST END
   // GENERAL STYLES
+  shiftContainer: {
+    height: '100%',
+    left: 0,
+    position: 'absolute',
+    top: 0,
+    width: '100%'
+  },
   inputAreaColor: {
     backgroundColor: colors['--background-tertiary'],
     color: colors['--foreground-default'],
@@ -158,8 +165,8 @@ export const styles = StyleSheet.create({
   },
   // CHAT STYLES
   chatMainBox: {
-    flexDirection: 'column',
-    alignItems: 'stretch',
+    // flexDirection: 'column',
+    // alignItems: 'stretch',
   },
   chatDisplayBox: {},
   chatEditStyle: {
@@ -169,7 +176,7 @@ export const styles = StyleSheet.create({
     border: 'none',
     padding: 15,
     paddingTop: 15,
-    borderRadius: 24,
+    borderRadius: 6,
     margin: 10,
   },
   chatBox: {
@@ -177,7 +184,7 @@ export const styles = StyleSheet.create({
     padding: 10,
     paddingRight: 15,
     paddingLeft: 15,
-    borderRadius: 12,
+    borderRadius: 6,
     flexShrink: 1,
   },
   chatDisplay: {
@@ -209,9 +216,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     outline: 0,
     border: 'none',
-    padding: 15,
-    paddingTop: 15,
-    borderRadius: 24,
+    padding: 7,
+    paddingLeft:10,
+    paddingRight:10,
+    // paddingTop: 15,
+    borderRadius: 20,
     margin: 10,
+
   },
 });

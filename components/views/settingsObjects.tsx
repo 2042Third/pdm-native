@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import {styles} from '../../assets/Style';
 import PdmNativeCryptModule from '../handle/native/NativeModule';
+import KeyboardShift from "../uiControl/KeyboardShift";
 // interface SettingsObjects {
 //   static openView({...props}): JSX.Element;
 // }
@@ -52,9 +53,9 @@ export function SettingList({navigation}) {
             {item.title}
           </Text>
         )}
-        renderSectionHeader={({section: {title}}) => (
-          <Text style={[styles.header, styles.somet]}>{title}</Text>
-        )}
+        renderSectionHeader={({section: {title}}) =>
+          (<Text style={[styles.header, styles.somet]}>{title}</Text>)
+        }
       />
     </View>
   );
@@ -68,7 +69,6 @@ export function TestsJavaEcho({...props}) {
       onNativeReturn(back);
     });
   };
-
 
   return (
     <View style={[styles.container]}>
@@ -139,74 +139,78 @@ export function TestCppEncDec({...props}) {
 
   const window = useWindowDimensions();
   return (
-    <View style={[styles.mainColor, {flexDirection: 'column', flexGrow: 3}]}>
-      <View
-        {...props}
-        style={[
-          lstyle.debugTextBoxOut,
-          {flexGrow: 3, maxHeight: window.height / 5},
-        ]}>
-        <Text style={[styles.mainColor]}>
-          XChaCha20 256-bit Stream Cypher :{' '}
-        </Text>
-        <TextInput
-          multiline={true}
-          textAlignVertical={'top'}
-          style={[styles.inputAreaColor, lstyle.debugTextBox]}
-          onChangeText={onChangeOutput}
-          value={outputText}
-          editable={false}
-        />
-      </View>
-      <View
-        {...props}
-        style={[
-          lstyle.debugTextBoxOut,
-          {flexGrow: 3, alignContent: 'stretch', maxHeight: window.height / 5},
-        ]}>
-        <Text style={[styles.mainColor]}>Decrypted: </Text>
-        <TextInput
-          multiline={true}
-          textAlignVertical={'top'}
-          style={[styles.inputAreaColor, lstyle.debugTextBox]}
-          onChangeText={onDec}
-          value={dec}
-          editable={false}
-        />
-      </View>
-      <View
-        {...props}
-        style={[
-          lstyle.debugTextBoxOut,
-          {flexGrow: 3, maxHeight: window.height / 7},
-        ]}>
-        <Text style={[styles.mainColor]}>password: </Text>
-        <TextInput
-          multiline={true}
-          textAlignVertical={'top'}
-          style={[styles.inputAreaColor, lstyle.debugTextBox]}
-          onChangeText={onChangeps}
-          value={psText}
-        />
-      </View>
-      <View
-        {...props}
-        style={[
-          lstyle.debugTextBoxOut,
-          {flexGrow: 3, maxHeight: window.height / 5},
-        ]}>
-        <Text style={[styles.mainColor]}>Type something to encrypt </Text>
-        <TextInput
-          multiline={true}
-          textAlignVertical={'top'}
-          style={[, lstyle.debugTextBox, styles.inputAreaColor]}
-          onChangeText={onChangeInput}
-          // onKeyDown={handleKeyDown}
-          value={inputText}
-        />
-        <Button title={'encrypt'} onPress={onPress} />
-      </View>
-    </View>
+    <KeyboardShift style={[styles.mainColor]}>
+      {()=>(
+          <View style={[styles.mainColor, {flexDirection: 'column', flexGrow: 3}]}>
+              <View
+                {...props}
+                style={[
+                  lstyle.debugTextBoxOut,
+                  {flexGrow: 3, maxHeight: window.height / 5},
+                ]}>
+                <Text style={[styles.mainColor]}>
+                  XChaCha20 256-bit Stream Cypher :{' '}
+                </Text>
+                <TextInput
+                  multiline={true}
+                  textAlignVertical={'top'}
+                  style={[styles.inputAreaColor, lstyle.debugTextBox]}
+                  onChangeText={onChangeOutput}
+                  value={outputText}
+                  editable={false}
+                />
+              </View>
+              <View
+                {...props}
+                style={[
+                  lstyle.debugTextBoxOut,
+                  {flexGrow: 3, alignContent: 'stretch', maxHeight: window.height / 5},
+                ]}>
+                <Text style={[styles.mainColor]}>Decrypted: </Text>
+                <TextInput
+                  multiline={true}
+                  textAlignVertical={'top'}
+                  style={[styles.inputAreaColor, lstyle.debugTextBox]}
+                  onChangeText={onDec}
+                  value={dec}
+                  editable={false}
+                />
+              </View>
+              <View
+                {...props}
+                style={[
+                  lstyle.debugTextBoxOut,
+                  {flexGrow: 3, maxHeight: window.height / 7},
+                ]}>
+                <Text style={[styles.mainColor]}>password: </Text>
+                <TextInput
+                  multiline={true}
+                  textAlignVertical={'top'}
+                  style={[styles.inputAreaColor, lstyle.debugTextBox]}
+                  onChangeText={onChangeps}
+                  value={psText}
+                />
+              </View>
+              <View
+                {...props}
+                style={[
+                  lstyle.debugTextBoxOut,
+                  {flexGrow: 3, maxHeight: window.height / 5},
+                ]}>
+                <Text style={[styles.mainColor]}>Type something to encrypt </Text>
+                <TextInput
+                  multiline={true}
+                  textAlignVertical={'top'}
+                  style={[, lstyle.debugTextBox, styles.inputAreaColor]}
+                  onChangeText={onChangeInput}
+                  // onKeyDown={handleKeyDown}
+                  value={inputText}
+                />
+                <Button title={'encrypt'} onPress={onPress} />
+              </View>
+          </View>
+        )}
+    </KeyboardShift>
   );
 }
 const lstyle = StyleSheet.create({

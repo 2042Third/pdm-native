@@ -2,13 +2,13 @@ import {
   Button,
   FlatList,
   Keyboard,
-  KeyboardAvoidingView,
+  KeyboardAvoidingView, Platform, ScrollView,
   Text,
   TextInput,
-  TouchableOpacity,
+  TouchableOpacity, TouchableWithoutFeedback,
   useWindowDimensions,
   View,
-} from 'react-native';
+} from "react-native";
 import {colors, styles} from '../../assets/Style';
 import React, {useState} from 'react';
 import {useSelector, shallowEqual, Provider, useDispatch} from 'react-redux';
@@ -47,59 +47,84 @@ export default function ChatView({navigation}) {
 
   return (
     <KeyboardAvoidingView
-      style={[
-        {flexGrow: 1},
-        styles.chatMainBox,
-        styles.mainColor,
-        {flexDirection: 'column'},
-      ]}>
-      <View style={[{flexGrow: 1, maxHeight: window.height * 0.88}]}>
-        <FlatList
-          style={[styles.inputAreaColor]}
-          data={chatIds}
-          renderItem={({item}) => <ChatBox key={item} id={item} self={true} />}
-          onTouchStart={() => Keyboard.dismiss()}
-          ref={ref => {
-            setReference(ref);
-          }}
-          // ref={ref => this.flatList = ref}
-          onContentSizeChange={() => thisFlatlist.scrollToEnd({animated: true})}
-          onLayout={() => thisFlatlist.scrollToEnd({animated: true})}
-        />
-      </View>
-
-      <View
         style={[
-          {
-            flexDirection: 'row',
-            maxHeight: window.height * 0.1,
-            minHeight: window.height * 0.1,
+          {flexGrow: 3},
+          styles.chatMainBox,
+          styles.mainColor,
+          {flexDirection: 'column',
+
           },
-        ]}>
-        <TextInput
-          multiline={true}
-          textAlignVertical={'top'}
-          style={[styles.chatEditStyle, styles.inputAreaColor, {flexGrow: 1}]}
-          onChangeText={onChangeNote}
-          // onKeyDown={handleKeyDown}
-          value={chatInputValue}
-        />
-        <TouchableOpacity
-          style={[
-            {backgroundColor: colors['--background-tertiary']},
-            styles.styledButton1,
-          ]}>
-          <Text
-            style={[
-              {
-                backgroundColor: colors['--background-tertiary'],
-              },
-            ]}
-            onPress={handlePress}>
-            Send
-          </Text>
-        </TouchableOpacity>
-      </View>
+        ]}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+      {/*<View style={[*/}
+      {/*  {flex: 9}*/}
+      {/*]}>*/}
+      {/*  <TouchableWithoutFeedback onPress={Keyboard.dismiss}>*/}
+          <View style={[{
+            flexGrow: 1,
+            justifyContent: 'space-around'  }]}>
+
+            <View
+              style={[{
+                flexGrow: 9
+                // maxHeight: window.height * 0.88
+              }]}>
+              <FlatList
+                style={[styles.inputAreaColor, {flex:1}]}
+                data={chatIds}
+                renderItem={({item}) => <ChatBox key={item} id={item} self={true} />}
+                onTouchStart={() => Keyboard.dismiss()}
+                ref={ref => {
+                  setReference(ref);
+                }}
+                onContentSizeChange={() => thisFlatlist.scrollToEnd({animated: true})}
+                onLayout={() => thisFlatlist.scrollToEnd({animated: true})}
+              />
+            </View>
+            <View
+              style={[
+                {
+
+                  flexGrow:0.01,
+                  // flexDirection: 'row',
+                  // height: 90,
+                },
+              ]}>
+              <TextInput
+                multiline={true}
+                textAlignVertical={'top'}
+                style={[styles.chatEditStyle, styles.inputAreaColor, {
+                  flexGrow: 1,
+                  height: 30,
+                  marginBottom: 36
+                }]}
+                onChangeText={onChangeNote}
+                // onKeyDown={handleKeyDown}
+                value={chatInputValue}
+              />
+              <TouchableOpacity
+                style={[
+                  {backgroundColor: colors['--background-tertiary'],
+                    height: 30,
+                    marginBottom: 36
+                    // minHeight: 30,
+                  },
+                  styles.styledButton1,
+                ]} onPress={handlePress}>
+                <Text
+                  style={[
+                    { backgroundColor: colors['--background-tertiary'],
+                      color: colors['--foreground-default'] },]}>
+                  Send
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+          </View>
+        {/*</TouchableWithoutFeedback>*/}
+
+      {/*</View>*/}
     </KeyboardAvoidingView>
   );
 }
