@@ -5,26 +5,14 @@
 
 #import <Foundation/Foundation.h>
 
-//#ifdef __cplusplus
-
-//#import "emppIOS.h"
 #import "empp.h"
 
-//#endif
-
 @implementation RCTPdmNativeCryptModule
-// Export native 'PdmNativeCryptModule'
 RCT_EXPORT_MODULE(PdmNativeCryptModule);
-//EmppIOS * empp_lib;
-//EmppIOS _h;
 + (BOOL)requiresMainQueueSetup
 {
   return NO;
 }
-//std::string cppString(NSString *s)
-//{
-//  return [s cStringUsingEncoding:DESIRED_ENCODING];
-//}
 RCT_EXPORT_METHOD(echoer:( NSString*)a  callback: (RCTResponseSenderBlock)callback)
 {
   RCTLogInfo(@"Pretending to create an event (this is from a objective-c++ module) %@", a);
@@ -40,6 +28,24 @@ RCT_EXPORT_METHOD(getHash:( NSString*)a  callback: (RCTResponseSenderBlock)callb
   NSString *b = [NSString stringWithCString:out_b.c_str()
                                      encoding:[NSString defaultCStringEncoding]];
   callback(@[b]);
+}
+RCT_EXPORT_METHOD(enc:( NSString*)a data:(NSString*)b callback: (RCTResponseSenderBlock)callback)
+{
+  std::string input_a = std::string([a UTF8String]);
+  std::string input_b = std::string([b UTF8String]);
+  std::string out_b = loader_check( input_a, input_b);
+  NSString *out_a = [NSString stringWithCString:out_b.c_str()
+                                     encoding:[NSString defaultCStringEncoding]];
+  callback(@[out_a]);
+}
+RCT_EXPORT_METHOD(dec:( NSString*)a data:(NSString*)b callback: (RCTResponseSenderBlock)callback)
+{
+  std::string input_a = std::string([a UTF8String]);
+  std::string input_b = std::string([b UTF8String]);
+  std::string out_b = loader_out( input_a, input_b);
+  NSString *out_a = [NSString stringWithCString:out_b.c_str()
+                                     encoding:[NSString defaultCStringEncoding]];
+  callback(@[out_a]);
 }
 
 @end
