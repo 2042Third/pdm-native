@@ -7,21 +7,24 @@
 
 //#ifdef __cplusplus
 
-#import "emppIOS.h"
-//#import "empp.h"
+//#import "emppIOS.h"
+#import "empp.h"
 
 //#endif
 
 @implementation RCTPdmNativeCryptModule
 // Export native 'PdmNativeCryptModule'
 RCT_EXPORT_MODULE(PdmNativeCryptModule);
-EmppIOS * empp_lib;
+//EmppIOS * empp_lib;
 //EmppIOS _h;
 + (BOOL)requiresMainQueueSetup
 {
   return NO;
 }
-
+//std::string cppString(NSString *s)
+//{
+//  return [s cStringUsingEncoding:DESIRED_ENCODING];
+//}
 RCT_EXPORT_METHOD(echoer:( NSString*)a  callback: (RCTResponseSenderBlock)callback)
 {
   RCTLogInfo(@"Pretending to create an event (this is from a objective-c++ module) %@", a);
@@ -32,13 +35,11 @@ RCT_EXPORT_METHOD(echoer:( NSString*)a  callback: (RCTResponseSenderBlock)callba
 
 RCT_EXPORT_METHOD(getHash:( NSString*)a  callback: (RCTResponseSenderBlock)callback)
 {
-  NSString* b =[empp_lib getHash:(NSString*)a ];
+  std::string input_a = std::string([a UTF8String]);
+  std::string out_b = get_hash(input_a);
+  NSString *b = [NSString stringWithCString:out_b.c_str()
+                                     encoding:[NSString defaultCStringEncoding]];
   callback(@[b]);
-//  callback(@[@(get_hash_arr(([a UTF8String]), a.length).c_str())]);
 }
 
-//- (void)didReceiveMemoryWarning {
-//    [super didReceiveMemoryWarning];
-//    // Dispose of any resources that can be recreated.
-//}
 @end
