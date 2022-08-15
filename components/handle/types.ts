@@ -2,6 +2,7 @@ export class ChatStore {
   newChat:  ChatMsg;
   messages:  ChatMsg[]=[];
 }
+
 export class ChatMsg {
   id: number=-1;
   msg: string = '';
@@ -27,5 +28,36 @@ export class UserInfoGeneral{
   pdmSecurityVersion: string='';
   checker: string= "";
   ctime: string='';
+}
+
+
+export class NoteHeadList{
+  heads: NoteHead[] = [];
+}
+
+export class NoteHead{
+  head: string = '';
+  note_id: string = '';
+  id: number=-1;
+  time: number=-1;
+  update_time: number=-1;
+  utime: string = '';
+  ctime: string = '';
+
+}
+
+export class NotesMsg extends NoteHead{
+  content:  string = '';
+  email: string = '';
+  note_id: string = '';
+  session: string = '';
+  ntype: string = ''; // 0 update, 1 new, 2 heads, 3 retrieve
+  sess: string = '';
+  h: string = '';
+  username: string = '';
+  status: string = '';
+  encry: string = "yes";
+  // pdm security version should be tracked always whenever there is an encryption
+  // pdmSecurityVersion;
 }
 

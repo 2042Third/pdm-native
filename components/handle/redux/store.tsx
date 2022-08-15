@@ -2,10 +2,12 @@ import {createStore} from 'redux';
 import ChatViewReducer from './reducers/chatViewReducer';
 import {configureStore} from '@reduxjs/toolkit';
 import userinfoReducer from "./reducers/userinfoReducer";
+import NotesHeadsReducer from "./reducers/notesHeadsReducer";
 export const store = configureStore({
   reducer: {
     chat: ChatViewReducer,
     userinfo: userinfoReducer,
+    noteHeads: NotesHeadsReducer,
   },
 });
 
