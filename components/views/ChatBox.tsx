@@ -1,7 +1,8 @@
 import {useSelector} from 'react-redux';
 import {FlatList, Text, View} from 'react-native';
-import React from 'react';
+import React, { PureComponent } from "react";
 import {colors, styles} from '../../assets/Style';
+import { ChatStore } from "../handle/types";
 
 let ChatBox;
 export default ChatBox = ({id, ...props}) => {

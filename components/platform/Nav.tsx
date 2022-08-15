@@ -29,16 +29,10 @@ function CustomDrawerContent({...props}) {
     <SafeAreaView style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
         <View style={styles.mview}>
-          <Text style={styles.somet} />
-          <Text style={styles.somet} />
+          <Text style={styles.somet} ></Text>
           <Icon
-            onPress={() => {
-              props.navigation.navigate('User');
-            }}
-            name={'account'}
-            size={24}
-            color="red"
-          />
+            onPress={() => {props.navigation.navigate('User');}}
+            name={'account'} size={24} color="red" />
         </View>
         <Animated.View style={{transform: [{translateX}]}}>
           <DrawerItemList {...props} />
@@ -46,12 +40,9 @@ function CustomDrawerContent({...props}) {
       </DrawerContentScrollView>
       {/*footer*/}
       <View style={styles.footerViewStyle}>
-        {/*<Text style={styles.footerContentText}>pdm Notes</Text>*/}
-        {/*<FooterBar ></FooterBar>*/}
         <View style={styles.footerContent}>
           <Icon
-            name={'cog-outline'}
-            size={24}
+            name={'cog-outline'} size={24}
             onPress={() => props.navigation.navigate('Settings')}
             color={colors['--foreground-default']}
           />
@@ -80,6 +71,7 @@ export default Nav = (props: {Drawer: any}) => {
         useLegacyImplementation
         drawerContent={props => <CustomDrawerContent {...props} />}>
         {/*begin nav items*/}
+        {/*Notes*/}
         <Drawer.Screen
           name="Notes"
           component={NotesView}
@@ -88,6 +80,7 @@ export default Nav = (props: {Drawer: any}) => {
             headerTitleStyle: styles.drawerHeaderTitleStyle,
           }}
         />
+        {/*Chat*/}
         <Drawer.Screen
           name="Chat"
           component={ChatView}
@@ -96,6 +89,7 @@ export default Nav = (props: {Drawer: any}) => {
             headerTitleStyle: styles.drawerHeaderTitleStyle,
           }}
         />
+        {/*User*/}
         <Drawer.Screen
           name="User"
           component={UserView}
@@ -104,6 +98,7 @@ export default Nav = (props: {Drawer: any}) => {
             headerTitleStyle: styles.drawerHeaderTitleStyle,
           }}
         />
+        {/*Settings*/}
         <Drawer.Screen
           name="Settings"
           component={SettingView}

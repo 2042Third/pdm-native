@@ -8,27 +8,23 @@ const NotesView = () => {
   const [isFocused, onFocusingHeader] = React.useState(false);
   return (
     <View style={[styles.notesBox, styles.container]}>
+      {/*Header Start*/}
       <TextInput
         style={[
           styles.notesHeaderStyle,
           styles.inputAreaColorSecond,
-          {
-            backgroundColor: isFocused
-              ? colors['--background-tertiary']
-              : colors['--background-default'],
-          },
-        ]}
-        onFocus={() => {
-          onFocusingHeader(true);
-        }}
-        onBlur={() => {
-          onFocusingHeader(false);
-        }}
+          { backgroundColor: isFocused ?
+              colors['--background-tertiary'] : colors['--background-default'],
+          },]}
+        onFocus={() => {onFocusingHeader(true);}}
+        onBlur={() => {onFocusingHeader(false);}}
         onChangeText={onChangeText}
         placeholder="Unnamed Note"
         placeholderTextColor={colors['--foreground-tertiary']}
         value={headerValue}
       />
+      {/*Header End*/}
+      {/*Notes Edit Start*/}
       <TextInput
         multiline={true}
         textAlignVertical={'top'}
@@ -36,6 +32,7 @@ const NotesView = () => {
         onChangeText={onChangeNote}
         value={noteValue}
       />
+      {/*Notes Edit End*/}
     </View>
   );
 };

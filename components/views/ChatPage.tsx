@@ -1,49 +1,69 @@
 import {
-  Button,
   FlatList,
   Keyboard,
-  KeyboardAvoidingView, Platform, ScrollView,
+  KeyboardAvoidingView, Platform,
   Text,
   TextInput,
-  TouchableOpacity, TouchableWithoutFeedback,
-  useWindowDimensions,
+  TouchableOpacity,
   View,
 } from "react-native";
 import {colors, styles} from '../../assets/Style';
 import React, {useState} from 'react';
 import {useSelector, shallowEqual, Provider, useDispatch} from 'react-redux';
 import ChatBox from './ChatBox';
-import {useRef} from 'react';
 
 export default function ChatView({navigation}) {
-  const [chatInputValue, onChangeNote] = React.useState('');
-  const [inputBlur, onInputBlur] = React.useState(false);
-  const window = useWindowDimensions();
+  const [chatInputValue, onChangeChatInput] = React.useState('');
   const dispatch = useDispatch();
-  const handleKeyDown = e => {
-    // If the user pressed the Enter key:
-    const trimmedText = chatInputValue.trim();
-    if (e.which === 13 && trimmedText) {
-      // Dispatch the "todo added" action with this text
-      dispatch({type: 'chat/inputEnter', payload: trimmedText});
-      // And clear out the text input
-      onChangeNote('');
+
+  const setCurrentInput=(trimmedText:string) =>{
+    if(trimmedText){
+      onChangeChatInput('');// And clear out the text input
+      dispatch({type: 'chat/inputEnter', payload: trimmedText});// Dispatch the action with this text
     }
-  };
+  }
+
+  // Key Board "Enter"
+  // React.useEffect(()=>{
+    // if(chatInputValue[chatInputValue.length-1]==="\n"){
+    //   const trimmedText = chatInputValue.substring(0,chatInputValue.length-1);
+    //   if(trimmedText){
+    //     setCurrentInput(trimmedText);
+    //   }
+    //   else {
+    //     onChangeChatInput(trimmedText);// And clear out the text input
+    //   }
+    // }
+    // },[chatInputValue]
+  // );
+
+  // Button "Send"
   const handlePress = e => {
+    console.log(`Key Press: ${e.nativeEvent.key}\nTarget Type: ${e.type}`);
     if (chatInputValue.length === 0) {
       return;
     }
     const trimmedText = chatInputValue.trim();
     dispatch({type: 'chat/inputEnter', payload: trimmedText});
-    // And clear out the text input
-    onChangeNote('');
+    onChangeChatInput("");// And clear out the text input
   };
+  // Button "enter"
+  const handleKeyPress = e => {
+    console.log(`Key Press: ${e.nativeEvent.key}\nTarget Type: ${e.type}`);
+    if (chatInputValue.length === 0) {
+      return;
+    }
+    const trimmedText = chatInputValue.substring(0,chatInputValue.length-1);
+    if(e.nativeEvent.key==='Enter' && trimmedText){
+      setCurrentInput(trimmedText);
+    }
+  };
+
   // CHAT DATA
   const [thisFlatlist, setReference] = useState(null);
-  // const thisFlatlist:React.MutableRefObject<FlatList> = useRef(null);
   const selectChatIds = state => state.chat.messages.map(chat => chat.id);
   const chatIds = useSelector(selectChatIds, shallowEqual);
+
 
   return (
     <KeyboardAvoidingView
@@ -51,47 +71,34 @@ export default function ChatView({navigation}) {
           {flexGrow: 3},
           styles.chatMainBox,
           styles.mainColor,
-          {flexDirection: 'column',
-
-          },
+          {flexDirection: 'column', },
         ]}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-      {/*<View style={[*/}
-      {/*  {flex: 9}*/}
-      {/*]}>*/}
-      {/*  <TouchableWithoutFeedback onPress={Keyboard.dismiss}>*/}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}>
           <View style={[{
             flexGrow: 1,
             justifyContent: 'space-around'  }]}>
 
-            <View
-              style={[{
-                flexGrow: 9
-                // maxHeight: window.height * 0.88
-              }]}>
+            {/*Chat Messages View*/}
+            <View style={[{ flexGrow: 9 }]}>
               <FlatList
+                removeClippedSubviews={true}
                 style={[styles.inputAreaColor, {flex:1}]}
                 data={chatIds}
-                renderItem={({item}) => <ChatBox key={item} id={item} self={true} />}
+                renderItem={({item}) => <ChatBox id={item} self={true} />}
                 onTouchStart={() => Keyboard.dismiss()}
-                ref={ref => {
-                  setReference(ref);
-                }}
+                ref={ref => {setReference(ref);}}
                 onContentSizeChange={() => thisFlatlist.scrollToEnd({animated: true})}
                 onLayout={() => thisFlatlist.scrollToEnd({animated: true})}
               />
             </View>
-            <View
-              style={[
-                {
 
-                  flexGrow:0.01,
-                  // flexDirection: 'row',
-                  // height: 90,
-                },
-              ]}>
+            {/*Input Group*/}
+            <View
+              style={[{ flexGrow:0.01, },]}>
+
+              {/*Input Box*/}
               <TextInput
+                value={chatInputValue}
                 multiline={true}
                 textAlignVertical={'top'}
                 style={[styles.chatEditStyle, styles.inputAreaColor, {
@@ -99,19 +106,21 @@ export default function ChatView({navigation}) {
                   height: 30,
                   marginBottom: 36
                 }]}
-                onChangeText={onChangeNote}
-                // onKeyDown={handleKeyDown}
-                value={chatInputValue}
+                onKeyPress={handleKeyPress}
+                onChangeText={onChangeChatInput}
               />
+
+              {/*"Send" Button*/}
               <TouchableOpacity
                 style={[
-                  {backgroundColor: colors['--background-tertiary'],
-                    height: 30,
-                    marginBottom: 36
-                    // minHeight: 30,
-                  },
-                  styles.styledButton1,
-                ]} onPress={handlePress}>
+                        { backgroundColor: colors['--background-tertiary'],
+                          height: 30,
+                          marginBottom: 36
+                        },
+                        styles.styledButton1,
+                      ]}
+                onPress={handlePress}
+              >
                 <Text
                   style={[
                     { backgroundColor: colors['--background-tertiary'],
@@ -120,11 +129,7 @@ export default function ChatView({navigation}) {
                 </Text>
               </TouchableOpacity>
             </View>
-
           </View>
-        {/*</TouchableWithoutFeedback>*/}
-
-      {/*</View>*/}
     </KeyboardAvoidingView>
   );
 }
