@@ -14,6 +14,8 @@ import ChatBox from './ChatBox';
 
 export default function ChatView({navigation}) {
   const [chatInputValue, onChangeChatInput] = React.useState('');
+  const [thisFlatlist, setReferenceList] = useState(null);
+  const [thisChatInput, setReferenceChat] = useState(null);
   const dispatch = useDispatch();
 
   const setCurrentInput=(trimmedText:string) =>{
@@ -53,14 +55,17 @@ export default function ChatView({navigation}) {
     if (chatInputValue.length === 0) {
       return;
     }
-    const trimmedText = chatInputValue.substring(0,chatInputValue.length-1);
+    const trimmedText = chatInputValue.trim();
     if(e.nativeEvent.key==='Enter' && trimmedText){
-      setCurrentInput(trimmedText);
+      dispatch({type: 'chat/inputEnter', payload: trimmedText});
+      // thisChatInput.value='';
+      setTimeout(()=>{
+        onChangeChatInput('');// And clear out the text input
+        },50);
     }
   };
 
   // CHAT DATA
-  const [thisFlatlist, setReference] = useState(null);
   const selectChatIds = state => state.chat.messages.map(chat => chat.id);
   const chatIds = useSelector(selectChatIds, shallowEqual);
 
@@ -86,7 +91,7 @@ export default function ChatView({navigation}) {
                 data={chatIds}
                 renderItem={({item}) => <ChatBox id={item} self={true} />}
                 onTouchStart={() => Keyboard.dismiss()}
-                ref={ref => {setReference(ref);}}
+                ref={ref => {setReferenceList(ref);}}
                 onContentSizeChange={() => thisFlatlist.scrollToEnd({animated: true})}
                 onLayout={() => thisFlatlist.scrollToEnd({animated: true})}
               />
@@ -106,6 +111,7 @@ export default function ChatView({navigation}) {
                   height: 30,
                   marginBottom: 36
                 }]}
+                ref={ref => {setReferenceChat(ref);}}
                 onKeyPress={handleKeyPress}
                 onChangeText={onChangeChatInput}
               />
