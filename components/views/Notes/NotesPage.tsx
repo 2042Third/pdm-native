@@ -1,5 +1,5 @@
 import {TextInput, View} from 'react-native';
-import {styles, colors} from '../../assets/Style';
+import {styles, colors} from '../../../assets/Style';
 import React from 'react';
 
 const NotesView = () => {

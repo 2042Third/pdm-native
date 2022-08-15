@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import {colors, styles} from '../../assets/Style';
+import {colors, styles} from '../../../assets/Style';
 import React, {useState} from 'react';
 import {useSelector, shallowEqual, Provider, useDispatch} from 'react-redux';
 import ChatBox from './ChatBox';

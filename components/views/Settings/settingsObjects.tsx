@@ -11,9 +11,9 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import {styles} from '../../assets/Style';
-import PdmNativeCryptModule from '../handle/native/NativeModule';
-import KeyboardShift from "../uiControl/KeyboardShift";
+import {styles} from '../../../assets/Style';
+import PdmNativeCryptModule from '../../handle/native/NativeModule';
+import KeyboardShift from "../../uiControl/KeyboardShift";
 // interface SettingsObjects {
 //   static openView({...props}): JSX.Element;
 // }

@@ -7,7 +7,7 @@ const initialState = {
 
 function nextChatId(chats) {
   const maxId = chats.messages.reduce(
-    (maxId, chat) => Math.max(chat.id, maxId),
+    (maxId:number, chat:ChatMsg) => Math.max(chat.id, maxId),
     -1,
   );
   return maxId + 1;

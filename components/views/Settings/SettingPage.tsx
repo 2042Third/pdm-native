@@ -1,5 +1,5 @@
 import {SafeAreaView, SectionList, Text, View} from 'react-native';
-import {styles} from '../../assets/Style';
+import {styles} from '../../../assets/Style';
 import {NativeModules, Button} from 'react-native';
 import React from 'react';
 import {

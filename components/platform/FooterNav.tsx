@@ -1,5 +1,5 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import SettingsScreen from '../views/SettingPage';
+import SettingsScreen from '../views/Settings/SettingPage';
 
 const Stack = createStackNavigator();
 let FooterNav;

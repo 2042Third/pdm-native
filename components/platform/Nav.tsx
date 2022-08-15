@@ -1,8 +1,8 @@
 import {colors, styles} from '../../assets/Style';
-import NotesView from '../views/NotesPage';
-import ChatView from '../views/ChatPage';
-import UserView from '../views/UserPage';
-import SettingView from '../views/SettingPage';
+import NotesView from '../views/Notes/NotesPage';
+import ChatView from '../views/Chat/ChatPage';
+import UserView from '../views/User/UserPage';
+import SettingView from '../views/Settings/SettingPage';
 import {NavigationContainer} from '@react-navigation/native';
 import * as React from 'react';
 import {SafeAreaView, Text, useWindowDimensions, View} from 'react-native';
