@@ -15,7 +15,6 @@ import ChatBox from './ChatBox';
 export default function ChatView({navigation}) {
   const [chatInputValue, onChangeChatInput] = React.useState('');
   const [thisFlatlist, setReferenceList] = useState(null);
-  const [thisChatInput, setReferenceChat] = useState(null);
   const dispatch = useDispatch();
 
   const setCurrentInput=(trimmedText:string) =>{
@@ -24,20 +23,6 @@ export default function ChatView({navigation}) {
       dispatch({type: 'chat/inputEnter', payload: trimmedText});// Dispatch the action with this text
     }
   }
-
-  // Key Board "Enter"
-  // React.useEffect(()=>{
-    // if(chatInputValue[chatInputValue.length-1]==="\n"){
-    //   const trimmedText = chatInputValue.substring(0,chatInputValue.length-1);
-    //   if(trimmedText){
-    //     setCurrentInput(trimmedText);
-    //   }
-    //   else {
-    //     onChangeChatInput(trimmedText);// And clear out the text input
-    //   }
-    // }
-    // },[chatInputValue]
-  // );
 
   // Button "Send"
   const handlePress = e => {
@@ -58,7 +43,6 @@ export default function ChatView({navigation}) {
     const trimmedText = chatInputValue.trim();
     if(e.nativeEvent.key==='Enter' && trimmedText){
       dispatch({type: 'chat/inputEnter', payload: trimmedText});
-      // thisChatInput.value='';
       setTimeout(()=>{
         onChangeChatInput('');// And clear out the text input
         },50);
@@ -111,7 +95,6 @@ export default function ChatView({navigation}) {
                   height: 30,
                   marginBottom: 36
                 }]}
-                ref={ref => {setReferenceChat(ref);}}
                 onKeyPress={handleKeyPress}
                 onChangeText={onChangeChatInput}
               />
