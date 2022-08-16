@@ -224,4 +224,28 @@ export const styles = StyleSheet.create({
     margin: 10,
 
   },
+
+  // login
+  loginContainer:{
+    padding: 24,
+    flex: 1,
+    justifyContent: "space-around"
+  },
+  loginInputContainer:{
+    flex:1,
+    flexDirection: "column",
+    alignItems: "stretch",
+    alignContent: "stretch",
+  },
+  loginInput:{
+    height: 40,
+    borderColor: colors['--foreground-tertiary'],
+    borderBottomWidth: 1,
+    marginBottom: 36
+  },
+  btnContainer: {
+    color: colors['--background-light'],
+    marginTop: 12,
+  },
+
 });
