@@ -88,10 +88,15 @@ export function TestsJavaEcho({...props}) {
 export function TestCppHash({...props}) {
   const [inputText, onChangeInput] = React.useState('Hello!!!!');
   const [outputText, onChangeOutput] = React.useState('');
+  const [outputTextDouble, onChangeOutputDouble] = React.useState('');
   const {PdmNativeCryptModule} = NativeModules;
   const getHash = () => {
     PdmNativeCryptModule.getHash(inputText, back => {
       onChangeOutput(back);
+    });
+    PdmNativeCryptModule.getHash(inputText+inputText, back => {
+      console.log(`Hasher:${back}`);
+      onChangeOutputDouble(back);
     });
   };
   return (
@@ -105,6 +110,16 @@ export function TestCppHash({...props}) {
           onChangeText={onChangeOutput}
           // onKeyDown={handleKeyDown}
           value={outputText}
+          editable={false}
+          selectTextOnFocus={true}
+        />
+        <TextInput
+          multiline={true}
+          textAlignVertical={'top'}
+          style={[styles.inputAreaColor, lstyle.debugTextBox]}
+          onChangeText={onChangeOutputDouble}
+          // onKeyDown={handleKeyDown}
+          value={outputTextDouble}
           editable={false}
           selectTextOnFocus={true}
         />
