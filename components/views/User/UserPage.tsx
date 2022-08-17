@@ -11,7 +11,9 @@ import {
 import { colors, styles } from "../../../assets/Style";
 import React from 'react';
 import NetCalls from "../../handle/network/netCalls";
-import User from "../../handle/handlers/user";
+import { tryMakeUser } from "../../handle/handlers/user";
+import { useSelector, shallowEqual, Provider, useDispatch } from "react-redux";
+import { UserInfoGeneral } from "../types";
 
 export default function UserPage({navigation}) {
   let emailPlaceHolder:string = 'email';
@@ -21,10 +23,18 @@ export default function UserPage({navigation}) {
   const [isFocused2, onFocusingHeader2] = React.useState(false);
   const [umail, onUmail] = React.useState('');
   const [upw, onUpw] = React.useState('');
+  const dispatch = useDispatch();
 
   const onSubmit=async () => {
-    let user:User=new User();
-    user.tryMakeUser(umail,upw);
+    tryMakeUser(umail,upw, (res:string)=>{
+      NetCalls.signin(umail,res)
+        .then(function(res:UserInfoGeneral){
+          dispatch({type: "user/overrideStatus", payLoad:res })
+        }).catch( err=>{
+          console.log(err);
+        });
+    });
+
   }
 
   return (

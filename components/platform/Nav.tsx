@@ -13,6 +13,7 @@ import {
   useDrawerProgress,
 } from '@react-navigation/drawer';
 import Animated from 'react-native-reanimated';
+import { shallowEqual, useSelector } from "react-redux";
 
 let Nav;
 
@@ -25,6 +26,11 @@ function CustomDrawerContent({...props}) {
     inputRange: [0, 1],
     outputRange: [-(window.width/2), 0],
   });
+
+  // User status updates the color of the user icon
+  const selectUser = state => state.userinfo
+  const currentUser = useSelector(selectUser);
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
@@ -32,7 +38,7 @@ function CustomDrawerContent({...props}) {
           <Text style={styles.somet} ></Text>
           <Icon
             onPress={() => {props.navigation.navigate('User');}}
-            name={'account'} size={24} color="red" />
+            name={'account'} size={24} color={currentUser.status ? "red" : "green"} />
         </View>
         <Animated.View style={{transform: [{translateX}]}}>
           <DrawerItemList {...props} />
