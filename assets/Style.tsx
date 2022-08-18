@@ -67,6 +67,21 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  mainSigninStatus:{
+    backgroundColor: colors['--background-secondary'],
+    color: colors['--foreground-default'],
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 7,
+    margin: 7,
+    marginTop: 18,
+  },
+  mainSigninStatusText:{
+    color: colors['--foreground-tertiary'],
+    flex: 1,
+
+  },
   bottommview: {
     backgroundColor: colors['--background-secondary'],
     color: colors['--foreground-default'],

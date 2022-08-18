@@ -14,6 +14,7 @@ import NetCalls from "../../handle/network/netCalls";
 import { tryMakeUser } from "../../handle/handlers/user";
 import { useSelector, shallowEqual, Provider, useDispatch } from "react-redux";
 import { UserInfoGeneral } from "../types";
+import { PdmActions } from "../../handle/redux/reducers/actionType";
 
 export default function UserPage({navigation}) {
   let emailPlaceHolder:string = 'email';
@@ -26,10 +27,10 @@ export default function UserPage({navigation}) {
   const dispatch = useDispatch();
 
   const onSubmit=async () => {
-    tryMakeUser(umail,upw, (res:string)=>{
-      NetCalls.signin(umail,res)
+    tryMakeUser(umail,upw, (res:string)=>{ // callback from crypt-module
+      NetCalls.signin(umail,res) // then calls http to signin
         .then(function(res:UserInfoGeneral){
-          dispatch({type: "user/overrideStatus", payLoad:res })
+          dispatch({type: PdmActions.user.status.update , payLoad:res })
         }).catch( err=>{
           console.log(err);
         });

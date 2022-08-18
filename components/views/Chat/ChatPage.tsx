@@ -11,6 +11,7 @@ import {colors, styles} from '../../../assets/Style';
 import React, {useState} from 'react';
 import {useSelector, shallowEqual, Provider, useDispatch} from 'react-redux';
 import ChatBox from './ChatBox';
+import { PdmActions } from "../../handle/redux/reducers/actionType";
 
 export default function ChatView({navigation}) {
   const [chatInputValue, onChangeChatInput] = React.useState('');
@@ -20,7 +21,7 @@ export default function ChatView({navigation}) {
   const setCurrentInput=(trimmedText:string) =>{
     if(trimmedText){
       onChangeChatInput('');// And clear out the text input
-      dispatch({type: 'chat/inputEnter', payload: trimmedText});// Dispatch the action with this text
+      dispatch({type: PdmActions.chat.input.enter, payload: trimmedText});// Dispatch the action with this text
     }
   }
 
@@ -31,7 +32,7 @@ export default function ChatView({navigation}) {
       return;
     }
     const trimmedText = chatInputValue.trim();
-    dispatch({type: 'chat/inputEnter', payload: trimmedText});
+    dispatch({type: PdmActions.chat.input.enter, payload: trimmedText});
     onChangeChatInput("");// And clear out the text input
   };
   // Button "enter"
@@ -42,7 +43,7 @@ export default function ChatView({navigation}) {
     }
     const trimmedText = chatInputValue.trim();
     if(e.nativeEvent.key==='Enter' && trimmedText){
-      dispatch({type: 'chat/inputEnter', payload: trimmedText});
+      dispatch({type: PdmActions.chat.input.enter, payload: trimmedText});
       setTimeout(()=>{
         onChangeChatInput('');// And clear out the text input
         },50);

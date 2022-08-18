@@ -1,6 +1,6 @@
-import chatViewReducer from './chatViewReducer';
+import chatViewReducer from './chat/chatViewReducer';
 import {combineReducers} from 'redux';
-import userinfoReducer from "./userinfoReducer";
+import userinfoReducer from "./user/userinfoReducer";
 
 // Not currently making anything
 const rootReducer = combineReducers({

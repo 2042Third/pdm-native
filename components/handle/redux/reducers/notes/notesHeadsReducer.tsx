@@ -1,4 +1,5 @@
-import { NoteHead, NoteHeadList, UserInfoGeneral } from "../../types";
+import { NoteHead, NoteHeadList, UserInfoGeneral } from "../../../types";
+import { PdmActions } from "../actionType";
 
 const initialState = {
   heads: [],
@@ -6,7 +7,7 @@ const initialState = {
 
 export default function NotesHeadsReducer (state:NoteHeadList = initialState, action:any) {
   switch (action.type){
-    case 'note/heads/update':
+    case PdmActions.note.edit.addNew:
       return action.payLoad;
     default:
       return state;

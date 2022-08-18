@@ -34,11 +34,11 @@ function CustomDrawerContent({...props}) {
   return (
     <SafeAreaView style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
-        <View style={styles.mview}>
+        <View style={styles.mainSigninStatus}>
           <Icon
             onPress={() => {props.navigation.navigate('User');}}
             name={'account'} size={24} color={currentUser.status==='success' ?  "green" : "red" } />
-          <Text style={styles.somet} >{currentUser.email}</Text>
+          <Text style={styles.mainSigninStatusText} >{currentUser.email}</Text>
         </View>
         <Animated.View style={{transform: [{translateX}]}}>
           <DrawerItemList {...props} />

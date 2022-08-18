@@ -1,4 +1,5 @@
-import {ChatStore, ChatMsg} from '../../types';
+import {ChatStore, ChatMsg} from '../../../types';
+import { PdmActions } from "../actionType";
 
 const initialState = {
   messages: [],
@@ -15,7 +16,7 @@ function nextChatId(chats) {
 
 export default function ChatViewReducer(state = initialState, action) {
   switch (action.type) {
-    case 'chat/inputEnter':
+    case PdmActions.chat.input.enter:
       return {
         ...state,
         messages: [

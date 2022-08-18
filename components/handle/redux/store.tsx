@@ -1,8 +1,8 @@
 import {createStore} from 'redux';
-import ChatViewReducer from './reducers/chatViewReducer';
+import ChatViewReducer from './reducers/chat/chatViewReducer';
 import {configureStore} from '@reduxjs/toolkit';
-import userinfoReducer from "./reducers/userinfoReducer";
-import NotesHeadsReducer from "./reducers/notesHeadsReducer";
+import userinfoReducer from "./reducers/user/userinfoReducer";
+import NotesHeadsReducer from "./reducers/notes/notesHeadsReducer";
 export const store = configureStore({
   reducer: {
     chat: ChatViewReducer,

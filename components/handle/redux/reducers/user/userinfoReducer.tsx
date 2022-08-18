@@ -1,5 +1,5 @@
-import { UserInfoGeneral } from "../../types";
-
+import { UserInfoGeneral } from "../../../types";
+import { PdmActions } from "../actionType";
 const initialState = {
   msg: "",
   username:"",
@@ -23,7 +23,7 @@ const initialState = {
 
 export default function UserinfoReducer (state:UserInfoGeneral = initialState, action:any) {
   switch (action.type){
-    case 'user/overrideStatus':
+    case PdmActions.user.status.update:
       return action.payLoad;
     default:
       return state;
