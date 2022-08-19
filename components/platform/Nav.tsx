@@ -32,7 +32,7 @@ function CustomDrawerContent({...props}) {
   return (
     <SafeAreaView style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
-        <NavUserStatus {...props} ></NavUserStatus>
+        <NavUserStatus navigation={props.navigation} ></NavUserStatus>
         <Animated.View style={{transform: [{translateX}]}}>
           <DrawerItemList {...props} />
         </Animated.View>

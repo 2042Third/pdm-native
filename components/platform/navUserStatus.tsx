@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 import Icon from '../icons/Icon';
 import { useSelector } from "react-redux";
@@ -9,7 +9,10 @@ export const NavUserStatus = ({ navigation }) => {
   // User status updates the color of the user icon
   // const selectUser = state => state.userinfo;
   const currentUser: UserInfoGeneral = useSelector(state => state.userinfo);
-  console.log(currentUser);
+  useEffect(()=>{
+    console.log(currentUser);
+
+  },[currentUser]);
   return (
     <View style={styles.mainSigninStatus}>
       <Icon 

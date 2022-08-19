@@ -24,7 +24,7 @@ export class UserInfoGeneral{
   authdata?: string="";
   time: number=-1;
   update_time: number=-1;
-  utime: string='';
+  utime: string=''; 
   pdmSecurityVersion: string='';
   checker: string= "";
   ctime: string='';

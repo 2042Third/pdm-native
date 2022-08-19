@@ -9,12 +9,13 @@ import {
   View,
 } from "react-native";
 import { colors, styles } from "../../../assets/Style";
-import React from 'react';
+import React, { useEffect } from 'react';
 import NetCalls from "../../handle/network/netCalls";
 import { tryMakeUser } from "../../handle/handlers/user";
 import { useSelector, shallowEqual, Provider, useDispatch } from "react-redux";
 import { UserInfoGeneral } from "../../handle/types";
-import { updateUserStatus } from "../../handle/redux/reducers/user/userinfoReducer";
+import { signinUser, updateUserStatus } from "../../handle/redux/reducers/user/userinfoReducer";
+import userinfoEnter, { newUserinfoEnter } from "../../handle/redux/reducers/user/userinfoEnter";
 
 export default function UserPage({}) {
   let emailPlaceHolder:string = 'email';
@@ -27,18 +28,30 @@ export default function UserPage({}) {
   const dispatch = useDispatch();
 
   const onSubmit=async () => {
+    // await dispatch(signinUser({umail: umail,upw: upw})).unwrap();
     tryMakeUser(umail,upw, (res:string)=>{ // callback from crypt-module
-      NetCalls.signin(umail,res) // then calls http to signin
-        .then(function(res:UserInfoGeneral){
-          console.log(JSON.stringify(res));
-          dispatch(updateUserStatus(res));
-        }).catch( err=>{
-          console.log(err);
-        });
+      console.log(`res: ${res}`);
+
+      dispatch(newUserinfoEnter({umail:umail,upw:upw,upwServer:res}));
     });
-
+    // tryMakeUser(umail, upw, (res: string) => { // callback from crypt-module
+    //   NetCalls.signin(umail, res) // then calls http to signin
+    //     .then(function (res: UserInfoGeneral) {
+    //       console.log(JSON.stringify(res));
+    //       dispatch(updateUserStatus(res));
+    //     }).catch(err => {
+    //       console.log(err);
+    //     });
+    // });
   }
-
+  const userEnter = useSelector(state => state.userEnter);
+  useEffect(() => { 
+    console.log("makeing");
+    console.log(JSON.stringify(userEnter));
+    if(userEnter.umail.length>0){
+      dispatch(signinUser({ umail: userEnter.umail, upw: userEnter.upwServer }));
+    }
+  }, [userEnter]);
   return (
     <KeyboardAvoidingView
       style={[styles.mainColor,{flex:1}]}
@@ -80,8 +93,8 @@ export default function UserPage({}) {
             <Button title={loginPlaceholder} color={colors['--background-light']}
                     onPress={onSubmit}
             ></Button>
+            <Text>{userEnter.umail}</Text>
           </View>
-
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
