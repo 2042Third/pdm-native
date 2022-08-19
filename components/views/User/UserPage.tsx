@@ -13,10 +13,10 @@ import React from 'react';
 import NetCalls from "../../handle/network/netCalls";
 import { tryMakeUser } from "../../handle/handlers/user";
 import { useSelector, shallowEqual, Provider, useDispatch } from "react-redux";
-import { UserInfoGeneral } from "../types";
-import { PdmActions } from "../../handle/redux/reducers/actionType";
+import { UserInfoGeneral } from "../../handle/types";
+import { updateUserStatus } from "../../handle/redux/reducers/user/userinfoReducer";
 
-export default function UserPage({navigation}) {
+export default function UserPage({}) {
   let emailPlaceHolder:string = 'email';
   let passwordPlaceHolder:string = 'password';
   let loginPlaceholder:string = 'login';
@@ -30,7 +30,8 @@ export default function UserPage({navigation}) {
     tryMakeUser(umail,upw, (res:string)=>{ // callback from crypt-module
       NetCalls.signin(umail,res) // then calls http to signin
         .then(function(res:UserInfoGeneral){
-          dispatch({type: PdmActions.user.status.update , payLoad:res })
+          console.log(JSON.stringify(res));
+          dispatch(updateUserStatus(res));
         }).catch( err=>{
           console.log(err);
         });

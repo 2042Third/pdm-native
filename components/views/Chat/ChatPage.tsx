@@ -12,8 +12,9 @@ import React, {useState} from 'react';
 import {useSelector, shallowEqual, Provider, useDispatch} from 'react-redux';
 import ChatBox from './ChatBox';
 import { PdmActions } from "../../handle/redux/reducers/actionType";
+import { inputEnter } from "../../handle/redux/reducers/chat/chatViewReducer";
 
-export default function ChatView({navigation}) {
+export default function ChatView({}) {
   const [chatInputValue, onChangeChatInput] = React.useState('');
   const [thisFlatlist, setReferenceList] = useState(null);
   const dispatch = useDispatch();
@@ -21,29 +22,29 @@ export default function ChatView({navigation}) {
   const setCurrentInput=(trimmedText:string) =>{
     if(trimmedText){
       onChangeChatInput('');// And clear out the text input
-      dispatch({type: PdmActions.chat.input.enter, payload: trimmedText});// Dispatch the action with this text
+      dispatch(inputEnter( trimmedText ));// Dispatch the action with this text
     }
   }
 
   // Button "Send"
-  const handlePress = e => {
+  const handlePress = (e) => {
     console.log(`Key Press: ${e.nativeEvent.key}\nTarget Type: ${e.type}`);
     if (chatInputValue.length === 0) {
       return;
     }
     const trimmedText = chatInputValue.trim();
-    dispatch({type: PdmActions.chat.input.enter, payload: trimmedText});
+    dispatch(inputEnter(trimmedText));// Dispatch the action with this text
     onChangeChatInput("");// And clear out the text input
   };
   // Button "enter"
-  const handleKeyPress = e => {
+  const handleKeyPress = (e: { nativeEvent: { key: string; }; type: any; }) => {
     console.log(`Key Press: ${e.nativeEvent.key}\nTarget Type: ${e.type}`);
     if (chatInputValue.length === 0) {
       return;
     }
     const trimmedText = chatInputValue.trim();
     if(e.nativeEvent.key==='Enter' && trimmedText){
-      dispatch({type: PdmActions.chat.input.enter, payload: trimmedText});
+      dispatch(inputEnter(trimmedText));// Dispatch the action with this text
       setTimeout(()=>{
         onChangeChatInput('');// And clear out the text input
         },50);
@@ -51,7 +52,7 @@ export default function ChatView({navigation}) {
   };
 
   // CHAT DATA
-  const selectChatIds = state => state.chat.messages.map(chat => chat.id);
+  const selectChatIds = (state: { chat: { messages: any[]; }; }) => state.chat.messages.map((chat: { id: any; }) => chat.id);
   const chatIds = useSelector(selectChatIds, shallowEqual);
 
 
