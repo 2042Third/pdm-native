@@ -9,9 +9,9 @@ const initialState = {
 export const UserinfoEnterSlice = createSlice({
   name: 'userinfoEnter',
   initialState: {
-    umail: 'a',
-    upw: 'a',
-    upwServer: 'a'
+    umail: '',
+    upw: '',
+    upwServer: ''
   },
   reducers: {
     newUserinfoEnter: (state, action) =>{

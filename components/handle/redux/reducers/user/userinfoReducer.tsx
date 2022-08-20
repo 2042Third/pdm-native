@@ -36,13 +36,22 @@ export const UserinfoStatusSlice = createSlice({
     utime: '',
     pdmSecurityVersion: '',
     checker: "",
-    ctime: ''
+    ctime: '',
+    netStatus: 'none'
   } as UserInfoGeneral,
   reducers: {
     updateUserStatus: (state, action) => {
       return action.payload;
     },
-  }
+  },
+  extraReducers(builder ){
+    builder
+    .addCase(signinUser.fulfilled, (state, action) => {
+      let load:UserInfoGeneral=action.payload;
+      load.netStatus = 'success';
+      return load;
+    })
+  },
 });
 
 export const { 

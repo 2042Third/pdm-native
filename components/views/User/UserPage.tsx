@@ -28,30 +28,18 @@ export default function UserPage({}) {
   const dispatch = useDispatch();
 
   const onSubmit=async () => {
-    // await dispatch(signinUser({umail: umail,upw: upw})).unwrap();
     tryMakeUser(umail,upw, (res:string)=>{ // callback from crypt-module
-      console.log(`res: ${res}`);
-
       dispatch(newUserinfoEnter({umail:umail,upw:upw,upwServer:res}));
     });
-    // tryMakeUser(umail, upw, (res: string) => { // callback from crypt-module
-    //   NetCalls.signin(umail, res) // then calls http to signin
-    //     .then(function (res: UserInfoGeneral) {
-    //       console.log(JSON.stringify(res));
-    //       dispatch(updateUserStatus(res));
-    //     }).catch(err => {
-    //       console.log(err);
-    //     });
-    // });
-  }
+  };
+
   const userEnter = useSelector(state => state.userEnter);
   useEffect(() => { 
-    console.log("makeing");
-    console.log(JSON.stringify(userEnter));
     if(userEnter.umail.length>0){
       dispatch(signinUser({ umail: userEnter.umail, upw: userEnter.upwServer }));
     }
   }, [userEnter]);
+
   return (
     <KeyboardAvoidingView
       style={[styles.mainColor,{flex:1}]}

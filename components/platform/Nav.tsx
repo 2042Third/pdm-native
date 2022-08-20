@@ -12,44 +12,13 @@ import {
   DrawerItemList,
   useDrawerProgress,
 } from '@react-navigation/drawer';
-import Animated from 'react-native-reanimated';
 import { shallowEqual, useSelector } from "react-redux";
-import { NavUserStatus } from './navUserStatus';
+import { NavUserStatus } from './drawerContent/navUserStatus';
+import CustomDrawerContent from './drawerContent/DrawerContentLeft';
+import DrawerRight from './drawerContent/DrawerRight';
 
 let Nav;
 
-function CustomDrawerContent({...props}) {
-  const progress = useDrawerProgress();
-  let translateX;
-  const window = useWindowDimensions();
-  // @ts-ignore
-  translateX = Animated.interpolateNode(progress, {
-    inputRange: [0, 1],
-    outputRange: [-(window.width/2), 0],
-  });
-
-
-  return (
-    <SafeAreaView style={{flex: 1}}>
-      <DrawerContentScrollView {...props}>
-        <NavUserStatus navigation={props.navigation} ></NavUserStatus>
-        <Animated.View style={{transform: [{translateX}]}}>
-          <DrawerItemList {...props} />
-        </Animated.View>
-      </DrawerContentScrollView>
-      {/*footer*/}
-      <View style={styles.footerViewStyle}>
-        <View style={styles.footerContent}>
-          <Icon
-            name={'cog-outline'} size={24}
-            onPress={() => props.navigation.navigate('Settings')}
-            color={colors['--foreground-default']}
-          />
-        </View>
-      </View>
-    </SafeAreaView>
-  );
-}
 
 export default Nav = (props: {Drawer: any}) => {
   const window = useWindowDimensions();
@@ -65,19 +34,25 @@ export default Nav = (props: {Drawer: any}) => {
           drawerType: window.width >= 768 ? 'permanent' : 'slide',
           // defaultStatus: window.width >= 768 ? 'open' : 'closed',
           swipeEdgeWidth: window.width,
+          drawerPosition: "left",
         }}
         initialRouteName="Notes"
         useLegacyImplementation
-        drawerContent={props => <CustomDrawerContent {...props} />}>
-        {/*begin nav items*/}
+        drawerContent={
+          (props: JSX.IntrinsicAttributes & { [x: string]: any; }) => 
+          <CustomDrawerContent {...props} />}>
+        {/*############################## LEFT DRAWER ##############################*/}
         {/*Notes*/}
-        <Drawer.Screen
+        < Drawer.Screen
           name="Notes"
-          component={NotesView}
+          component={DrawerRight}
           options={{
-            headerStyle: styles.drawerHeaderStyle,
-            headerTitleStyle: styles.drawerHeaderTitleStyle,
-          }}
+
+            headerShown: false,
+            // headerStyle: styles.drawerHeaderStyle,
+            // headerTitleStyle: styles.drawerHeaderTitleStyle,
+          }
+          }
         />
         {/*Chat*/}
         <Drawer.Screen
@@ -104,10 +79,21 @@ export default Nav = (props: {Drawer: any}) => {
           options={{
             headerStyle: styles.drawerHeaderStyle,
             headerTitleStyle: styles.drawerHeaderTitleStyle,
-            drawerItemStyle: {display: 'none'},
+            drawerItemStyle: { display: 'none' },
             headerShown: false,
           }}
         />
+        {/*############################## RIGHT DRAWER ##############################*/}
+        {/* <Drawer.Screen
+          name="NoteDrawer"
+          component={DrawerRight}
+          options={{
+            // drawerLabel: () => null,
+            // drawerItemStyle: { display: "none" },
+            // drawerIcon: () => null,
+          }}
+        ></Drawer.Screen> */}
+
       </Drawer.Navigator>
     </NavigationContainer>
   );

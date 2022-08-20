@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { View, Text } from "react-native";
-import Icon from '../icons/Icon';
+import Icon from '../../icons/Icon';
 import { useSelector } from "react-redux";
-import { styles } from "../../assets/Style";
-import { UserInfoGeneral } from "../handle/types";
+import { styles } from "../../../assets/Style";
+import { UserInfoGeneral } from "../../handle/types";
 
 export const NavUserStatus = ({ navigation }) => {
   // User status updates the color of the user icon

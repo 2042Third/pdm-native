@@ -28,6 +28,7 @@ export class UserInfoGeneral{
   pdmSecurityVersion: string='';
   checker: string= "";
   ctime: string='';
+  netStatus:string = 'none';
 }
 
 
