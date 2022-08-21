@@ -7,6 +7,7 @@ import NotesMenu from "../../views/Notes/NotesMenu";
 import NotesView from "../../views/Notes/NotesPage";
 import CustomDrawerContentRight from "./DrawerContentRight";
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
+import NotesHeader from "../../views/Notes/NotesHeader";
 
 const DrawerRightMenu = createDrawerNavigator();
 
@@ -35,6 +36,11 @@ const DrawerRight = () => {
         name="NotesEdit"
         component={NotesView}
         options={{
+          // drawerIcon: (props) => <NotesHeader {...props}></NotesHeader>,
+          header: (props) => <NotesHeader {...props}></NotesHeader>,
+          // header(props) {
+            
+          // },
           headerStyle: styles.drawerHeaderStyle,
           headerTitleStyle: styles.drawerHeaderTitleStyle,
         }}

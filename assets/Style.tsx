@@ -106,11 +106,27 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   drawerHeaderStyle: {
+    flexDirection: "row",
+    alignISelf: "stretch",
+    // flex: 1,
+    // width: 100,
+    height: 50,
+    justifyContent: "space-between",
     backgroundColor: colors['--background-tertiary'],
+  },
+  drawerHeaderIconLeft: {
+    // alignSelf: "flex-start",
+    padding: 10,
+  },
+  drawerHeaderIconRight: {
+    padding: 10,
+    // alignSelf: "flex-end",
   },
   drawerHeaderTitleStyle: {
     color: colors['--foreground-secondary'],
     fontWeight: 'bold',
+    padding: 10,
+    fontSize:18,
   },
   openSpace: {
     flexDirection: 'column',
