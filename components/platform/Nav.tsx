@@ -16,11 +16,10 @@ import { shallowEqual, useSelector } from "react-redux";
 import { NavUserStatus } from './drawerContent/navUserStatus';
 import CustomDrawerContent from './drawerContent/DrawerContentLeft';
 import DrawerRight from './drawerContent/DrawerRight';
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
-let Nav;
 
-
-export default Nav = (props: {Drawer: any}) => {
+const Nav = (props: {Drawer: any}) => {
   const window = useWindowDimensions();
   const Drawer = props.Drawer;
   return (
@@ -98,3 +97,6 @@ export default Nav = (props: {Drawer: any}) => {
     </NavigationContainer>
   );
 };
+
+export default gestureHandlerRootHOC(Nav);
+
