@@ -5,6 +5,7 @@ import { styles, colors } from "../../../assets/Style";
 import Icon from "../../icons/Icon";
 import Animated from 'react-native-reanimated';
 import { NavUserStatus } from "./navUserStatus";
+import NotesMenu from "../../views/Notes/NotesMenu";
 
 export default function CustomDrawerContentRight({ ...props }) {
   const progress = useDrawerProgress();
@@ -15,15 +16,13 @@ export default function CustomDrawerContentRight({ ...props }) {
     inputRange: [0, 1],
     outputRange: [-(window.width / 2), 0],
   });
-
+  // console.log(`progress: ${progress}`);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
-        <View>
-          <Text>Hello</Text>
-        </View>
         <Animated.View style={{ transform: [{ translateX }] }}>
+          <NotesMenu></NotesMenu>
           <DrawerItemList state={props.state}
             navigation={props.navigation} descriptors={props.descriptors} {...props} />
         </Animated.View>

@@ -1,6 +1,7 @@
-import {TextInput, View} from 'react-native';
+import { View} from 'react-native';
 import {styles, colors} from '../../../assets/Style';
 import React from 'react';
+import { TextInput, gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
 const NotesView = () => {
   const [headerValue, onChangeText] = React.useState('');
@@ -36,4 +37,6 @@ const NotesView = () => {
     </View>
   );
 };
-export default NotesView;
+
+export default gestureHandlerRootHOC(NotesView);
+// export default NotesView;
