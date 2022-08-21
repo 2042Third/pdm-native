@@ -106,12 +106,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   drawerHeaderStyle: {
-    flexDirection: "row",
-    alignISelf: "stretch",
-    // flex: 1,
-    // width: 100,
-    height: 50,
-    justifyContent: "space-between",
+    // flexDirection: "row",
+    // alignISelf: "stretch",
+    // // flex: 1,
+    // // width: 100,
+    // height: 50,
+    // justifyContent: "space-between",
     backgroundColor: colors['--background-tertiary'],
   },
   drawerHeaderIconLeft: {
