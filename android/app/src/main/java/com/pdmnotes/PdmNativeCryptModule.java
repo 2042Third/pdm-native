@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.NativeModule;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -37,25 +38,45 @@ public class PdmNativeCryptModule extends ReactContextBaseJavaModule {
         System.out.println(jni.getHash(input));
     }
     @ReactMethod
-    public void getHash(String input , Callback callback ) {
+    public void getHash(String input , Promise promise) {
+        try{
+            String out = jni.getHash(input);
+            promise.resolve(out);
+        }
+        catch(Exception e) {
+            promise.reject("Get hash error", "Get Hash error", e);
+        }
+    }
+    @ReactMethod
+    public void enc(String a ,String b , Promise promise) {
+        try{
+            String out = jni.loaderCheck(a,b);
+            promise.resolve(out);
+        }
+        catch(Exception e) {
+            promise.reject("loaderCheck error", "loaderCheck error", e);
+        }
+    }
+    @ReactMethod
+    public void dec(String a ,String b, Promise promise ) {
+        try{
+            String out = jni.loaderOut(a,b);
+            promise.resolve(out);
+        }
+        catch(Exception e) {
+            promise.reject("loaderOut error", "loaderOut error", e);
+        }
+    }
+    @ReactMethod
+    public void getHashC(String input , Callback callback ) {
         callback.invoke(jni.getHash(input));
     }
     @ReactMethod
-    public void enc(String a ,String b, Callback callback ) {
-//        PdmCrypt jni = new PdmCrypt();
-        System.out.println("THIS IS ENC!!");
-        System.out.println("input key"+a);
-        System.out.println("input value"+b);
-
+    public void encC(String a ,String b, Callback callback ) {
         callback.invoke(jni.loaderCheck(a,b));
     }
     @ReactMethod
-    public void dec(String a ,String b, Callback callback ) {
-//        PdmCrypt jni = new PdmCrypt();
-        System.out.println("THIS IS DEC!!");
-        System.out.println("input key"+a);
-        System.out.println("input value"+b);
-
+    public void decC(String a ,String b, Callback callback ) {
         callback.invoke(jni.loaderOut(a,b));
     }
 }

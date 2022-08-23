@@ -1,20 +1,29 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { AsyncThunkAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { NativeModules } from "react-native";
+import { dec } from "../../../handlers/user";
 import PdmNativeCryptModule from "../../../native/NativeModule";
 import NetCalls from "../../../network/netCalls";
-import { UserInfoGeneral } from "../../../types";
+import { UserEnter, UserInfoGeneral } from "../../../types";
 import { PdmActions } from "../actionType";
 
-const netCallBack = async (user) => {
-  return NetCalls.signin(user.umail, user.upw);
+
+
+const netCallBack = async (user:UserEnter) => {
+  return NetCalls.signin(user.umail, user.upwServer);
 }
 
-export const signinUser = createAsyncThunk('userStatus/signinUser',
-  async (user) => {
-    console.log("Making in progress")
-    const netReturn = await netCallBack(user);
-    return netReturn;
-})
+export const signinUser = createAsyncThunk('userStatus/signinUser', async (user:UserEnter) => {
+  let netReturn: UserInfoGeneral = await netCallBack(user);
+  const userName = await dec(user.upw, netReturn.receiver);
+  if (userName!= null){
+    netReturn.username = userName;
+  } else {
+    netReturn.status = "fail";
+    netReturn.statusInfo = "Cannot decrypt the incoming user info.";
+  }
+  return netReturn;
+});
+
 
 export const UserinfoStatusSlice = createSlice({
   name:'userStatus',
@@ -37,11 +46,17 @@ export const UserinfoStatusSlice = createSlice({
     pdmSecurityVersion: '',
     checker: "",
     ctime: '',
-    netStatus: 'none'
+    netStatus: 'none',
+    statusInfo: "None"
   } as UserInfoGeneral,
   reducers: {
     updateUserStatus: (state, action) => {
       return action.payload;
+    },
+    updateUsername: (state, action) => {
+      let load: UserInfoGeneral = state;
+      load.username = action.payload;
+      return load;
     },
   },
   extraReducers(builder ){
@@ -56,6 +71,7 @@ export const UserinfoStatusSlice = createSlice({
 
 export const { 
   updateUserStatus,
+  updateUsername,
  } = UserinfoStatusSlice.actions;
 
 export default UserinfoStatusSlice.reducer;

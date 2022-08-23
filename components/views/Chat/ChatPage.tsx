@@ -1,5 +1,4 @@
 import {
-  FlatList,
   Keyboard,
   KeyboardAvoidingView, Platform,
   Text,
@@ -13,11 +12,13 @@ import {useSelector, shallowEqual, Provider, useDispatch} from 'react-redux';
 import ChatBox from './ChatBox';
 import { PdmActions } from "../../handle/redux/reducers/actionType";
 import { inputEnter } from "../../handle/redux/reducers/chat/chatViewReducer";
+import { FlatList } from "react-native-gesture-handler";
+import { useAppDispatch } from "../../handle/redux/hooks";
 
 export default function ChatView({}) {
   const [chatInputValue, onChangeChatInput] = React.useState('');
-  const [thisFlatlist, setReferenceList] = useState(null);
-  const dispatch = useDispatch();
+  const [thisFlatlist, setReferenceList] = useState(undefined);
+  const dispatch = useAppDispatch();
 
   const setCurrentInput=(trimmedText:string) =>{
     if(trimmedText){
@@ -27,7 +28,7 @@ export default function ChatView({}) {
   }
 
   // Button "Send"
-  const handlePress = (e) => {
+  const handlePress = (e: { nativeEvent: { key: any; }; type: any; }) => {
     console.log(`Key Press: ${e.nativeEvent.key}\nTarget Type: ${e.type}`);
     if (chatInputValue.length === 0) {
       return;

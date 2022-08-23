@@ -1,10 +1,11 @@
 
 import { createSlice } from "@reduxjs/toolkit";
+import { UserEnter } from "../../../types";
 const initialState = {
   umail: '',
   upw:'',
   upwServer:''
-} ;
+} as UserEnter;
 
 export const UserinfoEnterSlice = createSlice({
   name: 'userinfoEnter',
@@ -12,7 +13,7 @@ export const UserinfoEnterSlice = createSlice({
     umail: '',
     upw: '',
     upwServer: ''
-  },
+  } as UserEnter,
   reducers: {
     newUserinfoEnter: (state, action) =>{
       return action.payload;

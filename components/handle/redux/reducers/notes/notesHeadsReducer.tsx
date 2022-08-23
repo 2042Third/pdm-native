@@ -11,7 +11,7 @@ export const NotesHeadsSlice = createSlice({
   initialState: initialState,
   reducers: {
     newHeads: (state, action) => {
-      state = action.payload;
+      return action.payload;
     }
   }
 });

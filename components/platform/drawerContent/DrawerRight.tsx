@@ -7,7 +7,6 @@ import NotesMenu from "../../views/Notes/NotesMenu";
 import NotesView from "../../views/Notes/NotesPage";
 import CustomDrawerContentRight from "./DrawerContentRight";
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
-import NotesHeader from "../../views/Notes/NotesHeader";
 import Icon from "../../icons/Icon";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 
@@ -27,7 +26,7 @@ const DrawerRight = () => {
         headerShown: true,
         drawerPosition: "right",
         // defaultStatus: window.width >= 768 ? 'open' : 'closed',
-        swipeEdgeWidth: window.width/2,
+        swipeEdgeWidth: window.width/3,
       }}
       useLegacyImplementation
       initialRouteName="NotesEdit"

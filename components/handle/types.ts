@@ -1,5 +1,5 @@
 export class ChatStore {
-  newChat:  ChatMsg;
+  newChat: ChatMsg = new ChatMsg;
   messages:  ChatMsg[]=[];
 }
 
@@ -20,6 +20,7 @@ export class UserInfoGeneral{
   sender:  string="";
   sess: string = '';
   status: string = "fail";
+  statusInfo: string = "None";
   receiver:  string="";
   authdata?: string="";
   time: number=-1;
@@ -61,4 +62,10 @@ export class NotesMsg extends NoteHead{
   // pdm security version should be tracked always whenever there is an encryption
   // pdmSecurityVersion;
 }
+
+export class UserEnter {
+  upw: string = "";
+  umail: string = "";
+  upwServer: string = "";
+};
 

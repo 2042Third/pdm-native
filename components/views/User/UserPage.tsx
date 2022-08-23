@@ -11,11 +11,12 @@ import {
 import { colors, styles } from "../../../assets/Style";
 import React, { useEffect } from 'react';
 import NetCalls from "../../handle/network/netCalls";
-import { tryMakeUser } from "../../handle/handlers/user";
+import { getHash} from "../../handle/handlers/user";
 import { useSelector, shallowEqual, Provider, useDispatch } from "react-redux";
-import { UserInfoGeneral } from "../../handle/types";
-import { signinUser, updateUserStatus } from "../../handle/redux/reducers/user/userinfoReducer";
+import { UserEnter, UserInfoGeneral } from "../../handle/types";
+import { signinUser,  updateUserStatus } from "../../handle/redux/reducers/user/userinfoReducer";
 import userinfoEnter, { newUserinfoEnter } from "../../handle/redux/reducers/user/userinfoEnter";
+import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
 
 export default function UserPage({}) {
   let emailPlaceHolder:string = 'email';
@@ -25,18 +26,27 @@ export default function UserPage({}) {
   const [isFocused2, onFocusingHeader2] = React.useState(false);
   const [umail, onUmail] = React.useState('');
   const [upw, onUpw] = React.useState('');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const onSubmit=async () => {
-    tryMakeUser(umail,upw, (res:string)=>{ // callback from crypt-module
-      dispatch(newUserinfoEnter({umail:umail,upw:upw,upwServer:res}));
-    });
+
+  /**
+   * Makes the password that can be sent to server securely,
+   * and signin.
+   * */ 
+  const onSubmit = async () => {
+    const upwServer = await getHash(upw+upw);
+    const currentUserEnter:UserEnter = { umail: umail, upw: upw, upwServer: upwServer };
+    dispatch(newUserinfoEnter(currentUserEnter));
   };
 
-  const userEnter = useSelector(state => state.userEnter);
+  const userEnter = useAppSelector(state => state.userEnter);
   useEffect(() => { 
-    if(userEnter.umail.length>0){
-      dispatch(signinUser({ umail: userEnter.umail, upw: userEnter.upwServer }));
+    if (userEnter.umail.length > 0) {
+      const currentUserEnter: UserEnter = { 
+        umail: userEnter.umail, 
+        upw: userEnter.upw, 
+        upwServer: userEnter.upwServer };
+      dispatch(signinUser(currentUserEnter));
     }
   }, [userEnter]);
 

@@ -86,18 +86,20 @@ export function TestsJavaEcho({...props}) {
 }
 
 export function TestCppHash({...props}) {
+
   const [inputText, onChangeInput] = React.useState('Hello!!!!');
   const [outputText, onChangeOutput] = React.useState('');
   const [outputTextDouble, onChangeOutputDouble] = React.useState('');
   const {PdmNativeCryptModule} = NativeModules;
-  const getHash = () => {
-    PdmNativeCryptModule.getHash(inputText, back => {
-      onChangeOutput(back);
-    });
-    PdmNativeCryptModule.getHash(inputText+inputText, back => {
-      console.log(`Hasher:${back}`);
-      onChangeOutputDouble(back);
-    });
+
+  const getHash = async () => {
+
+    const back:string = await PdmNativeCryptModule.getHash(inputText);
+    onChangeOutput(back);
+
+    const backD: string = await PdmNativeCryptModule.getHash(inputText+inputText);
+    onChangeOutputDouble(backD);
+    
   };
   return (
     <ScrollView style={[styles.container]}>
@@ -108,7 +110,6 @@ export function TestCppHash({...props}) {
           textAlignVertical={'top'}
           style={[styles.inputAreaColor, lstyle.debugTextBox]}
           onChangeText={onChangeOutput}
-          // onKeyDown={handleKeyDown}
           value={outputText}
           editable={false}
           selectTextOnFocus={true}
@@ -118,7 +119,6 @@ export function TestCppHash({...props}) {
           textAlignVertical={'top'}
           style={[styles.inputAreaColor, lstyle.debugTextBox]}
           onChangeText={onChangeOutputDouble}
-          // onKeyDown={handleKeyDown}
           value={outputTextDouble}
           editable={false}
           selectTextOnFocus={true}
@@ -129,7 +129,6 @@ export function TestCppHash({...props}) {
         textAlignVertical={'top'}
         style={[styles.chatEditStyle, styles.inputAreaColor]}
         onChangeText={onChangeInput}
-        // onKeyDown={handleKeyDown}
         value={inputText}
       />
       <Button title={'GetHash'} onPress={getHash} />
@@ -143,13 +142,15 @@ export function TestCppEncDec({...props}) {
   const [dec, onDec] = React.useState('');
   const [outputText, onChangeOutput] = React.useState('');
   const {PdmNativeCryptModule} = NativeModules;
+  /**
+   * Run the encryption decryption demo
+   * 
+  */
   const onPress = () => {
-    PdmNativeCryptModule.enc(psText, inputText, back => {
-      onChangeOutput(back);
-      PdmNativeCryptModule.dec(psText, back, backCall => {
-        onDec(backCall);
-      });
-    });
+    const encBack:string = PdmNativeCryptModule.enc(psText, inputText);
+    onChangeOutput(encBack);
+    const decBack:string = PdmNativeCryptModule.dec(psText, encBack);
+    onDec(decBack);
   };
 
   const window = useWindowDimensions();
