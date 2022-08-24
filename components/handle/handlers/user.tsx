@@ -1,7 +1,8 @@
 import { NativeModules } from "react-native";
 import { useSelector } from "react-redux";
 
-
+const { PdmNativeCryptModule } = NativeModules;
+export default PdmNativeCryptModule;
 export const getHash = async (a:string) => {
   const { PdmNativeCryptModule } = NativeModules;
   return PdmNativeCryptModule.getHash(a);
@@ -50,3 +51,45 @@ export const enc = async (upw: string, plain: string) => {
     return null;
   }
 }
+
+ export class cryptModule {
+    private PdmNativeCryptModule:any;
+    constructor () {
+      let { PdmNativeCryptModule } = NativeModules;
+      this.PdmNativeCryptModule = PdmNativeCryptModule;
+    }
+
+    async getHash(a:string){
+      try {
+        const out: string = this.PdmNativeCryptModule.getHash(a);
+        return out;
+      }
+      catch (e) {
+        console.log(e);
+        return null;
+      }
+    }
+
+    async enc(upw: string, plain: string) {
+      try {
+        const out: string = this.PdmNativeCryptModule.enc(upw, plain);
+        return out;
+      }
+      catch (e) {
+        console.log(e);
+        return null;
+      }
+    }
+
+   async dec (upw: string, a: string) {
+     try {
+       const out: string = this.PdmNativeCryptModule.dec(upw, a);
+       return out;
+     }
+     catch (e) {
+       console.log(e);
+       return null;
+     }
+   }
+  }
+
