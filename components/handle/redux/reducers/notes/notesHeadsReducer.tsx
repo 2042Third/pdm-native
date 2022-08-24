@@ -3,14 +3,15 @@ import { PdmActions } from "../actionType";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import NetCalls from "../../../network/netCalls";
 
-const initialState = new NoteHeadList;
+const initialState = {
+  heads: [],
+  netHash: "",
+} as NoteHeadList;
 
 export const getHeads = createAsyncThunk('notesHead/getHeads', async(userinfo:UserInfoGeneral)=>{
   const headsP = await NetCalls.notesGetHeads(userinfo.sess, userinfo.email);
-  if (headsP == null)
-    return null;
   const heads = await headsP?.json();
-  console.log(`noteHeads net return: ${JSON.stringify(heads)}`);
+  console.log(`noteHeads net return: ${JSON.stringify(heads.content[0])}`);
   return heads;
 });
 
@@ -22,15 +23,13 @@ export const NotesHeadsSlice = createSlice({
       return action.payload;
     }
   },
-
   extraReducers(builder) {
     builder
       .addCase(getHeads.fulfilled, (state, action) => {
-        const heads = {
-          heads: action.payload["content"],
-          netHash: action.payload["hash"],
-        }
-        return heads;
+        let load = state;
+        load.heads = action.payload.content;
+        load.netHash = action.payload.hash;
+        return load;
       })
   },
 });
