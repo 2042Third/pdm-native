@@ -10,7 +10,7 @@ export default class NetCalls {
 
   static async signin(umail: any, upw: any) {
     return Net.post(this.signinURL, JSON.stringify({ "umail": umail, "upw": upw }))
-      .then(function (res) {
+      .then(function (res:any) {
         return res.json();
       });
   }
@@ -23,7 +23,7 @@ export default class NetCalls {
         'uname':uname, 
         'type': 'pdm mobile '+Platform.OS
       }))
-      .then(function (res) {
+      .then(function (res:any) {
         return res.json();
       });
   }

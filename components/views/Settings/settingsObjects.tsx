@@ -14,9 +14,7 @@ import {
 import {styles} from '../../../assets/Style';
 import PdmNativeCryptModule from '../../handle/native/NativeModule';
 import KeyboardShift from "../../uiControl/KeyboardShift";
-// interface SettingsObjects {
-//   static openView({...props}): JSX.Element;
-// }
+
 
 export function SettingList({navigation}) {
   const DATA = [
@@ -65,7 +63,7 @@ export function TestsJavaEcho({...props}) {
   const [nativeReturn, onNativeReturn] = React.useState('Nothing');
   // const {PdmNativeCryptModule} = NativeModules;
   const onPress = () => {
-    PdmNativeCryptModule.echoer('This from react native!!!'.toString(), back => {
+    PdmNativeCryptModule.echoer('This from react native!!!'.toString(), (back: string) => {
       onNativeReturn(back);
     });
   };
@@ -146,10 +144,11 @@ export function TestCppEncDec({...props}) {
    * Run the encryption decryption demo
    * 
   */
-  const onPress = () => {
-    const encBack:string = PdmNativeCryptModule.enc(psText, inputText);
+  const onPress = async () => {
+    console.log(`Run onpress`);
+    const encBack:string = await PdmNativeCryptModule.enc(psText, inputText);
     onChangeOutput(encBack);
-    const decBack:string = PdmNativeCryptModule.dec(psText, encBack);
+    const decBack:string = await PdmNativeCryptModule.dec(psText, encBack);
     onDec(decBack);
   };
 

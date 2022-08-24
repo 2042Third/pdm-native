@@ -18,19 +18,21 @@ export default class KeyboardShift extends Component {
   state = {
     shift: new Animated.Value(0),
   };
-  private keyboardDidShowSub: EmitterSubscription;
-  private keyboardDidHideSub: EmitterSubscription;
+  private keyboardDidShowSub: EmitterSubscription | undefined;
+  private keyboardDidHideSub: EmitterSubscription | undefined;
   static propTypes = PropTypes;
   private animationSpeed: number = 300;
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.keyboardDidShowSub = Keyboard.addListener('keyboardDidShow', this.handleKeyboardDidShow);
     this.keyboardDidHideSub = Keyboard.addListener('keyboardDidHide', this.handleKeyboardDidHide);
   }
 
-  componentWillUnmount() {
-    this.keyboardDidShowSub.remove();
-    this.keyboardDidHideSub.remove();
+  UNSAFE_componentWillUnmount() {
+    if (this.keyboardDidShowSub)
+      this.keyboardDidShowSub.remove();
+    if (this.keyboardDidHideSub)
+      this.keyboardDidHideSub.remove();
   }
 
   render() {
