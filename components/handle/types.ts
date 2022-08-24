@@ -35,6 +35,7 @@ export class UserInfoGeneral{
 
 export class NoteHeadList{
   heads: NoteHead[] = [];
+  netHash: string = '';
 }
 
 export class NoteHead{

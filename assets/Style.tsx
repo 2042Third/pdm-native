@@ -34,6 +34,9 @@ export const styles = StyleSheet.create({
     top: 0,
     width: '100%'
   },
+  menuButton:{
+    padding: 9,
+  },
   inputAreaColor: {
     backgroundColor: colors['--background-tertiary'],
     color: colors['--foreground-default'],

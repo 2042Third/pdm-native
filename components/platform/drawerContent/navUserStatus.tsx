@@ -4,11 +4,12 @@ import Icon from '../../icons/Icon';
 import { useSelector } from "react-redux";
 import { styles } from "../../../assets/Style";
 import { UserInfoGeneral } from "../../handle/types";
+import { useAppSelector } from "../../handle/redux/hooks";
 
-export const NavUserStatus = ({ navigation }) => {
+export const NavUserStatus = (navigation: { navigate: (arg0: string) => void; }, { ...props }: any) => {
   // User status updates the color of the user icon
   // const selectUser = state => state.userinfo;
-  const currentUser: UserInfoGeneral = useSelector(state => state.userinfo);
+  const currentUser: UserInfoGeneral = useAppSelector(state => state.userinfo);
   useEffect(()=>{
     console.log(currentUser);
 
@@ -19,7 +20,7 @@ export const NavUserStatus = ({ navigation }) => {
         onPress={() => { navigation.navigate('User'); }}
         name={'account'} size={24} 
         color={currentUser.status === 'success' ? "green" : "red"} />
-      <Text style={styles.mainSigninStatusText} >{currentUser.email}</Text>
+      <Text style={styles.mainSigninStatusText} >{currentUser.username}</Text>
     </View>
   );
 }

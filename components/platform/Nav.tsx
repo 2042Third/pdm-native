@@ -39,7 +39,7 @@ const Nav = (props: {Drawer: any}) => {
         useLegacyImplementation
         drawerContent={
           (props: JSX.IntrinsicAttributes & { [x: string]: any; }) => 
-          <CustomDrawerContent {...props} />}>
+          <CustomDrawerContent navigation={props.navigation} {...props} />}>
         {/*############################## LEFT DRAWER ##############################*/}
         {/*Notes*/}
         < Drawer.Screen

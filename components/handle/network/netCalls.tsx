@@ -7,6 +7,8 @@ export default class NetCalls {
   private static pdmRootURL: string = 'https://pdm.pw';
   private static signinURL: string = this.pdmRootURL + '/auth/signin';
   private static signupURL: string = this.pdmRootURL + '/auth/signin';
+  private static notesGetHeadsURL: string = this.pdmRootURL + '/auth/note';
+  private static notesGetHeadsType: string = 'heads'; 
 
   static async signin(umail: any, upw: any) {
     return Net.post(this.signinURL, JSON.stringify({ "umail": umail, "upw": upw }))
@@ -27,11 +29,25 @@ export default class NetCalls {
         return res.json();
       });
   }
+
   /**
-   * Finish this implementation!
+   * Gets the heads of notes for a user
    * 
   */
-  static async notesGetHeads(sessKey:string, ) {
-
+  static async notesGetHeads(sessKey:string, email:string ) {
+    return Net.post(this.notesGetHeadsURL,
+      JSON.stringify({
+        "username": "", // should not send unencrypted username
+        "content": "",
+        "sess": sessKey,
+        "ntype": this.notesGetHeadsType,
+        "email": email,
+      }));
+    // if (notesHeadsReturn!= null ){
+    //   return notesHeadsReturn.json();
+    // }
+    // else {
+    //   return {};
+    // }
   }
 }

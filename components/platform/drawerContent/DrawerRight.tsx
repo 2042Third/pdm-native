@@ -42,7 +42,7 @@ const DrawerRight = () => {
           headerStyle: styles.drawerHeaderStyle,
           headerTitleStyle: styles.drawerHeaderTitleStyle,
           drawerItemStyle: { display: 'none' },
-          headerLeft: () => <Icon
+          headerLeft: () => <Icon style={[styles.menuButton]}
             onPress={() => { navigation2.toggleDrawer() }}
             name={'menu'} size={24}/>,
           headerRight: () => <DrawerToggleButton tintColor={colors['--foreground-default']}/>,
