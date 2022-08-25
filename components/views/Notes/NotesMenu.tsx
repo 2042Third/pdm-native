@@ -28,7 +28,8 @@ const NotesMenu = () => {
   const NoteItem = () => {
     const children = noteHead.heads.map((item:NoteHead)=>(
       <View key={item.key} style={[styles.notesListingItemContainer]}>
-        <Text>{item.head===''?'Unnamed note '+item.id:item.head}</Text>
+        <Text style={[styles.normalText]}>{item.head===''?'Unnamed note '+item.id:item.head}</Text>
+        <Text style={[styles.smallText]}> {item.utime}</Text>
       </View>
     ));
     return (
