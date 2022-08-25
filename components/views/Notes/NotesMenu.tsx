@@ -27,7 +27,7 @@ const NotesMenu = () => {
 
   const NoteItem = () => {
     const children = noteHead.heads.map((item:NoteHead)=>(
-      <View>
+      <View key={item.key} style={[styles.notesListingItemContainer]}>
         <Text>{item.head===''?'Unnamed note '+item.id:item.head}</Text>
       </View>
     ));
@@ -39,7 +39,7 @@ const NotesMenu = () => {
   }
 
   return (
-    <View style={[styles.container]}>
+    <View style={[]}>
       <NoteItem></NoteItem>
     </View>
   )

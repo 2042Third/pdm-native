@@ -193,6 +193,11 @@ export const styles = StyleSheet.create({
     resize: 'none',
     wordWrap: 'breakWord',
   },
+  notesListingItemContainer:{
+    height: 30,
+    margin: 7,
+    padding: 3,
+  },
   row: {
     flexDirection: 'row',
     overflow: 'visible',

@@ -2,30 +2,53 @@ import { NoteHead, NoteHeadList, NotesMsg, UserEnter, UserInfoGeneral } from "..
 import { PdmActions } from "../actionType";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import NetCalls from "../../../network/netCalls";
-import PdmNativeCryptModule, { dec, makeHash } from "../../../handlers/user";
+import  { dec, makeHash } from "../../../handlers/user";
 import NotesHead from "../../../../views/Notes/NotesHead";
 import { HeadsArg, HeadsUpdateArg } from "../../../models";
 import { NativeModules } from "react-native";
+import {format} from "date-fns";
 
 const initialState = {
   heads: [],
   netHash: "",
 } as NoteHeadList;
 
+function nextNoteHeadId(heads: NoteHead[]) {
+  const maxIds = heads.reduce(
+    (maxId: number, head: NoteHead) => Math.max(parseInt(head.key), maxId),
+    -1,
+  );
+  return maxIds + 1;
+}
+
+const parseTime = (a:number) => {
+  
+  console.log(`Making time ${a}`);
+  let ti = new Date(a * 1000);
+  const out = format(ti, "H:mma, MMMM do, yyyy");
+  console.log(`Making time complete ${out}`);
+  return out;
+};
+
 export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsUpdateArg)=>{
   const userinfo = hua.userinfo;
   const user = hua.user;
-  // const { PdmNativeCryptModule } = NativeModules;
+  const { PdmNativeCryptModule } = NativeModules;
 
   
   // Get heads from server
   const headsP = await NetCalls.notesGetHeads(userinfo.sess, userinfo.email);
   const heads = await headsP?.json();
-  
+  console.log(`Note received ${JSON.stringify(heads)}`);
+
   // Check package integrity 
-  // const integ = await makeHash(JSON.stringify(heads.heads));
-  // console.log("integ", integ);
-  // console.log("heads.hash", heads.hash);
+  // Note: the incoming noteheads package lists the heads under "content" not "heads"
+  const integ = await PdmNativeCryptModule.getHash(JSON.stringify(heads.content).toString());
+  console.log(`Note head integrety check passed.`);
+  if (integ !== heads.hash) {
+    throw new Error("Package integrety compromised, location: Note head \"getHeads\" thunk.");
+    return;
+  }
 
   // Make new object to store decrypted
   let load = new NoteHeadList;
@@ -35,7 +58,6 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
   // decrypt 
   const a = load.heads;
   let b = [];
-  console.log(`decryptAllHeads ${JSON.stringify(load)}`);
   for (let i = 0; i < a.length; i++) {
     let h: NoteHead = JSON.parse(JSON.stringify(a[i]));
     let tmpH: NoteHead = new NoteHead;
@@ -43,16 +65,23 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
     tmpH.time = parseFloat(h.time);
     tmpH.id = parseInt(h.note_id);
     tmpH.update_time = parseFloat(h.update_time);
+    tmpH.key = nextNoteHeadId(b).toString();
     let decO='';
+
     if (h.head != null && h.head != undefined){
       try {
         decO = await PdmNativeCryptModule.dec(user.upw, h.head);
-      } catch (e) { console.log(e) }
+      } catch (e) { console.log(e) ; return;}
     }
     tmpH.head = decO;
     console.log(`tmpH ${JSON.stringify(tmpH)}`);
-    console.log(typeof tmpH.time);
-    console.log(tmpH.time);
+
+    // Get the time stamps 
+    tmpH.ctime = parseTime(tmpH.time);
+    tmpH.utime = parseTime(tmpH.update_time);
+    console.log(`Created at ${tmpH.ctime}`);
+    console.log(`Updated at ${tmpH.utime}`);
+
     b.push(tmpH);
   }
 

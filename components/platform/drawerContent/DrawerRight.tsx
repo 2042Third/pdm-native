@@ -26,7 +26,7 @@ const DrawerRight = () => {
         headerShown: true,
         drawerPosition: "right",
         // defaultStatus: window.width >= 768 ? 'open' : 'closed',
-        swipeEdgeWidth: window.width/3,
+        swipeEdgeWidth: window.width/2,
       }}
       useLegacyImplementation
       initialRouteName="NotesEdit"
