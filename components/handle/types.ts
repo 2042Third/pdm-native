@@ -46,7 +46,7 @@ export class NoteHead{
   update_time: number=-1;
   utime: string = '';
   ctime: string = '';
-
+  key:string = '';
 }
 
 export class NotesMsg extends NoteHead{

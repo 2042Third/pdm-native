@@ -61,26 +61,6 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
   return JSON.parse(JSON.stringify(load));
 });
 
-// export const decHeads = createAsyncThunk('notesHead/decHeads', async(ha:HeadsArg)=>{
-
-//   const a = ha.heads.heads;
-//   let b = [];
-//   console.log(`decryptAllHeads ${JSON.stringify(ha)}`);
-//   for (let i = 0; i < a.length; i++) {
-//     const h: NoteHead = a[i];
-//     let tmpH: NoteHead = new NoteHead;
-//     tmpH = h;
-//     // tmpH.time = parseFloat(h.time.toString);
-//     const decO = await dec(ha.user.upw, h.head);
-//     if (decO != null)
-//       tmpH.head = decO;
-//     console.log(`tmpH ${JSON.stringify(tmpH)}`);
-//     console.log(typeof tmpH.time);
-//     console.log(tmpH.time);
-//     b.push(tmpH);
-//   }
-//   return b;
-// });
 
 export const NotesHeadsSlice = createSlice({
   name: 'notesHead',
