@@ -14,8 +14,8 @@ import NetCalls from "../../handle/network/netCalls";
 import { getHash} from "../../handle/handlers/user";
 import { useSelector, shallowEqual, Provider, useDispatch } from "react-redux";
 import { UserEnter, UserInfoGeneral } from "../../handle/types";
-import { signinUser,  updateUserStatus } from "../../handle/redux/reducers/user/userinfoReducer";
-import userinfoEnter, { newUserinfoEnter, setUserSess } from "../../handle/redux/reducers/user/userinfoEnter";
+import { signinUser,  updateUserStatus, userClearData } from "../../handle/redux/reducers/user/userinfoReducer";
+import userinfoEnter, { newUserinfoEnter, setUserSess, userEnterClearData } from "../../handle/redux/reducers/user/userinfoEnter";
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
 
 export default function UserPage({}) {
@@ -28,6 +28,8 @@ export default function UserPage({}) {
   const [upw, onUpw] = React.useState('');
   const dispatch = useAppDispatch();
 
+  const userEnter = useAppSelector(state => state.userEnter);
+  const userInfo = useSelector(state => state.userinfo);
 
   /**
    * Makes the password that can be sent to server securely,
@@ -42,31 +44,36 @@ export default function UserPage({}) {
     dispatch(newUserinfoEnter(currentUserEnter));
   };
 
-  const userEnter = useAppSelector(state => state.userEnter);
-  const userInfo = useSelector(state => state.userinfo);
+  const cleanCurrentStatus = () => {
+    dispatch(updateUserStatus(userClearData));
+    dispatch(newUserinfoEnter(userEnterClearData));
+  }
+
+  function userSigninAction ()  {
+    const currentUserEnter: UserEnter = {
+      umail: userEnter.umail,
+      upw: userEnter.upw,
+      upwServer: userEnter.upwServer,
+      sess: ""
+    };
+    return dispatch(signinUser(currentUserEnter)); // Signin
+  }
 
   useEffect(() => { 
-    if (userEnter.umail.length > 0 && userEnter.sess === '') {
-      const currentUserEnter: UserEnter = {
-        umail: userEnter.umail,
-        upw: userEnter.upw,
-        upwServer: userEnter.upwServer,
-        sess: ""
-      };
-      dispatch(signinUser(currentUserEnter))
-      .then(()=>{
+    if (userEnter.umail.length > 0 && userInfo.status === 'fail') {
+      userSigninAction().then(() => {
         console.log("Signin Done");
         // dispatch(setUserSess(userInfo.sess)); // Signin
-      })
-      ; // Signin
+      });
     }
   }, [userEnter]);
 
-  // useEffect(() => {
-  //   if (userInfo.status === 'success') {
-  //     dispatch(setUserSess(userInfo.sess)); // Signin
-  //   }
-  // }, [userInfo]);
+  useEffect(() => {
+    if (userInfo.status === 'success' && userEnter.sess === '') {
+      console.log("dispatching user sess");
+      dispatch(setUserSess(userInfo.sess)); // Signin
+    }
+  }, [userInfo]);
 
   return (
     <KeyboardAvoidingView
@@ -106,10 +113,11 @@ export default function UserPage({}) {
             ></Button>
           </View>
           <View style={[styles.btnContainer]}>
-            <Button title={loginPlaceholder} color={colors['--background-light']}
-                    onPress={onSubmit}
+            <Button title={'clear'} color={colors['--background-light']}
+                    onPress={cleanCurrentStatus}
             ></Button>
             <Text>{userEnter.umail}</Text>
+            <Text>{userEnter.sess}</Text>
           </View>
         </View>
       </TouchableWithoutFeedback>

@@ -1,7 +1,7 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import { UserEnter } from "../../../types";
-const initialState = {
+export const userEnterClearData = {
   umail: '',
   upw:'',
   upwServer:'',

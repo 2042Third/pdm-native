@@ -50,7 +50,7 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
 
   
   // Get heads from server
-  const headsP = await NetCalls.notesGetHeads(userinfo.sess, user.umail);
+  const headsP = await NetCalls.notesGetHeads(user.sess, user.umail);
   const heads = await headsP?.json();
   console.log(`Note received ${JSON.stringify(heads)}`);
 

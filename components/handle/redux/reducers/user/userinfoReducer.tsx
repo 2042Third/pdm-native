@@ -15,8 +15,30 @@ const netCallBack = async (user:UserEnter) => {
   return NetCalls.signin(user.umail, user.upwServer);
 }
 
+export const userClearData = {
+  msg: "",
+  username: "",
+  msgh: "",
+  email: "",
+  val: "",
+  type: "",
+  h: "",
+  sender: "",
+  sess: '',
+  status: "fail",
+  receiver: "",
+  authdata: "",
+  time: -1,
+  update_time: -1,
+  utime: '',
+  pdmSecurityVersion: '',
+  checker: "",
+  ctime: '',
+  netStatus: 'none',
+  statusInfo: "None"
+} as UserInfoGeneral;
+
 export const signinUser = createAsyncThunk('userStatus/signinUser', async (user:UserEnter) => {
-  const dispatch = useAppDispatch();
   let netReturn: UserInfoGeneral = await netCallBack(user);
   const userName = await dec(user.upw, netReturn.receiver);
   if (userName!= null){
@@ -25,7 +47,6 @@ export const signinUser = createAsyncThunk('userStatus/signinUser', async (user:
     netReturn.status = "fail";
     netReturn.statusInfo = "Cannot decrypt the incoming user info.";
   }
-  dispatch(setUserSess(netReturn.sess)); // set sess
 
   return netReturn;
 });

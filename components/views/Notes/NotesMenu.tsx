@@ -18,11 +18,13 @@ const NotesMenu = ({navigation}) => {
   const noteHead = useAppSelector(state => state.noteHeads);
 
   useEffect(() => {
-    console.log(`Notes Menu update: ${userinfo.status}`);
-    if (userinfo.status === "success") {
-      dispatch(getHeads({ userinfo: userinfo, user: user }));
+    if(user.sess !== ''){
+      console.log(`Notes Menu update: ${userinfo.status}`);
+      if (userinfo.status === "success") {
+        dispatch(getHeads({ userinfo: userinfo, user: user }));
+      }
     }
-  }, [userinfo]);
+  }, [user]);
 
   useEffect(()=>{
     console.log("mountin note menu");
