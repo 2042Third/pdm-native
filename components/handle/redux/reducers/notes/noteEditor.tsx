@@ -28,7 +28,6 @@ const userNoteEditorClearData = {
 
 export const getNote = createAsyncThunk('noteHead/getNote', async (argu: GetNoteArg) => {
   const { PdmNativeCryptModule } = NativeModules;
-  const dispatch = useAppDispatch();
   const user = argu.user;
   const note_id = argu.note_id;
 
@@ -45,10 +44,7 @@ export const getNote = createAsyncThunk('noteHead/getNote', async (argu: GetNote
   load.head = await PdmNativeCryptModule.dec(user.upw, load.head);
   console.log(`Note decrypted ${JSON.stringify(load)}`);
 
-  //update editor
-  dispatch(openNote(JSON.parse(JSON.stringify(load))));
-
-  return;
+  return load;
 });
 export const NoteEditorSlice = createSlice({
   name: 'userinfoEnter',
