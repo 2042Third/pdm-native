@@ -4,7 +4,8 @@ import { UserEnter } from "../../../types";
 const initialState = {
   umail: '',
   upw:'',
-  upwServer:''
+  upwServer:'',
+  sess: '',
 } as UserEnter;
 
 export const UserinfoEnterSlice = createSlice({
@@ -12,11 +13,18 @@ export const UserinfoEnterSlice = createSlice({
   initialState: {
     umail: '',
     upw: '',
-    upwServer: ''
+    upwServer: '',
+    sess: '',
   } as UserEnter,
   reducers: {
     newUserinfoEnter: (state, action) =>{
       return action.payload;
+    },
+    setUserSess: (state, action)=>{
+      return {
+        ...state,
+        sess: action.payload
+      };
     }
   }
 });
@@ -24,6 +32,7 @@ export const UserinfoEnterSlice = createSlice({
 // actions
 export const {
   newUserinfoEnter,
+  setUserSess,
 } = UserinfoEnterSlice.actions;
 
 export default UserinfoEnterSlice.reducer;

@@ -22,7 +22,7 @@ export default function CustomDrawerContentRight({ ...props }) {
     <SafeAreaView style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
         <Animated.View style={{ transform: [{ translateX }] }}>
-          <NotesMenu></NotesMenu>
+          <NotesMenu navigation={props.navigation} {...props}></NotesMenu>
           <DrawerItemList state={props.state}
             navigation={props.navigation} descriptors={props.descriptors} {...props} />
         </Animated.View>

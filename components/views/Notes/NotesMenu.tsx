@@ -1,17 +1,16 @@
 import { oneOfType } from "prop-types";
 import React, { useEffect } from "react";
 import { Text } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { View } from "react-native-ui-lib";
+import { shallowEqual, useSelector } from "react-redux";
 import { styles } from "../../../assets/Style";
-import { dec } from "../../handle/handlers/user";
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
-import { getHeads, newHeads } from "../../handle/redux/reducers/notes/notesHeadsReducer";
+import { getHeads, newHeads, selectNoteByKey } from "../../handle/redux/reducers/notes/notesHeadsReducer";
 import { NoteHead, NoteHeadList } from "../../handle/types";
-import NotesHead from "./NotesHead";
 
 
-const NotesMenu = () => {
+const NotesMenu = ({navigation}) => {
   const dispatch = useAppDispatch();
 
   const userinfo = useAppSelector(state => state.userinfo);
@@ -25,13 +24,31 @@ const NotesMenu = () => {
     }
   }, [userinfo]);
 
+  useEffect(()=>{
+    console.log("mountin note menu");
+  },[]);
+
+  const selectNoteId = (state: { noteHeads: { heads: NoteHead[]; }; }) => state.noteHeads.heads.map((head) => head.key);
+  const noteids = useSelector(selectNoteId, shallowEqual);
+  const onSelectNote = (key:string)=> {
+    navigation.toggleDrawer();
+    const selectedHead = selectNoteByKey(noteHead,key);
+    console.log(JSON.stringify(selectedHead));
+  };
+
   const NoteItem = () => {
     const children = noteHead.heads.map((item:NoteHead)=>(
-      <View key={item.key} style={[styles.notesListingItemContainer]}>
-        <Text style={[styles.normalText]}>{item.head===''?'Unnamed note '+item.id:item.head}</Text>
-        <Text style={[styles.smallText]}> {item.utime}</Text>
-      </View>
+      <TouchableOpacity
+        key={item.key}
+        onPress={ ()=>{onSelectNote(item.key)}}
+      >
+        <View  style={[styles.notesListingItemContainer]}>
+          <Text style={[styles.normalText]}>{item.head===''?'Unnamed note '+item.id:item.head}</Text>
+          <Text style={[styles.smallText]}> {item.utime}</Text>
+        </View>
+      </TouchableOpacity>
     ));
+
     return (
       <>
         {children}

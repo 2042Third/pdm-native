@@ -15,7 +15,7 @@ import { getHash} from "../../handle/handlers/user";
 import { useSelector, shallowEqual, Provider, useDispatch } from "react-redux";
 import { UserEnter, UserInfoGeneral } from "../../handle/types";
 import { signinUser,  updateUserStatus } from "../../handle/redux/reducers/user/userinfoReducer";
-import userinfoEnter, { newUserinfoEnter } from "../../handle/redux/reducers/user/userinfoEnter";
+import userinfoEnter, { newUserinfoEnter, setUserSess } from "../../handle/redux/reducers/user/userinfoEnter";
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
 
 export default function UserPage({}) {
@@ -35,20 +35,38 @@ export default function UserPage({}) {
    * */ 
   const onSubmit = async () => {
     const upwServer = await getHash(upw+upw);
-    const currentUserEnter:UserEnter = { umail: umail, upw: upw, upwServer: upwServer };
+    const currentUserEnter:UserEnter = {
+      umail: umail, upw: upw, upwServer: upwServer,
+      sess: ""
+    };
     dispatch(newUserinfoEnter(currentUserEnter));
   };
 
   const userEnter = useAppSelector(state => state.userEnter);
+  const userInfo = useSelector(state => state.userinfo);
+
   useEffect(() => { 
-    if (userEnter.umail.length > 0) {
-      const currentUserEnter: UserEnter = { 
-        umail: userEnter.umail, 
-        upw: userEnter.upw, 
-        upwServer: userEnter.upwServer };
-      dispatch(signinUser(currentUserEnter));
+    if (userEnter.umail.length > 0 && userEnter.sess === '') {
+      const currentUserEnter: UserEnter = {
+        umail: userEnter.umail,
+        upw: userEnter.upw,
+        upwServer: userEnter.upwServer,
+        sess: ""
+      };
+      dispatch(signinUser(currentUserEnter))
+      .then(()=>{
+        console.log("Signin Done");
+        // dispatch(setUserSess(userInfo.sess)); // Signin
+      })
+      ; // Signin
     }
   }, [userEnter]);
+
+  // useEffect(() => {
+  //   if (userInfo.status === 'success') {
+  //     dispatch(setUserSess(userInfo.sess)); // Signin
+  //   }
+  // }, [userInfo]);
 
   return (
     <KeyboardAvoidingView

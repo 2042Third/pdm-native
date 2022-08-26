@@ -1,10 +1,13 @@
 import { AsyncThunkAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { NativeModules } from "react-native";
+import { useDispatch } from "react-redux";
 import { dec } from "../../../handlers/user";
 import PdmNativeCryptModule from "../../../native/NativeModule";
 import NetCalls from "../../../network/netCalls";
 import { UserEnter, UserInfoGeneral } from "../../../types";
+import { useAppDispatch } from "../../hooks";
 import { PdmActions } from "../actionType";
+import { setUserSess } from "./userinfoEnter";
 
 
 
@@ -13,6 +16,7 @@ const netCallBack = async (user:UserEnter) => {
 }
 
 export const signinUser = createAsyncThunk('userStatus/signinUser', async (user:UserEnter) => {
+  const dispatch = useAppDispatch();
   let netReturn: UserInfoGeneral = await netCallBack(user);
   const userName = await dec(user.upw, netReturn.receiver);
   if (userName!= null){
@@ -21,6 +25,8 @@ export const signinUser = createAsyncThunk('userStatus/signinUser', async (user:
     netReturn.status = "fail";
     netReturn.statusInfo = "Cannot decrypt the incoming user info.";
   }
+  dispatch(setUserSess(netReturn.sess)); // set sess
+
   return netReturn;
 });
 

@@ -1,9 +1,6 @@
 import { NoteHead, NoteHeadList, NotesMsg, UserEnter, UserInfoGeneral } from "../../../types";
-import { PdmActions } from "../actionType";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import NetCalls from "../../../network/netCalls";
-import  { dec, makeHash } from "../../../handlers/user";
-import NotesHead from "../../../../views/Notes/NotesHead";
 import { HeadsArg, HeadsUpdateArg } from "../../../models";
 import { NativeModules } from "react-native";
 import {format} from "date-fns";
@@ -12,6 +9,14 @@ const initialState = {
   heads: [],
   netHash: "",
 } as NoteHeadList;
+
+ /**
+  * HELPERS
+  * 
+ */
+export const selectNoteByKey = (noteHeads: { heads: any[]; } , key: string) => {
+  return noteHeads.heads.find((head: { key: any; }) => head.key === key);
+};
 
 function nextNoteHeadId(heads: NoteHead[]) {
   const maxIds = heads.reduce(
@@ -30,6 +35,14 @@ const parseTime = (a:number) => {
   return out;
 };
 
+/**
+ * THUNKS
+ * 
+*/
+export const getNote = createAsyncThunk('noteHead/getNote', async () => {
+
+});
+
 export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsUpdateArg)=>{
   const userinfo = hua.userinfo;
   const user = hua.user;
@@ -37,7 +50,7 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
 
   
   // Get heads from server
-  const headsP = await NetCalls.notesGetHeads(userinfo.sess, userinfo.email);
+  const headsP = await NetCalls.notesGetHeads(userinfo.sess, user.umail);
   const heads = await headsP?.json();
   console.log(`Note received ${JSON.stringify(heads)}`);
 
@@ -91,6 +104,10 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
 });
 
 
+/**
+ * STORE
+ * 
+*/
 export const NotesHeadsSlice = createSlice({
   name: 'notesHead',
   initialState,

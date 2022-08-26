@@ -3,6 +3,7 @@ import ChatInputViewReducer from './reducers/chat/chatViewReducer';
 import {configureStore} from '@reduxjs/toolkit';
 import UserinfoStatusReducer from "./reducers/user/userinfoReducer";
 import NotesHeadsReducer from "./reducers/notes/notesHeadsReducer";
+import NoteEditorReducer from "./reducers/notes/noteEditor";
 import UserinfoEnterReducer from './reducers/user/userinfoEnter';
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     userinfo: UserinfoStatusReducer,
     userEnter: UserinfoEnterReducer,
     noteHeads: NotesHeadsReducer,
+    noteEditor: NoteEditorReducer,
   },
 });
 

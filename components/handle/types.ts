@@ -68,5 +68,6 @@ export class UserEnter {
   upw: string = "";
   umail: string = "";
   upwServer: string = "";
+  sess: string = "";
 };
 
