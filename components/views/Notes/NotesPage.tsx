@@ -1,12 +1,21 @@
 import { View} from 'react-native';
 import {styles, colors} from '../../../assets/Style';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TextInput, gestureHandlerRootHOC } from 'react-native-gesture-handler';
+import { useAppDispatch, useAppSelector } from '../../handle/redux/hooks';
 
 const NotesView = () => {
   const [headerValue, onChangeText] = React.useState('');
   const [noteValue, onChangeNote] = React.useState('');
   const [isFocused, onFocusingHeader] = React.useState(false);
+
+  const noteEditor = useAppSelector(state => state.noteEditor);
+
+  useEffect(()=>{
+    onChangeNote(noteEditor.content);
+    onChangeText(noteEditor.head);
+  },[noteEditor]);
+
   return (
     <View style={[styles.notesBox, styles.container]}>
       {/*Header Start*/}

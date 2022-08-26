@@ -1,9 +1,11 @@
 import { NoteHead, NoteHeadList, NotesMsg, UserEnter, UserInfoGeneral } from "../../../types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import NetCalls from "../../../network/netCalls";
-import { HeadsArg, HeadsUpdateArg } from "../../../models";
+import { GetNoteArg, HeadsArg, HeadsUpdateArg } from "../../../models";
 import { NativeModules } from "react-native";
 import {format} from "date-fns";
+import { useAppDispatch } from "../../hooks";
+import { openNote } from "./noteEditor";
 
 const initialState = {
   heads: [],
@@ -39,9 +41,7 @@ const parseTime = (a:number) => {
  * THUNKS
  * 
 */
-export const getNote = createAsyncThunk('noteHead/getNote', async () => {
 
-});
 
 export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsUpdateArg)=>{
   const userinfo = hua.userinfo;

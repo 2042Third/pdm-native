@@ -52,7 +52,7 @@ export class NoteHead{
 export class NotesMsg extends NoteHead{
   content:  string = '';
   email: string = '';
-  note_id: string = '';
+  // note_id: string = '';
   session: string = '';
   ntype: string = ''; // 0 update, 1 new, 2 heads, 3 retrieve
   sess: string = '';
@@ -60,6 +60,7 @@ export class NotesMsg extends NoteHead{
   username: string = '';
   status: string = '';
   encry: string = "yes";
+  hash: string = '';
   // pdm security version should be tracked always whenever there is an encryption
   // pdmSecurityVersion;
 }

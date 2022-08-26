@@ -8,7 +8,13 @@ export default class NetCalls {
   private static signinURL: string = this.pdmRootURL + '/auth/signin';
   private static signupURL: string = this.pdmRootURL + '/auth/signin';
   private static notesGetHeadsURL: string = this.pdmRootURL + '/auth/note';
+
   private static notesGetHeadsType: string = 'heads'; 
+  private static notesGetNoteType: string = 'retrieve';
+  private static notesGetNewNote: string = 'new';
+  private static notesUpdateNote: string = 'update';
+
+
 
   static async signin(umail: any, upw: any) {
     return Net.post(this.signinURL, JSON.stringify({ "umail": umail, "upw": upw }))
@@ -34,7 +40,7 @@ export default class NetCalls {
    * Gets the heads of notes for a user
    * 
   */
-  static async notesGetHeads(sessKey:string, email:string ) {
+  static async notesGetHeads(sessKey: string, email: string) {
     return Net.post(this.notesGetHeadsURL,
       JSON.stringify({
         "username": "", // should not send unencrypted username
@@ -43,11 +49,21 @@ export default class NetCalls {
         "ntype": this.notesGetHeadsType,
         "email": email,
       }));
-    // if (notesHeadsReturn!= null ){
-    //   return notesHeadsReturn.json();
-    // }
-    // else {
-    //   return {};
-    // }
+  }
+
+  /**
+   * Gets a note for a user
+   * 
+  */
+  static async notesGetNote(sessKey: string, email: string, note_id:string) {
+    return Net.post(this.notesGetHeadsURL,
+      JSON.stringify({
+        "username": "", 
+        "content": "",
+        "sess": sessKey,
+        "ntype": this.notesGetNoteType,
+        "email": email,
+        "note_id": note_id,
+      }));
   }
 }

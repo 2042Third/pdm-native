@@ -6,7 +6,8 @@ import { View } from "react-native-ui-lib";
 import { shallowEqual, useSelector } from "react-redux";
 import { styles } from "../../../assets/Style";
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
-import { getHeads, newHeads, selectNoteByKey } from "../../handle/redux/reducers/notes/notesHeadsReducer";
+import { getNote } from "../../handle/redux/reducers/notes/noteEditor";
+import { getHeads,  newHeads, selectNoteByKey } from "../../handle/redux/reducers/notes/notesHeadsReducer";
 import { NoteHead, NoteHeadList } from "../../handle/types";
 
 
@@ -32,10 +33,12 @@ const NotesMenu = ({navigation}) => {
 
   const selectNoteId = (state: { noteHeads: { heads: NoteHead[]; }; }) => state.noteHeads.heads.map((head) => head.key);
   const noteids = useSelector(selectNoteId, shallowEqual);
+
   const onSelectNote = (key:string)=> {
     navigation.toggleDrawer();
     const selectedHead = selectNoteByKey(noteHead,key);
     console.log(JSON.stringify(selectedHead));
+    dispatch(getNote({user:user,note_id:selectedHead.note_id}));
   };
 
   const NoteItem = () => {

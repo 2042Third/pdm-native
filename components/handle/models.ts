@@ -8,3 +8,7 @@ export class HeadsUpdateArg {
   userinfo: UserInfoGeneral = new UserInfoGeneral;
   user: UserEnter = new UserEnter;
 };
+export class GetNoteArg {
+  user: UserEnter = new UserEnter;
+  note_id: string = '';
+};
