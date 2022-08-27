@@ -45,6 +45,18 @@ export const styles = StyleSheet.create({
   menuButton:{
     padding: 9,
   },
+  lightContainerColor:{
+    backgroundColor: colors["--background-tertiary"]
+  },
+  centerTextContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  centerTextPadding: {
+    padding: 9,
+    margin:7,
+  },
   inputAreaColor: {
     backgroundColor: colors['--background-tertiary'],
     color: colors['--foreground-default'],

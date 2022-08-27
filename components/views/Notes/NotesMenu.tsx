@@ -42,6 +42,7 @@ const NotesMenu = ({navigation}) => {
   };
 
   const NoteItem = () => {
+
     const children = noteHead.heads.map((item:NoteHead)=>(
       <TouchableOpacity
         key={item.key}
@@ -61,8 +62,19 @@ const NotesMenu = ({navigation}) => {
     )
   }
 
+
+  const createNewNote = () => {
+
+  };
+
   return (
     <View style={[]}>
+      <TouchableOpacity
+        style={[styles.lightContainerColor,styles.centerTextContainer, styles.centerTextPadding]}
+        onPress={createNewNote}
+      >
+        <Text style={[styles.normalText]}>New Note</Text>
+      </TouchableOpacity>
       <NoteItem></NoteItem>
     </View>
   )
