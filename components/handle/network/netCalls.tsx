@@ -1,6 +1,6 @@
 import Net from "./net";
 import { useSelector, shallowEqual, Provider, useDispatch } from "react-redux";
-import { UserInfoGeneral } from "../types";
+import { NotesMsg, UserInfoGeneral } from "../types";
 import { Platform } from "react-native";
 
 export default class NetCalls {
@@ -11,8 +11,8 @@ export default class NetCalls {
 
   private static notesGetHeadsType: string = 'heads'; 
   private static notesGetNoteType: string = 'retrieve';
-  private static notesGetNewNote: string = 'new';
-  private static notesUpdateNote: string = 'update';
+  private static notesGetNewNoteType: string = 'new';
+  private static notesUpdateNoteType: string = 'update';
 
 
 
@@ -55,15 +55,31 @@ export default class NetCalls {
    * Gets a note for a user
    * 
   */
-  static async notesGetNote(sessKey: string, email: string, note_id:string) {
+  static async notesGetNote(sessKey: string, email: string, note_id: string) {
     return Net.post(this.notesGetHeadsURL,
       JSON.stringify({
-        "username": "", 
+        "username": "",
         "content": "",
         "sess": sessKey,
         "ntype": this.notesGetNoteType,
         "email": email,
         "note_id": note_id,
+      }));
+  }
+  /**
+   * Updates a Note
+   * 
+  */
+  static async notesUpdateNote(sessKey: string, email: string, noteMsg:NotesMsg) {
+    return Net.post(this.notesGetHeadsURL,
+      JSON.stringify({
+        "username": "",
+        "head": noteMsg.head,
+        "content": noteMsg.content,
+        "sess": sessKey,
+        "ntype": this.notesUpdateNoteType,
+        "email": email,
+        "note_id": noteMsg.note_id,
       }));
   }
 }

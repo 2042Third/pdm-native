@@ -1,4 +1,4 @@
-import { NoteHeadList, UserEnter, UserInfoGeneral } from "./types";
+import { NoteHeadList, NotesMsg, UserEnter, UserInfoGeneral } from "./types";
 
 export class HeadsArg {
   heads: NoteHeadList = new NoteHeadList;
@@ -11,4 +11,8 @@ export class HeadsUpdateArg {
 export class GetNoteArg {
   user: UserEnter = new UserEnter;
   note_id: string = '';
+};
+export class UpdateNoteArg {
+  user: UserEnter = new UserEnter;
+  noteMsg: NotesMsg = new NotesMsg;
 };

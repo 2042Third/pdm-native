@@ -1,7 +1,7 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { NativeModules } from "react-native";
-import { GetNoteArg } from "../../../models";
+import { GetNoteArg, UpdateNoteArg } from "../../../models";
 import NetCalls from "../../../network/netCalls";
 import { NoteHead, NotesMsg, UserEnter } from "../../../types";
 import { useAppDispatch } from "../../hooks";
@@ -25,7 +25,11 @@ const userNoteEditorClearData = {
   encry: "",
   hash:  '',
 } as NotesMsg;
-
+/**
+ * 
+ * THUNKS
+ * 
+*/
 export const getNote = createAsyncThunk('noteHead/getNote', async (argu: GetNoteArg) => {
   const { PdmNativeCryptModule } = NativeModules;
   const user = argu.user;
@@ -40,12 +44,79 @@ export const getNote = createAsyncThunk('noteHead/getNote', async (argu: GetNote
   // Make new object to store decrypted
   let load = new NotesMsg;
   load = JSON.parse(JSON.stringify(note));
-  load.content = await PdmNativeCryptModule.dec(user.upw, load.content);
-  load.head = await PdmNativeCryptModule.dec(user.upw, load.head);
+  if (load.content === null || load.content === '') {
+    load.content = "";
+  } else {
+    load.content = await PdmNativeCryptModule.dec(user.upw, load.content);
+  }
+  if (load.head === null || load.head === '') {
+    // load.head = "Unnamed Note " + load.note_id;
+  } else {
+    load.head = await PdmNativeCryptModule.dec(user.upw, load.head);
+  }
   console.log(`Note decrypted ${JSON.stringify(load)}`);
 
   return load;
 });
+
+export const updateNote = createAsyncThunk('noteHead/updateNote', async (argu: UpdateNoteArg) => {
+  const { PdmNativeCryptModule } = NativeModules;
+  const user = argu.user;
+  let noteMsg = argu.noteMsg;
+
+  // Encrypt
+  console.log(`Update Note before encrypt ${JSON.stringify(noteMsg)}`);
+  console.log(`Update Note before encrypt\n`
+    + `args upw: ${user.upw}\n`
+    + `args head: ${noteMsg.head}\n`
+    + `args content: ${noteMsg.content}`
+    );
+  const out = await PdmNativeCryptModule.enc(user.upw, noteMsg.content);
+  console.log(`Update Note after out ${out}`);
+  const outhead = await PdmNativeCryptModule.enc(user.upw, noteMsg.head);
+  console.log(`Update Note after outhead ${outhead}`);
+  const newNote = {
+    ...noteMsg,
+    head: outhead,
+    content: out,
+  };
+  console.log(`Update Note  after ${JSON.stringify(newNote)}`);
+
+  // Get note from server
+  const netReturn = await NetCalls.notesUpdateNote(user.sess, user.umail, newNote);
+  const note = await netReturn?.json();
+  console.log(`Update Note received ${JSON.stringify(note)}`);
+  // const note = newNote; // FAKE
+
+  // Decrypt
+  // Make new object to store decrypted
+  let load = new NotesMsg;
+  load = JSON.parse(JSON.stringify(note));
+  if (load.content === null || load.content === '') {
+    load.content = "";
+  } else {
+    load.content = await PdmNativeCryptModule.dec(user.upw, load.content);
+  }
+  if (load.head === null || load.head === '') {
+    // load.head = "Unnamed Note " + load.note_id;
+  } else {
+    load.head = await PdmNativeCryptModule.dec(user.upw, load.head);
+  }
+  console.log(`Note decrypted ${JSON.stringify(load)}`);
+
+  return load;
+});
+
+export const updateEditsContent = createAsyncThunk('noteHead/updateEditsContent', async (content: string) => {
+  console.log(`Note contant request: ${content}`);
+  return content;
+});
+
+export const updateEditsHead = createAsyncThunk('noteHead/updateEditsHead', async (head: string) => {
+  console.log(`Note head request: ${head}`); 
+  return head;
+});
+
 export const NoteEditorSlice = createSlice({
   name: 'userinfoEnter',
   initialState: {
@@ -73,10 +144,20 @@ export const NoteEditorSlice = createSlice({
       return action.payload;
     },
   },
-  extraReducers(builder) {
+  extraReducers(builder) { // pending/fulfilled/rejected
     builder
       .addCase(getNote.fulfilled, (state, action) => {
         return action.payload;
+      })
+      .addCase(updateEditsContent.fulfilled, (state, action) => {
+        let load = state;
+        load.content = action.payload;
+        return load;
+      })
+      .addCase(updateEditsHead.fulfilled, (state, action) => {
+        let load = state;
+        load.head = action.payload;
+        return load;
       })
   },
 });
