@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../handle/redux/hooks';
 import { UpdateNoteArg } from '../../handle/models';
 import { updateEditsContent, updateEditsHead, updateNote } from '../../handle/redux/reducers/notes/noteEditor';
 import { useDispatch } from 'react-redux';
+import { NotesMsg } from '../../handle/types';
 
 const NotesView = () => {
   const [headerValue, onChangeText] = React.useState('');
@@ -13,30 +14,24 @@ const NotesView = () => {
   const [isFocused, onFocusingHeader] = React.useState(false);
   const dispatch = useAppDispatch();
 
-  const noteEditor = useAppSelector(state => state.noteEditor);
+  const noteEditor:NotesMsg = useAppSelector(state => state.noteEditor);
   const user = useAppSelector(state => state.userEnter);
 
-  const onFinishedEdit = () => {
+  const onFinishedEdit = async () => {
     if (noteEditor.status !== "success" || noteEditor.note_id === '') {
       return;
     }
-    setTimeout(() => {
-      dispatch(updateEditsContent(noteValue)).then(() => {
-        dispatch(updateEditsHead(headerValue)).then(() => {
-          setTimeout(() => {
-            if (noteEditor.head === headerValue && noteEditor.content === noteValue) {
-              const arg: UpdateNoteArg = { user: user, noteMsg: noteEditor };
-              dispatch(updateNote(arg));
-              console.log(`Finished update dispatch. Note obj => ${JSON.stringify(noteEditor)}`);
-            }
-            else {
-              console.log(`Content cannot be changed due to changes`);
-              
-            }
-          }, 1000);
-        })
-      });
-    }, 200);
+    console.log(`START FINISHER`)
+    await dispatch(updateEditsContent(noteValue));
+    await dispatch(updateEditsHead(headerValue));
+    const arg: UpdateNoteArg = { 
+      user: user,
+      noteMsg: {...noteEditor, head: headerValue, content: noteValue }
+    };
+    dispatch(updateNote(arg));
+    console.log(`Finished update dispatch. Note obj => ${JSON.stringify(noteEditor)}`);
+     
+    ;
     
 
   };
@@ -44,7 +39,7 @@ const NotesView = () => {
   useEffect(()=>{
     onChangeNote(noteEditor.content);
     onChangeText(noteEditor.head);
-    console.log(`There is editing, head \"${noteEditor.content}\", content: \"${noteEditor.head}\"`);
+    console.log(`There is editing, head \"${noteEditor.head}\", content: \"${noteEditor.content}\"`);
   },[noteEditor]);
 
   return (
