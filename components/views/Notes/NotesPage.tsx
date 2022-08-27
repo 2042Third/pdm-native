@@ -75,4 +75,4 @@ const NotesView = () => {
 };
 
 // export default gestureHandlerRootHOC(NotesView);
-export default NotesView;
+export default React.memo(NotesView);

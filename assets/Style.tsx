@@ -50,6 +50,7 @@ export const styles = StyleSheet.create({
   },
   centerTextContainer: {
     flex: 1,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
