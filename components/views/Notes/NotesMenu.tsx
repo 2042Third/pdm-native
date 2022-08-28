@@ -1,17 +1,18 @@
 import { oneOfType } from "prop-types";
 import React, { useEffect } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { RefreshControl, Text, TouchableOpacity } from "react-native";
 import { View } from "react-native-ui-lib";
 import { shallowEqual, useSelector } from "react-redux";
 import { styles } from "../../../assets/Style";
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
 import { getNote } from "../../handle/redux/reducers/notes/noteEditor";
-import { getHeads,  newHeads, selectNoteByKey } from "../../handle/redux/reducers/notes/notesHeadsReducer";
-import { NoteHead, NoteHeadList } from "../../handle/types";
+import { getHeads,  newHeads, newNote, selectNoteByKey } from "../../handle/redux/reducers/notes/notesHeadsReducer";
+import { NoteHead, NoteHeadList, NotesMsg } from "../../handle/types";
 import Icon from "../../icons/Icon";
 import * as RootNavigation from "../../platform/RootNavigation";
 
 import { useNavigation } from '@react-navigation/native';
+import { ScrollView } from "react-native-gesture-handler";
 const NotesMenu = ({  }) => {
   // const NotesMenu = ({navigation}) => {
   const dispatch = useAppDispatch();
@@ -20,26 +21,42 @@ const NotesMenu = ({  }) => {
   const noteHead = useAppSelector(state => state.noteHeads);
   const navigation = useNavigation();
 
-  useEffect(() => {
-    if(user.sess !== ''){
+  const selectNoteId = (state: { noteHeads: { heads: NoteHead[]; }; }) => state.noteHeads.heads.map((head) => head.key);
+  const noteids = useSelector(selectNoteId, shallowEqual);
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = ()=>{
+    getHeadsFromServer();
+  }
+
+  const getHeadsFromServer = () => {
+    if (user.sess !== '') {
       console.log(`Notes Menu update: ${userinfo.status}`);
       if (userinfo.status === "success") {
-        dispatch(getHeads({ userinfo: userinfo, user: user }));
+        setRefreshing(true);
+        dispatch(getHeads({ userinfo: userinfo, user: user }))
+        .then(()=>{
+          setRefreshing(false);
+        })
+        .catch((e) => { 
+          setRefreshing(false); 
+          console.log("Failue getting heads from server:\n"+e)
+        });
       }
     }
+  }
+
+  useEffect(() => {
+    getHeadsFromServer();
   }, [user]);
 
   useEffect(()=>{
     console.log("mountin note menu");
   },[]);
 
-  const selectNoteId = (state: { noteHeads: { heads: NoteHead[]; }; }) => state.noteHeads.heads.map((head) => head.key);
-  const noteids = useSelector(selectNoteId, shallowEqual);
 
   const onSelectNote = (key:string)=> {
-    // if (navigationRef.isReady()) {
-      // RootNavigation.toggleDrawer();
-    // }
     navigation.navigate("NotesEdit",{});
     const selectedHead = selectNoteByKey(noteHead,key);
     console.log(JSON.stringify(selectedHead));
@@ -47,7 +64,7 @@ const NotesMenu = ({  }) => {
   };
 
   const NoteItemCell = (item:NoteHead) => {
-    console.log("item mounting");
+    // console.log("item mounting");
     return (
       <TouchableOpacity
         key={item.key}
@@ -55,7 +72,7 @@ const NotesMenu = ({  }) => {
       >
         <View style={[styles.notesListingItemContainer]}>
           <Text style={[styles.normalText]}>{item.head === '' ? 'Unnamed note ' + item.id : item.head}</Text>
-          <Text style={[styles.smallText]}> {item.utime}</Text>
+          <Text style={[styles.smallText]}> {item.ctime}</Text>
         </View>
       </TouchableOpacity>
       
@@ -68,14 +85,26 @@ const NotesMenu = ({  }) => {
       NoteItemCell(item)
     ));
     return (
-      <>
-        {children}
-      </>
+      <ScrollView
+        contentContainerStyle={[{flex:1,}]}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      >      
+          {children}
+      </ScrollView>
+      
     )
   }
   
   const createNewNote = () => {
-
+    if(userinfo.status === 'success'){
+      console.log(`dispatched new note`);
+      dispatch(newNote({ user: user, noteMsg: new NotesMsg }));
+    }
   };
 
   return (
@@ -89,6 +118,7 @@ const NotesMenu = ({  }) => {
         />
         <Text style={[styles.normalText]}>New Note</Text>
       </TouchableOpacity>
+
       <NoteItem></NoteItem>
     </View>
   )

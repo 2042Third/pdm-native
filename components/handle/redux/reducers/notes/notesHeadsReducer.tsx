@@ -1,7 +1,7 @@
 import { NoteHead, NoteHeadList, NotesMsg, UserEnter, UserInfoGeneral } from "../../../types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import NetCalls from "../../../network/netCalls";
-import { GetNoteArg, HeadsArg, HeadsUpdateArg } from "../../../models";
+import { GetNoteArg, HeadsArg, HeadsUpdateArg, UpdateNoteArg } from "../../../models";
 import { NativeModules } from "react-native";
 import {format} from "date-fns";
 import { useAppDispatch } from "../../hooks";
@@ -10,6 +10,7 @@ import { openNote } from "./noteEditor";
 const initialState = {
   heads: [],
   netHash: "",
+  netStatus: "pending", 
 } as NoteHeadList;
 
  /**
@@ -103,6 +104,19 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
   return JSON.parse(JSON.stringify(load));
 });
 
+export const newNote = createAsyncThunk('noteHead/newNote', async (argu: UpdateNoteArg) => {
+  const { PdmNativeCryptModule } = NativeModules;
+  const user = argu.user;
+  let noteMsg = argu.noteMsg;
+
+  // Get note from server
+  const netReturn = await NetCalls.notesGetNewNote(user.sess, user.umail, noteMsg);
+  const note: NotesMsg = await netReturn?.json();
+  console.log(`New Note received ${JSON.stringify(note)}`);
+  // const note = newNote; // FAKE
+
+  return JSON.parse(JSON.stringify(note));
+});
 
 /**
  * STORE
@@ -116,7 +130,7 @@ export const NotesHeadsSlice = createSlice({
       return action.payload;
     },
   },
-  extraReducers(builder) {
+  extraReducers(builder) {// pending/fulfilled/rejected
     builder
       .addCase(getHeads.fulfilled, (state, action) => {
         state = {
@@ -124,6 +138,23 @@ export const NotesHeadsSlice = createSlice({
           netHash: action.payload.netHash
         };
         return state;
+      })
+      .addCase(getHeads.pending, (state, action) => {
+        state = {
+          ...state,
+          netStatus: "pending"
+        };
+        return state;
+      })
+      .addCase(newNote.fulfilled, (state, action) => {
+        return {
+          ...state,
+          netStatus: "fulfilled",
+          heads: [
+            ...state.heads,
+            action.payload,
+          ]
+        };
       })
   },
 });

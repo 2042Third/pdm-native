@@ -65,22 +65,13 @@ export const updateNote = createAsyncThunk('noteHead/updateNote', async (argu: U
   let noteMsg = argu.noteMsg;
 
   // Encrypt
-  console.log(`Update Note before encrypt ${JSON.stringify(noteMsg)}`);
-  console.log(`Update Note before encrypt\n`
-    + `args upw: ${user.upw}\n`
-    + `args head: ${noteMsg.head}\n`
-    + `args content: ${noteMsg.content}`
-    );
   const out = await PdmNativeCryptModule.enc(user.upw, noteMsg.content);
-  console.log(`Update Note after out ${out}`);
   const outhead = await PdmNativeCryptModule.enc(user.upw, noteMsg.head);
-  console.log(`Update Note after outhead ${outhead}`);
   const newNote = {
     ...noteMsg,
     head: outhead,
     content: out,
   };
-  console.log(`Update Note  after ${JSON.stringify(newNote)}`);
 
   // Get note from server
   const netReturn = await NetCalls.notesUpdateNote(user.sess, user.umail, newNote);
@@ -107,6 +98,8 @@ export const updateNote = createAsyncThunk('noteHead/updateNote', async (argu: U
   return load;
 });
 
+
+ 
 export const updateEditsContent = createAsyncThunk('noteHead/updateEditsContent', async (content: string) => {
   console.log(`Note contant request: ${content}`);
   return content;
@@ -159,6 +152,7 @@ export const NoteEditorSlice = createSlice({
         load.head = action.payload;
         return load;
       })
+      
   },
 });
 

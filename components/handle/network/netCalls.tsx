@@ -66,11 +66,12 @@ export default class NetCalls {
         "note_id": note_id,
       }));
   }
+
   /**
    * Updates a Note
    * 
   */
-  static async notesUpdateNote(sessKey: string, email: string, noteMsg:NotesMsg) {
+  static async notesUpdateNote(sessKey: string, email: string, noteMsg: NotesMsg) {
     return Net.post(this.notesGetHeadsURL,
       JSON.stringify({
         "username": "",
@@ -78,6 +79,23 @@ export default class NetCalls {
         "content": noteMsg.content,
         "sess": sessKey,
         "ntype": this.notesUpdateNoteType,
+        "email": email,
+        "note_id": noteMsg.note_id,
+      }));
+  }
+
+  /**
+   * Updates a Note
+   * 
+  */
+  static async notesGetNewNote(sessKey: string, email: string, noteMsg: NotesMsg) {
+    return Net.post(this.notesGetHeadsURL,
+      JSON.stringify({
+        "username": "",
+        "head": "",
+        "content": "",
+        "sess": sessKey,
+        "ntype": this.notesGetNewNoteType,
         "email": email,
         "note_id": noteMsg.note_id,
       }));
