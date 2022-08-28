@@ -1,7 +1,7 @@
 
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, isRejectedWithValue } from "@reduxjs/toolkit";
 import { NativeModules } from "react-native";
-import { GetNoteArg, UpdateNoteArg } from "../../../models";
+import { GetNoteArg, UpdareNoteWithString, UpdateNoteArg } from "../../../models";
 import NetCalls from "../../../network/netCalls";
 import { NoteHead, NotesMsg, UserEnter } from "../../../types";
 import { useAppDispatch } from "../../hooks";
@@ -50,7 +50,7 @@ export const getNote = createAsyncThunk('noteHead/getNote', async (argu: GetNote
     load.content = await PdmNativeCryptModule.dec(user.upw, load.content);
   }
   if (load.head === null || load.head === '') {
-    // load.head = "Unnamed Note " + load.note_id;
+    load.head = "";
   } else {
     load.head = await PdmNativeCryptModule.dec(user.upw, load.head);
   }
@@ -89,7 +89,7 @@ export const updateNote = createAsyncThunk('noteHead/updateNote', async (argu: U
     load.content = await PdmNativeCryptModule.dec(user.upw, load.content);
   }
   if (load.head === null || load.head === '') {
-    // load.head = "Unnamed Note " + load.note_id;
+    load.head = "";
   } else {
     load.head = await PdmNativeCryptModule.dec(user.upw, load.head);
   }
@@ -100,14 +100,38 @@ export const updateNote = createAsyncThunk('noteHead/updateNote', async (argu: U
 
 
  
-export const updateEditsContent = createAsyncThunk('noteHead/updateEditsContent', async (content: string) => {
-  console.log(`Note contant request: ${content}`);
-  return content;
+export const updateEditsContent = createAsyncThunk('noteHead/updateEditsContent', async (argu:UpdareNoteWithString) => {
+  const { PdmNativeCryptModule } = NativeModules;
+  const content = argu.str;
+  const noteMsg: NotesMsg = argu.noteMsg;
+  // get the hash
+  const hash = await PdmNativeCryptModule.getHash(content);
+
+  if (content === '' || noteMsg.hash === hash || content === null || content === undefined){
+    isRejectedWithValue("cannot update content: value doesn't exist or the same");
+    return noteMsg;
+  }else{
+    console.log(`Note contant request: ${content}`);
+    return {
+      ...noteMsg,
+      hash: hash,
+      content: content,
+    } as NotesMsg;
+  }
+  
 });
 
-export const updateEditsHead = createAsyncThunk('noteHead/updateEditsHead', async (head: string) => {
-  console.log(`Note head request: ${head}`); 
-  return head;
+export const updateEditsHead = createAsyncThunk('noteHead/updateEditsHead', async (argu: UpdareNoteWithString) => {
+  const { PdmNativeCryptModule } = NativeModules;
+  const head = argu.str;
+  const noteMsg:NotesMsg = argu.noteMsg;
+  if (head === noteMsg.head ||!head|| head === null || head === undefined || head === ''){
+    isRejectedWithValue("cannot update head: head value is unchanged or odesn't exist");
+    return '';
+  }else {
+    console.log(`Note head request: ${head}`); 
+    return head;
+  }
 });
 
 export const NoteEditorSlice = createSlice({
@@ -144,12 +168,25 @@ export const NoteEditorSlice = createSlice({
       })
       .addCase(updateEditsContent.fulfilled, (state, action) => {
         let load = state;
-        load.content = action.payload;
+        load.status = "fulfilled";
+        load.content = action.payload.content;
+        load.hash = action.payload.hash
         return load;
       })
       .addCase(updateEditsHead.fulfilled, (state, action) => {
         let load = state;
+        load.status = "fulfilled";
         load.head = action.payload;
+        return load;
+      })
+      .addCase(updateEditsContent.rejected, (state, action) => {
+        let load = state;
+        load.status = "rejected";
+        return load;
+      })
+      .addCase(updateEditsHead.rejected, (state, action) => {
+        let load = state;
+        load.status = "rejected";
         return load;
       })
       

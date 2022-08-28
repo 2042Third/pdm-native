@@ -17,30 +17,57 @@ const NotesView = () => {
   const noteEditor:NotesMsg = useAppSelector(state => state.noteEditor);
   const user = useAppSelector(state => state.userEnter);
 
-  const onFinishedEdit = async () => {
+  const onFinishedEditContent = async () => {
     if (noteEditor.status !== "success" || noteEditor.note_id === '') {
       return;
     }
-    console.log(`START FINISHER`)
-    await dispatch(updateEditsContent(noteValue));
-    await dispatch(updateEditsHead(headerValue));
-    const arg: UpdateNoteArg = { 
+    console.log(`START FINISHER content`)
+    try {
+      await dispatch(updateEditsContent({ str: noteValue, noteMsg: noteEditor }))
+    }
+    catch (e) {
+      console.log("Dispatch update content failed.");
+      console.log(e);
+      return;
+    }
+
+    const arg: UpdateNoteArg = {
       user: user,
-      noteMsg: {...noteEditor, head: headerValue, content: noteValue }
+      noteMsg: { ...noteEditor, content: noteValue }
     };
     dispatch(updateNote(arg));
-    console.log(`Finished update dispatch. Note obj => ${JSON.stringify(noteEditor)}`);
-     
-    ;
-    
-
+    console.log(`Finished update dispatch content. Note obj => ${JSON.stringify(noteEditor)}`);
   };
 
-  useEffect(()=>{
+  const onFinishedEditHead= async () => {
+    if (noteEditor.status !== "success" || noteEditor.note_id === '') {
+      return;
+    }
+    console.log(`START FINISHER head`)
+    try {
+      await dispatch(updateEditsHead({ str: headerValue, noteMsg: noteEditor }));
+    }
+    catch (e) {
+      console.log("Dispatch update head failed.");
+      console.log(e);
+      return;
+    }
+    const arg: UpdateNoteArg = {
+      user: user,
+      noteMsg: { ...noteEditor, head: headerValue }
+    };
+    dispatch(updateNote(arg));
+    console.log(`Finished update dispatch head. Note obj => ${JSON.stringify(noteEditor)}`);
+  };
+
+  useEffect(() => {
     onChangeNote(noteEditor.content);
+    console.log(`There is editing, head \"${noteEditor.head}\", content: \"${noteEditor.content}\"`);
+  }, [noteEditor.content]);
+  useEffect(() => {
     onChangeText(noteEditor.head);
     console.log(`There is editing, head \"${noteEditor.head}\", content: \"${noteEditor.content}\"`);
-  },[noteEditor]);
+  }, [noteEditor.head]);
 
   return (
     <View style={[styles.notesBox, styles.container]}>
@@ -55,6 +82,7 @@ const NotesView = () => {
         onFocus={() => {onFocusingHeader(true);}}
         onBlur={() => {onFocusingHeader(false);}}
         onChangeText={onChangeText}
+        onEndEditing={onFinishedEditHead}
         placeholder={noteEditor.head === "" || noteEditor.head=== null ? "Unnamed Note "+noteEditor.note_id:noteEditor.head}
         placeholderTextColor={colors['--foreground-tertiary']}
         value={headerValue}
@@ -66,7 +94,7 @@ const NotesView = () => {
         textAlignVertical={'top'}
         style={[styles.notesEditStyle, styles.inputAreaColor]}
         onChangeText={onChangeNote}
-        onEndEditing={onFinishedEdit}
+        onEndEditing={onFinishedEditContent}
         value={noteValue}
       />
       {/*Notes Edit End*/}

@@ -16,3 +16,7 @@ export class UpdateNoteArg {
   user: UserEnter = new UserEnter;
   noteMsg: NotesMsg = new NotesMsg;
 };
+export class UpdareNoteWithString {
+  str: string = '';
+  noteMsg: NotesMsg = new NotesMsg;
+};
