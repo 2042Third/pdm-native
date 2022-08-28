@@ -96,9 +96,6 @@ const NotesMenu = ({  }) => {
           style={[
             styles.lightContainerColor,
             styles.centerTextContainer,
-            // styles.centerTextPadding,
-              // styles.noteMenuContent
-            
             ]}
           onPress={createNewNote}
         >
@@ -110,22 +107,15 @@ const NotesMenu = ({  }) => {
         <View
           style={[{}]}
         >
-          {/* <ScrollView
-          scrollEnabled
-          contentContainerStyle={[{  }]}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-            />
-          }
-        >
-          {children}
-        </ScrollView> */}
           <FlatList
-            // removeClippedSubviews={true}
             data={noteids}
             renderItem={({ item }) => <NoteItemCell item={item} />}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+              />
+            }
           // keyExtractor={item => item.key}
           // extractData={}
           >
