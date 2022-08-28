@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     backgroundColor: colors["--background-tertiary"]
   },
   centerTextContainer: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -164,6 +164,14 @@ export const styles = StyleSheet.create({
     color: colors['--foreground-default'],
     flexDirection: 'column',
     paddingTop: 100,
+  },
+  noteMenuViewStyle: {
+
+  },
+  noteMenuContent:{
+    fontSize: 20,
+    padding: 20,
+    color: 'green',
   },
   footerViewStyle: {
     borderStyle: 'solid',

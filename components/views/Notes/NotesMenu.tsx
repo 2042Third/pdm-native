@@ -1,6 +1,6 @@
 import { oneOfType } from "prop-types";
 import React, { useEffect } from "react";
-import { RefreshControl, Text, TouchableOpacity } from "react-native";
+import { FlatList, RefreshControl, SafeAreaView, Text } from "react-native";
 import { View } from "react-native-ui-lib";
 import { shallowEqual, useSelector } from "react-redux";
 import { styles } from "../../../assets/Style";
@@ -12,7 +12,7 @@ import Icon from "../../icons/Icon";
 import * as RootNavigation from "../../platform/RootNavigation";
 
 import { useNavigation } from '@react-navigation/native';
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 const NotesMenu = ({  }) => {
   // const NotesMenu = ({navigation}) => {
   const dispatch = useAppDispatch();
@@ -63,42 +63,24 @@ const NotesMenu = ({  }) => {
     dispatch(getNote({user:user,note_id:selectedHead.note_id}));
   };
 
-  const NoteItemCell = (item:NoteHead) => {
-    // console.log("item mounting");
+  const NoteItemCell = ({item, ...props}) => {
+    console.log("item mounting => " + JSON.stringify(item));
+
+    const itemObj = selectNoteByKey(noteHead, item);
     return (
       <TouchableOpacity
-        key={item.key}
-        onPress={() => { onSelectNote(item.key) }}
+        key={itemObj.key}
+        onPress={() => { onSelectNote(itemObj.key) }}
       >
         <View style={[styles.notesListingItemContainer]}>
-          <Text style={[styles.normalText]}>{item.head === '' ? 'Unnamed note ' + item.id : item.head}</Text>
-          <Text style={[styles.smallText]}> {item.ctime}</Text>
+          <Text style={[styles.normalText]}>{itemObj.head === '' ? 'Unnamed note ' + itemObj.id : itemObj.head}</Text>
+          <Text style={[styles.smallText]}> {itemObj.ctime}</Text>
         </View>
       </TouchableOpacity>
       
     );
   } 
 
-  const NoteItem = () => {
-    console.log(`Menu re-render`);
-    const children = noteHead.heads.map((item:NoteHead)=>(
-      NoteItemCell(item)
-    ));
-    return (
-      <ScrollView
-        contentContainerStyle={[{flex:1,}]}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }
-      >      
-          {children}
-      </ScrollView>
-      
-    )
-  }
   
   const createNewNote = () => {
     if(userinfo.status === 'success'){
@@ -108,18 +90,49 @@ const NotesMenu = ({  }) => {
   };
 
   return (
-    <View style={[]}>
-      <TouchableOpacity
-        style={[styles.lightContainerColor,styles.centerTextContainer, styles.centerTextPadding]}
-        onPress={createNewNote}
-      >
-        <Icon style={[styles.menuButton]}
-          name={'playlist-plus'} size={30}
-        />
-        <Text style={[styles.normalText]}>New Note</Text>
-      </TouchableOpacity>
-
-      <NoteItem></NoteItem>
+    <View style={[ styles.noteMenuViewStyle]}>
+      <View style={styles.noteMenuContent}>
+        <TouchableOpacity
+          style={[
+            styles.lightContainerColor,
+            styles.centerTextContainer,
+            // styles.centerTextPadding,
+              // styles.noteMenuContent
+            
+            ]}
+          onPress={createNewNote}
+        >
+          <Icon style={[styles.menuButton]}
+            name={'playlist-plus'} size={30}
+          />
+          <Text style={[styles.normalText]}>New Note</Text>
+        </TouchableOpacity>
+        <View
+          style={[{}]}
+        >
+          {/* <ScrollView
+          scrollEnabled
+          contentContainerStyle={[{  }]}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
+        >
+          {children}
+        </ScrollView> */}
+          <FlatList
+            // removeClippedSubviews={true}
+            data={noteids}
+            renderItem={({ item }) => <NoteItemCell item={item} />}
+          // keyExtractor={item => item.key}
+          // extractData={}
+          >
+          </FlatList>
+        </View>
+        {/* <NoteItem noteids={noteids}></NoteItem> */}
+      </View>
     </View>
   )
 }

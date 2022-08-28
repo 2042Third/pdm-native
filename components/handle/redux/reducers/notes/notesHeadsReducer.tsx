@@ -23,7 +23,7 @@ export const selectNoteByKey = (noteHeads: { heads: any[]; } , key: string) => {
 
 function nextNoteHeadId(heads: NoteHead[]) {
   const maxIds = heads.reduce(
-    (maxId: number, head: NoteHead) => Math.max(parseInt(head.key), maxId),
+    (maxId: number, head: NoteHead) => Math.max(head.key, maxId),
     -1,
   );
   return maxIds + 1;
@@ -79,7 +79,7 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
     tmpH.time = parseFloat(h.time);
     tmpH.id = parseInt(h.note_id);
     tmpH.update_time = parseFloat(h.update_time);
-    tmpH.key = nextNoteHeadId(b).toString();
+    tmpH.key = nextNoteHeadId(b);
     let decO='';
 
     if (h.head != null && h.head != undefined){

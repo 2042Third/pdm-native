@@ -88,6 +88,7 @@ const NotesView = () => {
         value={headerValue}
       />
       {/*Header End*/}
+      
       {/*Notes Edit Start*/}
       <TextInput
         multiline={true}

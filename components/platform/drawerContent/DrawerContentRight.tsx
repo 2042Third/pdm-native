@@ -20,14 +20,23 @@ export default function CustomDrawerContentRight({ ...props }) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <DrawerContentScrollView {...props}>
+      <NotesMenu navigation={props.navigation} {...props}></NotesMenu>
+      {/* <DrawerContentScrollView {...props}>
         <Animated.View style={{ transform: [{ translateX }] }}>
-          <NotesMenu navigation={props.navigation} {...props}></NotesMenu>
           <DrawerItemList state={props.state}
             navigation={props.navigation} descriptors={props.descriptors} {...props} />
         </Animated.View>
-      </DrawerContentScrollView>
-      
+      </DrawerContentScrollView> */}
+
+      {/* <View style={styles.footerViewStyle}>
+        <View style={styles.footerContent}>
+          <Icon
+            name={'cog-outline'} size={24}
+            onPress={() => props.navigation.navigate('Settings')}
+            color={colors['--foreground-default']}
+          />
+        </View>
+      </View> */}
     </SafeAreaView>
   );
 }
