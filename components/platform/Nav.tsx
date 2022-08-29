@@ -10,6 +10,7 @@ import Icon from '../icons/Icon';
 import {
   DrawerContentScrollView,
   DrawerItemList,
+  DrawerToggleButton,
   useDrawerProgress,
 } from '@react-navigation/drawer';
 import { shallowEqual, useSelector } from "react-redux";
@@ -60,6 +61,7 @@ const Nav = (props: {Drawer: any}) => {
           options={{
             headerStyle: styles.drawerHeaderStyle,
             headerTitleStyle: styles.drawerHeaderTitleStyle,
+            headerLeft: () => <DrawerToggleButton tintColor={colors['--foreground-default']} />,
           }}
         />
         {/*User*/}
@@ -69,6 +71,7 @@ const Nav = (props: {Drawer: any}) => {
           options={{
             headerStyle: styles.drawerHeaderStyle,
             headerTitleStyle: styles.drawerHeaderTitleStyle,
+            headerLeft: () => <DrawerToggleButton tintColor={colors['--foreground-default']} />,
           }}
         />
         {/*Settings*/}
