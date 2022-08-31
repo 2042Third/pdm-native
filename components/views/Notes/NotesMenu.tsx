@@ -132,8 +132,10 @@ const NotesMenu = ({  }) => {
         key={itemObj.key}
         style={[{  flexDirection: "row", justifyContent: 'space-between' }]}>
 
-        <TouchableOpacity
-          style={[{ }]}
+        <Pressable
+          style={({ pressed }) => [
+            { opacity: pressed ? 0.5 : 1.0 }
+          ]}
           onPress={() => { onSelectNote(itemObj.key) }}
         >
           <View style={[styles.notesListingItemContainer]}
@@ -147,16 +149,18 @@ const NotesMenu = ({  }) => {
               {itemObj.ctime}
             </Text>
           </View>
-        </TouchableOpacity>
+        </Pressable>
 
-        <TouchableOpacity
-          style={[{  width: 40,  }]}
+        <Pressable
+          style={({ pressed }) => [
+            {width:40, opacity: pressed ? 0.5 : 1.0 }
+          ]}
           onPress={() => { onLongPressNote(itemObj.key) }}
         >
           <Icon style={[styles.menuButton]}
             name={'dots-vertical'} size={30}
           />
-        </TouchableOpacity>
+        </Pressable>
       </View>
     );
   }
