@@ -3,9 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import NetCalls from "../../../network/netCalls";
 import { GetNoteArg, HeadsArg, HeadsUpdateArg, UpdateNoteArg } from "../../../models";
 import { NativeModules } from "react-native";
-import {format} from "date-fns";
-import { useAppDispatch } from "../../hooks";
-import { openNote } from "./noteEditor";
+import { parseTime } from "../helpers";
 
 const initialState = {
   heads: [],
@@ -29,14 +27,7 @@ function nextNoteHeadId(heads: NoteHead[]) {
   return maxIds + 1;
 }
 
-const parseTime = (a:number) => {
-  
-  console.log(`Making time ${a}`);
-  let ti = new Date(a * 1000);
-  const out = format(ti, "H:mma, MMMM do, yyyy");
-  console.log(`Making time complete ${out}`);
-  return out;
-};
+
 
 /**
  * THUNKS

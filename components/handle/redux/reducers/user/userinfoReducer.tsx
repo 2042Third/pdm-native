@@ -1,5 +1,6 @@
 import { AsyncThunkAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { NativeModules } from "react-native";
+import { min } from "react-native-reanimated";
 import { useDispatch } from "react-redux";
 import { dec } from "../../../handlers/user";
 import PdmNativeCryptModule from "../../../native/NativeModule";
@@ -7,6 +8,7 @@ import NetCalls from "../../../network/netCalls";
 import { UserEnter, UserInfoGeneral } from "../../../types";
 import { useAppDispatch } from "../../hooks";
 import { PdmActions } from "../actionType";
+import { parseTime } from "../helpers";
 import { setUserSess } from "./userinfoEnter";
 
 
@@ -46,6 +48,10 @@ export const signinUser = createAsyncThunk('userStatus/signinUser', async (user:
   } else {
     netReturn.status = "fail";
     netReturn.statusInfo = "Cannot decrypt the incoming user info.";
+  }
+
+  if (netReturn.time !== null) {
+    netReturn.ctime = parseTime(netReturn.time);
   }
 
   return netReturn;

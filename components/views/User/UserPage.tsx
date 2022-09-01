@@ -18,7 +18,50 @@ import { signinUser,  updateUserStatus, userClearData } from "../../handle/redux
 import userinfoEnter, { newUserinfoEnter, setUserSess, userEnterClearData } from "../../handle/redux/reducers/user/userinfoEnter";
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
 
-export default function UserPage({}) {
+interface UserinfoArg  {
+  userInfo: UserInfoGeneral,
+};
+
+const UserPage = () => {
+
+  const userInfo = useAppSelector(state => state.userinfo);
+
+  const userScreen = () => {
+    if(userInfo.status === 'fail') {
+      return (<UserPageSignin userInfo={userInfo}  />)
+    }
+    else {
+      return (< UserProfile userInfo={userInfo} />);
+    }
+  }
+  return (
+    <>
+      {userScreen()}
+    </>
+  );
+}
+
+// USER PROFILE
+const UserProfile = ({ userInfo }: UserinfoArg) => {
+  console.log("Login success, rendering from profile.");
+  return (
+    <View style={[styles.mainColor,  { flex: 1 , flexDirection:"column"}]}>
+      <Text style={[styles.normalText, styles.centerTextPadding]}>
+         {userInfo.username}
+      </Text>
+      <Text style={[styles.normalText, styles.centerTextPadding]}>
+        email: {userInfo.email}
+      </Text>
+      <Text style={[styles.smallText, styles.centerTextPadding]}>
+        Account Created: {userInfo.ctime}
+      </Text>
+
+    </View>
+  );
+}
+
+// SIGNIN
+const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
   let emailPlaceHolder:string = 'email';
   let passwordPlaceHolder:string = 'password';
   let loginPlaceholder:string = 'login';
@@ -29,7 +72,7 @@ export default function UserPage({}) {
   const dispatch = useAppDispatch();
 
   const userEnter = useAppSelector(state => state.userEnter);
-  const userInfo = useSelector(state => state.userinfo);
+  // const userInfo = useAppSelector(state => state.userinfo);
 
   /**
    * Makes the password that can be sent to server securely,
@@ -124,3 +167,5 @@ export default function UserPage({}) {
     </KeyboardAvoidingView>
   );
 }
+
+export default UserPage;

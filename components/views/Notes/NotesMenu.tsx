@@ -79,50 +79,6 @@ const NotesMenu = ({  }) => {
     }
   }
 
-//   class NoteItemCell extends React.PureComponent {
-  
-//   item = this.props.item;
-//   render(){
-//     const itemObj = selectNoteByKey(noteHead, this.item);
-//     console.log("item mounting => " + JSON.stringify(this.item));
-//     return (
-//       <View
-//         key={itemObj.key}
-//         style={[{ flexDirection: "row", justifyContent: 'space-between' }]}
-//         >
-
-//         <TouchableOpacity
-//           style={[{}]}
-//           onPress={() => { onSelectNote(itemObj.key) }}
-
-//         >
-//           {/* <View style={[styles.notesListingItemContainer]}> */}
-//           <Text style={[styles.normalText]}
-//           >
-//             {itemObj.head === '' ? 'Unnamed note ' + itemObj.id : itemObj.head}
-//           </Text>
-//           <Text style={[styles.smallText]}>
-//             {itemObj.ctime}
-//           </Text>
-//           {/* </View> */}
-//         </TouchableOpacity>
-
-//         <TouchableOpacity
-//           style={[{ width: 40, }]}
-//           onPress={() => { onLongPressNote(itemObj.key) }}
-//         >
-//           <Icon style={[styles.menuButton]}
-//             name={'dots-vertical'} size={30}
-//           />
-//         </TouchableOpacity>
-//       </View>
-//     );
-//   }
-// } 
-  const _renderItem = ({ item }) => (
-    // React.memo(NoteItemCell(item ))
-    <NoteItemCell item={item}/>
-  );
   const NoteItemCell = ({item}) => {
     console.log("item mounting => " + JSON.stringify(item));
 

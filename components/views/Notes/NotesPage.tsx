@@ -1,7 +1,7 @@
 import { View} from 'react-native';
 import {styles, colors} from '../../../assets/Style';
 import React, { useEffect } from 'react';
-import { TextInput, gestureHandlerRootHOC } from 'react-native-gesture-handler';
+import { TextInput, gestureHandlerRootHOC, ScrollView } from 'react-native-gesture-handler';
 import { useAppDispatch, useAppSelector } from '../../handle/redux/hooks';
 import { UpdateNoteArg } from '../../handle/models';
 import { updateEditsContent, updateEditsHead, updateNote } from '../../handle/redux/reducers/notes/noteEditor';
@@ -72,26 +72,31 @@ const NotesView = () => {
   return (
     <View style={[styles.notesBox, styles.container]}>
       {/*Header Start*/}
-      <TextInput
-        style={[
-          styles.notesHeaderStyle,
-          styles.inputAreaColorSecond,
-          { backgroundColor: isFocused ?
-              colors['--background-tertiary'] : colors['--background-default'],
-          },]}
-        onFocus={() => {onFocusingHeader(true);}}
-        onBlur={() => {onFocusingHeader(false);}}
-        onChangeText={onChangeText}
-        onEndEditing={onFinishedEditHead}
-        placeholder={noteEditor.head === "" || noteEditor.head=== null ? "Unnamed Note "+noteEditor.note_id:noteEditor.head}
-        placeholderTextColor={colors['--foreground-tertiary']}
-        value={headerValue}
-      />
+      {/* <ScrollView> */}
+
+        <TextInput
+          style={[
+            styles.notesHeaderStyle,
+            styles.inputAreaColorSecond,
+            {
+              backgroundColor: isFocused ?
+                colors['--background-tertiary'] : colors['--background-default'],
+            },]}
+          onFocus={() => { onFocusingHeader(true); }}
+          onBlur={() => { onFocusingHeader(false); }}
+          onChangeText={onChangeText}
+          onEndEditing={onFinishedEditHead}
+          placeholder={noteEditor.head === "" || noteEditor.head === null ? "Unnamed Note " + noteEditor.note_id : noteEditor.head}
+          placeholderTextColor={colors['--foreground-tertiary']}
+          value={headerValue}
+        />
+      {/* </ScrollView> */}
       {/*Header End*/}
       
       {/*Notes Edit Start*/}
       <TextInput
         multiline={true}
+        scrollEnabled={true}
         textAlignVertical={'top'}
         style={[styles.notesEditStyle, styles.inputAreaColor]}
         onChangeText={onChangeNote}
