@@ -24,10 +24,11 @@ interface UserinfoArg  {
 
 const UserPage = () => {
 
+  const userEnter = useAppSelector(state => state.userEnter);
   const userInfo = useAppSelector(state => state.userinfo);
 
   const userScreen = () => {
-    if(userInfo.status === 'fail') {
+    if (userInfo.status === 'fail' || userEnter.sess === "") {
       return (<UserPageSignin userInfo={userInfo}  />)
     }
     else {
@@ -49,11 +50,17 @@ const UserProfile = ({ userInfo }: UserinfoArg) => {
       <Text style={[styles.normalText, styles.centerTextPadding]}>
          {userInfo.username}
       </Text>
+      <Text style={[styles.smallText, styles.centerTextPadding]}>
+        Email: 
+      </Text>
       <Text style={[styles.normalText, styles.centerTextPadding]}>
-        email: {userInfo.email}
+        {userInfo.email}
       </Text>
       <Text style={[styles.smallText, styles.centerTextPadding]}>
-        Account Created: {userInfo.ctime}
+        Account Created:
+      </Text>
+      <Text style={[styles.normalText, styles.centerTextPadding]}>
+        {userInfo.ctime}
       </Text>
 
     </View>
