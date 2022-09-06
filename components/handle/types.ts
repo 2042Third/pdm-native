@@ -73,3 +73,6 @@ export class UserEnter {
   sess: string = "";
 };
 
+export class AppSettings{
+  lastPageOpened: string = 'Notes';
+};
