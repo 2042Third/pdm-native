@@ -77,7 +77,7 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
   const [umail, onUmail] = React.useState('');
   const [upw, onUpw] = React.useState('');
   const dispatch = useAppDispatch();
-
+  // User's client-side information, not known to the server
   const userEnter = useAppSelector(state => state.userEnter);
   // const userInfo = useAppSelector(state => state.userinfo);
 
@@ -94,11 +94,18 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
     dispatch(newUserinfoEnter(currentUserEnter));
   };
 
+  /**
+   * Removes all in-memory data about the user
+   * 
+  */
   const cleanCurrentStatus = () => {
     dispatch(updateUserStatus(userClearData));
     dispatch(newUserinfoEnter(userEnterClearData));
   }
 
+  /**
+   * Signin button action, signs in the user using the given information
+  */
   function userSigninAction ()  {
     const currentUserEnter: UserEnter = {
       umail: userEnter.umail,
@@ -109,6 +116,10 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
     return dispatch(signinUser(currentUserEnter)); // Signin
   }
 
+  /**
+   * Basically the return of the dispatch
+   * 
+  */
   useEffect(() => { 
     if (userEnter.umail.length > 0 && userInfo.status === 'fail') {
       userSigninAction().then(() => {
@@ -118,6 +129,10 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
     }
   }, [userEnter]);
 
+  /**
+   * Checks user status after each signin action
+   * 
+  */
   useEffect(() => {
     if (userInfo.status === 'success' && userEnter.sess === '') {
       console.log("dispatching user sess");
