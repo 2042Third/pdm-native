@@ -9,13 +9,13 @@ import NotesMenu from "../../views/Notes/NotesMenu";
 
 export default function CustomDrawerContentRight({ ...props }) {
   const progress = useDrawerProgress();
-  let translateX;
+  // let translateX;
   const window = useWindowDimensions();
   // @ts-ignore
-  translateX = Animated.interpolateNode(progress, {
-    inputRange: [0, 1],
-    outputRange: [-(window.width / 2), 0],
-  });
+  // translateX = Animated.interpolateNode(progress, {
+  //   inputRange: [0, 1],
+  //   outputRange: [-(window.width / 2), 0],
+  // });
   // console.log(`progress: ${progress}`);
 
   return (

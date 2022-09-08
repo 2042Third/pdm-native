@@ -6,17 +6,15 @@ import NotesHeadsReducer from "./reducers/notes/notesHeadsReducer";
 import NoteEditorReducer from "./reducers/notes/noteEditor";
 import UserinfoEnterReducer from './reducers/user/userinfoEnter';
 import AppSettingsReducer from './reducers/settings/appSettings';
-import AsyncStorage from '@react-native-community/async-storage';
+// import AsyncStorage from '@react-native-community/async-storage';
 
 // import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 // Persist config
-const persistConfig = {
-  key: 'root',
-  storage: AsyncStorage,
-  // stateReconciler: autoMergeLevel2,
-  blacklist: [],
-};
+// const persistConfig = {
+//   key: 'root',
+//   storage
+// };
 
 export const store = configureStore({
   reducer: {

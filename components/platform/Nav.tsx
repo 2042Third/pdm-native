@@ -45,7 +45,7 @@ const Nav = (props: {Drawer: any}) => {
           drawerPosition: "left",
         }}
         initialRouteName="Notes"
-        useLegacyImplementation
+        // useLegacyImplementation
         drawerContent={
           (props: JSX.IntrinsicAttributes & { [x: string]: any; }) => 
           <CustomDrawerContent navigation={props.navigation} {...props} />}>
