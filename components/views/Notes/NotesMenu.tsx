@@ -13,6 +13,8 @@ import * as RootNavigation from "../../platform/RootNavigation";
 import { useFocusEffect } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { recordPageChange } from "../../handle/handlers/records";
+import { changePageOpened } from "../../handle/redux/reducers/settings/appSettings";
 const NotesMenu = ({  }) => {
   // const NotesMenu = ({navigation}) => {
   const dispatch = useAppDispatch();
@@ -42,6 +44,8 @@ const NotesMenu = ({  }) => {
   useFocusEffect(
     React.useCallback(() => {
       console.log("mounting note menu");
+      // recordPageChange("Notes");
+      dispatch(changePageOpened("Notes"));
       return () => {
         console.log("return mounting note menu");
         // Useful for cleanup functions

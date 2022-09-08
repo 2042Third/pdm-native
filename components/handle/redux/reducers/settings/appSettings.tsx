@@ -7,9 +7,15 @@ export const AppSettingsSlice = createSlice({
     lastPageOpened: "Notes"
   } as AppSettings,
   reducers: {
-    changeSeting: (state, action) => {
+    changeSetting: (state, action) => {
       return action.payload;
     },
+    changePageOpened: (state, action) => {
+      return {
+        ...state,
+        lastPageOpened: action.payload
+      }
+    }
   },
   extraReducers(builder) { // pending/fulfilled/rejected
     builder
@@ -19,7 +25,8 @@ export const AppSettingsSlice = createSlice({
 
 // actions
 export const {
-  changeSeting,
+  changeSetting,
+  changePageOpened,
 } = AppSettingsSlice.actions;
 
 export default AppSettingsSlice.reducer;

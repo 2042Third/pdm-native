@@ -15,6 +15,8 @@ import { inputEnter } from "../../handle/redux/reducers/chat/chatViewReducer";
 import { FlatList } from "react-native-gesture-handler";
 import { useAppDispatch } from "../../handle/redux/hooks";
 import { useFocusEffect } from "@react-navigation/native";
+import { recordPageChange } from "../../handle/handlers/records";
+import { changePageOpened } from "../../handle/redux/reducers/settings/appSettings";
 
 export default function ChatView({}) {
   const [chatInputValue, onChangeChatInput] = React.useState('');
@@ -25,6 +27,8 @@ export default function ChatView({}) {
   useFocusEffect(
     React.useCallback(() => {
       console.log("mounting chat ");
+      // recordPageChange("Chat");
+      dispatch(changePageOpened("Chat"));
       return () => {
         console.log("return mounting chat");
         // Useful for cleanup functions

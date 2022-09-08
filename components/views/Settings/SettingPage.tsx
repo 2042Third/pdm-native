@@ -10,6 +10,9 @@ import {
 } from './settingsObjects';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer, useFocusEffect} from '@react-navigation/native';
+import { recordPageChange } from '../../handle/handlers/records';
+import { changePageOpened } from '../../handle/redux/reducers/settings/appSettings';
+import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
 
 const Subsection = ({title}) => (
   <SectionList
@@ -32,10 +35,13 @@ const Item = ({title}) => (
 
 const Stack = createNativeStackNavigator();
 export default function SettingsScreen({...props}) {
+  const dispatch = useAppDispatch();
 
   useFocusEffect(
     React.useCallback(() => {
       console.log("mounting settings ");
+      recordPageChange("Settings");
+      dispatch(changePageOpened("Settings"));
       return () => {
         console.log("return mounting settings");
         // Useful for cleanup functions

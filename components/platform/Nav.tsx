@@ -18,11 +18,19 @@ import { NavUserStatus } from './drawerContent/navUserStatus';
 import CustomDrawerContent from './drawerContent/DrawerContentLeft';
 import DrawerRight from './drawerContent/DrawerRight';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
+import { useAppSelector } from '../handle/redux/hooks';
 
 
 const Nav = (props: {Drawer: any}) => {
   const window = useWindowDimensions();
   const Drawer = props.Drawer;
+
+  const currentPageOpened = useAppSelector(state => state.appSettings);
+
+  React.useEffect(
+    ()=>{
+      console.log("Page changed detected => " + currentPageOpened.lastPageOpened);
+    },[currentPageOpened]);
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -101,5 +109,6 @@ const Nav = (props: {Drawer: any}) => {
   );
 };
 
-export default gestureHandlerRootHOC(Nav);
+export default Nav;
+// export default gestureHandlerRootHOC(Nav);
 

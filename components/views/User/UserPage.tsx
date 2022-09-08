@@ -18,6 +18,8 @@ import { signinUser,  updateUserStatus, userClearData } from "../../handle/redux
 import userinfoEnter, { newUserinfoEnter, setUserSess, userEnterClearData } from "../../handle/redux/reducers/user/userinfoEnter";
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
 import { useFocusEffect } from "@react-navigation/native";
+import { recordPageChange } from "../../handle/handlers/records";
+import { changePageOpened } from "../../handle/redux/reducers/settings/appSettings";
 
 interface UserinfoArg  {
   userInfo: UserInfoGeneral,
@@ -25,9 +27,12 @@ interface UserinfoArg  {
 
 const UserPage = () => {
 
+  const dispatch = useAppDispatch();
   useFocusEffect(
     React.useCallback(() => {
       console.log("mounting userPage ");
+      // recordPageChange("User");
+      dispatch(changePageOpened("User"));
       return () => {
         console.log("return mounting userPage");
         // Useful for cleanup functions

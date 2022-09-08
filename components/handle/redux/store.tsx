@@ -5,6 +5,7 @@ import UserinfoStatusReducer from "./reducers/user/userinfoReducer";
 import NotesHeadsReducer from "./reducers/notes/notesHeadsReducer";
 import NoteEditorReducer from "./reducers/notes/noteEditor";
 import UserinfoEnterReducer from './reducers/user/userinfoEnter';
+import AppSettingsReducer from './reducers/settings/appSettings';
 export const store = configureStore({
   reducer: {
     chat: ChatInputViewReducer,
@@ -12,6 +13,7 @@ export const store = configureStore({
     userEnter: UserinfoEnterReducer,
     noteHeads: NotesHeadsReducer,
     noteEditor: NoteEditorReducer,
+    appSettings: AppSettingsReducer,
   },
 });
 
