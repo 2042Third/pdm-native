@@ -28,7 +28,7 @@ const DrawerRight = () => {
         // defaultStatus: window.width >= 768 ? 'open' : 'closed',
         swipeEdgeWidth: window.width/2,
       }}
-      useLegacyImplementation
+      // useLegacyImplementation
       initialRouteName="NotesEdit"
       drawerContent={
         (props: JSX.IntrinsicAttributes & { [x: string]: any; }) =>
