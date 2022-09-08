@@ -17,12 +17,23 @@ import { UserEnter, UserInfoGeneral } from "../../handle/types";
 import { signinUser,  updateUserStatus, userClearData } from "../../handle/redux/reducers/user/userinfoReducer";
 import userinfoEnter, { newUserinfoEnter, setUserSess, userEnterClearData } from "../../handle/redux/reducers/user/userinfoEnter";
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
+import { useFocusEffect } from "@react-navigation/native";
 
 interface UserinfoArg  {
   userInfo: UserInfoGeneral,
 };
 
 const UserPage = () => {
+
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log("mounting userPage ");
+      return () => {
+        console.log("return mounting userPage");
+        // Useful for cleanup functions
+      };
+    }, [])
+  );
 
   const userEnter = useAppSelector(state => state.userEnter);
   const userInfo = useAppSelector(state => state.userinfo);

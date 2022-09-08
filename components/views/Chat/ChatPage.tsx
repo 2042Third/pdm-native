@@ -14,11 +14,23 @@ import { PdmActions } from "../../handle/redux/reducers/actionType";
 import { inputEnter } from "../../handle/redux/reducers/chat/chatViewReducer";
 import { FlatList } from "react-native-gesture-handler";
 import { useAppDispatch } from "../../handle/redux/hooks";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function ChatView({}) {
   const [chatInputValue, onChangeChatInput] = React.useState('');
   const [thisFlatlist, setReferenceList] = useState(undefined);
   const dispatch = useAppDispatch();
+
+
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log("mounting chat ");
+      return () => {
+        console.log("return mounting chat");
+        // Useful for cleanup functions
+      };
+    }, [])
+  );
 
   const setCurrentInput=(trimmedText:string) =>{
     if(trimmedText){

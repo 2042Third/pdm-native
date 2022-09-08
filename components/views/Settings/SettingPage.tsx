@@ -9,7 +9,7 @@ import {
   TestCppEncDec,
 } from './settingsObjects';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useFocusEffect} from '@react-navigation/native';
 
 const Subsection = ({title}) => (
   <SectionList
@@ -26,8 +26,22 @@ const Item = ({title}) => (
     <Text style={[styles.inputAreaColor]}>{title.title}</Text>
   </View>
 );
+
+
+
+
 const Stack = createNativeStackNavigator();
 export default function SettingsScreen({...props}) {
+
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log("mounting settings ");
+      return () => {
+        console.log("return mounting settings");
+        // Useful for cleanup functions
+      };
+    }, [])
+  );
   return (
     // <View style={styles.mview}>
     //   {testsJavaEcho.openView({...props})}

@@ -10,7 +10,7 @@ import { getHeads,  newHeads, newNote, selectNoteByKey } from "../../handle/redu
 import { NoteHead, NoteHeadList, NotesMsg } from "../../handle/types";
 import Icon from "../../icons/Icon";
 import * as RootNavigation from "../../platform/RootNavigation";
-
+import { useFocusEffect } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 const NotesMenu = ({  }) => {
@@ -32,12 +32,22 @@ const NotesMenu = ({  }) => {
   }, [user]);
 
   useEffect(() => {
-    console.log("mountin note menu");
+    // console.log("mounting note menu");
   }, []);
 
   const onRefresh = ()=>{
     getHeadsFromServer();
   }
+
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log("mounting note menu");
+      return () => {
+        console.log("return mounting note menu");
+        // Useful for cleanup functions
+      };
+    }, [])
+  );
 
   const onSelectNote = (key: string) => {
     navigation.navigate("NotesEdit", {});
