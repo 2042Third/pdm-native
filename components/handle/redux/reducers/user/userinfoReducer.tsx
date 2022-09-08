@@ -8,7 +8,7 @@ import NetCalls from "../../../network/netCalls";
 import { UserEnter, UserInfoGeneral } from "../../../types";
 import { useAppDispatch } from "../../hooks";
 import { PdmActions } from "../actionType";
-import { parseTime } from "../helpers";
+import { parseTime, parseTimeShort } from "../helpers";
 import { setUserSess } from "./userinfoEnter";
 
 
@@ -56,7 +56,7 @@ export const signinUser = createAsyncThunk('userStatus/signinUser', async (user:
   }
 
   if (netReturn.time !== null) {
-    netReturn.ctime = parseTime(netReturn.time);
+    netReturn.ctime = parseTimeShort(parseFloat(netReturn.time));
   }
   return netReturn;
 });
