@@ -60,7 +60,17 @@ const UserPage = () => {
 
 // USER PROFILE
 const UserProfile = ({ userInfo }: UserinfoArg) => {
+  const dispatch = useAppDispatch();
   console.log("Login success, rendering from profile.");
+
+  /**
+   * Removes all in-memory data about the user
+   * 
+  */
+  const cleanCurrentStatus = () => {
+    dispatch(updateUserStatus(userClearData));
+    dispatch(newUserinfoEnter(userEnterClearData));
+  }
   return (
     <View style={[styles.mainColor,  { flex: 1 , flexDirection:"column"}]}>
       <Text style={[styles.normalText, styles.centerTextPadding]}>
@@ -78,7 +88,9 @@ const UserProfile = ({ userInfo }: UserinfoArg) => {
       <Text style={[styles.normalText, styles.centerTextPadding]}>
         {userInfo.ctime}
       </Text>
-
+      <Button title={'clear'} color={colors['--background-light']}
+        onPress={cleanCurrentStatus}
+      ></Button>
     </View>
   );
 }
@@ -140,8 +152,10 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
     if (userEnter.umail.length > 0 && userInfo.status === 'fail') {
       userSigninAction().then(() => {
         console.log("Signin Done");
-        // dispatch(setUserSess(userInfo.sess)); // Signin
       });
+    }
+    else {
+      console.log("Signin Failed => "+ JSON.stringify(userInfo));
     }
   }, [userEnter]);
 
@@ -154,6 +168,10 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
       console.log("dispatching user sess");
       dispatch(setUserSess(userInfo.sess)); // Signin
     }
+    else {
+      console.log("user login failed, password incorrect, or no email and password  ");
+
+    }
   }, [userInfo]);
 
   return (
@@ -162,14 +180,14 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={[styles.loginContainer]}>
+        <View style={[styles.loginContainer, styles.mainColor]}>
 
           {/*email*/}
           <TextInput
             value={umail}
             onChangeText={onUmail}
             placeholder={emailPlaceHolder}
-            style={[ styles.loginInput
+            style={[ styles.loginInput, styles.inputAreaColor
               ,{ backgroundColor: isFocused1 ? colors['--background-tertiary'] : colors['--background-default']
               , }]}
             onFocus={() => {onFocusingHeader1(true);}}
@@ -182,7 +200,7 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
             onChangeText={onUpw}
             placeholder={passwordPlaceHolder}
             secureTextEntry={true}
-            style={[ styles.loginInput
+            style={[styles.loginInput, styles.inputAreaColor
               ,{ backgroundColor: isFocused2 ? colors['--background-tertiary'] : colors['--background-default']
                 , }]}
             onFocus={() => {onFocusingHeader2(true);}}
@@ -197,8 +215,8 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
             <Button title={'clear'} color={colors['--background-light']}
                     onPress={cleanCurrentStatus}
             ></Button>
-            <Text>{userEnter.umail}</Text>
-            <Text>{userEnter.sess}</Text>
+            <Text style={[styles.inputAreaColor ]} >{userInfo.status}</Text>
+            <Text style={[styles.inputAreaColor]} >{userInfo.statusInfo}</Text>
           </View>
         </View>
       </TouchableWithoutFeedback>

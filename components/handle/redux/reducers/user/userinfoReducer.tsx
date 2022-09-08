@@ -42,18 +42,22 @@ export const userClearData = {
 
 export const signinUser = createAsyncThunk('userStatus/signinUser', async (user:UserEnter) => {
   let netReturn: UserInfoGeneral = await netCallBack(user);
-  const userName = await dec(user.upw, netReturn.receiver);
+  if (netReturn.status === "fail"){
+    netReturn.status = "fail";
+    console.log("UserInfo update failure: " + JSON.stringify(netReturn));
+    return netReturn;
+  }
+  const userName =  user.upw === undefined ? null: await dec(user.upw, netReturn.receiver);
   if (userName!= null){
     netReturn.username = userName;
   } else {
     netReturn.status = "fail";
-    netReturn.statusInfo = "Cannot decrypt the incoming user info.";
+    return netReturn;
   }
 
   if (netReturn.time !== null) {
     netReturn.ctime = parseTime(netReturn.time);
   }
-
   return netReturn;
 });
 
