@@ -30,11 +30,11 @@ const UserPage = () => {
   const dispatch = useAppDispatch();
   useFocusEffect(
     React.useCallback(() => {
-      console.log("mounting userPage ");
+      // console.log("mounting userPage ");
       // recordPageChange("User");
       dispatch(changePageOpened("User"));
       return () => {
-        console.log("return mounting userPage");
+        // console.log("return mounting userPage");
         // Useful for cleanup functions
       };
     }, [])

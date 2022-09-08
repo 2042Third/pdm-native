@@ -26,11 +26,11 @@ export default function ChatView({}) {
 
   useFocusEffect(
     React.useCallback(() => {
-      console.log("mounting chat ");
+      // console.log("mounting chat ");
       // recordPageChange("Chat");
       dispatch(changePageOpened("Chat"));
       return () => {
-        console.log("return mounting chat");
+        // console.log("return mounting chat");
         // Useful for cleanup functions
       };
     }, [])

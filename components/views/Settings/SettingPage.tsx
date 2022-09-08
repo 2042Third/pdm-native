@@ -39,11 +39,11 @@ export default function SettingsScreen({...props}) {
 
   useFocusEffect(
     React.useCallback(() => {
-      console.log("mounting settings ");
-      recordPageChange("Settings");
+      // console.log("mounting settings ");
+      // recordPageChange("Settings");
       dispatch(changePageOpened("Settings"));
       return () => {
-        console.log("return mounting settings");
+        // console.log("return mounting settings");
         // Useful for cleanup functions
       };
     }, [])

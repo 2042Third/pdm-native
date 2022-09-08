@@ -43,11 +43,11 @@ const NotesMenu = ({  }) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      console.log("mounting note menu");
+      // console.log("mounting note menu");
       // recordPageChange("Notes");
       dispatch(changePageOpened("Notes"));
       return () => {
-        console.log("return mounting note menu");
+        // console.log("return mounting note menu");
         // Useful for cleanup functions
       };
     }, [])
