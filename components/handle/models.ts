@@ -20,3 +20,7 @@ export class UpdareNoteWithString {
   str: string = '';
   noteMsg: NotesMsg = new NotesMsg;
 };
+export class EncryptedUserEnterArg {
+  user: UserEnter = new UserEnter();
+  epw: string = '';
+};

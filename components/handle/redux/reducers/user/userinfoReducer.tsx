@@ -40,14 +40,17 @@ export const userClearData = {
   statusInfo: "None"
 } as UserInfoGeneral;
 
-export const signinUser = createAsyncThunk('userStatus/signinUser', async (user:UserEnter) => {
+export const signinUser = createAsyncThunk('userStatus/signinUser'
+, async (user:UserEnter) => {
   let netReturn: UserInfoGeneral = await netCallBack(user);
   if (netReturn.status === "fail"){
     netReturn.status = "fail";
     console.log("UserInfo update failure: " + JSON.stringify(netReturn));
     return netReturn;
   }
-  const userName =  user.upw === undefined ? null: await dec(user.upw, netReturn.receiver);
+  const userName =  user.upw === undefined ? 
+                    null: 
+                    await dec(user.upw, netReturn.receiver);
   if (userName!= null){
     netReturn.username = userName;
   } else {

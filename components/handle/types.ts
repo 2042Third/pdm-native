@@ -76,3 +76,8 @@ export class UserEnter {
 export class AppSettings{
   lastPageOpened: string = 'Notes';
 };
+
+export class EncrptedUserEnter{
+  userEnter: string = '';
+  dateTimeUpdated: number = -1;
+};

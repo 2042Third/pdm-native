@@ -19,6 +19,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist'
+import EncryptedUserinfoEnterReducer from './reducers/user/encryptedUserEnter';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
@@ -32,6 +33,8 @@ export const rootReducer = combineReducers({
   noteHeads: NotesHeadsReducer,
   noteEditor: NoteEditorReducer,
   appSettings: AppSettingsReducer,
+  
+  encryptedUserEnter: EncryptedUserinfoEnterReducer,
 });
 
 // Persistor
@@ -46,17 +49,6 @@ export const store = configureStore({
     }),
 });
 export const persistor = persistStore(store);
-
-// export const store = configureStore({
-//   reducer: {
-//     chat: ChatInputViewReducer,
-//     userinfo: UserinfoStatusReducer,
-//     userEnter: UserinfoEnterReducer,
-//     noteHeads: NotesHeadsReducer,
-//     noteEditor: NoteEditorReducer,
-//     appSettings: AppSettingsReducer,
-//   },
-// });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
