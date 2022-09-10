@@ -26,6 +26,10 @@ export const colors = {
 
 export const styles = StyleSheet.create({
 
+  plainViewPortLimitedHeight: {
+    padding: 7,
+    maxHeight: 80,
+  },
   centeredView: {
     flex: 1,
     justifyContent: "center",

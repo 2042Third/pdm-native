@@ -23,6 +23,8 @@ import { changePageOpened } from "../../handle/redux/reducers/settings/appSettin
 import encryptedUserEnter, { saveUserEnter } from "../../handle/redux/reducers/user/encryptedUserEnter";
 import KeyboardShift from "../../uiControl/KeyboardShift";
 import { formatDistanceToNowStrict } from "date-fns";
+import { ScrollView } from "react-native-gesture-handler";
+import { parseTime, parseTimeShort } from "../../handle/redux/reducers/helpers";
 interface UserinfoArg  {
   userInfo: UserInfoGeneral,
 };
@@ -91,13 +93,17 @@ const UserProfile = ({ userInfo }: UserinfoArg) => {
       <Text style={[styles.normalText, styles.centerTextPadding]}>
         {userInfo.ctime}
       </Text>
-      <Text style={[styles.inputAreaColor]} >
-        local store:
-        {
-          JSON.stringify(eUserEnter)
-          // formatDistanceToNowStrict(eUserEnter.dateTimeUpdated, { unit: "minute" })
-        }
-      </Text>
+      <ScrollView style={[styles.plainViewPortLimitedHeight]}>
+        <>
+          <Text style={[styles.inputAreaColor]} >{userInfo.status}</Text>
+          <Text style={[styles.inputAreaColor]} >
+            {eUserEnter ? ("local store time: " + parseTimeShort(eUserEnter.dateTimeUpdated)) : ""}
+          </Text>
+          <Text style={[styles.inputAreaColor,]} >
+            {eUserEnter ? ("local store :" + JSON.stringify(eUserEnter)) : ""}
+          </Text>
+        </>
+      </ ScrollView>
       <Button title={'clear'} color={colors['--background-light']}
         onPress={cleanCurrentStatus}
       ></Button>
@@ -216,14 +222,6 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
   }, [userInfo]);
 
   return (
-
-    // <KeyboardShift style={[styles.mainColor]}>
-    // {/* <KeyboardAvoidingView
-    //   style={[styles.mainColor,{flex:1}]}
-    //   behavior={Platform.OS === "ios" ? "padding" : "height"}
-    // > */}
-    //   {()=>(
-        // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={[styles.loginContainer, styles.mainColor, {flex:1}]}>
 
             {/*email*/}
@@ -280,21 +278,20 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
                 onPress={onSubmit}
               ></Button>
             </View>
-            <View style={[styles.btnContainer]}>
-
-              <Text style={[styles.inputAreaColor]} >{userInfo.status}</Text>
-            <Text style={[styles.inputAreaColor]} >
-              local store : 
-              {
-                // formatDistanceToNowStrict(encryptedUserEnter.dateTimeUpdated, {unit: "minute"})
-                JSON.stringify(eUserEnter)
-              }
-            </Text>
-            </View>
-          </View>
-        // </TouchableWithoutFeedback>
-      // )}
-      // </KeyboardShift>
+            
+            {/* Debug info */}
+            <ScrollView style={[ styles.plainViewPortLimitedHeight]}>
+              <>
+                <Text style={[styles.inputAreaColor]} >{userInfo.status}</Text>
+                <Text style={[styles.inputAreaColor]} >
+                  {eUserEnter ? ("local store time: "+parseTimeShort(eUserEnter.dateTimeUpdated)):""}
+                </Text>
+                <Text style={[styles.inputAreaColor, ]} >
+                  {eUserEnter ? ("local store :" + JSON.stringify(eUserEnter)) : ""}
+                </Text>
+              </>
+            </ ScrollView>
+        </View>
   );
 }
 
