@@ -96,25 +96,19 @@ const NotesMenu = ({  }) => {
   }
 
   const NoteItemCell = ({item}) => {
-    console.log("item mounting => " + JSON.stringify(item));
-
+    // console.log("item mounting => " + JSON.stringify(item));
     const itemObj = selectNoteByKey(noteHead, item);
     return (
       <View 
         key={itemObj.key}
-        style={[{  flexDirection: "row", justifyContent: 'space-between' }]}>
-
+        style={[{  flexDirection: "row",flex:1, justifyContent: 'space-between' }]}>
         <Pressable
-          style={({ pressed }) => [
-            { opacity: pressed ? 0.5 : 1.0 }
-          ]}
+          style={({ pressed }) => [{ flexGrow:1,opacity: pressed ? 0.5 : 1.0 }]} 
           onPress={() => { onSelectNote(itemObj.key) }}
-        >
-          <View style={[styles.notesListingItemContainer]}
-          // onPress={({itemObj}) =>  onSelectNote(itemObj.key) }
+          onLongPress={() => { onLongPressNote(itemObj.key) }}
           >
-            <Text style={[styles.normalText]}
-            >
+          <View style={[styles.notesListingItemContainer, {flexDirection:"column",alignSelf:"stretch"}]}>
+            <Text style={[styles.normalText]}>
               {itemObj.head === '' ? 'Unnamed note ' + itemObj.id : itemObj.head}
             </Text>
             <Text style={[styles.smallText]}> 
@@ -124,9 +118,7 @@ const NotesMenu = ({  }) => {
         </Pressable>
 
         <Pressable
-          style={({ pressed }) => [
-            {width:40, opacity: pressed ? 0.5 : 1.0 }
-          ]}
+          style={({ pressed }) => [{ width: 40, opacity: pressed ? 0.5 : 1.0, flexShrink: 1 }]}
           onPress={() => { onLongPressNote(itemObj.key) }}
         >
           <Icon style={[styles.menuButton]}
