@@ -25,6 +25,7 @@ const DrawerRight = () => {
         drawerType: window.width >= 768 ? 'permanent' : 'slide',
         headerShown: true,
         drawerPosition: "right",
+        swipeMinDistance: window.width / 7,
         // defaultStatus: window.width >= 768 ? 'open' : 'closed',
         swipeEdgeWidth: window.width/2,
       }}

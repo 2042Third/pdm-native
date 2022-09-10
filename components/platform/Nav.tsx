@@ -66,7 +66,7 @@ const Nav = (props: {Drawer: any}) => {
       console.log("Signin Failed => " + JSON.stringify(userInfo));
     }
   }, [userEnter]);
-  
+
   const shouldUserEnterPass = () => {
     return (
       userInfo.status === "fail" &&
@@ -75,16 +75,26 @@ const Nav = (props: {Drawer: any}) => {
     );
   }
 
+  const ModalObj = () => {
+    if (shouldUserEnterPass()){
+      return (
+        <EnterModalOne visible={shouldUserEnterPass()} /> 
+      );
+    }
+    else {
+      return <></>;
+    }
+  }
+
   React.useEffect(
-    ()=>{
-      console.log("Page changed detected => " + currentPageOpened.lastPageOpened);
-    },[currentPageOpened]);
+  ()=>{
+    console.log("Page changed detected => " + currentPageOpened.lastPageOpened);
+  },[currentPageOpened]);
 
 
   return (
     <>
-      <EnterModalOne visible={shouldUserEnterPass()} /> 
-      
+      <ModalObj/>
       <NavigationContainer>
         <Drawer.Navigator
           screenOptions={{
@@ -94,6 +104,7 @@ const Nav = (props: {Drawer: any}) => {
             drawerInactiveTintColor: colors['--foreground-default'],
             drawerType: window.width >= 768 ? 'permanent' : 'slide',
             // defaultStatus: window.width >= 768 ? 'open' : 'closed',
+            swipeMinDistance: window.width/7,
             swipeEdgeWidth: window.width,
             drawerPosition: "left",
           }}
