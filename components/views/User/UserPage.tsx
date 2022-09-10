@@ -25,6 +25,7 @@ import KeyboardShift from "../../uiControl/KeyboardShift";
 import { formatDistanceToNowStrict } from "date-fns";
 import { ScrollView } from "react-native-gesture-handler";
 import { parseTime, parseTimeShort } from "../../handle/redux/reducers/helpers";
+import EnterModalOne from "../overlays/modalEnterOne";
 interface UserinfoArg  {
   userInfo: UserInfoGeneral,
 };
@@ -291,6 +292,9 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
                 </Text>
               </>
             </ ScrollView>
+
+            {/* modal */}
+            <EnterModalOne visible={true}/>
         </View>
   );
 }

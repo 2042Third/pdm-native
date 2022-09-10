@@ -24,3 +24,8 @@ export class EncryptedUserEnterArg {
   user: UserEnter = new UserEnter();
   epw: string = '';
 };
+export class UserEnterLocalDec {
+  encUserEnter: string = '';
+  epw: string = '';
+
+};
