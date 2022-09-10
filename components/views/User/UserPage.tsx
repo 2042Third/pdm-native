@@ -125,10 +125,10 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
   const [upw, onUpw] = React.useState('');
   const [epw, onEpw] = React.useState('');
   const dispatch = useAppDispatch();
+  
   // User's client-side information, not known to the server
   const userEnter = useAppSelector(state => state.userEnter);
   const eUserEnter = useAppSelector(state => state.encryptedUserEnter);
-  // const userInfo = useAppSelector(state => state.userinfo);
 
   /**
    * Makes the password that can be sent to server securely,
@@ -152,36 +152,6 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
     dispatch(newUserinfoEnter(userEnterClearData));
   }
 
-  /**
-   * Signin button action, signs in the user using the given information
-  */
-  function userSigninAction ()  {
-    const currentUserEnter: UserEnter = {
-      umail: userEnter.umail,
-      upw: userEnter.upw,
-      upwServer: userEnter.upwServer,
-      sess: ""
-    };
-    return dispatch(signinUser(currentUserEnter)); // Signin
-  }
-
-  /**
-   * Basically the return of the dispatch;
-   * Defines the singin phase of UX.
-   * 
-  */
-  useEffect(() => {
-
-    if (userEnter.umail.length > 0 && userInfo.status === 'fail') {
-      userSigninAction().then(() => {
-        console.log("Signin Done");
-      });
-    }
-    
-    else {
-      console.log("Signin Failed => "+ JSON.stringify(userInfo));
-    }
-  }, [userEnter]);
 
   // Return true if can save data locally
   const shouldSaveLocal =()=>{
@@ -191,13 +161,7 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
   };
 
   //
-  const shouldUserEnterPass = () => {
-    return (
-      userInfo.status === "fail" &&
-      eUserEnter.dateTimeUpdated > 0 &&
-      userEnter.sess === ''
-    );
-  }
+
 
   /**
    * Checks user status after each signin action
@@ -301,9 +265,9 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
                 </Text>
               </>
             </ ScrollView>
-
+ 
             {/* modal */}
-            <EnterModalOne visible={shouldUserEnterPass()}/>
+            {/* <EnterModalOne visible={shouldUserEnterPass()}/> */}
         </View>
   );
 }
