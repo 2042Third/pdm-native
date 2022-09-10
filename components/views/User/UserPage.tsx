@@ -294,7 +294,11 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
             </ ScrollView>
 
             {/* modal */}
-            <EnterModalOne visible={true}/>
+            <EnterModalOne visible={
+              userInfo.status === "fail" && 
+              eUserEnter.dateTimeUpdated > 0 &&
+              userEnter.sess !== ''
+            }/>
         </View>
   );
 }
