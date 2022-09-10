@@ -14,7 +14,7 @@ export const decryptLocal = createAsyncThunk('userinfoEnter/decryptLocal'
   , async (decLocal: UserEnterLocalDec) => {
   const decReturn = await dec(decLocal.epw, decLocal.encUserEnter);
   if(decReturn)
-    return JSON.parse(decReturn);
+    return { ...JSON.parse(decReturn), sess: ''};
   else
     return userEnterClearData;
 });

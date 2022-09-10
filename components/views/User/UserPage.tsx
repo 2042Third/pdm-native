@@ -190,6 +190,15 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
     && epw !== '';
   };
 
+  //
+  const shouldUserEnterPass = () => {
+    return (
+      userInfo.status === "fail" &&
+      eUserEnter.dateTimeUpdated > 0 &&
+      userEnter.sess === ''
+    );
+  }
+
   /**
    * Checks user status after each signin action
    * 
@@ -294,11 +303,7 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
             </ ScrollView>
 
             {/* modal */}
-            <EnterModalOne visible={
-              userInfo.status === "fail" && 
-              eUserEnter.dateTimeUpdated > 0 &&
-              userEnter.sess !== ''
-            }/>
+            <EnterModalOne visible={shouldUserEnterPass()}/>
         </View>
   );
 }
