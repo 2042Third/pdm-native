@@ -92,9 +92,9 @@ const UserProfile = ({ userInfo }: UserinfoArg) => {
         {userInfo.ctime}
       </Text>
       <Text style={[styles.inputAreaColor]} >
-        local store updated minutes:
+        local store:
         {
-          eUserEnter.dateTimeUpdated
+          JSON.stringify(eUserEnter)
           // formatDistanceToNowStrict(eUserEnter.dateTimeUpdated, { unit: "minute" })
         }
       </Text>
@@ -170,13 +170,7 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
         console.log("Signin Done");
       });
     }
-    /**
-     * After receiving success signin info from server, and updated the session key,
-     * try to ask user to encrypt the data stored locally.
-     * */ 
-    else if (shouldSaveLocal()) {
-      dispatch(saveUserEnter({epw:epw, user:userEnter}));
-    }
+    
     else {
       console.log("Signin Failed => "+ JSON.stringify(userInfo));
     }
@@ -197,6 +191,23 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
     if (userInfo.status === 'success' && userEnter.sess === '') {
       console.log("dispatching user sess");
       dispatch(setUserSess(userInfo.sess)); // Signin
+
+      
+      /**
+     * After receiving success signin info from server, and updated the session key,
+     * try to ask user to encrypt the data stored locally.
+     * */ 
+      if (shouldSaveLocal()) {
+        // Make local store
+        const currentUserEnter: UserEnter = {
+          umail: userEnter.umail,
+          upw: userEnter.upw,
+          upwServer: userEnter.upwServer,
+          sess: userInfo.sess
+        };
+        console.log("attampt making local store");
+        dispatch(saveUserEnter({ epw: epw, user: currentUserEnter }));
+      }
     }
     else {
       console.log("user login failed, password incorrect, or no email and password  ");
@@ -206,12 +217,12 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
 
   return (
 
-    <KeyboardShift style={[styles.mainColor]}>
-    {/* <KeyboardAvoidingView
-      style={[styles.mainColor,{flex:1}]}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    > */}
-      {()=>(
+    // <KeyboardShift style={[styles.mainColor]}>
+    // {/* <KeyboardAvoidingView
+    //   style={[styles.mainColor,{flex:1}]}
+    //   behavior={Platform.OS === "ios" ? "padding" : "height"}
+    // > */}
+    //   {()=>(
         // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={[styles.loginContainer, styles.mainColor, {flex:1}]}>
 
@@ -273,16 +284,17 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
 
               <Text style={[styles.inputAreaColor]} >{userInfo.status}</Text>
             <Text style={[styles.inputAreaColor]} >
-              local store updated minutes: 
-            {
-              formatDistanceToNowStrict(encryptedUserEnter.dateTimeUpdated, {unit: "minute"})
-            }
+              local store : 
+              {
+                // formatDistanceToNowStrict(encryptedUserEnter.dateTimeUpdated, {unit: "minute"})
+                JSON.stringify(eUserEnter)
+              }
             </Text>
             </View>
           </View>
         // </TouchableWithoutFeedback>
-      )}
-      </KeyboardShift>
+      // )}
+      // </KeyboardShift>
   );
 }
 

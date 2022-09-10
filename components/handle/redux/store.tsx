@@ -23,7 +23,8 @@ import EncryptedUserinfoEnterReducer from './reducers/user/encryptedUserEnter';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['userinfo', 'userEnter', "noteHeads", 'noteEditor']
+  // blacklist: ['userinfo', 'userEnter', "noteHeads", 'noteEditor'],
+  whitelist: ['encryptedUserEnter', "chat", 'appSettings'],
 };
 
 export const rootReducer = combineReducers({
@@ -33,7 +34,6 @@ export const rootReducer = combineReducers({
   noteHeads: NotesHeadsReducer,
   noteEditor: NoteEditorReducer,
   appSettings: AppSettingsReducer,
-  
   encryptedUserEnter: EncryptedUserinfoEnterReducer,
 });
 
