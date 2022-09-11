@@ -35,10 +35,6 @@ const NotesMenu = ({  }) => {
     getHeadsFromServer();
   }, [user]);
 
-  // useEffect(() => {
-  //   console.log("mounting note menu");
-  // }, []);
-
   const isDrawerOpen = useDrawerStatus();
 
   useEffect(()=>{
@@ -53,12 +49,8 @@ const NotesMenu = ({  }) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      // console.log("mounting note menu");
-      // recordPageChange("Notes");
       dispatch(changePageOpened("Notes"));
       return () => {
-        // console.log("return mounting note menu");
-        // Useful for cleanup functions
       };
     }, [])
   );

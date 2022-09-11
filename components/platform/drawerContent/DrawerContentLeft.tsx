@@ -7,15 +7,6 @@ import Animated from 'react-native-reanimated';
 import { NavUserStatus } from "./navUserStatus";
 
 export default function CustomDrawerContent({ ...props }) {
-  const progress = useDrawerProgress();
-  // let translateX;
-  const window = useWindowDimensions();
-  // @ts-ignore
-  // translateX = Animated.interpolateNode(progress, {
-  //   inputRange: [0, 1],
-  //   outputRange: [-(window.width / 2), 0],
-  // });
-
 
   const isDrawerOpen = useDrawerStatus();
 
@@ -24,12 +15,12 @@ export default function CustomDrawerContent({ ...props }) {
       Keyboard.dismiss();
     }
   },[isDrawerOpen]);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
         <NavUserStatus navigation={props.navigation} ></NavUserStatus>
         <Animated.View style={{
-          //  transform: [{ translateX }]
             }}>
           <DrawerItemList state={props.state}
             navigation={props.navigation} descriptors={props.descriptors} {...props} />

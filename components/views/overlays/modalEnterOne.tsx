@@ -21,6 +21,7 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
   const eUserEnter = useAppSelector(state => state.encryptedUserEnter);
   const userInfo = useAppSelector(state => state.userinfo);
   const userEnter = useAppSelector(state => state.userEnter);
+
   const onSubmit = () => {
     console.log("Logging local");
     dispatch(
@@ -40,12 +41,11 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
   };
   /**
    * Checks user status after each signin action
-   * 
+   *
   */
   useEffect(() => {
-    if (userInfo.status === 'success' && userEnter.sess === '') {
-      console.log("dispatching user sess from reenter");
-      dispatch(setUserSess(userInfo.sess)); // Signin
+
+    if (userInfo.status === 'success' ) {
 
 
       /**
@@ -65,10 +65,11 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
       }
     }
     else {
-      console.log("user login failed, password incorrect, or no email and password  ");
+      console.log("user login failed, password incorrect, or no email and password  => "+ JSON.stringify(userInfo));
 
     }
-  }, [userInfo]);
+  }, [userInfo.status]);
+
     console.log("EnterModalOne rendering ... ");
     return(
         <Modal

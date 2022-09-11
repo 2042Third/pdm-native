@@ -23,6 +23,8 @@ import EnterModalOne from '../views/overlays/modalEnterOne';
 import { useEffect } from 'react';
 import { UserEnter } from '../handle/types';
 import { signinUser } from '../handle/redux/reducers/user/userinfoReducer';
+import { setUserSess } from "../handle/redux/reducers/user/userinfoEnter";
+import { saveUserEnter } from "../handle/redux/reducers/user/encryptedUserEnter";
 
 
 const Nav = (props: {Drawer: any}) => {
@@ -36,6 +38,25 @@ const Nav = (props: {Drawer: any}) => {
   const eUserEnter = useAppSelector(state => state.encryptedUserEnter);
 
   const dispatch = useAppDispatch();
+
+  /**
+   * Checks user status after each signin action
+   *
+   */
+  useEffect(() => {
+
+    if (userInfo.status === 'success' ) {
+      if(userEnter.sess === '') {
+        console.log("dispatching user sess from reenter");
+        dispatch(setUserSess(userInfo.sess)); // Signin
+      }
+    }
+    else {
+      console.log("user login failed, password incorrect, or no email and password  => "+ JSON.stringify(userInfo));
+
+    }
+  }, [userInfo.status]);
+
   /**
    * Signin button action, signs in the user using the given information
   */

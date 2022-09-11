@@ -35,12 +35,8 @@ const UserPage = () => {
   const dispatch = useAppDispatch();
   useFocusEffect(
     React.useCallback(() => {
-      // console.log("mounting userPage ");
-      // recordPageChange("User");
       dispatch(changePageOpened("User"));
       return () => {
-        // console.log("return mounting userPage");
-        // Useful for cleanup functions
       };
     }, [])
   );
@@ -71,7 +67,7 @@ const UserProfile = ({ userInfo }: UserinfoArg) => {
 
   /**
    * Removes all in-memory data about the user
-   * 
+   *
   */
   const cleanCurrentStatus = () => {
     dispatch(updateUserStatus(userClearData));
@@ -83,7 +79,7 @@ const UserProfile = ({ userInfo }: UserinfoArg) => {
          {userInfo.username}
       </Text>
       <Text style={[styles.smallText, styles.centerTextPadding]}>
-        Email: 
+        Email:
       </Text>
       <Text style={[styles.normalText, styles.centerTextPadding]}>
         {userInfo.email}
@@ -125,7 +121,7 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
   const [upw, onUpw] = React.useState('');
   const [epw, onEpw] = React.useState('');
   const dispatch = useAppDispatch();
-  
+
   // User's client-side information, not known to the server
   const userEnter = useAppSelector(state => state.userEnter);
   const eUserEnter = useAppSelector(state => state.encryptedUserEnter);
@@ -133,7 +129,7 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
   /**
    * Makes the password that can be sent to server securely,
    * and signin.
-   * */ 
+   * */
   const onSubmit = async () => {
     const upwServer = await getHash(upw+upw);
     const currentUserEnter:UserEnter = {
@@ -145,7 +141,7 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
 
   /**
    * Removes all in-memory data about the user
-   * 
+   *
   */
   const cleanCurrentStatus = () => {
     dispatch(updateUserStatus(userClearData));
@@ -155,7 +151,7 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
 
   // Return true if can save data locally
   const shouldSaveLocal =()=>{
-    return userEnter.umail.length > 0 
+    return userEnter.umail.length > 0
     && userInfo.status === 'success'
     && epw !== '';
   };
@@ -165,18 +161,18 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
 
   /**
    * Checks user status after each signin action
-   * 
+   *
   */
   useEffect(() => {
     if (userInfo.status === 'success' && userEnter.sess === '') {
       console.log("dispatching user sess");
       dispatch(setUserSess(userInfo.sess)); // Signin
 
-      
+
       /**
      * After receiving success signin info from server, and updated the session key,
      * try to ask user to encrypt the data stored locally.
-     * */ 
+     * */
       if (shouldSaveLocal()) {
         // Make local store
         const currentUserEnter: UserEnter = {
@@ -252,7 +248,7 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
                 onPress={onSubmit}
               ></Button>
             </View>
-            
+
             {/* Debug info */}
             <ScrollView style={[ styles.plainViewPortLimitedHeight]}>
               <>
@@ -265,7 +261,7 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
                 </Text>
               </>
             </ ScrollView>
- 
+
             {/* modal */}
             {/* <EnterModalOne visible={shouldUserEnterPass()}/> */}
         </View>
