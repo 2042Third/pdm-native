@@ -1,6 +1,6 @@
-import { DrawerContentScrollView, DrawerItemList, useDrawerProgress } from "@react-navigation/drawer";
-import React from "react";
-import { SafeAreaView, useWindowDimensions, View } from "react-native";
+import { DrawerContentScrollView, DrawerItemList, useDrawerProgress, useDrawerStatus } from "@react-navigation/drawer";
+import React, { useEffect } from "react";
+import { Keyboard, SafeAreaView, useWindowDimensions, View } from "react-native";
 import { styles, colors } from "../../../assets/Style";
 import Icon from "../../icons/Icon";
 import Animated from 'react-native-reanimated';
@@ -17,6 +17,13 @@ export default function CustomDrawerContent({ ...props }) {
   // });
 
 
+  const isDrawerOpen = useDrawerStatus();
+
+  useEffect(()=>{
+    if(isDrawerOpen === "open" ){
+      Keyboard.dismiss();
+    }
+  },[isDrawerOpen]);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>

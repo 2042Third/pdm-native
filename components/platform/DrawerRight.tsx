@@ -42,8 +42,9 @@ const DrawerRight = () => {
           lazy: true,
           headerStyle: styles.drawerHeaderStyle,
           headerTitleStyle: styles.drawerHeaderTitleStyle,
-          headerTitle: (props) => < NotesHeader {...props}/>,
+          headerTitle: (props) => < NotesHeader props={props} />,
           drawerItemStyle: { display: 'none' },
+          keyboardDismissMode: "none",
           headerLeft: () => <Icon style={[styles.menuButton]}
                               onPress={() => { navigation2.toggleDrawer() }}
                               name={'menu'} size={24}

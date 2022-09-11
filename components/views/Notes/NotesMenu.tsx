@@ -1,6 +1,6 @@
 import { oneOfType } from "prop-types";
 import React, { useCallback, useEffect } from "react";
-import {  FlatList, Modal, Pressable, RefreshControl, SafeAreaView, Text } from "react-native";
+import { Keyboard , FlatList, Modal, Pressable, RefreshControl, SafeAreaView, Text } from "react-native";
 import { ActionSheet, View } from "react-native-ui-lib";
 import { shallowEqual, useSelector } from "react-redux";
 import { styles } from "../../../assets/Style";
@@ -15,6 +15,8 @@ import { useNavigation } from '@react-navigation/native';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { recordPageChange } from "../../handle/handlers/records";
 import { changePageOpened } from "../../handle/redux/reducers/settings/appSettings";
+import { useDrawerStatus } from "@react-navigation/drawer";
+import { useKeyboard } from "@react-native-community/hooks";
 const NotesMenu = ({  }) => {
   // const NotesMenu = ({navigation}) => {
   const dispatch = useAppDispatch();
@@ -33,9 +35,17 @@ const NotesMenu = ({  }) => {
     getHeadsFromServer();
   }, [user]);
 
-  useEffect(() => {
-    // console.log("mounting note menu");
-  }, []);
+  // useEffect(() => {
+  //   console.log("mounting note menu");
+  // }, []);
+
+  const isDrawerOpen = useDrawerStatus();
+
+  useEffect(()=>{
+    if(isDrawerOpen === "open" ){
+      Keyboard.dismiss();
+    }
+  },[isDrawerOpen]);
 
   const onRefresh = ()=>{
     getHeadsFromServer();
@@ -99,11 +109,11 @@ const NotesMenu = ({  }) => {
     // console.log("item mounting => " + JSON.stringify(item));
     const itemObj = selectNoteByKey(noteHead, item);
     return (
-      <View 
+      <View
         key={itemObj.key}
         style={[{  flexDirection: "row",flex:1, justifyContent: 'space-between' }]}>
         <Pressable
-          style={({ pressed }) => [{ flexGrow:1,opacity: pressed ? 0.5 : 1.0 }]} 
+          style={({ pressed }) => [{ flexGrow:1,opacity: pressed ? 0.5 : 1.0 }]}
           onPress={() => { onSelectNote(itemObj.key) }}
           onLongPress={() => { onLongPressNote(itemObj.key) }}
           >
@@ -111,7 +121,7 @@ const NotesMenu = ({  }) => {
             <Text style={[styles.normalText]}>
               {itemObj.head === '' ? 'Unnamed note ' + itemObj.id : itemObj.head}
             </Text>
-            <Text style={[styles.smallText]}> 
+            <Text style={[styles.smallText]}>
               {itemObj.ctime}
             </Text>
           </View>
@@ -133,7 +143,7 @@ const NotesMenu = ({  }) => {
 
   return (
     <View style={[ styles.noteMenuViewStyle]}>
-      
+
       <View style={styles.noteMenuContent}>
         <ActionSheet
           title={'Title'}

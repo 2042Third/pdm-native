@@ -5,14 +5,14 @@ import UserView from '../views/User/UserPage';
 import SettingView from '../views/Settings/SettingPage';
 import {NavigationContainer} from '@react-navigation/native';
 import * as React from 'react';
-import {SafeAreaView, Text, useWindowDimensions, View} from 'react-native';
+import { Keyboard, SafeAreaView, Text, useWindowDimensions, View } from "react-native";
 import Icon from '../icons/Icon';
 import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerToggleButton,
-  useDrawerProgress,
-} from '@react-navigation/drawer';
+  useDrawerProgress, useDrawerStatus,
+} from "@react-navigation/drawer";
 import { shallowEqual, useSelector } from "react-redux";
 import { NavUserStatus } from './drawerContent/navUserStatus';
 import CustomDrawerContent from './drawerContent/DrawerContentLeft';
@@ -120,10 +120,8 @@ const Nav = (props: {Drawer: any}) => {
             name="Notes"
             component={DrawerRight}
             options={{
-
+              keyboardDismissMode: "none",
               headerShown: false,
-              // headerStyle: styles.drawerHeaderStyle,
-              // headerTitleStyle: styles.drawerHeaderTitleStyle,
             }
             }
           />

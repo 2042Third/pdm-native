@@ -5,10 +5,15 @@ import { useAppSelector } from "../../../handle/redux/hooks";
 
 const NotesHeader =({props}) => {
   const note = useAppSelector( state => state.noteEditor);
+
+  const updateStatusText = () => {
+    return note.statusInfo;
+  };
+
   return (
     <View style={[styles.mainColor]}>
       <Text style={[styles.headerText]}>
-        {note.statusInfo}
+        {updateStatusText()}
       </Text>
     </View>
   );
