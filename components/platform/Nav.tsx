@@ -40,13 +40,14 @@ const Nav = (props: {Drawer: any}) => {
   const dispatch = useAppDispatch();
 
   /**
-   * Checks user status after each signin action
+   * Checks user status after each signin action,
+   * and updates session key when needed
    *
    */
   useEffect(() => {
 
     if (userInfo.status === 'success' ) {
-      if(userEnter.sess === '') {
+      if(userEnter.sess === '' || userEnter.sess !== userInfo.sess) {
         console.log("dispatching user sess from reenter");
         dispatch(setUserSess(userInfo.sess)); // Signin
       }
