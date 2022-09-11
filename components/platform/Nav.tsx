@@ -16,7 +16,7 @@ import {
 import { shallowEqual, useSelector } from "react-redux";
 import { NavUserStatus } from './drawerContent/navUserStatus';
 import CustomDrawerContent from './drawerContent/DrawerContentLeft';
-import DrawerRight from './drawerContent/DrawerRight';
+import DrawerRight from './DrawerRight';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import { useAppDispatch, useAppSelector } from '../handle/redux/hooks';
 import EnterModalOne from '../views/overlays/modalEnterOne';
@@ -52,7 +52,7 @@ const Nav = (props: {Drawer: any}) => {
   /**
    * Basically the return of the dispatch;
    * Defines the singin phase of UX.
-   * 
+   *
   */
   useEffect(() => {
 
@@ -78,7 +78,7 @@ const Nav = (props: {Drawer: any}) => {
   const ModalObj = () => {
     if (shouldUserEnterPass()){
       return (
-        <EnterModalOne visible={shouldUserEnterPass()} /> 
+        <EnterModalOne visible={shouldUserEnterPass()} />
       );
     }
     else {
@@ -98,6 +98,7 @@ const Nav = (props: {Drawer: any}) => {
       <NavigationContainer>
         <Drawer.Navigator
           screenOptions={{
+            lazy: true,
             drawerStyle: [styles.drawerStyle, { width: window.width }],
             drawerContentStyle: styles.drawerContentStyle,
             drawerItemStyle: styles.drawerItemStyle,

@@ -17,8 +17,9 @@ const userNoteEditorClearData = {
   content:  '',
   email:  '',
   session:  '',
-  ntype: "", 
+  ntype: "",
   sess:  '',
+  statusInfo: 'none',
   h:  '',
   username:  '',
   status:  '',
@@ -26,9 +27,9 @@ const userNoteEditorClearData = {
   hash:  '',
 } as NotesMsg;
 /**
- * 
+ *
  * THUNKS
- * 
+ *
 */
 export const getNote = createAsyncThunk('noteHead/getNote', async (argu: GetNoteArg) => {
   const { PdmNativeCryptModule } = NativeModules;
@@ -99,7 +100,7 @@ export const updateNote = createAsyncThunk('noteHead/updateNote', async (argu: U
 });
 
 
- 
+
 export const updateEditsContent = createAsyncThunk('noteHead/updateEditsContent', async (argu:UpdareNoteWithString) => {
   const { PdmNativeCryptModule } = NativeModules;
   const content = argu.str;
@@ -118,18 +119,18 @@ export const updateEditsContent = createAsyncThunk('noteHead/updateEditsContent'
       content: content,
     } as NotesMsg;
   }
-  
+
 });
 
 export const updateEditsHead = createAsyncThunk('noteHead/updateEditsHead', async (argu: UpdareNoteWithString) => {
   const { PdmNativeCryptModule } = NativeModules;
   const head = argu.str;
   const noteMsg:NotesMsg = argu.noteMsg;
-  if (head === noteMsg.head ||!head|| head === null || head === undefined || head === ''){
+  if (head === noteMsg.head || !head || head === ''){
     isRejectedWithValue("cannot update head: head value is unchanged or odesn't exist");
     return '';
   }else {
-    console.log(`Note head request: ${head}`); 
+    console.log(`Note head request: ${head}`);
     return head;
   }
 });
@@ -153,6 +154,7 @@ export const NoteEditorSlice = createSlice({
     h: '',
     username: '',
     status: '',
+    statusInfo: 'none',
     encry: "",
     hash: '',
   } as NotesMsg,
@@ -189,7 +191,16 @@ export const NoteEditorSlice = createSlice({
         load.status = "rejected";
         return load;
       })
-      
+      .addCase(updateNote.pending, (state, action)=>{
+        return {...state,
+          statusInfo: "pending"
+        };
+      })
+      .addCase(updateNote.fulfilled, (state, action)=>{
+        return {...state,
+          statusInfo: "fulfilled"
+        };
+      })
   },
 });
 

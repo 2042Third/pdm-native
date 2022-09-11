@@ -25,7 +25,10 @@ export const colors = {
 };
 
 export const styles = StyleSheet.create({
-
+  headerText:{
+    backgroundColor: colors['--background-tertiary'],
+    color: colors['--foreground-default'],
+  },
   plainViewPortLimitedHeight: {
     padding: 7,
     maxHeight: 80,

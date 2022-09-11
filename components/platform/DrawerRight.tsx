@@ -2,13 +2,14 @@ import { createDrawerNavigator, DrawerToggleButton } from "@react-navigation/dra
 import React from "react";
 import { SafeAreaView, Text, useWindowDimensions, View } from 'react-native';
 import { TabController } from "react-native-ui-lib";
-import { colors, styles } from "../../../assets/Style";
-import NotesMenu from "../../views/Notes/NotesMenu";
-import NotesView from "../../views/Notes/NotesPage";
-import CustomDrawerContentRight from "./DrawerContentRight";
+import { colors, styles } from "../../assets/Style";
+import NotesMenu from "../views/Notes/NotesMenu";
+import NotesView from "../views/Notes/NotesPage";
+import CustomDrawerContentRight from "./drawerContent/DrawerContentRight";
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
-import Icon from "../../icons/Icon";
+import Icon from "../icons/Icon";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
+import NotesHeader from "./drawerContent/notes/NotesHeader";
 
 const DrawerRightMenu = createDrawerNavigator();
 
@@ -29,7 +30,6 @@ const DrawerRight = () => {
         // defaultStatus: window.width >= 768 ? 'open' : 'closed',
         swipeEdgeWidth: window.width/2,
       }}
-      // useLegacyImplementation
       initialRouteName="NotesEdit"
       drawerContent={
         (props: JSX.IntrinsicAttributes & { [x: string]: any; }) =>
@@ -42,6 +42,7 @@ const DrawerRight = () => {
           lazy: true,
           headerStyle: styles.drawerHeaderStyle,
           headerTitleStyle: styles.drawerHeaderTitleStyle,
+          headerTitle: (props) => < NotesHeader {...props}/>,
           drawerItemStyle: { display: 'none' },
           headerLeft: () => <Icon style={[styles.menuButton]}
                               onPress={() => { navigation2.toggleDrawer() }}

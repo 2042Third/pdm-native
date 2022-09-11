@@ -25,7 +25,7 @@ export class UserInfoGeneral{
   authdata?: string="";
   time: number=-1;
   update_time: number=-1;
-  utime: string=''; 
+  utime: string='';
   pdmSecurityVersion: string='';
   checker: string= "";
   ctime: string='';
@@ -60,6 +60,7 @@ export class NotesMsg extends NoteHead{
   h: string = '';
   username: string = '';
   status: string = '';
+  statusInfo: string = 'none';
   encry: string = "yes";
   hash: string = '';
   // pdm security version should be tracked always whenever there is an encryption
