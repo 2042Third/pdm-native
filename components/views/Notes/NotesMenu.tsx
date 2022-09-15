@@ -6,7 +6,13 @@ import { shallowEqual, useSelector } from "react-redux";
 import { styles } from "../../../assets/Style";
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
 import { getNote } from "../../handle/redux/reducers/notes/noteEditor";
-import { getHeads,  newHeads, newNote, selectNoteByKey } from "../../handle/redux/reducers/notes/notesHeadsReducer";
+import {
+  deleteNote,
+  getHeads,
+  newHeads,
+  newNote,
+  selectNoteByKey,
+} from "../../handle/redux/reducers/notes/notesHeadsReducer";
 import { NoteHead, NoteHeadList, NotesMsg } from "../../handle/types";
 import Icon from "../../icons/Icon";
 import * as RootNavigation from "../../platform/RootNavigation";
@@ -29,6 +35,7 @@ const NotesMenu = ({  }) => {
   const noteids = useSelector(selectNoteId, shallowEqual);
 
   const [refreshing, setRefreshing] = React.useState(false);
+  const [selectedNote, setSelectedNote] = React.useState('');
   const [noteOptionsMenu, setNoteOptionsMenu] = React.useState(false);
 
   useEffect(() => {
@@ -64,6 +71,7 @@ const NotesMenu = ({  }) => {
 
   const onLongPressNote = (key: string) => {
     console.log(`Long press note item ${key}`);
+    setSelectedNote(key);
     setNoteOptionsMenu(true);
   };
 
@@ -76,6 +84,10 @@ const NotesMenu = ({  }) => {
 
   const pickNoteOption = (option:string) => {
     console.log("picked note option "+option);
+
+    const selectedHead = selectNoteByKey(noteHead, selectedNote);
+
+    dispatch(deleteNote({ user: user, noteMsg: selectedHead }));
   };
 
   const getHeadsFromServer = () => {
@@ -140,12 +152,10 @@ const NotesMenu = ({  }) => {
         <ActionSheet
           title={'Title'}
           message={'Message of action sheet'}
-          cancelButtonIndex={3}
+          cancelButtonIndex={1}
           destructiveButtonIndex={0}
           options={[
-            { label: 'option 1', onPress: () => pickNoteOption('option 1') },
-            { label: 'option 2', onPress: () => pickNoteOption('option 2') },
-            { label: 'option 3', onPress: () => pickNoteOption('option 3') },
+            { label: 'Delete', onPress: () => pickNoteOption('delete') },
             { label: 'cancel', onPress: () => pickNoteOption('cancel') }
           ]}
           visible={noteOptionsMenu}

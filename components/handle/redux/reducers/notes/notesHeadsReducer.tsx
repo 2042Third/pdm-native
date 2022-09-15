@@ -8,12 +8,12 @@ import { parseTime } from "../helpers";
 const initialState = {
   heads: [],
   netHash: "",
-  netStatus: "pending", 
+  netStatus: "pending",
 } as NoteHeadList;
 
  /**
   * HELPERS
-  * 
+  *
  */
 export const selectNoteByKey = (noteHeads: { heads: any[]; } , key: string) => {
   return noteHeads.heads.find((head: { key: any; }) => head.key === key);
@@ -31,7 +31,7 @@ function nextNoteHeadId(heads: NoteHead[]) {
 
 /**
  * THUNKS
- * 
+ *
 */
 
 
@@ -40,13 +40,13 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
   const user = hua.user;
   const { PdmNativeCryptModule } = NativeModules;
 
-  
+
   // Get heads from server
   const headsP = await NetCalls.notesGetHeads(user.sess, user.umail);
   const heads = await headsP?.json();
   console.log(`Note received ${JSON.stringify(heads)}`);
 
-  // Check package integrity 
+  // Check package integrity
   // Note: the incoming noteheads package lists the heads under "content" not "heads"
   const integ = await PdmNativeCryptModule.getHash(JSON.stringify(heads.content).toString());
   console.log(`Note head integrety check passed.`);
@@ -59,8 +59,8 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
   let load = new NoteHeadList;
   load.heads = heads.content;
   load.netHash = heads.hash;
-  
-  // decrypt 
+
+  // decrypt
   const a = load.heads;
   let b = [];
   for (let i = 0; i < a.length; i++) {
@@ -81,7 +81,7 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
     tmpH.head = decO;
     console.log(`tmpH ${JSON.stringify(tmpH)}`);
 
-    // Get the time stamps 
+    // Get the time stamps
     tmpH.ctime = parseTime(tmpH.time);
     tmpH.utime = parseTime(tmpH.update_time);
     console.log(`Created at ${tmpH.ctime}`);
@@ -109,9 +109,22 @@ export const newNote = createAsyncThunk('noteHead/newNote', async (argu: UpdateN
   return JSON.parse(JSON.stringify(note));
 });
 
+export const deleteNote = createAsyncThunk('noteHead/deleteNote', async (argu: UpdateNoteArg)=>{
+
+  const user = argu.user;
+  let noteMsg = argu.noteMsg;
+  // Get note from server
+  const netReturn = await NetCalls.notesDeleteNote(user.sess, user.umail, noteMsg);
+  const note: NotesMsg = await netReturn?.json();
+  console.log(`Delete Note received ${JSON.stringify(note)}`);
+  // const note = newNote; // FAKE
+
+  return JSON.parse(JSON.stringify(note));
+  });
+
 /**
  * STORE
- * 
+ *
 */
 export const NotesHeadsSlice = createSlice({
   name: 'notesHead',
@@ -145,6 +158,12 @@ export const NotesHeadsSlice = createSlice({
             ...state.heads,
             action.payload,
           ]
+        };
+      })
+      .addCase(deleteNote.fulfilled, (state, action) => {
+        return {
+          ...state,
+          netStatus: 'fulfilled',
         };
       })
   },

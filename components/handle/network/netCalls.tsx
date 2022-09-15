@@ -9,11 +9,11 @@ export default class NetCalls {
   private static signupURL: string = this.pdmRootURL + '/auth/signin';
   private static notesGetHeadsURL: string = this.pdmRootURL + '/auth/note';
 
-  private static notesGetHeadsType: string = 'heads'; 
+  private static notesGetHeadsType: string = 'heads';
   private static notesGetNoteType: string = 'retrieve';
   private static notesGetNewNoteType: string = 'new';
   private static notesUpdateNoteType: string = 'update';
-
+  private static notesDeleteNoteType: string = 'delete';
 
 
   static async signin(umail: any, upw: any) {
@@ -25,10 +25,10 @@ export default class NetCalls {
 
   static async signup(umail: any, upw: any, uname:string) {
     return Net.post(this.signupURL
-      , JSON.stringify({ 
-        "umail": umail, 
+      , JSON.stringify({
+        "umail": umail,
         "upw": upw ,
-        'uname':uname, 
+        'uname':uname,
         'type': 'pdm mobile '+Platform.OS
       }))
       .then(function (res:any) {
@@ -38,7 +38,7 @@ export default class NetCalls {
 
   /**
    * Gets the heads of notes for a user
-   * 
+   *
   */
   static async notesGetHeads(sessKey: string, email: string) {
     return Net.post(this.notesGetHeadsURL,
@@ -53,7 +53,7 @@ export default class NetCalls {
 
   /**
    * Gets a note for a user
-   * 
+   *
   */
   static async notesGetNote(sessKey: string, email: string, note_id: string) {
     return Net.post(this.notesGetHeadsURL,
@@ -69,8 +69,8 @@ export default class NetCalls {
 
   /**
    * Updates a Note
-   * 
-  */
+   *
+   */
   static async notesUpdateNote(sessKey: string, email: string, noteMsg: NotesMsg) {
     return Net.post(this.notesGetHeadsURL,
       JSON.stringify({
@@ -85,8 +85,21 @@ export default class NetCalls {
   }
 
   /**
+   * delete a Note
+   *
+   */
+  static async notesDeleteNote(sessKey: string, email: string, noteMsg: NotesMsg) {
+    return Net.post(this.notesGetHeadsURL,
+      JSON.stringify({
+        "sess": sessKey,
+        "ntype": this.notesDeleteNoteType,
+        "note_id": noteMsg.note_id,
+      }));
+  }
+
+  /**
    * Updates a Note
-   * 
+   *
   */
   static async notesGetNewNote(sessKey: string, email: string, noteMsg: NotesMsg) {
     return Net.post(this.notesGetHeadsURL,
