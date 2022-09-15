@@ -1,30 +1,21 @@
 import {colors, styles} from '../../assets/Style';
-import NotesView from '../views/Notes/NotesPage';
 import ChatView from '../views/Chat/ChatPage';
 import UserView from '../views/User/UserPage';
 import SettingView from '../views/Settings/SettingPage';
 import {NavigationContainer} from '@react-navigation/native';
 import * as React from 'react';
-import { Keyboard, SafeAreaView, Text, useWindowDimensions, View } from "react-native";
-import Icon from '../icons/Icon';
+import {useWindowDimensions,  } from "react-native";
 import {
-  DrawerContentScrollView,
-  DrawerItemList,
   DrawerToggleButton,
-  useDrawerProgress, useDrawerStatus,
 } from "@react-navigation/drawer";
-import { shallowEqual, useSelector } from "react-redux";
-import { NavUserStatus } from './drawerContent/navUserStatus';
 import CustomDrawerContent from './drawerContent/DrawerContentLeft';
 import DrawerRight from './DrawerRight';
-import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import { useAppDispatch, useAppSelector } from '../handle/redux/hooks';
 import EnterModalOne from '../views/overlays/modalEnterOne';
 import { useEffect } from 'react';
 import { UserEnter } from '../handle/types';
 import { signinUser } from '../handle/redux/reducers/user/userinfoReducer';
 import { setUserSess } from "../handle/redux/reducers/user/userinfoEnter";
-import { saveUserEnter } from "../handle/redux/reducers/user/encryptedUserEnter";
 
 
 const Nav = (props: {Drawer: any}) => {

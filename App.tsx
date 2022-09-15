@@ -8,7 +8,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Provider} from 'react-redux';
 const Drawer = createDrawerNavigator();
 import { PersistGate } from 'redux-persist/lib/integration/react';
-import { Text, View } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 import { styles } from "./assets/Style";
 
 const App = () => {
@@ -16,7 +16,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={
         <View style={[styles.centeredView]}>
-          <Text>Loading ...</Text>
+          <ActivityIndicator />
         </View>
       } persistor={persistor}>
         <Nav Drawer={Drawer} />

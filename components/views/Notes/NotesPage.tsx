@@ -102,9 +102,11 @@ const NotesView = () => {
         <TextInput
           multiline={true}
           scrollEnabled={true}
+          contextMenuHidden={true}
           textAlignVertical={'top'}
           style={[styles.notesEditStyle, styles.inputAreaColor]}
           onChangeText={onChangeNote}
+          autoCorrect={false}
           onEndEditing={onFinishedEditContent}
           value={noteValue}
         />
