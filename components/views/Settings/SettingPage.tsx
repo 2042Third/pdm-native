@@ -1,7 +1,7 @@
-import {SafeAreaView, SectionList, Text, View} from 'react-native';
+import { ActivityIndicator, SafeAreaView, SectionList, Text, View } from "react-native";
+import React, { lazy, Suspense } from 'react'
 import {styles} from '../../../assets/Style';
 import {NativeModules, Button} from 'react-native';
-import React from 'react';
 import {
   TestsJavaEcho,
   TestCppHash,
@@ -39,7 +39,7 @@ export default function SettingsScreen({...props}) {
 
   useFocusEffect(
     React.useCallback(() => {
-      // console.log("mounting settings ");
+      console.log("mounting settings ");
       // recordPageChange("Settings");
       dispatch(changePageOpened("Settings"));
       return () => {
@@ -52,47 +52,54 @@ export default function SettingsScreen({...props}) {
     // <View style={styles.mview}>
     //   {testsJavaEcho.openView({...props})}
     // </View>
-    <SafeAreaView style={[styles.container, styles.tooLongScroll]}>
-      <NavigationContainer independent={true}>
-        <Stack.Navigator initialRouteName={'Settings'}>
-          <Stack.Screen
-            name={'TestCppHash'}
-            component={TestCppHash}
-            {...props}
-            options={{
-              headerStyle: styles.drawerHeaderStyle,
-              headerTitleStyle: styles.drawerHeaderTitleStyle,
-            }}
-          />
-          <Stack.Screen
-            name={'TestsJavaOrObjCEcho'}
-            component={TestsJavaEcho}
-            {...props}
-            options={{
-              headerStyle: styles.drawerHeaderStyle,
-              headerTitleStyle: styles.drawerHeaderTitleStyle,
-            }}
-          />
-          <Stack.Screen
-            name={'Settings'}
-            component={SettingList}
-            {...props}
-            options={{
-              headerStyle: styles.drawerHeaderStyle,
-              headerTitleStyle: styles.drawerHeaderTitleStyle,
-            }}
-          />
-          <Stack.Screen
-            name={'TestCppEncDec'}
-            component={TestCppEncDec}
-            {...props}
-            options={{
-              headerStyle: styles.drawerHeaderStyle,
-              headerTitleStyle: styles.drawerHeaderTitleStyle,
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaView>
+    <Suspense fallback={
+      <View style={[styles.centeredView]}>
+        <ActivityIndicator />
+      </View>
+      }>
+
+      <SafeAreaView style={[styles.container, styles.tooLongScroll]}>
+        <NavigationContainer independent={true}>
+          <Stack.Navigator initialRouteName={'Settings'}>
+            <Stack.Screen
+              name={'TestCppHash'}
+              component={TestCppHash}
+              {...props}
+              options={{
+                headerStyle: styles.drawerHeaderStyle,
+                headerTitleStyle: styles.drawerHeaderTitleStyle,
+              }}
+            />
+            <Stack.Screen
+              name={'TestsJavaOrObjCEcho'}
+              component={TestsJavaEcho}
+              {...props}
+              options={{
+                headerStyle: styles.drawerHeaderStyle,
+                headerTitleStyle: styles.drawerHeaderTitleStyle,
+              }}
+            />
+            <Stack.Screen
+              name={'Settings'}
+              component={SettingList}
+              {...props}
+              options={{
+                headerStyle: styles.drawerHeaderStyle,
+                headerTitleStyle: styles.drawerHeaderTitleStyle,
+              }}
+            />
+            <Stack.Screen
+              name={'TestCppEncDec'}
+              component={TestCppEncDec}
+              {...props}
+              options={{
+                headerStyle: styles.drawerHeaderStyle,
+                headerTitleStyle: styles.drawerHeaderTitleStyle,
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaView>
+    </Suspense>
   );
 }

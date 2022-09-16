@@ -1,7 +1,7 @@
-import { View} from 'react-native';
+import { ActivityIndicator, View } from "react-native";
 // import { View, TextInput} from 'react-native';
 import {styles, colors} from '../../../assets/Style';
-import React, { useEffect } from 'react';
+import React, { useEffect,Suspense } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 // import { PanGestureHandler } from 'react-native-gesture-handler';
 import { useAppDispatch, useAppSelector } from '../../handle/redux/hooks';
@@ -77,6 +77,11 @@ const NotesView = () => {
     <View style={[{flex:1},styles.notesBox, styles.container]}>
       {/*Header Start*/}
       {/* <ScrollView> */}
+      <Suspense fallback={
+        <View style={[styles.centeredView]}>
+          <ActivityIndicator />
+        </View>
+      }>
           <TextInput
             // disallowInterruption={true}
 
@@ -110,6 +115,7 @@ const NotesView = () => {
           onEndEditing={onFinishedEditContent}
           value={noteValue}
         />
+      </Suspense>
       {/*Notes Edit End*/}
     </View>
   );

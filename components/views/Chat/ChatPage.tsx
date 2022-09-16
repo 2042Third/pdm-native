@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Keyboard,
   KeyboardAvoidingView, Platform,
   Text,
@@ -7,7 +8,7 @@ import {
   View,
 } from "react-native";
 import {colors, styles} from '../../../assets/Style';
-import React, {useState} from 'react';
+import React, {useState, Suspense} from 'react';
 import {useSelector, shallowEqual, Provider, useDispatch} from 'react-redux';
 import ChatBox from './ChatBox';
 import { PdmActions } from "../../handle/redux/reducers/actionType";
@@ -81,7 +82,13 @@ export default function ChatView({}) {
           styles.mainColor,
           {flexDirection: 'column', },
         ]}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}>
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <Suspense fallback={
+        <View style={[styles.centeredView]}>
+          <ActivityIndicator />
+        </View>
+      }>
           <View style={[{
             flexGrow: 1,
             justifyContent: 'space-around'  }]}>
@@ -138,6 +145,7 @@ export default function ChatView({}) {
               </TouchableOpacity>
             </View>
           </View>
+      </Suspense>
     </KeyboardAvoidingView>
   );
 }
