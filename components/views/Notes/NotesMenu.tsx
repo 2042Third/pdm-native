@@ -153,6 +153,7 @@ const NotesMenu = ({  }) => {
           title={'Title'}
           message={'Message of action sheet'}
           cancelButtonIndex={1}
+          style={[styles.mainColor]}
           destructiveButtonIndex={0}
           options={[
             { label: 'Delete', onPress: () => pickNoteOption('delete') },
