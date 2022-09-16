@@ -202,8 +202,8 @@ const NotesMenu = ({  }) => {
     </View>
   )
 }
-// export default NotesMenu;
-export default React.memo(NotesMenu);
+export default NotesMenu;
+// export default React.memo(NotesMenu);
 function render() {
   throw new Error("Function not implemented.");
 }

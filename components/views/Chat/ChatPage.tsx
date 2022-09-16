@@ -8,9 +8,10 @@ import {
   View,
 } from "react-native";
 import {colors, styles} from '../../../assets/Style';
-import React, {useState, Suspense} from 'react';
+import React, {useState, Suspense, } from 'react';
 import {useSelector, shallowEqual, Provider, useDispatch} from 'react-redux';
 import ChatBox from './ChatBox';
+// const ChatBox = lazy(()=> import('./ChatBox'));
 import { PdmActions } from "../../handle/redux/reducers/actionType";
 import { inputEnter } from "../../handle/redux/reducers/chat/chatViewReducer";
 import { FlatList } from "react-native-gesture-handler";

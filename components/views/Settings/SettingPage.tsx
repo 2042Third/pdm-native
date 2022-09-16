@@ -1,5 +1,5 @@
 import { ActivityIndicator, SafeAreaView, SectionList, Text, View } from "react-native";
-import React, { lazy, Suspense } from 'react'
+import React, {  Suspense } from 'react'
 import {styles} from '../../../assets/Style';
 import {NativeModules, Button} from 'react-native';
 import {

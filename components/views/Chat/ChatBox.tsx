@@ -1,11 +1,14 @@
 import {useSelector} from 'react-redux';
 import {FlatList, Text, View} from 'react-native';
-import React, { PureComponent } from "react";
+import React, { useEffect } from "react";
 import {colors, styles} from '../../../assets/Style';
 import { ChatStore } from "../../handle/types";
 
 let ChatBox;
 export default ChatBox = ({id, ...props}) => {
+  useEffect(()=>{
+    console.log(`ChatBox working ${id}`);
+  },[]);
   const selectChatById = (state, chatId) => {
     return state.chat.messages.find(chat => chat.id === chatId);
   };

@@ -77,11 +77,7 @@ const NotesView = () => {
     <View style={[{flex:1},styles.notesBox, styles.container]}>
       {/*Header Start*/}
       {/* <ScrollView> */}
-      <Suspense fallback={
-        <View style={[styles.centeredView]}>
-          <ActivityIndicator />
-        </View>
-      }>
+
           <TextInput
             // disallowInterruption={true}
 
@@ -115,7 +111,6 @@ const NotesView = () => {
           onEndEditing={onFinishedEditContent}
           value={noteValue}
         />
-      </Suspense>
       {/*Notes Edit End*/}
     </View>
   );

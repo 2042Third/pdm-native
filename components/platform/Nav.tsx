@@ -1,9 +1,10 @@
+import React,{} from 'react';
 import {colors, styles} from '../../assets/Style';
 import ChatView from '../views/Chat/ChatPage';
 import UserView from '../views/User/UserPage';
 import SettingView from '../views/Settings/SettingPage';
 import {NavigationContainer} from '@react-navigation/native';
-import * as React from 'react';
+// import * as React from 'react';
 import {useWindowDimensions,  } from "react-native";
 import {
   DrawerToggleButton,
@@ -16,7 +17,7 @@ import { useEffect } from 'react';
 import { UserEnter } from '../handle/types';
 import { signinUser } from '../handle/redux/reducers/user/userinfoReducer';
 import { setUserSess } from "../handle/redux/reducers/user/userinfoEnter";
-
+// const ChatView =  lazy(()=>import ("../views/Chat/ChatPage"));
 
 const Nav = (props: {Drawer: any}) => {
   const window = useWindowDimensions();

@@ -1,7 +1,7 @@
 import { createDrawerNavigator, DrawerToggleButton } from "@react-navigation/drawer";
 import React from "react";
 import { SafeAreaView, Text, useWindowDimensions, View } from 'react-native';
-import { TabController } from "react-native-ui-lib";
+// import { TabController } from "react-native-ui-lib";
 import { colors, styles } from "../../assets/Style";
 import NotesMenu from "../views/Notes/NotesMenu";
 import NotesView from "../views/Notes/NotesPage";
