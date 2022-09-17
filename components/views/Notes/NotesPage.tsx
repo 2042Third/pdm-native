@@ -24,10 +24,10 @@ const NotesView = () => {
   const navigation = useNavigation();
 
 
-  useEffect(()=>{
+  setTimeout(()=>{
     navigation.setOptions({title: updateStatusText()});
-
-  },[noteEditor.update_time]);
+    console.log(`Timeout set: ${updateStatusText()}`);
+  },6000);
   const updateStatusText = () => {
     if(!noteEditor || !noteEditor.update_time){
       return '';
@@ -137,4 +137,5 @@ const NotesView = () => {
 };
 
 // export default gestureHandlerRootHOC(NotesView);
-export default React.memo(NotesView);
+export default NotesView;
+// export default React.memo(NotesView);
