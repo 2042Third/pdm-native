@@ -150,9 +150,9 @@ const NotesMenu = ({  }) => {
 
       <View style={styles.noteMenuContent}>
         <ActionSheet
-          title={'Title'}
+          title={selectedNote}
           message={'Message of action sheet'}
-          cancelButtonIndex={1}
+          cancelButtonIndex={2}
           style={[styles.mainColor]}
           destructiveButtonIndex={0}
           options={[
@@ -181,9 +181,9 @@ const NotesMenu = ({  }) => {
           <FlatList
             data={noteids}
             renderItem={NoteItemCell }
-            maxToRenderPerBatch={6}
-            windowSize={2}
-            initialNumToRender={12}
+            maxToRenderPerBatch={20}
+            windowSize={3}
+            initialNumToRender={20}
             // renderItem={({ item }) => <NoteItemCell item={item} />}
             refreshControl={
               <RefreshControl

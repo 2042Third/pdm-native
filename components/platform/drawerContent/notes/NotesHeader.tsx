@@ -1,19 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { styles } from "../../../../assets/Style";
 import { useAppSelector } from "../../../handle/redux/hooks";
+import { formatDistanceToNowStrict } from 'date-fns'
 
-const NotesHeader =({props}) => {
-  const note = useAppSelector( state => state.noteEditor);
+const NotesHeader =({navigation}) => {
 
-  const updateStatusText = () => {
-    return note.statusInfo;
-  };
 
   return (
     <View style={[styles.mainColor]}>
       <Text style={[styles.headerText]}>
-        {updateStatusText()}
+        {navigation.state.param.currentNoteUpdated}
       </Text>
     </View>
   );

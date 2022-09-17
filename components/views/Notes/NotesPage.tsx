@@ -1,7 +1,7 @@
 import { ActivityIndicator, View } from "react-native";
 // import { View, TextInput} from 'react-native';
 import {styles, colors} from '../../../assets/Style';
-import React, { useEffect,Suspense } from 'react';
+import React, { useEffect, Suspense, useState } from "react";
 import { TextInput } from 'react-native-gesture-handler';
 // import { PanGestureHandler } from 'react-native-gesture-handler';
 import { useAppDispatch, useAppSelector } from '../../handle/redux/hooks';
@@ -9,6 +9,8 @@ import { UpdateNoteArg } from '../../handle/models';
 import { updateEditsContent, updateEditsHead, updateNote } from '../../handle/redux/reducers/notes/noteEditor';
 import { useDispatch } from 'react-redux';
 import { NotesMsg } from '../../handle/types';
+import { formatDistanceToNowStrict } from "date-fns";
+import { useNavigation } from "@react-navigation/native";
 
 const NotesView = () => {
   const [headerValue, onChangeText] = React.useState('');
@@ -18,6 +20,24 @@ const NotesView = () => {
 
   const noteEditor:NotesMsg = useAppSelector(state => state.noteEditor);
   const user = useAppSelector(state => state.userEnter);
+
+  const navigation = useNavigation();
+
+
+  useEffect(()=>{
+    navigation.setOptions({title: updateStatusText()});
+
+  },[noteEditor.update_time]);
+  const updateStatusText = () => {
+    if(!noteEditor || !noteEditor.update_time){
+      return '';
+    }
+    // console.log(`Date note ${JSON.stringify(note)}`);
+
+    return formatDistanceToNowStrict(parseFloat(noteEditor.update_time)*1000);
+  };
+
+
 
   const onFinishedEditContent = async () => {
     if (noteEditor.status !== "success" || noteEditor.note_id === '') {

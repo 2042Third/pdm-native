@@ -42,7 +42,7 @@ const DrawerRight = () => {
           lazy: true,
           headerStyle: styles.drawerHeaderStyle,
           headerTitleStyle: styles.drawerHeaderTitleStyle,
-          headerTitle: (props) => < NotesHeader props={props} />,
+          // headerTitle: (navigation) => < NotesHeader navigation={navigation}  />,
           drawerItemStyle: { display: 'none' },
           keyboardDismissMode: "none",
           headerLeft: () => <Icon style={[styles.menuButton]}
