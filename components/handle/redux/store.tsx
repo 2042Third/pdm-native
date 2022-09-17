@@ -3,6 +3,7 @@ import ChatInputViewReducer from './reducers/chat/chatViewReducer';
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import UserinfoStatusReducer from "./reducers/user/userinfoReducer";
 import NotesHeadsReducer from "./reducers/notes/notesHeadsReducer";
+
 import NoteEditorReducer from "./reducers/notes/noteEditor";
 import UserinfoEnterReducer from './reducers/user/userinfoEnter';
 import AppSettingsReducer from './reducers/settings/appSettings';
@@ -20,6 +21,7 @@ import {
   REGISTER,
 } from 'redux-persist'
 import EncryptedUserinfoEnterReducer from './reducers/user/encryptedUserEnter';
+import NotesHeaderInfoReducer from "./reducers/notes/notesHeaderInfo";
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
@@ -33,6 +35,7 @@ export const rootReducer = combineReducers({
   userEnter: UserinfoEnterReducer,
   noteHeads: NotesHeadsReducer,
   noteEditor: NoteEditorReducer,
+  notesHeaderInfo: NotesHeaderInfoReducer,
   appSettings: AppSettingsReducer,
   encryptedUserEnter: EncryptedUserinfoEnterReducer,
 });

@@ -67,6 +67,10 @@ export class NotesMsg extends NoteHead{
   // pdmSecurityVersion;
 }
 
+export class NotesHeaderInfo {
+  update_info: string = '';
+}
+
 export class UserEnter {
   upw: string = "";
   umail: string = "";

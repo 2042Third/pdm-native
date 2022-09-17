@@ -10,12 +10,14 @@ import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import Icon from "../icons/Icon";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 import NotesHeader from "./drawerContent/notes/NotesHeader";
+import { useAppSelector } from "../handle/redux/hooks";
 
 const DrawerRightMenu = createDrawerNavigator();
 
 const DrawerRight = () => {
   const window = useWindowDimensions();
   const navigation2 = useNavigation();
+  const header = useAppSelector(state => state.notesHeaderInfo);
   return (
     <DrawerRightMenu.Navigator
       screenOptions={{
@@ -38,11 +40,12 @@ const DrawerRight = () => {
       < DrawerRightMenu.Screen
         name="NotesEdit"
         component={NotesView}
-        options={{
+        options={(route)=>({
+          params:{title:""},
           lazy: true,
           headerStyle: styles.drawerHeaderStyle,
           headerTitleStyle: styles.drawerHeaderTitleStyle,
-          // headerTitle: (navigation) => < NotesHeader navigation={navigation}  />,
+          headerTitle: () => < NotesHeader header={header} />,
           drawerItemStyle: { display: 'none' },
           keyboardDismissMode: "none",
           headerLeft: () => <Icon style={[styles.menuButton]}
@@ -51,7 +54,7 @@ const DrawerRight = () => {
                             />,
           headerRight: () => <DrawerToggleButton tintColor={colors['--foreground-default']}/>,
 
-          }}/>
+          })}/>
     </DrawerRightMenu.Navigator>
 
   );
