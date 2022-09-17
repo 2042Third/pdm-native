@@ -24,10 +24,20 @@ const NotesView = () => {
   const navigation = useNavigation();
 
 
-  setTimeout(()=>{
-    navigation.setOptions({title: updateStatusText()});
-    console.log(`Timeout set: ${updateStatusText()}`);
-  },6000);
+
+
+  useEffect(() => {
+    console.log("mounting");
+
+    const interval = setInterval(()=>{
+      navigation.setOptions({title: updateStatusText()});
+      console.log(`Timeout set: ${updateStatusText()}`);
+    },30000);
+    return ()=>{
+      clearInterval(interval);
+      console.log("Cleared interval");
+    }
+  }, []);
   const updateStatusText = () => {
     if(!noteEditor || !noteEditor.update_time){
       return '';
@@ -137,5 +147,5 @@ const NotesView = () => {
 };
 
 // export default gestureHandlerRootHOC(NotesView);
-export default NotesView;
-// export default React.memo(NotesView);
+// export default NotesView;
+export default React.memo(NotesView);
