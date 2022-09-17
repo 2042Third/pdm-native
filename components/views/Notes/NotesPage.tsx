@@ -68,8 +68,7 @@ const NotesView = ({}) => {
 
   useEffect( ()=>{
     console.log(`waiting value => ${waitValue}, wait=${wait}, dirty=${dirty}`);
-    let interval:NodeJS.Timer ;
-      interval = setInterval(()=>{
+    const interval:NodeJS.Timer = setInterval(()=>{
         // if(wait){
           console.log(`now value => ${waitValue}, wait=${wait}, dirty=${dirty}`);
           // onWait(wait => false);
@@ -77,6 +76,7 @@ const NotesView = ({}) => {
           console.log("I am writting...");
           onDirty(dirty => false);
           onWaitValue(waitValue=>0);
+          clearInterval(interval);
         }
         else if (dirty) {
           onWaitValue(waitValue=>waitValue+1);
