@@ -3,11 +3,14 @@ import { Text, View } from "react-native";
 import { styles } from "../../../../assets/Style";
 
 const NotesHeader =({header}) => {
-  console.log("nav state +++++++++++ "+header.update_info);
+  console.log("nav state +++++++++++ "+header.updateInfo);
   return (
-    <View style={[styles.mainColor]}>
-      <Text style={[styles.headerText]}>
-        {header.update_info}
+    <View style={[styles.headerText, styles.centeredView, { flexDirection: "column" }]}>
+      <Text style={[ styles.headerText, styles.normalText]}>
+        {header.updateInfo}
+      </Text>
+      <Text style={[ styles.headerText, styles.smallText]}>
+        {header.updateTimeDistance}
       </Text>
     </View>
   );

@@ -68,7 +68,8 @@ export class NotesMsg extends NoteHead{
 }
 
 export class NotesHeaderInfo {
-  update_info: string = '';
+  updateInfo: string = '';
+  updateTimeDistance: string = '';
 }
 
 export class UserEnter {

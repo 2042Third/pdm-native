@@ -11,34 +11,50 @@ import { useDispatch } from 'react-redux';
 import { NotesMsg } from '../../handle/types';
 import { formatDistanceToNowStrict } from "date-fns";
 import { useNavigation } from "@react-navigation/native";
-import { newNotesHeaderInfo } from "../../handle/redux/reducers/notes/notesHeaderInfo";
+import { updateNotesHeaderInfo, updateNotesTimeDistance } from "../../handle/redux/reducers/notes/notesHeaderInfo";
+
+enum updateStatus{
+  AllUpdated = "Up to date",
+  Updating = "Updating...",
+  UpdateFail = "Error Updating"
+}
 
 const NotesView = ({}) => {
   const [headerValue, onChangeText] = React.useState('');
   const [noteValue, onChangeNote] = React.useState('');
-  let writtingStatus = {dirty:false,wait:false};
-  // const [writtingStatus, onWrittingStatus] = React.useState({dirty:false,wait:false});
-  const [wait, onWait] = React.useState(false);
   const [dirty, onDirty] = React.useState(false);
   const [waitValue, onWaitValue] = React.useState(0);
   const [isFocused, onFocusingHeader] = React.useState(false);
   const dispatch = useAppDispatch();
-
   const noteEditor:NotesMsg = useAppSelector(state => state.noteEditor);
   const user = useAppSelector(state => state.userEnter);
 
-  const navigation = useNavigation();
+  /**
+   * Condition checkers.
+   * */
+  const shouldNotUpdateNote = () => {
+    return noteEditor.status === "fail" || noteEditor.note_id === '';
+  }
 
+  const isDuplicateHead = () => {
+    return headerValue === noteEditor.head;
+  }
 
+  const isDuplicateContent = () => {
+    return noteValue === noteEditor.content;
+  }
 
+  const isDuplicateAll =() => {
+    return isDuplicateContent() && isDuplicateHead();
+  }
 
   useEffect(() => {
     console.log("mounting");
 
     const interval = setInterval(()=>{
-      dispatch(newNotesHeaderInfo(updateStatusText()));
+      dispatch(updateNotesTimeDistance(updateStatusText()));
       console.log(`Timeout set: ${updateStatusText()}`);
-    },30000);
+    },10000);
     return ()=>{
       clearInterval(interval);
       console.log("Cleared interval");
@@ -55,42 +71,44 @@ const NotesView = ({}) => {
 
   const onStartingWrite = () => {
     onWaitValue(waitValue=>0);
-    onWait(wait=>false);
     if(!dirty){
       onDirty(dirty=>true);
-      console.log(`pushing value => ${waitValue}, wait=${wait}, dirty=${dirty}`);
-// waitAndCheck();
-    }
-    else {
-      return;
+      dispatch(updateNotesHeaderInfo(updateStatus.Updating));
+      console.log(`pushing value => ${waitValue}, dirty=${dirty}`);
     }
   }
 
   useEffect( ()=>{
-    console.log(`waiting value => ${waitValue}, wait=${wait}, dirty=${dirty}`);
+    console.log(`waiting value => ${waitValue},  dirty=${dirty}`);
     const interval:NodeJS.Timer = setInterval(()=>{
-        // if(wait){
-          console.log(`now value => ${waitValue}, wait=${wait}, dirty=${dirty}`);
-          // onWait(wait => false);
-        if(dirty && waitValue>2) {
-          console.log("I am writting...");
-          onDirty(dirty => false);
-          onWaitValue(waitValue=>0);
-          clearInterval(interval);
+      console.log(`now value => ${waitValue}, dirty=${dirty}`);
+      if(dirty && waitValue>0) {
+        if(!isDuplicateAll()){
+          console.log("Update should attempt...");
+          onFinishedEditAll()
+            .then(r => {
+              console.log("Finish update all.");
+              dispatch(updateNotesHeaderInfo(updateStatus.AllUpdated))
+            })
+            .catch(e=>{
+              console.log(e);
+              dispatch(updateNotesHeaderInfo(updateStatus.UpdateFail))
+            });
         }
-        else if (dirty) {
-          onWaitValue(waitValue=>waitValue+1);
-
-        }
-        // }
-      },2000);
-    // }
-
+        onDirty(dirty => false);
+        onWaitValue(waitValue=>0);
+        clearInterval(interval);
+      }
+      else if (dirty) {
+        dispatch(updateNotesHeaderInfo(updateStatus.Updating))
+        onWaitValue(waitValue=>waitValue+1);
+      }
+    },2000);
     return ()=> { clearInterval(interval)};
   });
 
   const onFinishedEditContent = async () => {
-    if (noteEditor.status === "fail" || noteEditor.note_id === '') {
+    if (shouldNotUpdateNote()) {
       return;
     }
     console.log(`START FINISHER content`)
@@ -112,7 +130,7 @@ const NotesView = ({}) => {
   };
 
   const onFinishedEditHead= async () => {
-    if (noteEditor.status !== "success" || noteEditor.note_id === '') {
+    if (shouldNotUpdateNote()) {
       return;
     }
     console.log(`START FINISHER head`)
@@ -132,9 +150,31 @@ const NotesView = ({}) => {
     console.log(`Finished update dispatch head. Note obj => ${JSON.stringify(noteEditor)}`);
   };
 
+  const onFinishedEditAll = async () => {
+    if (shouldNotUpdateNote()) {
+      return;
+    }
+    console.log(`START FINISHER all`)
+    try {
+      await dispatch(updateEditsHead({ str: headerValue, noteMsg: noteEditor }));
+      await dispatch(updateEditsContent({ str: noteValue, noteMsg: noteEditor }));
+    }
+    catch (e) {
+      console.log("Dispatch update all failed.");
+      console.log(e);
+      return;
+    }
+    const arg: UpdateNoteArg = {
+      user: user,
+      noteMsg: { ...noteEditor, head: headerValue, content: noteValue }
+    };
+    dispatch(updateNote(arg));
+    console.log(`Finished update dispatch all. Note obj => ${JSON.stringify(noteEditor)}`);
+  }
+
   useEffect(() => {
     const timestamp = updateStatusText();
-    dispatch(newNotesHeaderInfo(timestamp));
+    dispatch(updateNotesTimeDistance(timestamp));
     console.log(`update timestamp: ${timestamp}, value: ${noteEditor.update_time}`);
   }, [noteEditor]);
 

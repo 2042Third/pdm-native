@@ -1,19 +1,20 @@
 
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { dec, enc } from "../../../handlers/user";
-import { EncryptedUserEnterArg } from "../../../models";
-import { EncrptedUserEnter, NotesHeaderInfo, UserEnter, UserInfoGeneral } from "../../../types";
-import { parseTimeShort } from "../helpers";
+import {  createSlice } from "@reduxjs/toolkit";
+import { NotesHeaderInfo } from "../../../types";
 
 
 export const NotesHeaderInfoSlice = createSlice({
   name: 'notesHeaderInfo',
   initialState: {
-    update_info: " "
+    updateInfo: "Up to date",
+    updateTimeDistance: ""
   } as NotesHeaderInfo,
   reducers: {
-    newNotesHeaderInfo: (state, action) => {
-      return { update_info: action.payload };
+    updateNotesHeaderInfo: (state, action) => {
+      return {...state, updateInfo: action.payload };
+    },
+    updateNotesTimeDistance: (state, action) => {
+      return {...state, updateTimeDistance: action.payload };
     },
   },
   // extraReducers(builder) {
@@ -23,7 +24,8 @@ export const NotesHeaderInfoSlice = createSlice({
 
 // actions
 export const {
-  newNotesHeaderInfo,
+  updateNotesHeaderInfo,
+  updateNotesTimeDistance
 } = NotesHeaderInfoSlice.actions;
 
 export default NotesHeaderInfoSlice.reducer;
