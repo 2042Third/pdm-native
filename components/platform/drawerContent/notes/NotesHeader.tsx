@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import { styles } from "../../../../assets/Style";
 
 const NotesHeader =({header}) => {
-  console.log("nav state +++++++++++ "+header.updateInfo);
+  // console.log("nav state +++++++++++ "+header.updateInfo);
   return (
     <View style={[styles.headerText, styles.centeredView, { flexDirection: "column" }]}>
       <Text style={[ styles.headerText, styles.normalText]}>

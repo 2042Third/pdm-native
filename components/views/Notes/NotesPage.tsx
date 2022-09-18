@@ -53,7 +53,7 @@ const NotesView = ({}) => {
 
     const interval = setInterval(()=>{
       dispatch(updateNotesTimeDistance(updateStatusText()));
-      console.log(`Timeout set: ${updateStatusText()}`);
+      // console.log(`Timeout set: ${updateStatusText()}`);
     },10000);
     return ()=>{
       clearInterval(interval);
@@ -79,9 +79,7 @@ const NotesView = ({}) => {
   }
 
   useEffect( ()=>{
-    console.log(`waiting value => ${waitValue},  dirty=${dirty}`);
     const interval:NodeJS.Timer = setInterval(()=>{
-      console.log(`now value => ${waitValue}, dirty=${dirty}`);
       if(dirty && waitValue>0) {
         if(!isDuplicateAll()){
           console.log("Update should attempt...");
@@ -111,7 +109,6 @@ const NotesView = ({}) => {
     if (shouldNotUpdateNote()) {
       return;
     }
-    console.log(`START FINISHER content`)
     try {
       await dispatch(updateEditsContent({ str: noteValue, noteMsg: noteEditor }))
     }
@@ -133,7 +130,6 @@ const NotesView = ({}) => {
     if (shouldNotUpdateNote()) {
       return;
     }
-    console.log(`START FINISHER head`)
     try {
       await dispatch(updateEditsHead({ str: headerValue, noteMsg: noteEditor }));
     }
@@ -154,7 +150,6 @@ const NotesView = ({}) => {
     if (shouldNotUpdateNote()) {
       return;
     }
-    console.log(`START FINISHER all`)
     try {
       await dispatch(updateEditsHead({ str: headerValue, noteMsg: noteEditor }));
       await dispatch(updateEditsContent({ str: noteValue, noteMsg: noteEditor }));

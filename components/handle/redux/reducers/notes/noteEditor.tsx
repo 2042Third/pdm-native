@@ -84,12 +84,12 @@ export const updateNote = createAsyncThunk('noteHead/updateNote', async (argu: U
   // Make new object to store decrypted
   let load:NotesMsg = new NotesMsg;
   load = JSON.parse(JSON.stringify(note)) as NotesMsg;
-  if (load.content === null || load.content === '') {
+  if (!load.content) {
     load.content = "";
   } else {
     load.content = await PdmNativeCryptModule.dec(user.upw, load.content);
   }
-  if (load.head === null || load.head === '') {
+  if (!load.head) {
     load.head = "";
   } else {
     load.head = await PdmNativeCryptModule.dec(user.upw, load.head);
@@ -201,7 +201,9 @@ export const NoteEditorSlice = createSlice({
         return {...state,
           statusInfo: "fulfilled",
           update_time: action.payload.update_time,
-          time: action.payload.time
+          time: action.payload.time,
+          content: action.payload.content,
+          head: action.payload.head
         };
       })
   },
