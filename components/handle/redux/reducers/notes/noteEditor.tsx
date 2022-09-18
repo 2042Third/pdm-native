@@ -171,25 +171,25 @@ export const NoteEditorSlice = createSlice({
       })
       .addCase(updateEditsContent.fulfilled, (state, action) => {
         let load = state;
-        load.status = "fulfilled";
+        load.statusInfo = "fulfilled";
         load.content = action.payload.content;
         load.hash = action.payload.hash
         return load;
       })
       .addCase(updateEditsHead.fulfilled, (state, action) => {
         let load = state;
-        load.status = "fulfilled";
+        load.statusInfo = "fulfilled";
         load.head = action.payload;
         return load;
       })
       .addCase(updateEditsContent.rejected, (state, action) => {
         let load = state;
-        load.status = "rejected";
+        load.statusInfo = "rejected";
         return load;
       })
       .addCase(updateEditsHead.rejected, (state, action) => {
         let load = state;
-        load.status = "rejected";
+        load.statusInfo = "rejected";
         return load;
       })
       .addCase(updateNote.pending, (state, action)=>{
@@ -203,6 +203,7 @@ export const NoteEditorSlice = createSlice({
           update_time: action.payload.update_time,
           time: action.payload.time,
           content: action.payload.content,
+          status: action.payload.status,
           head: action.payload.head
         };
       })

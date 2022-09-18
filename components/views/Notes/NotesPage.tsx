@@ -48,6 +48,10 @@ const NotesView = ({}) => {
     return isDuplicateContent() && isDuplicateHead();
   }
 
+  const noUpdate = () => {
+    console.log("No update")
+  }
+
   useEffect(() => {
     console.log("mounting");
 
@@ -86,7 +90,12 @@ const NotesView = ({}) => {
           onFinishedEditAll()
             .then(r => {
               console.log("Finish update all.");
-              dispatch(updateNotesHeaderInfo(updateStatus.AllUpdated))
+              if (noteEditor.status === 'fail'){
+                // dispatch(updateNotesHeaderInfo(noteEditor.status));
+                dispatch(updateNotesHeaderInfo(updateStatus.UpdateFail));
+              }else {
+                dispatch(updateNotesHeaderInfo(updateStatus.AllUpdated));
+              }
             })
             .catch(e=>{
               console.log(e);
@@ -203,7 +212,7 @@ const NotesView = ({}) => {
             onBlur={() => { onFocusingHeader(false); }}
             onChangeText={onChangeText}
             // onKeyPress={onStartingWrite}
-            onEndEditing={onFinishedEditHead}
+            onEndEditing={(!isDuplicateHead)?onFinishedEditHead:noUpdate}
             placeholder={noteEditor.head === "" || noteEditor.head === null ? "Unnamed Note " + noteEditor.note_id : noteEditor.head}
             placeholderTextColor={colors['--foreground-tertiary']}
             value={headerValue}
@@ -221,7 +230,7 @@ const NotesView = ({}) => {
           style={[styles.notesEditStyle, styles.inputAreaColor]}
           onChangeText={onChangeNote}
           autoCorrect={false}
-          onEndEditing={onFinishedEditContent}
+          onEndEditing={(!isDuplicateContent())?onFinishedEditContent:noUpdate}
           value={noteValue}
         />
       {/*Notes Edit End*/}
