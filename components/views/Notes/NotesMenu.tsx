@@ -23,6 +23,7 @@ import { recordPageChange } from "../../handle/handlers/records";
 import { changePageOpened } from "../../handle/redux/reducers/settings/appSettings";
 import { useDrawerStatus } from "@react-navigation/drawer";
 import { useKeyboard } from "@react-native-community/hooks";
+
 const NotesMenu = ({  }) => {
   // const NotesMenu = ({navigation}) => {
   const dispatch = useAppDispatch();

@@ -5,6 +5,7 @@ import { GetNoteArg, UpdareNoteWithString, UpdateNoteArg } from "../../../models
 import NetCalls from "../../../network/netCalls";
 import { NoteHead, NotesMsg, UserEnter } from "../../../types";
 import { useAppDispatch } from "../../hooks";
+
 const userNoteEditorClearData = {
   head:  '',
   note_id:  '',
@@ -26,6 +27,7 @@ const userNoteEditorClearData = {
   encry: "",
   hash:  '',
 } as NotesMsg;
+
 /**
  *
  * THUNKS
