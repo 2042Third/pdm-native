@@ -53,9 +53,9 @@ const UserPage = () => {
     }
   }
   return (
-    <>
+    <View style={[{flex:1, flexDirection:"column", alignContent:"stretch"}]}>
       {userScreen()}
-    </>
+    </View>
   );
 }
 
@@ -74,34 +74,36 @@ const UserProfile = ({ userInfo }: UserinfoArg) => {
     dispatch(newUserinfoEnter(userEnterClearData));
   }
   return (
-    <View style={[styles.mainColor,  { flex: 1 , flexDirection:"column"}]}>
-      <Text style={[styles.normalText, styles.centerTextPadding]}>
+    <View style={[styles.mainColor,  { flex: 1 , flexDirection:"column", alignContent: "space-between"}]}>
+      <>
+        <Text style={[styles.normalText, styles.centerTextPadding]}>
          {userInfo.username}
-      </Text>
-      <Text style={[styles.smallText, styles.centerTextPadding]}>
-        Email:
-      </Text>
-      <Text style={[styles.normalText, styles.centerTextPadding]}>
-        {userInfo.email}
-      </Text>
-      <Text style={[styles.smallText, styles.centerTextPadding]}>
-        Account Created:
-      </Text>
-      <Text style={[styles.normalText, styles.centerTextPadding]}>
-        {userInfo.ctime}
-      </Text>
-      <ScrollView style={[styles.plainViewPortLimitedHeight]}>
-        <>
-          <Text style={[styles.inputAreaColor]} >{userInfo.status}</Text>
-          <Text style={[styles.inputAreaColor]} >
-            {eUserEnter ? ("local store time: " + parseTimeShort(eUserEnter.dateTimeUpdated)) : ""}
-          </Text>
-          <Text style={[styles.inputAreaColor,]} >
-            {eUserEnter ? ("local store :" + JSON.stringify(eUserEnter)) : ""}
-          </Text>
-        </>
-      </ ScrollView>
-      <Button title={'clear'} color={colors['--background-light']}
+        </Text>
+        <Text style={[styles.smallText, styles.centerTextPadding]}>
+          Email:
+        </Text>
+        <Text style={[styles.normalText, styles.centerTextPadding]}>
+          {userInfo.email}
+        </Text>
+        <Text style={[styles.smallText, styles.centerTextPadding]}>
+          Account Created:
+        </Text>
+        <Text style={[styles.normalText, styles.centerTextPadding]}>
+          {userInfo.ctime}
+        </Text>
+        <ScrollView style={[styles.plainViewPortLimitedHeight]}>
+          <>
+            <Text style={[styles.inputAreaColor]} >{userInfo.status}</Text>
+            <Text style={[styles.inputAreaColor]} >
+              {eUserEnter ? ("local store time: " + parseTimeShort(eUserEnter.dateTimeUpdated)) : ""}
+            </Text>
+            <Text style={[styles.inputAreaColor,]} >
+              {eUserEnter ? ("local store :" + JSON.stringify(eUserEnter)) : ""}
+            </Text>
+          </>
+        </ ScrollView>
+      </>
+      <Button title={'Log Out & Clear'} color={colors['--error-default']}
         onPress={cleanCurrentStatus}
       ></Button>
     </View>
