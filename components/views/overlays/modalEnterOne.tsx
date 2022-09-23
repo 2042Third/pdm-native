@@ -80,6 +80,10 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
             <Text style={[styles.mainColor]}>
             {"Encrypted local data from \n" + parseTimeShort(eUserEnter.dateTimeUpdated) +"\nPlease enter application password"}
             </Text>
+          {/* Alerts */}
+          <Text style={[styles.normalText,{color:userInfo.status === "fail"?colors["--error-default"]:colors['--background-default']}]}>
+            {userInfo.statusInfo}
+          </Text>
           {/* Input */}
           <TextInput
             value={epw}

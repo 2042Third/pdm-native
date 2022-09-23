@@ -195,7 +195,10 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
 
   return (
           <View style={[styles.loginContainer, styles.mainColor, {flex:1}]}>
-
+            {/* Alerts */}
+            <Text style={[styles.normalText,{color:userInfo.status === "fail"?colors["--error-default"]:colors['--background-default']}]}>
+              {userInfo.statusInfo}
+            </Text>
             {/*email*/}
             <TextInput
               value={umail}
