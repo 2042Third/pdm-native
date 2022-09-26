@@ -44,7 +44,7 @@ export const UserinfoEnterSlice = createSlice({
     builder
       .addCase(decryptLocal.fulfilled, (state, action) => {
 
-        return action.payload;
+        return { ...action.payload };
       })
   },
 });
