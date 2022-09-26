@@ -136,7 +136,7 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
     const upwServer = await getHash(upw+upw);
     const currentUserEnter:UserEnter = {
       umail: umail, upw: upw, upwServer: upwServer,
-      sess: ""
+      sess: "",timesTried:0
     };
     dispatch(newUserinfoEnter(currentUserEnter));
   };
@@ -181,8 +181,9 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
           umail: userEnter.umail,
           upw: userEnter.upw,
           upwServer: userEnter.upwServer,
-          sess: userInfo.sess
-        };
+          sess: userInfo.sess,
+          timesTried:0
+        }
         console.log("attampt making local store");
         dispatch(saveUserEnter({ epw: epw, user: currentUserEnter }));
       }

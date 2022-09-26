@@ -77,13 +77,14 @@ export class UserEnter {
   umail: string = "";
   upwServer: string = "";
   sess: string = "";
-};
+  timesTried: number = 0;
+}
 
 export class AppSettings{
   lastPageOpened: string = 'Notes';
-};
+}
 
 export class EncrptedUserEnter{
   userEnter: string = '';
   dateTimeUpdated: number = -1;
-};
+}

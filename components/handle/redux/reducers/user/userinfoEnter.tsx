@@ -8,6 +8,7 @@ export const userEnterClearData = {
   upw:'',
   upwServer:'',
   sess: '',
+  timesTried: 0
 } as UserEnter;
 
 export const decryptLocal = createAsyncThunk('userinfoEnter/decryptLocal'
@@ -26,6 +27,7 @@ export const UserinfoEnterSlice = createSlice({
     upw: '',
     upwServer: '',
     sess: '',
+    timesTried: 0
   } as UserEnter,
   reducers: {
     newUserinfoEnter: (state, action) =>{
