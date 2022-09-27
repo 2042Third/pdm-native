@@ -82,9 +82,11 @@ export class UserEnter {
 
 export class AppSettings{
   lastPageOpened: string = 'Notes';
+  timesCanTry: number = 5;
 }
 
 export class EncrptedUserEnter{
   userEnter: string = '';
   dateTimeUpdated: number = -1;
+  timeUnlock: number = -1;
 }

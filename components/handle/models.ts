@@ -27,5 +27,5 @@ export class EncryptedUserEnterArg {
 export class UserEnterLocalDec {
   encUserEnter: string = '';
   epw: string = '';
-  timesTried: number = 0;
+  timesTried: number =0;
 }

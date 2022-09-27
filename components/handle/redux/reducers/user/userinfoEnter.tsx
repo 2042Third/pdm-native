@@ -8,7 +8,7 @@ export const userEnterClearData = {
   upw:'',
   upwServer:'',
   sess: '',
-  timesTried: 0
+  timesTried: 0,
 } as UserEnter;
 
 export const decryptLocal = createAsyncThunk('userinfoEnter/decryptLocal'
@@ -17,7 +17,7 @@ export const decryptLocal = createAsyncThunk('userinfoEnter/decryptLocal'
   if(decReturn)
     return { ...JSON.parse(decReturn), sess: ''};
   else
-    return userEnterClearData;
+    return { ...userEnterClearData, timesTried: decLocal.timesTried+1 };
 });
 
 export const UserinfoEnterSlice = createSlice({
@@ -27,7 +27,7 @@ export const UserinfoEnterSlice = createSlice({
     upw: '',
     upwServer: '',
     sess: '',
-    timesTried: 0
+    timesTried:0
   } as UserEnter,
   reducers: {
     newUserinfoEnter: (state, action) =>{
@@ -36,7 +36,8 @@ export const UserinfoEnterSlice = createSlice({
     setUserSess: (state, action)=>{
       return {
         ...state,
-        sess: action.payload
+        sess: action.payload,
+
       };
     }
   },

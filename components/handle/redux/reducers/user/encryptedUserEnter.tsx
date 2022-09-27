@@ -10,10 +10,11 @@ export const encryptedUserEnterClearData = {
 } as EncrptedUserEnter;
 
 export const saveUserEnter = createAsyncThunk('encryptedUserinfoEnter/saveUserEnter', async (encData: EncryptedUserEnterArg) => {
-  
+
   return {
     userEnter: await enc(encData.epw, JSON.stringify(encData.user)),
-    dateTimeUpdated: Date.now()
+    dateTimeUpdated: Date.now(),
+    timeUnlock: Date.now()
   };
 });
 
@@ -22,16 +23,17 @@ export const EncryptedUserinfoEnterSlice = createSlice({
   initialState: {
     userEnter: '',
     dateTimeUpdated: -1,
+    timeUnlock: Date.now()
   } as EncrptedUserEnter,
   reducers: {
-    newUserinfoEnter: (state, action) => {
+    newEncUserinfoEnter: (state, action) => {
       return action.payload;
     },
   },
   extraReducers(builder) {
     builder
       .addCase(saveUserEnter.fulfilled, (state, action) => {
-        
+
         return action.payload;
       })
   },
@@ -39,7 +41,7 @@ export const EncryptedUserinfoEnterSlice = createSlice({
 
 // actions
 export const {
-  newUserinfoEnter,
+  newEncUserinfoEnter,
 } = EncryptedUserinfoEnterSlice.actions;
 
 export default EncryptedUserinfoEnterSlice.reducer;

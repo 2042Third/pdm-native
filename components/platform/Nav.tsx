@@ -58,7 +58,8 @@ const Nav = (props: {Drawer: any}) => {
       umail: userEnter.umail,
       upw: userEnter.upw,
       upwServer: userEnter.upwServer,
-      sess: ""
+      sess: "",
+      timesTried: 0
     };
     return dispatch(signinUser(currentUserEnter)); // Signin
   }
@@ -69,13 +70,12 @@ const Nav = (props: {Drawer: any}) => {
    *
   */
   useEffect(() => {
-
+    // the 'fail' checks if user is already signed in
     if (userEnter.umail.length > 0 && userInfo.status === 'fail') {
       userSigninAction().then(() => {
         console.log("Signin Done");
       });
     }
-
     else {
       console.log("Signin Failed => " + JSON.stringify(userInfo));
     }
@@ -170,16 +170,7 @@ const Nav = (props: {Drawer: any}) => {
               headerShown: false,
             }}
           />
-          {/*############################## RIGHT DRAWER ##############################*/}
-          {/* <Drawer.Screen
-          name="NoteDrawer"
-          component={DrawerRight}
-          options={{
-            // drawerLabel: () => null,
-            // drawerItemStyle: { display: "none" },
-            // drawerIcon: () => null,
-          }}
-        ></Drawer.Screen> */}
+
 
         </Drawer.Navigator>
       </NavigationContainer>

@@ -5,7 +5,7 @@ import connect from "react-redux/es/components/connect";
 import { colors, styles } from "../../../assets/Style";
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
 import { parseTimeShort } from "../../handle/redux/reducers/helpers";
-import { encryptedUserEnterClearData, newUserinfoEnter, saveUserEnter } from "../../handle/redux/reducers/user/encryptedUserEnter";
+import { encryptedUserEnterClearData, newEncUserinfoEnter, saveUserEnter } from "../../handle/redux/reducers/user/encryptedUserEnter";
 import { decryptLocal, setUserSess } from "../../handle/redux/reducers/user/userinfoEnter";
 import { UserEnter } from "../../handle/types";
 
@@ -25,12 +25,16 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
   const onSubmit = () => {
     console.log("Logging local");
     dispatch(
-      decryptLocal({ epw: epw, encUserEnter: eUserEnter.userEnter })
+      decryptLocal({
+        timesTried: userEnter.timesTried,
+        epw: epw,
+        encUserEnter: eUserEnter.userEnter
+      })
     )
   };
 
   const deleteLocalData = () => {
-    dispatch(newUserinfoEnter(encryptedUserEnterClearData));
+    dispatch(newEncUserinfoEnter(encryptedUserEnterClearData));
   }
 
   // Return true if can save data locally
@@ -58,7 +62,8 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
           umail: userEnter.umail,
           upw: userEnter.upw,
           upwServer: userEnter.upwServer,
-          sess: userInfo.sess
+          sess: userInfo.sess,
+          timesTried: 0
         };
         console.log("attampt making local store");
         dispatch(saveUserEnter({ epw: epw, user: currentUserEnter }));
@@ -81,8 +86,8 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
             {"Encrypted local data from \n" + parseTimeShort(eUserEnter.dateTimeUpdated) +"\nPlease enter application password"}
             </Text>
           {/* Alerts */}
-          <Text style={[styles.normalText,{color:userInfo.status === "fail"?colors["--error-default"]:colors['--background-default']}]}>
-            {userInfo.statusInfo}
+          <Text style={[styles.normalText,{color:userEnter.timesTried>0?colors["--error-default"]:colors['--background-default']}]}>
+            {userEnter.timesTried}
           </Text>
           {/* Input */}
           <TextInput

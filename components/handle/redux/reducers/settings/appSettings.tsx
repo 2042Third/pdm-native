@@ -4,7 +4,8 @@ import { AppSettings } from "../../../types";
 export const AppSettingsSlice = createSlice({
   name: 'appSettings',
   initialState: {
-    lastPageOpened: "Notes"
+    lastPageOpened: "Notes",
+    timesCanTry: 5
   } as AppSettings,
   reducers: {
     changeSetting: (state, action) => {
@@ -19,7 +20,7 @@ export const AppSettingsSlice = createSlice({
   },
   extraReducers(builder) { // pending/fulfilled/rejected
     builder
-      
+
   },
 });
 
