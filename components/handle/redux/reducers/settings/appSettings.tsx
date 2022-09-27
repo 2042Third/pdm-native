@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppSettings } from "../../../types";
 
+export const clearAppSettings = {
+  lastPageOpened: "Notes",
+  timesCanTry: 5
+} as AppSettings
+
 export const AppSettingsSlice = createSlice({
   name: 'appSettings',
   initialState: {
@@ -19,7 +24,7 @@ export const AppSettingsSlice = createSlice({
     }
   },
   extraReducers(builder) { // pending/fulfilled/rejected
-    builder
+    // builder
 
   },
 });

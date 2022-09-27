@@ -8,6 +8,7 @@ import { parseTimeShort } from "../../handle/redux/reducers/helpers";
 import { encryptedUserEnterClearData, newEncUserinfoEnter, saveUserEnter } from "../../handle/redux/reducers/user/encryptedUserEnter";
 import { decryptLocal, setUserSess } from "../../handle/redux/reducers/user/userinfoEnter";
 import { UserEnter } from "../../handle/types";
+import { changeSetting, clearAppSettings } from "../../handle/redux/reducers/settings/appSettings";
 
 export class EnterModalOneType{
   visible:boolean=true;
@@ -17,12 +18,20 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
   const modalVisible = visible;
   const [epw, onEpw] = React.useState('');
   const [isFocused3, onFocusingHeader3] = React.useState(false);
+  const [modalErrors, onModalErrors] = React.useState("Decryption failed. \nApp password incorrect.\nTimes Tried: ");
   const dispatch = useAppDispatch();
   const eUserEnter = useAppSelector(state => state.encryptedUserEnter);
   const userInfo = useAppSelector(state => state.userinfo);
   const userEnter = useAppSelector(state => state.userEnter);
+  const appSettings = useAppSelector(state => state.appSettings);
+
 
   const onSubmit = () => {
+    console.log(`Trying decryption. tried=${userEnter.timesTried}, timesCanTry=${appSettings.timesCanTry}`)
+    if (userEnter.timesTried >= appSettings.timesCanTry){
+      onModalErrors(`Locked. App password tried too many times. \nTry reopen.`);
+      return;
+    }
     console.log("Logging local");
     dispatch(
       decryptLocal({
@@ -35,6 +44,7 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
 
   const deleteLocalData = () => {
     dispatch(newEncUserinfoEnter(encryptedUserEnterClearData));
+    dispatch(changeSetting(clearAppSettings));
   }
 
   // Return true if can save data locally
@@ -87,7 +97,7 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
             </Text>
           {/* Alerts */}
           <Text style={[styles.normalText,{color:userEnter.timesTried>0?colors["--error-default"]:colors['--background-default']}]}>
-            {userEnter.timesTried}
+            {modalErrors+userEnter.timesTried}
           </Text>
           {/* Input */}
           <TextInput
