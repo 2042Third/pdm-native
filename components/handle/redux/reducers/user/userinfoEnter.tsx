@@ -13,11 +13,14 @@ export const userEnterClearData = {
 
 export const decryptLocal = createAsyncThunk('userinfoEnter/decryptLocal'
   , async (decLocal: UserEnterLocalDec) => {
+  console.log("Trying decrypt");
   const decReturn = await dec(decLocal.epw, decLocal.encUserEnter);
+  console.log("Decrypt => "+ decReturn);
   if(decReturn)
     return { ...JSON.parse(decReturn), sess: ''};
-  else
-    return { ...userEnterClearData, timesTried: decLocal.timesTried+1 };
+  else {
+    return { ...userEnterClearData, timesTried: decLocal.timesTried + 1 };
+  }
 });
 
 export const UserinfoEnterSlice = createSlice({
