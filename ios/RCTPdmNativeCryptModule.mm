@@ -44,6 +44,7 @@ enc:( NSString*)a
 data:(NSString*)b
 resolver:(RCTPromiseResolveBlock)resolve
 rejecter:(RCTPromiseRejectBlock)reject
+                  )
 {
   std::string input_a = std::string([a UTF8String]);
   std::string input_b = std::string([b UTF8String]);
@@ -55,7 +56,7 @@ rejecter:(RCTPromiseRejectBlock)reject
       resolve(@[out_a]);
     }
     else {
-      reject(@[@"Encryption failure"]);
+      reject(@"Encryption failure",@"Encryption failed" , nil);
     }
 }
 
@@ -64,6 +65,7 @@ dec:( NSString*)a
 data:(NSString*)b
 resolver:(RCTPromiseResolveBlock)resolve
 rejecter:(RCTPromiseRejectBlock)reject
+                  )
 {
   std::string input_a = std::string([a UTF8String]);
   std::string input_b = std::string([b UTF8String]);
@@ -74,7 +76,7 @@ rejecter:(RCTPromiseRejectBlock)reject
     resolve(@[out_a]);
   }
   else {
-    reject(@[@"Decryption failure, password incorrect"]);
+    reject(@"Decryption failure",@"password incorrect",nil);
   }
 }
 
