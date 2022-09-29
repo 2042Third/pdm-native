@@ -1,18 +1,17 @@
 import { ActivityIndicator, SafeAreaView, SectionList, Text, View } from "react-native";
 import React, {  Suspense } from 'react'
 import {styles} from '../../../assets/Style';
-import {NativeModules, Button} from 'react-native';
 import {
   TestsJavaEcho,
   TestCppHash,
   SettingList,
   TestCppEncDec,
-} from './settingsObjects';
+} from "./settingsObjects";
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer, useFocusEffect} from '@react-navigation/native';
-import { recordPageChange } from '../../handle/handlers/records';
 import { changePageOpened } from '../../handle/redux/reducers/settings/appSettings';
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
+import { AppPassPage } from "./AppPass/AppPassPage";
 
 const Subsection = ({title}) => (
   <SectionList
@@ -91,6 +90,15 @@ export default function SettingsScreen({...props}) {
             <Stack.Screen
               name={'TestCppEncDec'}
               component={TestCppEncDec}
+              {...props}
+              options={{
+                headerStyle: styles.drawerHeaderStyle,
+                headerTitleStyle: styles.drawerHeaderTitleStyle,
+              }}
+            />
+            <Stack.Screen
+              name={'AppPassPage'}
+              component={AppPassPage}
               {...props}
               options={{
                 headerStyle: styles.drawerHeaderStyle,

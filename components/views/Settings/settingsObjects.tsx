@@ -14,6 +14,7 @@ import {
 import {styles} from '../../../assets/Style';
 import PdmNativeCryptModule from '../../handle/native/NativeModule';
 import KeyboardShift from "../../uiControl/KeyboardShift";
+import Slider from "@react-native-community/slider";
 
 
 export function SettingList({navigation}) {
@@ -35,6 +36,15 @@ export function SettingList({navigation}) {
         },
       ],
     },
+    {
+      title: 'Security',
+      data: [
+        {
+          title: 'AppPassPage',
+          data: '',
+        },
+      ]
+    }
   ];
   const nav = navigation;
   return (
@@ -97,7 +107,7 @@ export function TestCppHash({...props}) {
 
     const backD: string = await PdmNativeCryptModule.getHash(inputText+inputText);
     onChangeOutputDouble(backD);
-    
+
   };
   return (
     <ScrollView style={[styles.container]}>
@@ -142,7 +152,7 @@ export function TestCppEncDec({...props}) {
   const {PdmNativeCryptModule} = NativeModules;
   /**
    * Run the encryption decryption demo
-   * 
+   *
   */
   const onPress = async () => {
     console.log(`Run onpress`);
@@ -153,6 +163,7 @@ export function TestCppEncDec({...props}) {
   };
 
   const window = useWindowDimensions();
+  // @ts-ignore
   return (
     <KeyboardShift style={[styles.mainColor]}>
       {()=>(
@@ -228,6 +239,9 @@ export function TestCppEncDec({...props}) {
     </KeyboardShift>
   );
 }
+
+
+
 const lstyle = StyleSheet.create({
   debugTextBox: {
     overflow: 'scroll',
