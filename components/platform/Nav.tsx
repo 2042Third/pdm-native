@@ -82,6 +82,11 @@ const Nav = (props: {Drawer: any}) => {
   }, [userEnter]);
 
   const shouldUserEnterPass = () => {
+    console.log(`User Status: ${
+        userInfo.status === "fail" &&
+        eUserEnter.dateTimeUpdated > 0 &&
+        userEnter.sess === ''
+      }`)
     return (
       userInfo.status === "fail" &&
       eUserEnter.dateTimeUpdated > 0 &&
@@ -90,14 +95,14 @@ const Nav = (props: {Drawer: any}) => {
   }
 
   const ModalObj = () => {
-    if (shouldUserEnterPass()){
+    // if (shouldUserEnterPass()){
       return (
         <EnterModalOne visible={shouldUserEnterPass()} />
       );
-    }
-    else {
-      return <></>;
-    }
+    // }
+    // else {
+    //   return <></>;
+    // }
   }
 
   React.useEffect(

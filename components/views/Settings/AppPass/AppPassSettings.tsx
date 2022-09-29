@@ -1,5 +1,5 @@
 import Slider from "@react-native-community/slider";
-import React from "react";
+import React, { useEffect } from "react";
 import { GestureResponderEvent, Text } from "react-native";
 import { styles } from "../../../../assets/Style";
 import { useAppDispatch, useAppSelector } from "../../../handle/redux/hooks";
@@ -24,6 +24,7 @@ export function SettingTimesCanTry ({...props}) {
     dispatch(changeTimesCanTry(val));
     console.log(`TimesCanTry Value changed to => ${val}`)
   }
+
   return (
     <>
       <Text style={[styles.lessNormalText, {padding:10}]}>
@@ -34,11 +35,12 @@ export function SettingTimesCanTry ({...props}) {
       </Text>
       <Slider
         onStartShouldSetResponder={touchCapture}
-        // onMoveShouldSetResponderCapture={touchCapture}
+        onMoveShouldSetResponderCapture={touchCapture}
         onResponderGrant={touchCaptureGrant}
         onResponderReject={touchCaptureReject}
 
         onValueChange={onValueChange}
+        value={appSettings.timesCanTry}
         style={[{height:18}]}
         minimumValue={1}
         maximumValue={10}
