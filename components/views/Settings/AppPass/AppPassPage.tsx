@@ -17,12 +17,10 @@ export function AppPassPage ({...props}) {
 
   return (
     <View style={[{flex:1, padding:10},styles.mainColor]}
-          onStartShouldSetResponder={touchCapture}
+        // onStartShouldSetResponder={touchCapture}
     >
       <SettingTimesCanTry {...props}
         onStartShouldSetResponder={touchCapture}
-        onResponderGrant={touchCaptureGrant}
-        onResponderReject={touchCaptureReject}
       />
     </View>
   )

@@ -21,7 +21,13 @@ export const AppSettingsSlice = createSlice({
         ...state,
         lastPageOpened: action.payload
       }
-    }
+    },
+    changeTimesCanTry: (state, action) => {
+      return {
+        ...state,
+        timesCanTry:action.payload
+      }
+    },
   },
   extraReducers(builder) { // pending/fulfilled/rejected
     // builder
@@ -33,6 +39,7 @@ export const AppSettingsSlice = createSlice({
 export const {
   changeSetting,
   changePageOpened,
+  changeTimesCanTry,
 } = AppSettingsSlice.actions;
 
 export default AppSettingsSlice.reducer;

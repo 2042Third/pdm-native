@@ -88,6 +88,11 @@ export const styles = StyleSheet.create({
     color: colors['--foreground-tertiary'],
     fontSize: 9,
   },
+  lessNormalText: {
+
+    color: colors['--foreground-default'],
+    fontSize: 14,
+  },
   normalText: {
     color: colors['--foreground-default'],
     fontSize: 17,
