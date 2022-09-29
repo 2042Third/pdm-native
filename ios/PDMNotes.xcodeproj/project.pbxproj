@@ -69,6 +69,42 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-PDMNotes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PDMNotes.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PDMNotes/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-PDMNotes-PDMNotesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PDMNotes-PDMNotesTests.release.xcconfig"; path = "Target Support Files/Pods-PDMNotes-PDMNotesTests/Pods-PDMNotes-PDMNotesTests.release.xcconfig"; sourceTree = "<group>"; };
+		D533A19D28E55D9900D10E45 /* scrypt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scrypt.h; sourceTree = "<group>"; };
+		D533A19E28E55D9900D10E45 /* cc20_file.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cc20_file.h; sourceTree = "<group>"; };
+		D533A19F28E55D9900D10E45 /* poly1305-donna-8.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-8.h"; sourceTree = "<group>"; };
+		D533A1A028E55D9900D10E45 /* cc20_parts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cc20_parts.h; sourceTree = "<group>"; };
+		D533A1A128E55D9900D10E45 /* poly1305-donna-16.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-16.h"; sourceTree = "<group>"; };
+		D533A1A228E55D9900D10E45 /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		D533A1A328E55D9900D10E45 /* endian.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = endian.h; sourceTree = "<group>"; };
+		D533A1A428E55D9900D10E45 /* poly1305-donna.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna.h"; sourceTree = "<group>"; };
+		D533A1A528E55D9900D10E45 /* sha3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sha3.h; sourceTree = "<group>"; };
+		D533A1A628E55D9900D10E45 /* poly1305-donna-64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-64.h"; sourceTree = "<group>"; };
+		D533A1A728E55D9900D10E45 /* test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
+		D533A1A828E55D9900D10E45 /* sha256.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sha256.h; sourceTree = "<group>"; };
+		D533A1A928E55D9900D10E45 /* empp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = empp.hpp; sourceTree = "<group>"; };
+		D533A1AA28E55D9900D10E45 /* cc20_poly.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = cc20_poly.hpp; sourceTree = "<group>"; };
+		D533A1AB28E55D9900D10E45 /* cc20_multi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cc20_multi.h; sourceTree = "<group>"; };
+		D533A1AC28E55D9900D10E45 /* pbkdf2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pbkdf2.h; sourceTree = "<group>"; };
+		D533A1AD28E55D9900D10E45 /* fe25519.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fe25519.h; sourceTree = "<group>"; };
+		D533A1AE28E55D9900D10E45 /* salsa20.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = salsa20.h; sourceTree = "<group>"; };
+		D533A1AF28E55D9900D10E45 /* memory_mapped_file.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = memory_mapped_file.hpp; sourceTree = "<group>"; };
+		D533A1B028E55D9900D10E45 /* pdm-service.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "pdm-service.hpp"; sourceTree = "<group>"; };
+		D533A1B128E55D9900D10E45 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		D533A1B228E55D9900D10E45 /* hmac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
+		D533A1B328E55D9900D10E45 /* ec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ec.h; sourceTree = "<group>"; };
+		D533A1B428E55D9900D10E45 /* ecdh_curve25519.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ecdh_curve25519.h; sourceTree = "<group>"; };
+		D533A1B528E55D9900D10E45 /* bigint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bigint.h; sourceTree = "<group>"; };
+		D533A1B628E55D9900D10E45 /* xCc20.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xCc20.h; sourceTree = "<group>"; };
+		D533A1B728E55D9900D10E45 /* avrnacl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = avrnacl.h; sourceTree = "<group>"; };
+		D533A1B828E55D9900D10E45 /* cc20_diff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cc20_diff.h; sourceTree = "<group>"; };
+		D533A1B928E55D9900D10E45 /* cc20_wrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cc20_wrapper.h; sourceTree = "<group>"; };
+		D533A1BA28E55D9900D10E45 /* poly1305-donna-32.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-32.h"; sourceTree = "<group>"; };
+		D533A1BB28E55D9900D10E45 /* cc20_dev.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = cc20_dev.hpp; sourceTree = "<group>"; };
+		D533A1BC28E55D9900D10E45 /* cc20_scrypt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cc20_scrypt.h; sourceTree = "<group>"; };
+		D533A1BD28E55D9900D10E45 /* emppIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = emppIOS.h; sourceTree = "<group>"; };
+		D533A1BE28E55D9900D10E45 /* empp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = empp.h; sourceTree = "<group>"; };
+		D533A1BF28E55DB800D10E45 /* libcc20.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcc20.a; path = "../ios/pdm-lib/static/libcc20.a"; sourceTree = "<group>"; };
+		D533A1C028E55DBB00D10E45 /* libcc20.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcc20.a; path = "../../pdm-crypt-module/pdm-native-lib/libs/ios/pdm-lib/static/libcc20.a"; sourceTree = "<group>"; };
 		D57763FC28A7524200A6CB61 /* scrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scrypt.h; sourceTree = "<group>"; };
 		D57763FD28A7524200A6CB61 /* cc20_file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cc20_file.h; sourceTree = "<group>"; };
 		D57763FE28A7524200A6CB61 /* poly1305-donna-8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "poly1305-donna-8.h"; sourceTree = "<group>"; };
@@ -200,6 +236,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D533A1C028E55DBB00D10E45 /* libcc20.a */,
+				D533A19C28E55D9900D10E45 /* include */,
 				D577641E28A7524C00A6CB61 /* libcc20.a */,
 				13B07FAE1A68108700A75B9A /* PDMNotes */,
 				D57763FB28A7524200A6CB61 /* include */,
@@ -233,6 +271,49 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-PDMNotes-PDMNotesTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		D533A19C28E55D9900D10E45 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				D533A1BF28E55DB800D10E45 /* libcc20.a */,
+				D533A19D28E55D9900D10E45 /* scrypt.h */,
+				D533A19E28E55D9900D10E45 /* cc20_file.h */,
+				D533A19F28E55D9900D10E45 /* poly1305-donna-8.h */,
+				D533A1A028E55D9900D10E45 /* cc20_parts.h */,
+				D533A1A128E55D9900D10E45 /* poly1305-donna-16.h */,
+				D533A1A228E55D9900D10E45 /* types.h */,
+				D533A1A328E55D9900D10E45 /* endian.h */,
+				D533A1A428E55D9900D10E45 /* poly1305-donna.h */,
+				D533A1A528E55D9900D10E45 /* sha3.h */,
+				D533A1A628E55D9900D10E45 /* poly1305-donna-64.h */,
+				D533A1A728E55D9900D10E45 /* test.h */,
+				D533A1A828E55D9900D10E45 /* sha256.h */,
+				D533A1A928E55D9900D10E45 /* empp.hpp */,
+				D533A1AA28E55D9900D10E45 /* cc20_poly.hpp */,
+				D533A1AB28E55D9900D10E45 /* cc20_multi.h */,
+				D533A1AC28E55D9900D10E45 /* pbkdf2.h */,
+				D533A1AD28E55D9900D10E45 /* fe25519.h */,
+				D533A1AE28E55D9900D10E45 /* salsa20.h */,
+				D533A1AF28E55D9900D10E45 /* memory_mapped_file.hpp */,
+				D533A1B028E55D9900D10E45 /* pdm-service.hpp */,
+				D533A1B128E55D9900D10E45 /* common.h */,
+				D533A1B228E55D9900D10E45 /* hmac.h */,
+				D533A1B328E55D9900D10E45 /* ec.h */,
+				D533A1B428E55D9900D10E45 /* ecdh_curve25519.h */,
+				D533A1B528E55D9900D10E45 /* bigint.h */,
+				D533A1B628E55D9900D10E45 /* xCc20.h */,
+				D533A1B728E55D9900D10E45 /* avrnacl.h */,
+				D533A1B828E55D9900D10E45 /* cc20_diff.h */,
+				D533A1B928E55D9900D10E45 /* cc20_wrapper.h */,
+				D533A1BA28E55D9900D10E45 /* poly1305-donna-32.h */,
+				D533A1BB28E55D9900D10E45 /* cc20_dev.hpp */,
+				D533A1BC28E55D9900D10E45 /* cc20_scrypt.h */,
+				D533A1BD28E55D9900D10E45 /* emppIOS.h */,
+				D533A1BE28E55D9900D10E45 /* empp.h */,
+			);
+			name = include;
+			path = "../../pdm-crypt-module/pdm-native-lib/libs/include";
 			sourceTree = "<group>";
 		};
 		D57763FB28A7524200A6CB61 /* include */ = {
@@ -724,6 +805,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/lib/swift",
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/include",
@@ -876,6 +958,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/lib/swift",
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/include",
@@ -989,7 +1072,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1061,7 +1144,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
