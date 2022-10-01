@@ -14,11 +14,11 @@ RCT_EXPORT_MODULE(PdmNativeCryptModule);
   return NO;
 }
 RCT_EXPORT_METHOD(
-        echoer:( NSString*)a
-        callback: (RCTResponseSenderBlock)callback
-        resolver:(RCTPromiseResolveBlock)resolve
-        rejecter:(RCTPromiseRejectBlock)reject
-    )
+    echoer:( NSString*)a
+    callback: (RCTResponseSenderBlock)callback
+    resolver:(RCTPromiseResolveBlock)resolve
+    rejecter:(RCTPromiseRejectBlock)reject
+)
 {
   RCTLogInfo(@"Pretending to create an event (this is from a objective-c++ module) %@", a);
   resolve(@[@"from Objective-C++ .mm"]);
@@ -27,9 +27,9 @@ RCT_EXPORT_METHOD(
 }
 
 RCT_EXPORT_METHOD(
-getHash:( NSString*)a
-resolver:(RCTPromiseResolveBlock)resolve
-rejecter:(RCTPromiseRejectBlock)reject
+    getHash:( NSString*)a
+    resolver:(RCTPromiseResolveBlock)resolve
+    rejecter:(RCTPromiseRejectBlock)reject
 )
 
 {
@@ -40,10 +40,10 @@ rejecter:(RCTPromiseRejectBlock)reject
   resolve(@[b]);
 }
 RCT_EXPORT_METHOD(
-enc:( NSString*)a
-data:(NSString*)b
-resolver:(RCTPromiseResolveBlock)resolve
-rejecter:(RCTPromiseRejectBlock)reject
+    enc:( NSString*)a
+    data:(NSString*)b
+    resolver:(RCTPromiseResolveBlock)resolve
+    rejecter:(RCTPromiseRejectBlock)reject
                   )
 {
   std::string input_a = std::string([a UTF8String]);
@@ -61,10 +61,10 @@ rejecter:(RCTPromiseRejectBlock)reject
 }
 
 RCT_EXPORT_METHOD(
-dec:( NSString*)a
-data:(NSString*)b
-resolver:(RCTPromiseResolveBlock)resolve
-rejecter:(RCTPromiseRejectBlock)reject
+    dec:( NSString*)a
+    data:(NSString*)b
+    resolver:(RCTPromiseResolveBlock)resolve
+    rejecter:(RCTPromiseRejectBlock)reject
                   )
 {
   std::string input_a = std::string([a UTF8String]);
