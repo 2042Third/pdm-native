@@ -146,7 +146,7 @@ export function TestCppEncDec({...props}) {
     const encBack:string = await PdmNativeCryptModule.enc(psText, inputText);
     console.log(`encBack: \'${encBack}\'`);
     onChangeOutput(encBack);
-    const decBack:string = await PdmNativeCryptModule.dec(psText, encBack);
+    const decBack:string = await PdmNativeCryptModule.dec(psText, encBack.toString());
     console.log(`decBack: \'${decBack}\'`);
     onDec(decBack);
   };
