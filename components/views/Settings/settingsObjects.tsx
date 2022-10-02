@@ -102,9 +102,8 @@ export function TestCppHash({...props}) {
 
   const getHash = async () => {
 
-    const back:string = await PdmNativeCryptModule.getHash(inputText);
+    const back: string = await PdmNativeCryptModule.getHash(inputText);
     onChangeOutput(back);
-
     const backD: string = await PdmNativeCryptModule.getHash(inputText+inputText);
     onChangeOutputDouble(backD);
 
@@ -113,24 +112,12 @@ export function TestCppHash({...props}) {
     <ScrollView style={[styles.container]}>
       <View style={[lstyle.debugTextBoxOut]}>
         <Text style={[styles.somet]}>SHA3 256 bit hash code: </Text>
-        <TextInput
-          multiline={true}
-          textAlignVertical={'top'}
+        <Text
           style={[styles.inputAreaColor, lstyle.debugTextBox]}
-          onChangeText={onChangeOutput}
-          value={outputText}
-          editable={false}
-          selectTextOnFocus={true}
-        />
-        <TextInput
-          multiline={true}
-          textAlignVertical={'top'}
+        >{outputText}</Text>
+        <Text
           style={[styles.inputAreaColor, lstyle.debugTextBox]}
-          onChangeText={onChangeOutputDouble}
-          value={outputTextDouble}
-          editable={false}
-          selectTextOnFocus={true}
-        />
+        >{outputTextDouble}</Text>
       </View>
       <TextInput
         multiline={true}
@@ -157,8 +144,10 @@ export function TestCppEncDec({...props}) {
   const onPress = async () => {
     console.log(`Run onpress`);
     const encBack:string = await PdmNativeCryptModule.enc(psText, inputText);
+    console.log(`encBack: \'${encBack}\'`);
     onChangeOutput(encBack);
     const decBack:string = await PdmNativeCryptModule.dec(psText, encBack);
+    console.log(`decBack: \'${decBack}\'`);
     onDec(decBack);
   };
 
@@ -177,14 +166,9 @@ export function TestCppEncDec({...props}) {
                 <Text style={[styles.mainColor]}>
                   XChaCha20 256-bit Stream Cypher :{' '}
                 </Text>
-                <TextInput
-                  multiline={true}
-                  textAlignVertical={'top'}
+                <Text
                   style={[styles.inputAreaColor, lstyle.debugTextBox]}
-                  onChangeText={onChangeOutput}
-                  value={outputText}
-                  editable={false}
-                />
+                >{outputText}</Text>
               </View>
               <View
                 {...props}
@@ -193,14 +177,17 @@ export function TestCppEncDec({...props}) {
                   {flexGrow: 3, alignContent: 'stretch', maxHeight: window.height / 5},
                 ]}>
                 <Text style={[styles.mainColor]}>Decrypted: </Text>
-                <TextInput
-                  multiline={true}
-                  textAlignVertical={'top'}
+                {/*<TextInput*/}
+                {/*  multiline={true}*/}
+                {/*  textAlignVertical={'top'}*/}
+                {/*  style={[styles.inputAreaColor, lstyle.debugTextBox]}*/}
+                {/*  onChangeText={onDec}*/}
+                {/*  value={dec}*/}
+                {/*  editable={false}*/}
+                {/*/>*/}
+                <Text
                   style={[styles.inputAreaColor, lstyle.debugTextBox]}
-                  onChangeText={onDec}
-                  value={dec}
-                  editable={false}
-                />
+                >{dec}</Text>
               </View>
               <View
                 {...props}

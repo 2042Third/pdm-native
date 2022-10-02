@@ -69,6 +69,7 @@ RCT_EXPORT_METHOD(
   std::string input_a = std::string([a UTF8String]);
   std::string input_b = std::string([b UTF8String]);
   std::string out_b = loader_out( input_a, input_b);
+//  RCTLogInfo(@"Native decryption receives %@", out_b);
   NSString *out_a = [NSString stringWithCString:out_b.c_str()
                                      encoding:[NSString defaultCStringEncoding]];
   if (out_a){
