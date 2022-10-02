@@ -3,6 +3,12 @@ import { useSelector } from "react-redux";
 
 const { PdmNativeCryptModule } = NativeModules;
 export default PdmNativeCryptModule;
+
+export const echoer = async (a:string) => {
+  const { PdmNativeCryptModule } = NativeModules;
+  return PdmNativeCryptModule.echoer(a);
+}
+
 export const getHash = async (a:string) => {
   const { PdmNativeCryptModule } = NativeModules;
   return PdmNativeCryptModule.getHash(a);
@@ -22,7 +28,7 @@ export const dec = async (upw: string, a: string) => {
 
 /**
  * Same as getHash, but return a promise,
- * 
+ *
 */
 export const makeHash = async (a: string) => {
   const { PdmNativeCryptModule } = NativeModules;
@@ -58,6 +64,18 @@ export const enc = async (upw: string, plain: string) => {
       let { PdmNativeCryptModule } = NativeModules;
       this.PdmNativeCryptModule = PdmNativeCryptModule;
     }
+
+    async echoer (a:string){
+      try{
+        const out: string = this.PdmNativeCryptModule.echoer(a);
+        return out;
+      }
+      catch (e) {
+        console.log(e);
+        return null;
+      }
+    }
+
 
     async getHash(a:string){
       try {

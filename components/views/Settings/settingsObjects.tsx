@@ -12,7 +12,7 @@ import {
   View,
 } from 'react-native';
 import {styles} from '../../../assets/Style';
-import PdmNativeCryptModule from '../../handle/native/NativeModule';
+// import PdmNativeCryptModule from '../../handle/native/NativeModule';
 import KeyboardShift from "../../uiControl/KeyboardShift";
 import Slider from "@react-native-community/slider";
 
@@ -72,10 +72,10 @@ export function SettingList({navigation}) {
 export function TestsJavaEcho({...props}) {
   const [nativeReturn, onNativeReturn] = React.useState('Nothing');
   // const {PdmNativeCryptModule} = NativeModules;
-  const onPress = () => {
-    PdmNativeCryptModule.echoer('This from react native!!!'.toString(), (back: string) => {
-      onNativeReturn(back);
-    });
+  const {PdmNativeCryptModule} = NativeModules;
+  const onPress = async () => {
+    const back: string = await PdmNativeCryptModule.echoer('This from react native!!!'.toString());
+    onNativeReturn(back);
   };
 
   return (

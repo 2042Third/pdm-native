@@ -15,7 +15,6 @@ RCT_EXPORT_MODULE(PdmNativeCryptModule);
 }
 RCT_EXPORT_METHOD(
     echoer:( NSString*)a
-    callback: (RCTResponseSenderBlock)callback
     resolver:(RCTPromiseResolveBlock)resolve
     rejecter:(RCTPromiseRejectBlock)reject
 )

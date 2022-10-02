@@ -8,10 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* PDMNotesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PDMNotesTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-PDMNotes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-PDMNotes.a */; };
 		7699B88040F8A987B510C191 /* libPods-PDMNotes-PDMNotesTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-PDMNotes-PDMNotesTests.a */; };
-		D577641F28A7524C00A6CB61 /* libcc20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D577641E28A7524C00A6CB61 /* libcc20.a */; };
-		D57DABD628A6FBA000B9124F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D57DABD528A6FBA000B9124F /* libc++.tbd */; };
+		D52D9CF928EA074A0056DC19 /* libcc20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D533A1C028E55DBB00D10E45 /* libcc20.a */; };
 		D5B834DE28A88E0C005AF1C0 /* RCTPdmNativeCryptModule.h in Sources */ = {isa = PBXBuildFile; fileRef = D5E308BE28A21440008EEEF8 /* RCTPdmNativeCryptModule.h */; };
 		D5B834DF28A88E0C005AF1C0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		D5B834E028A88E0C005AF1C0 /* RCTPdmNativeCryptModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5E308BF28A2155A008EEEF8 /* RCTPdmNativeCryptModule.mm */; };
@@ -171,9 +169,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D57DABD628A6FBA000B9124F /* libc++.tbd in Frameworks */,
-				0C80B921A6F3F58F76C31292 /* libPods-PDMNotes.a in Frameworks */,
-				D577641F28A7524C00A6CB61 /* libcc20.a in Frameworks */,
+				D52D9CF928EA074A0056DC19 /* libcc20.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,6 +736,7 @@
 					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal\"",
 					"\"${PROJECT_DIR}/include\"",
 					"\"$(SRCROOT)/../node_modules/react-native-vector-icons/Fonts\"",
+					"\"$(SRCROOT)/../../pdm-crypt-module/pdm-native-lib/libs/include\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -870,12 +867,14 @@
 				SYSTEM_HEADER_SEARCH_PATHS = (
 					"\"${PROJECT_DIR}/include\"/**",
 					"\"$(SRCROOT)/../node_modules/react-native-vector-icons/Fonts\"",
+					"\"$(SRCROOT)/../../pdm-crypt-module/pdm-native-lib/libs/include\"",
 				);
 				USER_HEADER_SEARCH_PATHS = (
 					"\"${PROJECT_DIR}/Pods\"/**",
 					"\"${PROJECT_DIR}/pdm-crypt-module\"/**",
 					"\"${PROJECT_DIR}/include\"/**",
 					"\"$(SRCROOT)/../node_modules/react-native-vector-icons/Fonts\"",
+					"\"$(SRCROOT)/../../pdm-crypt-module/pdm-native-lib/libs/include\"",
 				);
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1028,12 +1027,14 @@
 				SYSTEM_HEADER_SEARCH_PATHS = (
 					"\"${PROJECT_DIR}/include\"/**",
 					"\"$(SRCROOT)/../node_modules/react-native-vector-icons/Fonts\"",
+					"\"$(SRCROOT)/../../pdm-crypt-module/pdm-native-lib/libs/include\"",
 				);
 				USER_HEADER_SEARCH_PATHS = (
 					"\"${PROJECT_DIR}/Pods\"/**",
 					"\"${PROJECT_DIR}/pdm-crypt-module\"/**",
 					"\"${PROJECT_DIR}/include\"/**",
 					"\"$(SRCROOT)/../node_modules/react-native-vector-icons/Fonts\"",
+					"\"$(SRCROOT)/../../pdm-crypt-module/pdm-native-lib/libs/include\"",
 				);
 				VERSIONING_SYSTEM = "apple-generic";
 			};
