@@ -43,7 +43,6 @@ export default class NetCalls {
   static async notesGetHeads(sessKey: string, email: string) {
     return Net.post(this.notesGetHeadsURL,
       JSON.stringify({
-        "username": "", // should not send unencrypted username
         "content": "",
         "sess": sessKey,
         "ntype": this.notesGetHeadsType,
@@ -58,7 +57,6 @@ export default class NetCalls {
   static async notesGetNote(sessKey: string, email: string, note_id: string) {
     return Net.post(this.notesGetHeadsURL,
       JSON.stringify({
-        "username": "",
         "content": "",
         "sess": sessKey,
         "ntype": this.notesGetNoteType,
@@ -74,7 +72,6 @@ export default class NetCalls {
   static async notesUpdateNote(sessKey: string, email: string, noteMsg: NotesMsg) {
     return Net.post(this.notesGetHeadsURL,
       JSON.stringify({
-        "username": "",
         "head": noteMsg.head,
         "content": noteMsg.content,
         "sess": sessKey,
