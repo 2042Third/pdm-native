@@ -8,17 +8,21 @@ import { changeTimesCanTry } from "../../../handle/redux/reducers/settings/appSe
 export function SettingTimesCanTry ({...props}) {
   const appSettings = useAppSelector(state => state.appSettings);
   const dispatch = useAppDispatch();
+
   // Prints
   const touchCapture = (evt:GestureResponderEvent) => {
     console.log("SettingTimesCanTry Touch starts");
     return true;
   }
+
   const touchCaptureReject = (evt:GestureResponderEvent) => {
     console.log ("SettingTimesCanTry capture REJECTED.");
   }
+
   const touchCaptureGrant = (evt:GestureResponderEvent) => {
     console.log ("SettingTimesCanTry capture GRANTED.");
   }
+
   // Setters
   const onValueChange = (val:number) => {
     dispatch(changeTimesCanTry(val));
@@ -38,7 +42,6 @@ export function SettingTimesCanTry ({...props}) {
         onMoveShouldSetResponderCapture={touchCapture}
         onResponderGrant={touchCaptureGrant}
         onResponderReject={touchCaptureReject}
-
         onValueChange={onValueChange}
         value={appSettings.timesCanTry}
         style={[{height:18}]}
