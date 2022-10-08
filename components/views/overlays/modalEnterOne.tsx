@@ -25,7 +25,6 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
   const userEnter = useAppSelector(state => state.userEnter);
   const appSettings = useAppSelector(state => state.appSettings);
 
-
   const onSubmit = () => {
     console.log(`Trying decryption. tried=${userEnter.timesTried}, timesCanTry=${appSettings.timesCanTry}`)
     if (userEnter.timesTried >= appSettings.timesCanTry){
@@ -58,9 +57,7 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
    *
   */
   useEffect(() => {
-
     if (userInfo.status === 'success' ) {
-
 
       /**
      * After receiving success signin info from server, and updated the session key,
@@ -81,7 +78,6 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
     }
     else {
       console.log("user login failed, password incorrect, or no email and password  => "+ JSON.stringify(userInfo));
-
     }
   }, [userInfo.status]);
 
