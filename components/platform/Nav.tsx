@@ -18,6 +18,7 @@ import { useEffect } from 'react';
 import { UserEnter } from '../handle/types';
 import { signinUser } from '../handle/redux/reducers/user/userinfoReducer';
 import { setUserSess } from "../handle/redux/reducers/user/userinfoEnter";
+import Icon from "../icons/Icon";
 // const ChatView =  lazy(()=>import ("../views/Chat/ChatPage"));
 
 const Nav = (props: {Drawer: any, Tab: any}) => {
@@ -143,8 +144,11 @@ const Nav = (props: {Drawer: any, Tab: any}) => {
             options={{
               keyboardDismissMode: "none",
               headerShown: false,
-            }
-            }
+              tabBarIcon: (props: boolean|string|number)  => <Icon
+                                                                name={'note-text-outline'}
+                                                                {...props}
+                                                              />
+            }}
           />
           {/*Chat*/}
           <Tab.Screen
@@ -153,7 +157,10 @@ const Nav = (props: {Drawer: any, Tab: any}) => {
             options={{
               headerStyle: styles.drawerHeaderStyle,
               headerTitleStyle: styles.drawerHeaderTitleStyle,
-              // headerLeft: () => <DrawerToggleButton tintColor={colors['--foreground-default']} />,
+              tabBarIcon: (props: boolean|string|number)  => <Icon
+                name={'chat-outline'}
+                {...props}
+              />
             }}
           />
           {/*User*/}
@@ -163,6 +170,10 @@ const Nav = (props: {Drawer: any, Tab: any}) => {
             options={{
               headerStyle: styles.drawerHeaderStyle,
               headerTitleStyle: styles.drawerHeaderTitleStyle,
+              tabBarIcon: (props: boolean|string|number)  => <Icon
+                name={'account-key'}
+                {...props}
+              />
               // headerLeft: () => <DrawerToggleButton tintColor={colors['--foreground-default']} />,
             }}
           />
@@ -175,6 +186,10 @@ const Nav = (props: {Drawer: any, Tab: any}) => {
               headerTitleStyle: styles.drawerHeaderTitleStyle,
               drawerItemStyle: { display: 'none' },
               headerShown: false,
+              tabBarIcon: (props: boolean|string|number)  => <Icon
+                                                                name={'cog-outline'}
+                                                                {...props}
+                                                              />
             }}
           />
 
