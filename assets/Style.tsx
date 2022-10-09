@@ -18,7 +18,11 @@ export const colors = {
 
   '--error-default': '#ef3e36',
   '--error-dark': '#800600',
+  '--error-dark-select': '#ef4d43',
   '--error-light': '#ffcecc',
+
+  '--success-default':'#6fc02c',
+  '--success-select':'#c4f59b',
 
   '--chat-box-1': '#6fc02c',
   '--chat-box-2': '#ffffff',

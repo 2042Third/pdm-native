@@ -135,7 +135,8 @@ const Nav = (props: {Drawer: any, Tab: any}) => {
           // useLegacyImplementation
           drawerContent={
             (props: JSX.IntrinsicAttributes & { [x: string]: any; }) =>
-              <CustomDrawerContent navigation={props.navigation} {...props} />}>
+              <CustomDrawerContent navigation={props.navigation} {...props} />}
+        >
           {/*############################## LEFT DRAWER ##############################*/}
           {/*Notes*/}
           < Tab.Screen
@@ -143,6 +144,7 @@ const Nav = (props: {Drawer: any, Tab: any}) => {
             component={DrawerRight}
             options={{
               keyboardDismissMode: "none",
+              tabBarLabel: ()=>null,
               headerShown: false,
               tabBarIcon: (props: boolean|string|number)  => <Icon
                                                                 name={'note-text-outline'}
@@ -155,6 +157,7 @@ const Nav = (props: {Drawer: any, Tab: any}) => {
             name="Chat"
             component={ChatView}
             options={{
+              tabBarLabel: ()=>null,
               headerStyle: styles.drawerHeaderStyle,
               headerTitleStyle: styles.drawerHeaderTitleStyle,
               tabBarIcon: (props: boolean|string|number)  => <Icon
@@ -168,10 +171,11 @@ const Nav = (props: {Drawer: any, Tab: any}) => {
             name="User"
             component={UserView}
             options={{
+              tabBarLabel: ()=>null,
               headerStyle: styles.drawerHeaderStyle,
               headerTitleStyle: styles.drawerHeaderTitleStyle,
               tabBarIcon: (props: boolean|string|number)  => <Icon
-                name={'account-key'}
+                name={userInfo.status === 'success'? 'account-outline':'account-alert-outline'}
                 {...props}
               />
               // headerLeft: () => <DrawerToggleButton tintColor={colors['--foreground-default']} />,
@@ -182,9 +186,10 @@ const Nav = (props: {Drawer: any, Tab: any}) => {
             name="Settings"
             component={SettingView}
             options={{
+              tabBarLabel: ()=>null,
               headerStyle: styles.drawerHeaderStyle,
               headerTitleStyle: styles.drawerHeaderTitleStyle,
-              drawerItemStyle: { display: 'none' },
+              // drawerItemStyle: { display: 'none' },
               headerShown: false,
               tabBarIcon: (props: boolean|string|number)  => <Icon
                                                                 name={'cog-outline'}
