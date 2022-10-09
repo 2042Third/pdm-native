@@ -6,6 +6,7 @@ import SettingView from '../views/Settings/SettingPage';
 import {NavigationContainer} from '@react-navigation/native';
 // import * as React from 'react';
 import {useWindowDimensions,  } from "react-native";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   DrawerToggleButton,
 } from "@react-navigation/drawer";
@@ -19,9 +20,10 @@ import { signinUser } from '../handle/redux/reducers/user/userinfoReducer';
 import { setUserSess } from "../handle/redux/reducers/user/userinfoEnter";
 // const ChatView =  lazy(()=>import ("../views/Chat/ChatPage"));
 
-const Nav = (props: {Drawer: any}) => {
+const Nav = (props: {Drawer: any, Tab: any}) => {
   const window = useWindowDimensions();
   const Drawer = props.Drawer;
+  const Tab = props.Tab;
 
   const currentPageOpened = useAppSelector(state => state.appSettings);
 
@@ -115,14 +117,14 @@ const Nav = (props: {Drawer: any}) => {
     <>
       <ModalObj/>
       <NavigationContainer>
-        <Drawer.Navigator
+        <Tab.Navigator
           screenOptions={{
             lazy: true,
-            drawerStyle: [styles.drawerStyle, { width: window.width }],
-            drawerContentStyle: styles.drawerContentStyle,
-            drawerItemStyle: styles.drawerItemStyle,
-            drawerInactiveTintColor: colors['--foreground-default'],
-            drawerType: window.width >= 768 ? 'permanent' : 'slide',
+            tabBarStyle: [styles.drawerStyle, { width: window.width }],
+            tabBarContentStyle: styles.drawerContentStyle,
+            tabBarItemStyle: styles.drawerItemStyle,
+            tabBarInactiveTintColor: colors['--foreground-default'],
+            tabBarType: window.width >= 768 ? 'permanent' : 'slide',
             // defaultStatus: window.width >= 768 ? 'open' : 'closed',
             swipeMinDistance: window.width/7,
             swipeEdgeWidth: window.width,
@@ -135,7 +137,7 @@ const Nav = (props: {Drawer: any}) => {
               <CustomDrawerContent navigation={props.navigation} {...props} />}>
           {/*############################## LEFT DRAWER ##############################*/}
           {/*Notes*/}
-          < Drawer.Screen
+          < Tab.Screen
             name="Notes"
             component={DrawerRight}
             options={{
@@ -145,27 +147,27 @@ const Nav = (props: {Drawer: any}) => {
             }
           />
           {/*Chat*/}
-          <Drawer.Screen
+          <Tab.Screen
             name="Chat"
             component={ChatView}
             options={{
               headerStyle: styles.drawerHeaderStyle,
               headerTitleStyle: styles.drawerHeaderTitleStyle,
-              headerLeft: () => <DrawerToggleButton tintColor={colors['--foreground-default']} />,
+              // headerLeft: () => <DrawerToggleButton tintColor={colors['--foreground-default']} />,
             }}
           />
           {/*User*/}
-          <Drawer.Screen
+          <Tab.Screen
             name="User"
             component={UserView}
             options={{
               headerStyle: styles.drawerHeaderStyle,
               headerTitleStyle: styles.drawerHeaderTitleStyle,
-              headerLeft: () => <DrawerToggleButton tintColor={colors['--foreground-default']} />,
+              // headerLeft: () => <DrawerToggleButton tintColor={colors['--foreground-default']} />,
             }}
           />
           {/*Settings*/}
-          <Drawer.Screen
+          <Tab.Screen
             name="Settings"
             component={SettingView}
             options={{
@@ -177,7 +179,70 @@ const Nav = (props: {Drawer: any}) => {
           />
 
 
-        </Drawer.Navigator>
+        </Tab.Navigator>
+        {/*<Drawer.Navigator*/}
+        {/*  screenOptions={{*/}
+        {/*    lazy: true,*/}
+        {/*    drawerStyle: [styles.drawerStyle, { width: window.width }],*/}
+        {/*    drawerContentStyle: styles.drawerContentStyle,*/}
+        {/*    drawerItemStyle: styles.drawerItemStyle,*/}
+        {/*    drawerInactiveTintColor: colors['--foreground-default'],*/}
+        {/*    drawerType: window.width >= 768 ? 'permanent' : 'slide',*/}
+        {/*    // defaultStatus: window.width >= 768 ? 'open' : 'closed',*/}
+        {/*    swipeMinDistance: window.width/7,*/}
+        {/*    swipeEdgeWidth: window.width,*/}
+        {/*    drawerPosition: "left",*/}
+        {/*  }}*/}
+        {/*  initialRouteName="Notes"*/}
+        {/*  // useLegacyImplementation*/}
+        {/*  drawerContent={*/}
+        {/*    (props: JSX.IntrinsicAttributes & { [x: string]: any; }) =>*/}
+        {/*      <CustomDrawerContent navigation={props.navigation} {...props} />}>*/}
+        {/*  /!*############################## LEFT DRAWER ##############################*!/*/}
+        {/*  /!*Notes*!/*/}
+        {/*  < Drawer.Screen*/}
+        {/*    name="Notes"*/}
+        {/*    component={DrawerRight}*/}
+        {/*    options={{*/}
+        {/*      keyboardDismissMode: "none",*/}
+        {/*      headerShown: false,*/}
+        {/*    }*/}
+        {/*    }*/}
+        {/*  />*/}
+        {/*  /!*Chat*!/*/}
+        {/*  <Drawer.Screen*/}
+        {/*    name="Chat"*/}
+        {/*    component={ChatView}*/}
+        {/*    options={{*/}
+        {/*      headerStyle: styles.drawerHeaderStyle,*/}
+        {/*      headerTitleStyle: styles.drawerHeaderTitleStyle,*/}
+        {/*      headerLeft: () => <DrawerToggleButton tintColor={colors['--foreground-default']} />,*/}
+        {/*    }}*/}
+        {/*  />*/}
+        {/*  /!*User*!/*/}
+        {/*  <Drawer.Screen*/}
+        {/*    name="User"*/}
+        {/*    component={UserView}*/}
+        {/*    options={{*/}
+        {/*      headerStyle: styles.drawerHeaderStyle,*/}
+        {/*      headerTitleStyle: styles.drawerHeaderTitleStyle,*/}
+        {/*      headerLeft: () => <DrawerToggleButton tintColor={colors['--foreground-default']} />,*/}
+        {/*    }}*/}
+        {/*  />*/}
+        {/*  /!*Settings*!/*/}
+        {/*  <Drawer.Screen*/}
+        {/*    name="Settings"*/}
+        {/*    component={SettingView}*/}
+        {/*    options={{*/}
+        {/*      headerStyle: styles.drawerHeaderStyle,*/}
+        {/*      headerTitleStyle: styles.drawerHeaderTitleStyle,*/}
+        {/*      drawerItemStyle: { display: 'none' },*/}
+        {/*      headerShown: false,*/}
+        {/*    }}*/}
+        {/*  />*/}
+
+
+        {/*</Drawer.Navigator>*/}
       </NavigationContainer>
     </>
   );
