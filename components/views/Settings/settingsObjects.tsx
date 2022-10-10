@@ -1,4 +1,4 @@
-import React, { Component, useRef } from "react";
+import React, { Component, useEffect, useRef } from "react";
 import {Picker} from '@react-native-picker/picker';
 import * as Progress from 'react-native-progress';
 import {
@@ -157,10 +157,12 @@ export function TestCppEncDec({...props}) {
       onDec(decBack);
       onTimesEncProgress(i+1);
     }
-
-
   };
 
+  useEffect(()=>{
+    console.log("Times change");
+    onTimesEncProgress(0);
+  },[timesEnc]);
   const window = useWindowDimensions();
   // @ts-ignore
   return (
@@ -231,7 +233,7 @@ export function TestCppEncDec({...props}) {
                   </Text>
                 </View>
                 <View >
-                  <Button title={'encrypt'} onPress={onPress} />
+                  <Button disabled={!(timesEncProgress==0||timesEncProgress==timesEnc)} title={'encrypt'} onPress={onPress} />
                 </View>
 
               </View>
