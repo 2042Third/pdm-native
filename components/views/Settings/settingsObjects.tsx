@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Picker} from '@react-native-picker/picker';
 import {
   Button,
   KeyboardAvoidingView,
@@ -134,6 +135,7 @@ export function TestCppHash({...props}) {
 export function TestCppEncDec({...props}) {
   const [inputText, onChangeInput] = React.useState('Hello!!!!');
   const [psText, onChangeps] = React.useState('12345');
+  const [timesEnc, onTimesEnc] = React.useState(1);
   const [dec, onDec] = React.useState('');
   const [outputText, onChangeOutput] = React.useState('');
   const {PdmNativeCryptModule} = NativeModules;
@@ -142,13 +144,17 @@ export function TestCppEncDec({...props}) {
    *
   */
   const onPress = async () => {
-    console.log(`Run onpress`);
-    const encBack:string = await PdmNativeCryptModule.enc(psText, inputText);
-    console.log(`encBack: \'${encBack}\'`);
-    onChangeOutput(encBack);
-    const decBack:string = await PdmNativeCryptModule.dec(psText, encBack.toString());
-    console.log(`decBack: \'${decBack}\'`);
-    onDec(decBack);
+    for (let i=0;i<timesEnc;i++){
+      console.log(`Run onpress ${i}'s time oo=${timesEnc}`);
+      const encBack:string = await PdmNativeCryptModule.enc(psText, inputText);
+      console.log(`encBack: \'${encBack}\'`);
+      onChangeOutput(encBack);
+      const decBack:string = await PdmNativeCryptModule.dec(psText, encBack.toString());
+      console.log(`decBack: \'${decBack}\'`);
+      onDec(decBack);
+    }
+
+
   };
 
   const window = useWindowDimensions();
@@ -159,35 +165,15 @@ export function TestCppEncDec({...props}) {
           <View style={[styles.mainColor, {flexDirection: 'column', flexGrow: 3}]}>
               <View
                 {...props}
-                style={[
-                  lstyle.debugTextBoxOut,
-                  {flexGrow: 3, maxHeight: window.height / 5},
-                ]}>
-                <Text style={[styles.mainColor]}>
-                  XChaCha20 256-bit Stream Cypher :{' '}
-                </Text>
-                <Text
-                  style={[styles.inputAreaColor, lstyle.debugTextBox]}
-                >{outputText}</Text>
+                style={[lstyle.debugTextBoxOut, {flexGrow: 3, maxHeight: window.height / 5},]}>
+                <Text style={[styles.mainColor]}>XChaCha20 256-bit Stream Cypher :{' '}</Text>
+                <Text style={[styles.inputAreaColor, lstyle.debugTextBox]}>{outputText}</Text>
               </View>
               <View
                 {...props}
-                style={[
-                  lstyle.debugTextBoxOut,
-                  {flexGrow: 3, alignContent: 'stretch', maxHeight: window.height / 5},
-                ]}>
+                style={[lstyle.debugTextBoxOut, {flexGrow: 3, alignContent: 'stretch', maxHeight: window.height / 5},]}>
                 <Text style={[styles.mainColor]}>Decrypted: </Text>
-                {/*<TextInput*/}
-                {/*  multiline={true}*/}
-                {/*  textAlignVertical={'top'}*/}
-                {/*  style={[styles.inputAreaColor, lstyle.debugTextBox]}*/}
-                {/*  onChangeText={onDec}*/}
-                {/*  value={dec}*/}
-                {/*  editable={false}*/}
-                {/*/>*/}
-                <Text
-                  style={[styles.inputAreaColor, lstyle.debugTextBox]}
-                >{dec}</Text>
+                <Text style={[styles.inputAreaColor, lstyle.debugTextBox]}>{dec}</Text>
               </View>
               <View
                 {...props}
@@ -214,11 +200,23 @@ export function TestCppEncDec({...props}) {
                 <TextInput
                   multiline={true}
                   textAlignVertical={'top'}
-                  style={[, lstyle.debugTextBox, styles.inputAreaColor]}
+                  style={[lstyle.debugTextBox, styles.inputAreaColor]}
                   onChangeText={onChangeInput}
                   // onKeyDown={handleKeyDown}
                   value={inputText}
                 />
+                <Picker
+                  selectedValue={timesEnc}
+                  onValueChange={(itemValue, itemIndex) =>
+                    onTimesEnc(itemValue)
+                  }>
+                  <Picker.Item label="1 times" value={1} />
+                  <Picker.Item label="5 times" value={5} />
+                  <Picker.Item label="10 times" value={10} />
+                  <Picker.Item label="20 times" value={20} />
+                  <Picker.Item label="200 times" value={200} />
+                  <Picker.Item label="2000 times" value={2000} />
+                </Picker>
                 <Button title={'encrypt'} onPress={onPress} />
               </View>
           </View>
