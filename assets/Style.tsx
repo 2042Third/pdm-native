@@ -78,7 +78,10 @@ export const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "center"
   },
-
+  centering: {
+    justifyContent: "center",
+    alignItems: "center"
+  },
   // TEST END
   // GENERAL STYLES
   shiftContainer: {

@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component, useRef } from "react";
 import {Picker} from '@react-native-picker/picker';
+import * as Progress from 'react-native-progress';
 import {
   Button,
   KeyboardAvoidingView,
@@ -136,9 +137,11 @@ export function TestCppEncDec({...props}) {
   const [inputText, onChangeInput] = React.useState('Hello!!!!');
   const [psText, onChangeps] = React.useState('12345');
   const [timesEnc, onTimesEnc] = React.useState(1);
+  const [timesEncProgress, onTimesEncProgress] = React.useState(0);
   const [dec, onDec] = React.useState('');
   const [outputText, onChangeOutput] = React.useState('');
   const {PdmNativeCryptModule} = NativeModules;
+
   /**
    * Run the encryption decryption demo
    *
@@ -152,6 +155,7 @@ export function TestCppEncDec({...props}) {
       const decBack:string = await PdmNativeCryptModule.dec(psText, encBack.toString());
       console.log(`decBack: \'${decBack}\'`);
       onDec(decBack);
+      onTimesEncProgress(i+1);
     }
 
 
@@ -217,7 +221,19 @@ export function TestCppEncDec({...props}) {
                   <Picker.Item label="200 times" value={200} />
                   <Picker.Item label="2000 times" value={2000} />
                 </Picker>
-                <Button title={'encrypt'} onPress={onPress} />
+
+                <View style={[styles.mainColor,styles.centering, {padding:7,
+                  flexDirection: 'column',}]}>
+                  <Progress.Bar  progress={timesEncProgress/timesEnc} width={200}
+                  />
+                  <Text style={[styles.mainColor]}>
+                    {(timesEncProgress/timesEnc*100).toFixed(1)+"%"}
+                  </Text>
+                </View>
+                <View >
+                  <Button title={'encrypt'} onPress={onPress} />
+                </View>
+
               </View>
           </View>
         )}
