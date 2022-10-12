@@ -224,7 +224,7 @@ export function TestCppEncDec({...props}) {
                   <Picker.Item label="2000 times" value={2000} />
                 </Picker>
 
-                <View style={[styles.mainColor,styles.centering, {padding:7,
+                <View style={[styles.mainColor,styles.centering, {padding:5,
                   flexDirection: 'column',}]}>
                   <Progress.Bar  progress={timesEncProgress/timesEnc} width={200}
                   />
