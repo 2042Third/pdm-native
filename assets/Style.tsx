@@ -154,7 +154,7 @@ export const styles = StyleSheet.create({
   },
   mainColor: {
     backgroundColor: colors['--background-default'],
-    color: colors['--foreground-default'],
+    color:  colors['--foreground-default'],
   },
   inputAreaColorSecond: {
     // backgroundColor: isFocused?colors["--background-default"],
