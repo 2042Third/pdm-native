@@ -28,6 +28,34 @@ export const colors = {
   '--chat-box-2': '#ffffff',
 };
 
+export const colorsLight = {
+  '--foreground-default': '#000000',
+  '--foreground-secondary': '#000000',
+  '--foreground-tertiary': '#262626',
+  '--foreground-quaternary': '#181717',
+  '--foreground-light': 'rgb(66,65,65)',
+
+  '--background-default': '#ffffff',
+  '--background-secondary': '#c4c8ce',
+  '--background-tertiary': '#d4ddee',
+  '--background-light': '#a1a9bb',
+
+  '--primary-default': '#5dfdcb',
+  '--primary-dark': '#24b286',
+  '--primary-light': '#b2ffe7',
+
+  '--error-default': '#ef3e36',
+  '--error-dark': '#800600',
+  '--error-dark-select': '#ef4d43',
+  '--error-light': '#ffcecc',
+
+  '--success-default':'#6fc02c',
+  '--success-select':'#c4f59b',
+
+  '--chat-box-1': '#6fc02c',
+  '--chat-box-2': '#ffffff',
+};
+
 export const styles = StyleSheet.create({
   headerText:{
     backgroundColor: colors['--background-tertiary'],
