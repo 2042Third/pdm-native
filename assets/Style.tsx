@@ -58,6 +58,7 @@ export const colorsLight = {
 export class ColorScheme {
   colors = colors;
   isDark: boolean = true;
+
   toggle () {
     if (this.isDark){
       this.colors = colorsLight;
@@ -67,6 +68,16 @@ export class ColorScheme {
       this.colors = colors;
       this.isDark = true;
     }
+  }
+
+  toDark () {
+    this.colors = colors;
+    this.isDark = true;
+  }
+
+  toLight () {
+    this.colors = colorsLight;
+    this.isDark = false;
   }
 
   styles = StyleSheet.create({
