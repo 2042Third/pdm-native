@@ -11,13 +11,14 @@ const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { ActivityIndicator, Text, View } from "react-native";
-import { styles } from "./assets/Style";
+import { colors, ColorScheme, styles } from "./assets/Style";
 
 const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={
-        <View style={[styles.centeredView]}>
+        <View >
+          {/*<View style={[styles.centeredView]}>*/}
           <ActivityIndicator />
         </View>
       } persistor={persistor}>
