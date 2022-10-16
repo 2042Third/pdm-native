@@ -124,12 +124,23 @@ export const updateEditsContent = createAsyncThunk('noteHead/updateEditsContent'
 
 });
 
-export const updateEditsHead = (header:string) => async (dispatch, state) =>{
+export const updateEditsHead = (header:string) => async (dispatch: (arg0: { payload: any; type: string; }) => void, getState: () => any) =>{
   const { PdmNativeCryptModule } = NativeModules;
-  console.log(`Thunk head in : state=${state}`);
+  const beforeState = getState();
   await PdmNativeCryptModule.getHash(header);
-  dispatch(changeNoteHead(header));
-  console.log(`Thunk head out : state=${state}`);
+  if (header === '' || beforeState.noteEditor.head === null) {
+    dispatch(changeNoteHead({
+      ...beforeState.noteEditor,
+      statusInfo: "rejected"
+    }));
+  }else {
+    dispatch(changeNoteHead({
+      ...beforeState.noteEditor,
+      head: header,
+      statusInfo: "fulfilled"
+    }));
+  }
+
 }
 
 export const NoteEditorSlice = createSlice({
@@ -160,10 +171,7 @@ export const NoteEditorSlice = createSlice({
       return action.payload;
     },
     changeNoteHead: (state, action) => {
-      return { // from thunk
-        ...state,
-        head: action.payload
-      }
+      return state;
     }
   },
   extraReducers(builder) { // pending/fulfilled/rejected

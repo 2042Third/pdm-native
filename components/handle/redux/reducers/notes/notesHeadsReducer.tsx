@@ -73,7 +73,7 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
     tmpH.key = nextNoteHeadId(b);
     let decO='';
 
-    if (h.head != null && h.head != undefined){
+    if (h.head != null){
       try {
         decO = await PdmNativeCryptModule.dec(user.upw, h.head);
       } catch (e) { console.log(e) ; return;}
