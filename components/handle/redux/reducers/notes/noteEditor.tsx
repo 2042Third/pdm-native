@@ -110,7 +110,6 @@ export const updateEditsContent = createAsyncThunk('noteHead/updateEditsContent'
   const noteMsg: NotesMsg = argu.noteMsg;
   // get the hash
   const hash = await PdmNativeCryptModule.getHash(content);
-
   if (content === '' || noteMsg.hash === hash || content === null || content === undefined){
     isRejectedWithValue("cannot update content: value doesn't exist or the same");
     return noteMsg;
@@ -125,18 +124,13 @@ export const updateEditsContent = createAsyncThunk('noteHead/updateEditsContent'
 
 });
 
-export const updateEditsHead = createAsyncThunk('noteHead/updateEditsHead', async (argu: UpdareNoteWithString) => {
+export const updateEditsHead = (header:string) => async (dispatch, state) =>{
   const { PdmNativeCryptModule } = NativeModules;
-  const head = argu.str;
-  const noteMsg:NotesMsg = argu.noteMsg;
-  if (head === noteMsg.head || !head || head === ''){
-    isRejectedWithValue("cannot update head: head value is unchanged or odesn't exist");
-    return '';
-  }else {
-    console.log(`Note head request: ${head}`);
-    return head;
-  }
-});
+  console.log(`Thunk head in : state=${state}`);
+  await PdmNativeCryptModule.getHash(header);
+  dispatch(changeNoteHead(header));
+  console.log(`Thunk head out : state=${state}`);
+}
 
 export const NoteEditorSlice = createSlice({
   name: 'userinfoEnter',
@@ -165,6 +159,12 @@ export const NoteEditorSlice = createSlice({
     openNote: (state, action) => {
       return action.payload;
     },
+    changeNoteHead: (state, action) => {
+      return { // from thunk
+        ...state,
+        head: action.payload
+      }
+    }
   },
   extraReducers(builder) { // pending/fulfilled/rejected
     builder
@@ -176,29 +176,18 @@ export const NoteEditorSlice = createSlice({
 
       // Update Edits Content
       .addCase(updateEditsContent.fulfilled, (state, action) => {
-        let load = state;
-        load.statusInfo = "fulfilled";
-        load.content = action.payload.content;
-        load.hash = action.payload.hash
-        return load;
+        return {
+          ...state,
+          statusInfo: "fulfilled",
+          content   : action.payload.content,
+          hash      : action.payload.hash
+        };
       })
       .addCase(updateEditsContent.rejected, (state, action) => {
-        let load = state;
-        load.statusInfo = "rejected";
-        return load;
-      })
-
-      // Update Edits Head
-      .addCase(updateEditsHead.fulfilled, (state, action) => {
-        let load = state;
-        load.statusInfo = "fulfilled";
-        load.head = action.payload;
-        return load;
-      })
-      .addCase(updateEditsHead.rejected, (state, action) => {
-        let load = state;
-        load.statusInfo = "rejected";
-        return load;
+        return {
+          ...state,
+          statusInfo: "rejected"
+        };
       })
 
       // Update Note
@@ -209,12 +198,12 @@ export const NoteEditorSlice = createSlice({
       })
       .addCase(updateNote.fulfilled, (state, action)=>{
         return {...state,
-          statusInfo: "fulfilled",
-          update_time: action.payload.update_time,
-          time: action.payload.time,
-          content: action.payload.content,
-          status: action.payload.status,
-          head: action.payload.head
+          statusInfo  : "fulfilled",
+          update_time : action.payload.update_time,
+          time        : action.payload.time,
+          content     : action.payload.content,
+          status      : action.payload.status,
+          head        : action.payload.head
         };
       })
   },
@@ -223,6 +212,7 @@ export const NoteEditorSlice = createSlice({
 // actions
 export const {
   openNote,
+  changeNoteHead
 } = NoteEditorSlice.actions;
 
 export default NoteEditorSlice.reducer;

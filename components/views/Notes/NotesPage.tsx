@@ -136,7 +136,6 @@ const NotesView = ({}) => {
    * Update operations.
    *
    * */
-  // * not used
   const onFinishedEditContent = async () => {
     if (shouldNotUpdateNote()) {
       return;
@@ -165,7 +164,8 @@ const NotesView = ({}) => {
       return;
     }
     try {
-      await dispatch(updateEditsHead({ str: headerValue, noteMsg: noteEditor }));
+      // await dispatch(updateEditsHead({ str: headerValue, noteMsg: noteEditor }));
+      await dispatch(updateEditsHead(headerValue));
     }
     catch (e) {
       console.log("Dispatch update head failed.");
@@ -185,7 +185,8 @@ const NotesView = ({}) => {
       return;
     }
     try {
-      await dispatch(updateEditsHead({ str: headerValue, noteMsg: noteEditor }));
+      // await dispatch(updateEditsHead({ str: headerValue, noteMsg: noteEditor }));
+      await dispatch(updateEditsHead(headerValue));
       await dispatch(updateEditsContent({ str: noteValue, noteMsg: noteEditor }));
     }
     catch (e) {
@@ -241,7 +242,8 @@ const NotesView = ({}) => {
         onBlur={() => { onFocusingHeader(false); }}
         onChangeText={onChangeText}
         // onKeyPress={onStartingWrite}
-        onEndEditing={(!isDuplicateHead)?onFinishedEditHead:noUpdate}
+        // onEndEditing={(!isDuplicateHead)?onFinishedEditHead:noUpdate}
+        onEndEditing={onFinishedEditHead}
         placeholder={noteEditor.head === "" || noteEditor.head === null ? "Unnamed Note " + noteEditor.note_id : noteEditor.head}
         placeholderTextColor={colors['--foreground-tertiary']}
         value={headerValue}
