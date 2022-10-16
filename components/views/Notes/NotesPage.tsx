@@ -20,14 +20,18 @@ enum updateStatus{
 }
 
 const NotesView = ({}) => {
-  const [headerValue, onChangeText] = React.useState('');
-  const [noteValue, onChangeNote] = React.useState('');
+  const noteEditor:NotesMsg = useAppSelector(state => state.noteEditor);
+  const user = useAppSelector(state => state.userEnter);
+
+  const [headerValue, onChangeText] = React.useState(noteEditor.head);
+  const [noteValue, onChangeNote] = React.useState(noteEditor.content);
   const [dirty, onDirty] = React.useState(false);
   const [waitValue, onWaitValue] = React.useState(0);
   const [isFocused, onFocusingHeader] = React.useState(false);
   const dispatch = useAppDispatch();
-  const noteEditor:NotesMsg = useAppSelector(state => state.noteEditor);
-  const user = useAppSelector(state => state.userEnter);
+
+  // Defaults
+  const updateIntervalCheckTimeout: number = 1500;
 
   /**
    * Condition checkers.
@@ -49,9 +53,16 @@ const NotesView = ({}) => {
   }
 
   const noUpdate = () => {
-    console.log("No update")
+    console.log(`No update: head=${noteEditor.head}, noteHead=${headerValue}`)
+  }
+  const noUpdateContent = () => {
+    console.log(`No update: Content=${noteEditor.content},\n noteContent=${noteValue}`)
   }
 
+  /**
+   * Update status displays
+   *
+   * */
   useEffect(() => {
     console.log("mounting");
 
@@ -82,8 +93,13 @@ const NotesView = ({}) => {
     }
   }
 
+  /**
+   * Update interval checker.
+   * Updates the notes only when the user stops writing for some time.
+   * */
   useEffect( ()=>{
     const interval:NodeJS.Timer = setInterval(()=>{
+      // console.log(`Interval status: dirty=${dirty}, waitValue=${waitValue}`);
       if(dirty && waitValue>0) {
         if(!isDuplicateAll()){
           console.log("Update should attempt...");
@@ -104,16 +120,23 @@ const NotesView = ({}) => {
         }
         onDirty(dirty => false);
         onWaitValue(waitValue=>0);
+        dispatch(updateNotesHeaderInfo(updateStatus.AllUpdated));
         clearInterval(interval);
       }
       else if (dirty) {
-        dispatch(updateNotesHeaderInfo(updateStatus.Updating))
+        dispatch(updateNotesHeaderInfo(updateStatus.Updating));
         onWaitValue(waitValue=>waitValue+1);
       }
-    },2000);
+
+    }, updateIntervalCheckTimeout);
     return ()=> { clearInterval(interval)};
   });
 
+  /**
+   * Update operations.
+   *
+   * */
+  // * not used
   const onFinishedEditContent = async () => {
     if (shouldNotUpdateNote()) {
       return;
@@ -134,7 +157,9 @@ const NotesView = ({}) => {
     dispatch(updateNote(arg));
     console.log(`Finished update dispatch content. Note obj => ${JSON.stringify(noteEditor)}`);
   };
-
+  /**
+   * Only used in "on end edit"
+   * */
   const onFinishedEditHead= async () => {
     if (shouldNotUpdateNote()) {
       return;
@@ -176,12 +201,20 @@ const NotesView = ({}) => {
     console.log(`Finished update dispatch all. Note obj => ${JSON.stringify(noteEditor)}`);
   }
 
+  /**
+   * Status update.
+   * */
   useEffect(() => {
     const timestamp = updateStatusText();
     dispatch(updateNotesTimeDistance(timestamp));
     console.log(`update timestamp: ${timestamp}, value: ${noteEditor.update_time}`);
   }, [noteEditor]);
 
+
+  /**
+   * When receiving from the web
+   *
+   * */
   useEffect(() => {
     onChangeNote(noteEditor.content);
     console.log(`There is editing, head \"${noteEditor.head}\", content: \"${noteEditor.content}\"`);
@@ -196,48 +229,41 @@ const NotesView = ({}) => {
   return (
     <View style={[{flex:1},styles.notesBox, styles.container]}>
       {/*Header Start*/}
-      {/* <ScrollView> */}
+      <TextInput
+        style={[
+          styles.notesHeaderStyle,
+          styles.inputAreaColorSecond,
+          {
+            backgroundColor: isFocused ?
+              colors['--background-tertiary'] : colors['--background-default'],
+          },]}
+        onFocus={() => { onFocusingHeader(true); }}
+        onBlur={() => { onFocusingHeader(false); }}
+        onChangeText={onChangeText}
+        // onKeyPress={onStartingWrite}
+        onEndEditing={(!isDuplicateHead)?onFinishedEditHead:noUpdate}
+        placeholder={noteEditor.head === "" || noteEditor.head === null ? "Unnamed Note " + noteEditor.note_id : noteEditor.head}
+        placeholderTextColor={colors['--foreground-tertiary']}
+        value={headerValue}
+      />
+      {/*Header End*/}
 
-          <TextInput
-            // disallowInterruption={true}
-
-            style={[
-              styles.notesHeaderStyle,
-              styles.inputAreaColorSecond,
-              {
-                backgroundColor: isFocused ?
-                  colors['--background-tertiary'] : colors['--background-default'],
-              },]}
-            onFocus={() => { onFocusingHeader(true); }}
-            onBlur={() => { onFocusingHeader(false); }}
-            onChangeText={onChangeText}
-            // onKeyPress={onStartingWrite}
-            onEndEditing={(!isDuplicateHead)?onFinishedEditHead:noUpdate}
-            placeholder={noteEditor.head === "" || noteEditor.head === null ? "Unnamed Note " + noteEditor.note_id : noteEditor.head}
-            placeholderTextColor={colors['--foreground-tertiary']}
-            value={headerValue}
-          />
-        {/* </ScrollView> */}
-        {/*Header End*/}
-
-        {/*Notes Edit Start*/}
-        <TextInput
-          multiline={true}
-          scrollEnabled={true}
-          contextMenuHidden={true}
-          textAlignVertical={'top'}
-          onKeyPress={onStartingWrite}
-          style={[styles.notesEditStyle, styles.inputAreaColor]}
-          onChangeText={onChangeNote}
-          autoCorrect={false}
-          onEndEditing={(!isDuplicateContent())?onFinishedEditContent:noUpdate}
-          value={noteValue}
-        />
+      {/*Notes Edit Start*/}
+      <TextInput
+        multiline={true}
+        scrollEnabled={true}
+        contextMenuHidden={true}
+        textAlignVertical={'top'}
+        onKeyPress={onStartingWrite}
+        style={[styles.notesEditStyle, styles.inputAreaColor]}
+        onChangeText={onChangeNote}
+        autoCorrect={false}
+        onEndEditing={(!isDuplicateContent())?onFinishedEditContent:noUpdateContent}
+        value={noteValue}
+      />
       {/*Notes Edit End*/}
     </View>
   );
 };
 
-// export default gestureHandlerRootHOC(NotesView);
-// export default NotesView;
 export default React.memo(NotesView);
