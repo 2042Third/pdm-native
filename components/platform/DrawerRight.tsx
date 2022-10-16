@@ -1,14 +1,9 @@
 import { createDrawerNavigator, DrawerToggleButton } from "@react-navigation/drawer";
 import React from "react";
 import { SafeAreaView, Text, useWindowDimensions, View } from 'react-native';
-// import { TabController } from "react-native-ui-lib";
 import { colors, styles } from "../../assets/Style";
-import NotesMenu from "../views/Notes/NotesMenu";
 import NotesView from "../views/Notes/NotesPage";
 import CustomDrawerContentRight from "./drawerContent/DrawerContentRight";
-import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
-import Icon from "../icons/Icon";
-import { DrawerActions, useNavigation } from "@react-navigation/native";
 import NotesHeader from "./drawerContent/notes/NotesHeader";
 import { useAppSelector } from "../handle/redux/hooks";
 
@@ -16,7 +11,6 @@ const DrawerRightMenu = createDrawerNavigator();
 
 const DrawerRight = () => {
   const window = useWindowDimensions();
-  const navigation2 = useNavigation();
   const header = useAppSelector(state => state.notesHeaderInfo);
   return (
     <DrawerRightMenu.Navigator

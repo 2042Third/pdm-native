@@ -168,9 +168,13 @@ export const NoteEditorSlice = createSlice({
   },
   extraReducers(builder) { // pending/fulfilled/rejected
     builder
+
+      // Get Note
       .addCase(getNote.fulfilled, (state, action) => {
         return action.payload;
       })
+
+      // Update Edits Content
       .addCase(updateEditsContent.fulfilled, (state, action) => {
         let load = state;
         load.statusInfo = "fulfilled";
@@ -178,15 +182,17 @@ export const NoteEditorSlice = createSlice({
         load.hash = action.payload.hash
         return load;
       })
+      .addCase(updateEditsContent.rejected, (state, action) => {
+        let load = state;
+        load.statusInfo = "rejected";
+        return load;
+      })
+
+      // Update Edits Head
       .addCase(updateEditsHead.fulfilled, (state, action) => {
         let load = state;
         load.statusInfo = "fulfilled";
         load.head = action.payload;
-        return load;
-      })
-      .addCase(updateEditsContent.rejected, (state, action) => {
-        let load = state;
-        load.statusInfo = "rejected";
         return load;
       })
       .addCase(updateEditsHead.rejected, (state, action) => {
@@ -194,6 +200,8 @@ export const NoteEditorSlice = createSlice({
         load.statusInfo = "rejected";
         return load;
       })
+
+      // Update Note
       .addCase(updateNote.pending, (state, action)=>{
         return {...state,
           statusInfo: "pending"
