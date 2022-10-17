@@ -103,26 +103,22 @@ export const updateNote = createAsyncThunk('noteHead/updateNote', async (argu: U
 });
 
 
-
-export const updateEditsContent = createAsyncThunk('noteHead/updateEditsContent', async (argu:UpdareNoteWithString) => {
+export const updateEditsContent = (noteValue:string) => async (dispatch: (arg0: { payload: any; type: string; }) => void, getState: () => any) =>{
   const { PdmNativeCryptModule } = NativeModules;
-  const content = argu.str;
-  const noteMsg: NotesMsg = argu.noteMsg;
-  // get the hash
-  const hash = await PdmNativeCryptModule.getHash(content);
-  if (content === '' || noteMsg.hash === hash || content === null || content === undefined){
-    isRejectedWithValue("cannot update content: value doesn't exist or the same");
-    return noteMsg;
-  }else{
-    console.log(`Note contant request: ${content}`);
-    return {
-      ...noteMsg,
-      hash: hash,
-      content: content,
-    } as NotesMsg;
+  const beforeState = getState();
+  await PdmNativeCryptModule.getHash(noteValue);
+  if (noteValue === '' || beforeState.noteEditor.noteValue === null) {
+    dispatch(changeNoteHead({
+      content: beforeState.noteEditor.content,
+      statusInfo: "rejected"
+    }));
+  }else {
+    dispatch(changeNoteHead({
+      content: noteValue,
+      statusInfo: "fulfilled"
+    }));
   }
-
-});
+}
 
 export const updateEditsHead = (header:string) => async (dispatch: (arg0: { payload: any; type: string; }) => void, getState: () => any) =>{
   const { PdmNativeCryptModule } = NativeModules;
@@ -171,7 +167,18 @@ export const NoteEditorSlice = createSlice({
       return action.payload;
     },
     changeNoteHead: (state, action) => {
-      return state;
+      return {
+        ...state,
+        head        : action.payload.head,
+        statusInfo  : action.payload.statusInfo
+      };
+    },
+    changeNoteContent: (state, action) => {
+      return {
+        ...state,
+        content     : action.payload.content,
+        statusInfo  : action.payload.statusInfo
+      };
     }
   },
   extraReducers(builder) { // pending/fulfilled/rejected
@@ -180,22 +187,6 @@ export const NoteEditorSlice = createSlice({
       // Get Note
       .addCase(getNote.fulfilled, (state, action) => {
         return action.payload;
-      })
-
-      // Update Edits Content
-      .addCase(updateEditsContent.fulfilled, (state, action) => {
-        return {
-          ...state,
-          statusInfo: "fulfilled",
-          content   : action.payload.content,
-          hash      : action.payload.hash
-        };
-      })
-      .addCase(updateEditsContent.rejected, (state, action) => {
-        return {
-          ...state,
-          statusInfo: "rejected"
-        };
       })
 
       // Update Note
@@ -220,7 +211,8 @@ export const NoteEditorSlice = createSlice({
 // actions
 export const {
   openNote,
-  changeNoteHead
+  changeNoteHead,
+  changeNoteContent,
 } = NoteEditorSlice.actions;
 
 export default NoteEditorSlice.reducer;

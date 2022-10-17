@@ -187,7 +187,7 @@ const NotesView = ({}) => {
     try {
       // await dispatch(updateEditsHead({ str: headerValue, noteMsg: noteEditor }));
       await dispatch(updateEditsHead(headerValue));
-      await dispatch(updateEditsContent({ str: noteValue, noteMsg: noteEditor }));
+      await dispatch(updateEditsContent( noteValue));
     }
     catch (e) {
       console.log("Dispatch update all failed.");
