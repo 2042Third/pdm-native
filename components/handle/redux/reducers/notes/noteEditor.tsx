@@ -61,15 +61,18 @@ export const getNote = createAsyncThunk('noteHead/getNote', async (argu: GetNote
 
   return load;
 });
+export const updateNote = (noteValue: string, headerValue:string) => async (dispatch: (arg0: { payload: any; type: string; }) => void, getState: () => any) =>{
 
-export const updateNote = createAsyncThunk('noteHead/updateNote', async (argu: UpdateNoteArg) => {
+  const beforeState = getState();
+// export const updateNote = createAsyncThunk('noteHead/updateNote', async (argu: UpdateNoteArg) => {
   const { PdmNativeCryptModule } = NativeModules;
-  const user = argu.user;
-  let noteMsg = argu.noteMsg;
+  const user = beforeState.userEnter;
+  let noteMsg = beforeState.noteEditor;
+  console.log(`Update Note begin ${JSON.stringify(headerValue)}`);
 
   // Encrypt
-  const out = await PdmNativeCryptModule.enc(user.upw, noteMsg.content);
-  const outhead = await PdmNativeCryptModule.enc(user.upw, noteMsg.head);
+  const out = await PdmNativeCryptModule.enc(user.upw, noteValue);
+  const outhead = await PdmNativeCryptModule.enc(user.upw, headerValue);
   const newNote = {
     ...noteMsg,
     head: outhead,
@@ -98,9 +101,8 @@ export const updateNote = createAsyncThunk('noteHead/updateNote', async (argu: U
   }
   // load.update_time = parseFloat(load.update_time);
   console.log(`Note decrypted ${JSON.stringify(load)}`);
-
-  return load;
-});
+  dispatch(changeNoteAll(load));
+}
 
 
 export const updateEditsContent = (noteValue:string) => async (dispatch: (arg0: { payload: any; type: string; }) => void, getState: () => any) =>{
@@ -173,6 +175,17 @@ export const NoteEditorSlice = createSlice({
         statusInfo  : action.payload.statusInfo
       };
     },
+    changeNoteAll: (state, action) => {
+      return {
+        ...state,
+        statusInfo  : "fulfilled", // should change this
+        update_time : action.payload.update_time,
+        time        : action.payload.time,
+        content     : action.payload.content,
+        status      : action.payload.status,
+        head        : action.payload.head
+      };
+    },
     changeNoteContent: (state, action) => {
       return {
         ...state,
@@ -189,22 +202,22 @@ export const NoteEditorSlice = createSlice({
         return action.payload;
       })
 
-      // Update Note
-      .addCase(updateNote.pending, (state, action)=>{
-        return {...state,
-          statusInfo: "pending"
-        };
-      })
-      .addCase(updateNote.fulfilled, (state, action)=>{
-        return {...state,
-          statusInfo  : "fulfilled",
-          update_time : action.payload.update_time,
-          time        : action.payload.time,
-          content     : action.payload.content,
-          status      : action.payload.status,
-          head        : action.payload.head
-        };
-      })
+      // // Update Note
+      // .addCase(updateNote.pending, (state, action)=>{
+      //   return {...state,
+      //     statusInfo: "pending"
+      //   };
+      // })
+      // .addCase(updateNote.fulfilled, (state, action)=>{
+      //   return {...state,
+      //     statusInfo  : "fulfilled",
+      //     update_time : action.payload.update_time,
+      //     time        : action.payload.time,
+      //     content     : action.payload.content,
+      //     status      : action.payload.status,
+      //     head        : action.payload.head
+      //   };
+      // })
   },
 });
 
@@ -213,6 +226,7 @@ export const {
   openNote,
   changeNoteHead,
   changeNoteContent,
+  changeNoteAll,
 } = NoteEditorSlice.actions;
 
 export default NoteEditorSlice.reducer;

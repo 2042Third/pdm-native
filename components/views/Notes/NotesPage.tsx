@@ -85,8 +85,8 @@ const NotesView = ({}) => {
   };
 
   const onStartingWrite = () => {
-    onWaitValue(waitValue=>0);
     if(!dirty){
+      onWaitValue(waitValue=>0);
       onDirty(dirty=>true);
       dispatch(updateNotesHeaderInfo(updateStatus.Updating));
       console.log(`pushing value => ${waitValue}, dirty=${dirty}`);
@@ -141,7 +141,7 @@ const NotesView = ({}) => {
       return;
     }
     try {
-      await dispatch(updateEditsContent({ str: noteValue, noteMsg: noteEditor }))
+      await dispatch(updateEditsContent( noteValue))
     }
     catch (e) {
       console.log("Dispatch update content failed.");
@@ -149,11 +149,7 @@ const NotesView = ({}) => {
       return;
     }
 
-    const arg: UpdateNoteArg = {
-      user: user,
-      noteMsg: { ...noteEditor, content: noteValue }
-    };
-    dispatch(updateNote(arg));
+    await dispatch(updateNote(noteValue,headerValue));
     console.log(`Finished update dispatch content. Note obj => ${JSON.stringify(noteEditor)}`);
   };
   /**
@@ -172,11 +168,8 @@ const NotesView = ({}) => {
       console.log(e);
       return;
     }
-    const arg: UpdateNoteArg = {
-      user: user,
-      noteMsg: { ...noteEditor, head: headerValue }
-    };
-    dispatch(updateNote(arg));
+
+    await dispatch(updateNote(noteValue, headerValue));
     console.log(`Finished update dispatch head. Note obj => ${JSON.stringify(noteEditor)}`);
   };
 
@@ -194,11 +187,7 @@ const NotesView = ({}) => {
       console.log(e);
       return;
     }
-    const arg: UpdateNoteArg = {
-      user: user,
-      noteMsg: { ...noteEditor, head: headerValue, content: noteValue }
-    };
-    dispatch(updateNote(arg));
+    await dispatch(updateNote(noteValue, headerValue));
     console.log(`Finished update dispatch all. Note obj => ${JSON.stringify(noteEditor)}`);
   }
 
