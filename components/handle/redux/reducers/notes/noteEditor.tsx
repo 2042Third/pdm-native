@@ -68,7 +68,6 @@ export const updateNote = (noteValue: string, headerValue:string) => async (disp
   const { PdmNativeCryptModule } = NativeModules;
   const user = beforeState.userEnter;
   let noteMsg = beforeState.noteEditor;
-  console.log(`Update Note begin ${JSON.stringify(headerValue)}`);
 
   // Encrypt
   const out = await PdmNativeCryptModule.enc(user.upw, noteValue);
