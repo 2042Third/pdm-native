@@ -3,14 +3,10 @@ import { ActivityIndicator, View } from "react-native";
 import {styles, colors} from '../../../assets/Style';
 import React, { useEffect, Suspense, useState } from "react";
 import { TextInput } from 'react-native-gesture-handler';
-// import { PanGestureHandler } from 'react-native-gesture-handler';
 import { useAppDispatch, useAppSelector } from '../../handle/redux/hooks';
-import { UpdateNoteArg } from '../../handle/models';
 import { updateEditsContent, updateEditsHead, updateNote } from '../../handle/redux/reducers/notes/noteEditor';
-import { useDispatch } from 'react-redux';
 import { NotesMsg } from '../../handle/types';
 import { formatDistanceToNowStrict } from "date-fns";
-import { useNavigation } from "@react-navigation/native";
 import { updateNotesHeaderInfo, updateNotesTimeDistance } from "../../handle/redux/reducers/notes/notesHeaderInfo";
 
 enum updateStatus{
@@ -21,7 +17,6 @@ enum updateStatus{
 
 const NotesView = ({}) => {
   const noteEditor:NotesMsg = useAppSelector(state => state.noteEditor);
-  const user = useAppSelector(state => state.userEnter);
 
   const [headerValue, onChangeText] = React.useState(noteEditor.head);
   const [noteValue, onChangeNote] = React.useState(noteEditor.content);

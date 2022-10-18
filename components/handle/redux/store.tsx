@@ -5,6 +5,7 @@ import UserinfoStatusReducer from "./reducers/user/userinfoReducer";
 import NotesHeadsReducer from "./reducers/notes/notesHeadsReducer";
 
 import NoteEditorReducer from "./reducers/notes/noteEditor";
+import NotesMenuReducer from "./reducers/notes/notesMenuReducer";
 import UserinfoEnterReducer from './reducers/user/userinfoEnter';
 import AppSettingsReducer from './reducers/settings/appSettings';
 import storage from 'redux-persist/lib/storage'
@@ -36,8 +37,10 @@ export const rootReducer = combineReducers({
   noteHeads: NotesHeadsReducer,
   noteEditor: NoteEditorReducer,
   notesHeaderInfo: NotesHeaderInfoReducer,
+  notesMenu: NotesMenuReducer,
   appSettings: AppSettingsReducer,
   encryptedUserEnter: EncryptedUserinfoEnterReducer,
+
 });
 
 // Persistor

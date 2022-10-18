@@ -1,15 +1,8 @@
-import { AsyncThunkAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { NativeModules } from "react-native";
-import { min } from "react-native-reanimated";
-import { useDispatch } from "react-redux";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { dec } from "../../../handlers/user";
-import PdmNativeCryptModule from "../../../native/NativeModule";
 import NetCalls from "../../../network/netCalls";
 import { UserEnter, UserInfoGeneral } from "../../../types";
-import { useAppDispatch } from "../../hooks";
-import { PdmActions } from "../actionType";
-import { parseTime, parseTimeShort } from "../helpers";
-import { setUserSess } from "./userinfoEnter";
+import { parseTimeShort } from "../helpers";
 
 
 
@@ -48,8 +41,8 @@ export const signinUser = createAsyncThunk('userStatus/signinUser'
     console.log("UserInfo update failure: " + JSON.stringify(netReturn));
     return netReturn;
   }
-  const userName =  user.upw === undefined ? 
-                    null: 
+  const userName =  user.upw === undefined ?
+                    null:
                     await dec(user.upw, netReturn.receiver);
   if (userName!= null){
     netReturn.username = userName;
@@ -109,7 +102,7 @@ export const UserinfoStatusSlice = createSlice({
   },
 });
 
-export const { 
+export const {
   updateUserStatus,
   updateUsername,
  } = UserinfoStatusSlice.actions;

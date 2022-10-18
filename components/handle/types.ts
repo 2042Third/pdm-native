@@ -80,6 +80,10 @@ export class UserEnter {
   timesTried: number = 0;
 }
 
+export class NotesMenu {
+  sortingBy: string = "id";
+}
+
 export class AppSettings{
   lastPageOpened: string = 'Notes';
   timesCanTry: number = 5;
