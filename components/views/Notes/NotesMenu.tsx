@@ -26,6 +26,8 @@ import { useKeyboard } from "@react-native-community/hooks";
 // import { useSelectNoteIds } from "../../handle/redux/selectors/selectorNoteHeads";
 import { createSelector } from "reselect";
 import { RootState } from "../../handle/redux/store";
+import { getSortedNotes } from "../../handle/redux/selectors/selectorNoteHeads";
+import { NoteSortingTypes } from "../../handle/redux/reducers/notes/notesMenuReducer";
 
 const NotesMenu = ({  }) => {
   // const NotesMenu = ({navigation}) => {
@@ -37,13 +39,36 @@ const NotesMenu = ({  }) => {
 
   // const selectNoteId = (state: RootState) => state.noteHeads.heads.map((head) => head.key);
   // const noteids = useSelector(selectNoteId, shallowEqual);
-  const selectNoteId = (state: RootState) => state.noteHeads?state.noteHeads:null;
-  const selectornoteids = ()=>createSelector(
-    [selectNoteId],
-    (noteIDs)=>noteIDs.heads.map((head) => head.key )
+  // const selectornoteids = ()=>createSelector(
+  //   [selectNoteId],
+  //   (noteIDs)=>noteIDs.heads.map((head) => head.key )
+  // );
+   const selectNoteId = ( state:RootState)  => state.noteHeads;
+   const noteMenuOptions =( state:RootState) => state.notesMenu.sortingBy;
+// export const selectNoteIds = getSortedNotes.map((head) => head.key);
+   const getSortedNotes = createSelector(
+    [selectNoteId, noteMenuOptions],
+    (noteIDs, sort) =>(
+      [...noteIDs.heads]
+        .sort((a,b)=> (orderByType(a,sort)>orderByType(b,sort)))
+        .map((head) => head.key ))
   );
-  const noteids = useAppSelector(selectornoteids());
-
+  function orderByType(data:NoteHead, type) {
+    switch (type) {
+      case NoteSortingTypes.SORT_BY_ID:
+        return data.key;
+      case NoteSortingTypes.SORT_BY_NAME:
+        return data.head;
+      case NoteSortingTypes.SORT_BY_CREATE_TIME:
+        return data.time;
+      case NoteSortingTypes.SORT_BY_UPDATE_TIME:
+        return data.update_time;
+      default:
+        return data;
+    }
+  }
+  const noteids = useAppSelector(state=>getSortedNotes(state));
+  //
 
   const [refreshing, setRefreshing] = React.useState(false);
   const [selectedNote, setSelectedNote] = React.useState('');

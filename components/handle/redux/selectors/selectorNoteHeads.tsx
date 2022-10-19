@@ -10,6 +10,7 @@ import orderBy from "lodash/orderBy";
 import { NoteSortingTypes } from "../reducers/notes/notesMenuReducer";
 import { selectNoteByKey } from "../reducers/notes/notesHeadsReducer";
 import { RootState } from "../store";
+import notesMenu from "../../../views/Notes/NotesMenu";
 // const noteSorts = useAppSelector(state => state.notesMenu);
 //
 // const noteHead = useAppSelector(state => state.noteHeads);
@@ -23,24 +24,17 @@ import { RootState } from "../store";
 //  }
 
 
-
-// export const selectNoteIds = getSortedNotes.map((head) => head.key);
+// export const selectNoteId = (state: RootState) => state.noteHeads;
+// export const noteMenuOptions =( state:RootState) => state.notesMenu.sortingBy;
+// // export const selectNoteIds = getSortedNotes.map((head) => head.key);
 // export const getSortedNotes = createSelector(
-//   selectNoteHead,
-//   selectNoteId,
-//   (heads:string[], sort:NotesMenu) => {
-//     if (sort) {
-//       return orderBy(
-//         heads,
-//         ( c: string) => orderByType(selectNoteByKey(noteHead,c),sort.sortingBy),
-//         [ "desc"]
-//       );
-//     }
-//
-//     return heads;
-//   }
+//   [selectNoteId, noteMenuOptions],
+//   (noteIDs, sort) =>
+//     noteIDs.heads
+//       .sort((a,b)=> (orderByType(a,sort)>orderByType(b,sort)))
+//       .map((head) => head.key )
 // );
-// function orderByType(data:NoteHead, type:NoteSortingTypes) {
+// function orderByType(data:NoteHead, type) {
 //   switch (type) {
 //     case NoteSortingTypes.SORT_BY_ID:
 //       return data.key;

@@ -128,7 +128,11 @@ export const deleteNote = createAsyncThunk('noteHead/deleteNote', async (argu: U
 */
 export const NotesHeadsSlice = createSlice({
   name: 'notesHead',
-  initialState,
+  initialState:{
+    heads: [],
+    netHash: "",
+    netStatus: "pending",
+  } as NoteHeadList,
   reducers: {
     newHeads: (state, action) => {
       return action.payload;
