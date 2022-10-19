@@ -44,7 +44,7 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
   // Get heads from server
   const headsP = await NetCalls.notesGetHeads(user.sess, user.umail);
   const heads = await headsP?.json();
-  console.log(`Note received ${JSON.stringify(heads)}`);
+  console.log(`Note received ${JSON.stringify(heads.content.length)}`);
 
   // Check package integrity
   // Note: the incoming noteheads package lists the heads under "content" not "heads"
@@ -79,13 +79,13 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
       } catch (e) { console.log(e) ; return;}
     }
     tmpH.head = decO;
-    console.log(`tmpH ${JSON.stringify(tmpH)}`);
+    // console.log(`tmpH ${JSON.stringify(tmpH)}`);
 
     // Get the time stamps
     tmpH.ctime = parseTime(tmpH.time);
     tmpH.utime = parseTime(tmpH.update_time);
-    console.log(`Created at ${tmpH.ctime}`);
-    console.log(`Updated at ${tmpH.utime}`);
+    // console.log(`Created at ${tmpH.ctime}`);
+    // console.log(`Updated at ${tmpH.utime}`);
 
     b.push(tmpH);
   }

@@ -23,8 +23,9 @@ import { recordPageChange } from "../../handle/handlers/records";
 import { changePageOpened } from "../../handle/redux/reducers/settings/appSettings";
 import { useDrawerStatus } from "@react-navigation/drawer";
 import { useKeyboard } from "@react-native-community/hooks";
-import { useSelectNoteIds } from "../../handle/redux/selectors/selectorNoteHeads";
+// import { useSelectNoteIds } from "../../handle/redux/selectors/selectorNoteHeads";
 import { createSelector } from "reselect";
+import { RootState } from "../../handle/redux/store";
 
 const NotesMenu = ({  }) => {
   // const NotesMenu = ({navigation}) => {
@@ -34,14 +35,14 @@ const NotesMenu = ({  }) => {
   const noteHead = useAppSelector(state => state.noteHeads);
   const navigation = useNavigation();
 
-  const selectNoteId = (state: { noteHeads: { heads: NoteHead[]; }; }) => state.noteHeads.heads.map((head) => head.key);
+  // const selectNoteId = (state: RootState) => state.noteHeads.heads.map((head) => head.key);
   // const noteids = useSelector(selectNoteId, shallowEqual);
-  const noteids = createSelector(
-    selectNoteId,
-    (noteIDs:number[])=>{
-      return noteIDs;
-    }
+  const selectNoteId = (state: RootState) => state.noteHeads?state.noteHeads:null;
+  const selectornoteids = ()=>createSelector(
+    [selectNoteId],
+    (noteIDs)=>noteIDs.heads.map((head) => head.key )
   );
+  const noteids = useAppSelector(selectornoteids());
 
 
   const [refreshing, setRefreshing] = React.useState(false);
@@ -155,6 +156,9 @@ const NotesMenu = ({  }) => {
 
   const noteItemKeyExtractor = useCallback((item) => item,[]);
 
+  useEffect(()=>{
+    console.log(`Note menu rerender: ${noteids}`);
+  },[noteids]);
   return (
     <View style={[ styles.noteMenuViewStyle]}>
 
@@ -214,7 +218,7 @@ const NotesMenu = ({  }) => {
 }
 export default NotesMenu;
 // export default React.memo(NotesMenu);
-function render() {
-  throw new Error("Function not implemented.");
-}
+// function render() {
+//   throw new Error("Function not implemented.");
+// }
 
