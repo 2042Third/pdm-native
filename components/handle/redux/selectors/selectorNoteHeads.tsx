@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 import React, { useCallback, useEffect } from "react";
 import { NoteHead, NotesMenu } from "../../types";
-import { shallowEqual, useSelector } from "react-redux";
+import { createStoreHook, shallowEqual, useSelector } from "react-redux";
 import { useAppSelector } from "../hooks";
 // @ts-ignore
 import get from "lodash/get";
@@ -9,14 +9,21 @@ import get from "lodash/get";
 import orderBy from "lodash/orderBy";
 import { NoteSortingTypes } from "../reducers/notes/notesMenuReducer";
 import { selectNoteByKey } from "../reducers/notes/notesHeadsReducer";
-const noteSorts = useAppSelector(state => state.notesMenu);
+import { RootState } from "../store";
+// const noteSorts = useAppSelector(state => state.notesMenu);
+//
+// const noteHead = useAppSelector(state => state.noteHeads);
+// const selectNoteHead = state => state.noteHeads;
+//
+// const selectNoteId = (state: RootState) => state.noteHeads.heads.map((head) => head.key);
+//
+//  export const useSelectNoteIds = ()=>{
+//   const noteIDs = useAppSelector(selectNoteId, shallowEqual);
+//   return noteIDs;
+//  }
 
-const noteHead = useAppSelector(state => state.noteHeads);
-const selectNoteHead = state => state.noteHeads;
 
 
-const selectNoteId = (state: { noteHeads: { heads: NoteHead[]; }; }) => state.noteHeads.heads.map((head) => head.key);
-export const selectNoteIds = useSelector(selectNoteId, shallowEqual);
 // export const selectNoteIds = getSortedNotes.map((head) => head.key);
 // export const getSortedNotes = createSelector(
 //   selectNoteHead,

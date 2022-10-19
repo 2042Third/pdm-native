@@ -23,7 +23,7 @@ import { recordPageChange } from "../../handle/handlers/records";
 import { changePageOpened } from "../../handle/redux/reducers/settings/appSettings";
 import { useDrawerStatus } from "@react-navigation/drawer";
 import { useKeyboard } from "@react-native-community/hooks";
-import { selectNoteIds } from "../../handle/redux/selectors/selectorNoteHeads";
+import { useSelectNoteIds } from "../../handle/redux/selectors/selectorNoteHeads";
 
 const NotesMenu = ({  }) => {
   // const NotesMenu = ({navigation}) => {
@@ -33,8 +33,8 @@ const NotesMenu = ({  }) => {
   const noteHead = useAppSelector(state => state.noteHeads);
   const navigation = useNavigation();
 
-  // const selectNoteId = (state: { noteHeads: { heads: NoteHead[]; }; }) => state.noteHeads.heads.map((head) => head.key);
-  // const noteids = useSelector(selectNoteId, shallowEqual);
+  const selectNoteId = (state: { noteHeads: { heads: NoteHead[]; }; }) => state.noteHeads.heads.map((head) => head.key);
+  const noteids = useSelector(selectNoteId, shallowEqual);
 
   const [refreshing, setRefreshing] = React.useState(false);
   const [selectedNote, setSelectedNote] = React.useState('');
@@ -181,7 +181,7 @@ const NotesMenu = ({  }) => {
           style={[{height:600}]}
         >
           <FlatList
-            data={selectNoteIds}
+            data={noteids}
             renderItem={NoteItemCell }
             maxToRenderPerBatch={20}
             windowSize={3}
@@ -195,7 +195,7 @@ const NotesMenu = ({  }) => {
             }
             removeClippedSubviews={true}
             keyExtractor={noteItemKeyExtractor}
-            extraData={selectNoteIds}
+            extraData={noteids}
           >
           </FlatList>
         </View>
