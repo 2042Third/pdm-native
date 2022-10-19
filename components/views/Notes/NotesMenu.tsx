@@ -1,33 +1,20 @@
-import { oneOfType } from "prop-types";
 import React, { useCallback, useEffect } from "react";
-import { Keyboard , FlatList, Modal, Pressable, RefreshControl, SafeAreaView, Text } from "react-native";
+import { FlatList, Keyboard, Pressable, RefreshControl, Text } from "react-native";
 import { ActionSheet, View } from "react-native-ui-lib";
-import { shallowEqual, useSelector } from "react-redux";
 import { styles } from "../../../assets/Style";
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
 import { getNote } from "../../handle/redux/reducers/notes/noteEditor";
-import {
-  deleteNote,
-  getHeads,
-  newHeads,
-  newNote,
-  selectNoteByKey,
-} from "../../handle/redux/reducers/notes/notesHeadsReducer";
-import { NoteHead, NoteHeadList, NotesMsg } from "../../handle/types";
+import { deleteNote, getHeads, newNote, selectNoteByKey } from "../../handle/redux/reducers/notes/notesHeadsReducer";
+import { NoteHead, NotesMsg } from "../../handle/types";
 import Icon from "../../icons/Icon";
-import * as RootNavigation from "../../platform/RootNavigation";
-import { useFocusEffect } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { recordPageChange } from "../../handle/handlers/records";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { changePageOpened } from "../../handle/redux/reducers/settings/appSettings";
 import { useDrawerStatus } from "@react-navigation/drawer";
-import { useKeyboard } from "@react-native-community/hooks";
 // import { useSelectNoteIds } from "../../handle/redux/selectors/selectorNoteHeads";
 import { createSelector } from "reselect";
 import { RootState } from "../../handle/redux/store";
-import { getSortedNotes } from "../../handle/redux/selectors/selectorNoteHeads";
-import { NoteSortingTypes } from "../../handle/redux/reducers/notes/notesMenuReducer";
+import { NoteSortingTypes, updateNotesSorting } from "../../handle/redux/reducers/notes/notesMenuReducer";
 
 const NotesMenu = ({  }) => {
   // const NotesMenu = ({navigation}) => {
@@ -37,15 +24,8 @@ const NotesMenu = ({  }) => {
   const noteHead = useAppSelector(state => state.noteHeads);
   const navigation = useNavigation();
 
-  // const selectNoteId = (state: RootState) => state.noteHeads.heads.map((head) => head.key);
-  // const noteids = useSelector(selectNoteId, shallowEqual);
-  // const selectornoteids = ()=>createSelector(
-  //   [selectNoteId],
-  //   (noteIDs)=>noteIDs.heads.map((head) => head.key )
-  // );
    const selectNoteId = ( state:RootState)  => state.noteHeads;
    const noteMenuOptions =( state:RootState) => state.notesMenu.sortingBy;
-// export const selectNoteIds = getSortedNotes.map((head) => head.key);
    const getSortedNotes = createSelector(
     [selectNoteId, noteMenuOptions],
     (noteIDs, sort) =>(
@@ -53,6 +33,7 @@ const NotesMenu = ({  }) => {
         .sort((a,b)=> (orderByType(a,sort)>orderByType(b,sort)))
         .map((head) => head.key ))
   );
+
   function orderByType(data:NoteHead, type) {
     switch (type) {
       case NoteSortingTypes.SORT_BY_ID:
@@ -67,12 +48,14 @@ const NotesMenu = ({  }) => {
         return data;
     }
   }
+
   const noteids = useAppSelector(state=>getSortedNotes(state));
-  //
+
 
   const [refreshing, setRefreshing] = React.useState(false);
   const [selectedNote, setSelectedNote] = React.useState('');
   const [noteOptionsMenu, setNoteOptionsMenu] = React.useState(false);
+  const [sortOpetionMenu, setSortOptionsMenu] = React.useState(false);
 
   useEffect(() => {
     getHeadsFromServer();
@@ -105,6 +88,13 @@ const NotesMenu = ({  }) => {
     dispatch(getNote({ user: user, note_id: selectedHead.note_id }));
   };
 
+  const setSortOption = (option: NoteSortingTypes) => {
+    dispatch(updateNotesSorting(option))
+  }
+  const onSetSortOptionMenu = () => {
+    setSortOptionsMenu(true);
+  };
+
   const onLongPressNote = (key: string) => {
     console.log(`Long press note item ${key}`);
     setSelectedNote(key);
@@ -120,17 +110,14 @@ const NotesMenu = ({  }) => {
 
   const pickNoteOption = (option:string) => {
     console.log("picked note option "+option);
-
     const selectedHead = selectNoteByKey(noteHead, selectedNote);
-
     dispatch(deleteNote({ user: user, noteMsg: selectedHead }));
   };
 
   const getHeadsFromServer = () => {
-    console.log(`Getting heads with sess \"${JSON.stringify(user)}\"`);
-
+    // console.log(`Getting heads with sess \"${JSON.stringify(user)}\"`);
     if (user.sess !== '') {
-      console.log(`Notes Menu update: ${userinfo.status}`);
+      // console.log(`Notes Menu update: ${userinfo.status}`);
       if (userinfo.status === "success") {
         setRefreshing(true);
         dispatch(getHeads({ userinfo: userinfo, user: user }))
@@ -139,14 +126,13 @@ const NotesMenu = ({  }) => {
           })
           .catch((e) => {
             setRefreshing(false);
-            console.log("Failue getting heads from server:\n" + e)
+            // console.log("Failue getting heads from server:\n" + e)
           });
       }
     }
   }
 
   const NoteItemCell = ({item}) => {
-    // console.log("item mounting => " + JSON.stringify(item));
     const itemObj = selectNoteByKey(noteHead, item);
     return (
       <View
@@ -202,17 +188,45 @@ const NotesMenu = ({  }) => {
           useNativeIOS
           onDismiss={() => setNoteOptionsMenu( false )}
         />
+        <ActionSheet
+          title={selectedNote}
+          message={'Message of action sheet'}
+          cancelButtonIndex={5}
+          style={[styles.mainColor]}
+          destructiveButtonIndex={0}
+          options={[
+            { label: 'by default', onPress: () => setSortOption(NoteSortingTypes.SORT_BY_ID) },
+            { label: 'by time created', onPress: () => setSortOption(NoteSortingTypes.SORT_BY_CREATE_TIME) },
+            { label: 'by time updated', onPress: () => setSortOption(NoteSortingTypes.SORT_BY_UPDATE_TIME) },
+            { label: 'by name', onPress: () => setSortOption(NoteSortingTypes.SORT_BY_NAME) },
+            { label: 'cancel', onPress: () => pickNoteOption('cancel') }
+          ]}
+          visible={sortOpetionMenu}
+          useNativeIOS
+          onDismiss={() => setSortOptionsMenu( false )}
+        />
         <TouchableOpacity
           style={[
             styles.lightContainerColor,
             styles.centerTextContainer,
-            ]}
+          ]}
           onPress={createNewNote}
         >
           <Icon style={[styles.menuButton]}
-            name={'playlist-plus'} size={30}
+                name={'playlist-plus'} size={30}
           />
           <Text style={[styles.normalText]}>New Note</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.lightContainerColor,
+            styles.centerTextContainer,
+          ]}
+          onPress={onSetSortOptionMenu}
+        >
+          <Icon style={[styles.menuButton]}
+                name={'sort'} size={30}
+          />
         </TouchableOpacity>
         <View
           style={[{height:600}]}
