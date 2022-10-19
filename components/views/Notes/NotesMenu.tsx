@@ -24,6 +24,7 @@ import { changePageOpened } from "../../handle/redux/reducers/settings/appSettin
 import { useDrawerStatus } from "@react-navigation/drawer";
 import { useKeyboard } from "@react-native-community/hooks";
 import { useSelectNoteIds } from "../../handle/redux/selectors/selectorNoteHeads";
+import { createSelector } from "reselect";
 
 const NotesMenu = ({  }) => {
   // const NotesMenu = ({navigation}) => {
@@ -34,7 +35,14 @@ const NotesMenu = ({  }) => {
   const navigation = useNavigation();
 
   const selectNoteId = (state: { noteHeads: { heads: NoteHead[]; }; }) => state.noteHeads.heads.map((head) => head.key);
-  const noteids = useSelector(selectNoteId, shallowEqual);
+  // const noteids = useSelector(selectNoteId, shallowEqual);
+  const noteids = createSelector(
+    selectNoteId,
+    (noteIDs:number[])=>{
+      return noteIDs;
+    }
+  );
+
 
   const [refreshing, setRefreshing] = React.useState(false);
   const [selectedNote, setSelectedNote] = React.useState('');
