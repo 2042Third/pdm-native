@@ -15,6 +15,7 @@ import { useDrawerStatus } from "@react-navigation/drawer";
 import { createSelector } from "reselect";
 import { RootState } from "../../handle/redux/store";
 import { NoteSortingTypes, updateNotesSorting } from "../../handle/redux/reducers/notes/notesMenuReducer";
+import { getSortedNotes } from "../../handle/redux/selectors/selectorNoteHeads";
 
 const NotesMenu = ({  }) => {
   // const NotesMenu = ({navigation}) => {
@@ -24,30 +25,7 @@ const NotesMenu = ({  }) => {
   const noteHead = useAppSelector(state => state.noteHeads);
   const navigation = useNavigation();
 
-   const selectNoteId = ( state:RootState)  => state.noteHeads;
-   const noteMenuOptions =( state:RootState) => state.notesMenu.sortingBy;
-   const getSortedNotes = createSelector(
-    [selectNoteId, noteMenuOptions],
-    (noteIDs, sort) =>(
-      [...noteIDs.heads]
-        .sort((a,b)=> (orderByType(a,sort)>orderByType(b,sort)))
-        .map((head) => head.key ))
-  );
 
-  function orderByType(data:NoteHead, type) {
-    switch (type) {
-      case NoteSortingTypes.SORT_BY_ID:
-        return data.key;
-      case NoteSortingTypes.SORT_BY_NAME:
-        return data.head;
-      case NoteSortingTypes.SORT_BY_CREATE_TIME:
-        return data.time;
-      case NoteSortingTypes.SORT_BY_UPDATE_TIME:
-        return data.update_time;
-      default:
-        return data;
-    }
-  }
 
   const noteids = useAppSelector(state=>getSortedNotes(state));
 
@@ -189,10 +167,11 @@ const NotesMenu = ({  }) => {
           onDismiss={() => setNoteOptionsMenu( false )}
         />
         <ActionSheet
-          title={selectedNote}
-          message={'Message of action sheet'}
+          title={'Sort'}
+          message={'Select sorting option'}
           cancelButtonIndex={5}
-          style={[styles.mainColor]}
+          // containerStyle={[styles.mainColor]}
+          // ViewStyle={[styles.mainColor]}
           destructiveButtonIndex={0}
           options={[
             { label: 'by default', onPress: () => setSortOption(NoteSortingTypes.SORT_BY_ID) },
