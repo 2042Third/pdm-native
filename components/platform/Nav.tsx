@@ -1,4 +1,4 @@
-import React,{} from 'react';
+import React, { useMemo } from "react";
 import {colors, styles} from '../../assets/Style';
 import ChatView from '../views/Chat/ChatPage';
 import UserView from '../views/User/UserPage';
@@ -97,16 +97,15 @@ const Nav = (props: {Drawer: any, Tab: any}) => {
     );
   }
 
-  const ModalObj = () => {
-    // if (shouldUserEnterPass()){
-      return (
-        <EnterModalOne visible={shouldUserEnterPass()} />
-      );
-    // }
-    // else {
-    //   return <></>;
-    // }
-  }
+  const ModalObj = React.memo(() => {
+    const cond = shouldUserEnterPass();
+    if(!cond){
+      return <></>
+    }
+    return (
+      <EnterModalOne visible={cond} />
+    );
+  })
 
   React.useEffect(
   ()=>{

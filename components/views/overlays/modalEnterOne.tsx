@@ -57,6 +57,7 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
    *
   */
   useEffect(() => {
+    console.log("EnterModalOne userInfo ... ");
     if (userInfo.status === 'success' ) {
 
       /**
