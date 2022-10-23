@@ -1,7 +1,8 @@
-import React from "react";
-import { GestureResponderEvent, View } from "react-native";
+import React, { Suspense } from 'react';
+import { ActivityIndicator, GestureResponderEvent, View } from "react-native";
 import { styles } from "../../../../assets/Style";
-import { SettingTimesCanTry } from "./AppPassSettings";
+// import { SettingTimesCanTry } from "./AppPassSettings";
+const SettingTimesCanTry = React.lazy(()=> import ( "./AppPassSettings"));
 
 export function AppPassPage ({...props}) {
   const touchCapture = (evt:GestureResponderEvent) => {
@@ -19,9 +20,12 @@ export function AppPassPage ({...props}) {
     <View style={[{flex:1, padding:10},styles.mainColor]}
         // onStartShouldSetResponder={touchCapture}
     >
-      <SettingTimesCanTry {...props}
-        onStartShouldSetResponder={touchCapture}
-      />
+      <Suspense fallback={<View ><ActivityIndicator /></View>}>
+        <SettingTimesCanTry {...props}
+                            onStartShouldSetResponder={touchCapture}
+        />
+      </Suspense>
+
     </View>
   )
 }

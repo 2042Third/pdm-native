@@ -5,7 +5,7 @@ import { styles } from "../../../../assets/Style";
 import { useAppDispatch, useAppSelector } from "../../../handle/redux/hooks";
 import { changeTimesCanTry } from "../../../handle/redux/reducers/settings/appSettings";
 
-export function SettingTimesCanTry ({...props}) {
+export default function SettingTimesCanTry ({...props}) {
   const appSettings = useAppSelector(state => state.appSettings);
   const dispatch = useAppDispatch();
 
@@ -28,7 +28,7 @@ export function SettingTimesCanTry ({...props}) {
     dispatch(changeTimesCanTry(val));
     console.log(`TimesCanTry Value changed to => ${val}`)
   }
-
+  console.log("Setting changes.");
   return (
     <>
       <Text style={[styles.lessNormalText, {padding:10}]}>
