@@ -11,9 +11,6 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { changePageOpened } from "../../handle/redux/reducers/settings/appSettings";
 import { useDrawerStatus } from "@react-navigation/drawer";
-// import { useSelectNoteIds } from "../../handle/redux/selectors/selectorNoteHeads";
-import { createSelector } from "reselect";
-import { RootState } from "../../handle/redux/store";
 import { NoteSortingTypes, updateNotesSorting } from "../../handle/redux/reducers/notes/notesMenuReducer";
 import { getSortedNotes } from "../../handle/redux/selectors/selectorNoteHeads";
 
