@@ -6,6 +6,10 @@ import { RootState } from "../store";
 
 export const selectNoteId = ( state:RootState)  => state.noteHeads;
 export const noteMenuOptions =( state:RootState) => state.notesMenu.sortingBy;
+export const userInfoStatus = (state:RootState) => state.userinfo.status;
+
+
+// Sorting
 export const getSortedNotes = createSelector(
   [selectNoteId, noteMenuOptions],
   (noteIDs, sort) =>(
@@ -14,6 +18,7 @@ export const getSortedNotes = createSelector(
       .map((head) => head.key ))
 );
 
+// Sorting helper
 function orderByType(data:NoteHead, type) {
   switch (type) {
     case NoteSortingTypes.SORT_BY_ID:

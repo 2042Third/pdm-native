@@ -8,6 +8,8 @@ import { updateEditsContent, updateEditsHead, updateNote } from '../../handle/re
 import { NotesMsg } from '../../handle/types';
 import { formatDistanceToNowStrict } from "date-fns";
 import { updateNotesHeaderInfo, updateNotesTimeDistance } from "../../handle/redux/reducers/notes/notesHeaderInfo";
+import { useNavigation } from "@react-navigation/native";
+import { userInfoStatus } from "../../handle/redux/selectors/selectorNoteHeads";
 
 enum updateStatus{
   AllUpdated = "Up to date",
@@ -17,6 +19,7 @@ enum updateStatus{
 
 const NotesView = ({}) => {
   const noteEditor:NotesMsg = useAppSelector(state => state.noteEditor);
+  const userStatus: string = useAppSelector(state => userInfoStatus);
 
   const [headerValue, onChangeText] = React.useState(noteEditor.head);
   const [noteValue, onChangeNote] = React.useState(noteEditor.content);
@@ -24,7 +27,13 @@ const NotesView = ({}) => {
   const [waitValue, onWaitValue] = React.useState(0);
   const [isFocused, onFocusingHeader] = React.useState(false);
   const dispatch = useAppDispatch();
-
+  // Other
+  const navigation = useNavigation();
+  useEffect(()=>{
+    if(userStatus !== 'success'){
+      navigation.navigate("User");
+    }
+  },[]);
   // Defaults
   const updateIntervalCheckTimeout: number = 1500;
 

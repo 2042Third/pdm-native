@@ -133,9 +133,9 @@ const Nav = (props: {Drawer: any, Tab: any}) => {
           }}
           initialRouteName="Notes"
           // useLegacyImplementation
-          drawerContent={
-            (props: JSX.IntrinsicAttributes & { [x: string]: any; }) =>
-              <CustomDrawerContent navigation={props.navigation} {...props} />}
+          // drawerContent={
+          //   (props: JSX.IntrinsicAttributes & { [x: string]: any; }) =>
+          //     <CustomDrawerContent navigation={props.navigation} {...props} />}
         >
           {/*############################## LEFT DRAWER ##############################*/}
           {/*Notes*/}

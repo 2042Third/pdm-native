@@ -12,7 +12,6 @@ import { colors, styles } from "../../../assets/Style";
 import React, { useEffect } from 'react';
 import NetCalls from "../../handle/network/netCalls";
 import { getHash} from "../../handle/handlers/user";
-import { useSelector, shallowEqual, Provider, useDispatch } from "react-redux";
 import { EncrptedUserEnter, UserEnter, UserInfoGeneral } from "../../handle/types";
 import { signinUser,  updateUserStatus, userClearData } from "../../handle/redux/reducers/user/userinfoReducer";
 import userinfoEnter, { newUserinfoEnter, setUserSess, userEnterClearData } from "../../handle/redux/reducers/user/userinfoEnter";
