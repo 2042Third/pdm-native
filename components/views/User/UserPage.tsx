@@ -115,6 +115,7 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
   let passwordPlaceHolder: string = 'password';
   let appPasswordPlaceHolder:string = 'application password';
   let loginPlaceholder:string = 'login';
+  let signupPlaceholder:string = 'sign up';
   const [isFocused1, onFocusingHeader1] = React.useState(false);
   const [isFocused2, onFocusingHeader2] = React.useState(false);
   const [isFocused3, onFocusingHeader3] = React.useState(false);
@@ -138,6 +139,17 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
       sess: "",timesTried:0
     };
     dispatch(newUserinfoEnter(currentUserEnter));
+  };
+  /**
+   * Do some sign up stuff and get a user signed up.
+   * */
+  const onSignup = async () => {
+    // const upwServer = await getHash(upw+upw);
+    // const currentUserEnter:UserEnter = {
+    //   umail: umail, upw: upw, upwServer: upwServer,
+    //   sess: "",timesTried:0
+    // };
+    // dispatch(newUserinfoEnter(currentUserEnter));
   };
 
   /**
@@ -250,7 +262,10 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
             {/* Buttons */}
             <View style={[styles.btnContainer]}>
               <Button title={loginPlaceholder} color={colors['--background-light']}
-                onPress={onSubmit}
+                      onPress={onSubmit}
+              ></Button>
+              <Button title={signupPlaceholder} color={colors['--background-light']}
+                      onPress={onSignup}
               ></Button>
             </View>
 
