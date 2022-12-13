@@ -6,7 +6,7 @@ import { Platform } from "react-native";
 export default class NetCalls {
   private static pdmRootURL: string = 'https://pdm.pw';
   private static signinURL: string = this.pdmRootURL + '/auth/signin';
-  private static signupURL: string = this.pdmRootURL + '/auth/signin';
+  private static signupURL: string = this.pdmRootURL + '/auth/signup';
   private static notesGetHeadsURL: string = this.pdmRootURL + '/auth/note';
 
   private static notesGetHeadsType: string = 'heads';
