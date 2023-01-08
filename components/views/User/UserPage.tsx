@@ -144,11 +144,11 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
    * Do some sign up stuff and get a user signed up.
    * */
   const onSignup = async () => {
-    // const upwServer = await getHash(upw+upw);
-    // const currentUserEnter:UserEnter = {
-    //   umail: umail, upw: upw, upwServer: upwServer,
-    //   sess: "",timesTried:0
-    // };
+    const upwServer = await getHash(upw+upw);
+    const currentUserEnter:UserEnter = {
+      umail: umail, upw: upw, upwServer: upwServer,
+      sess: "",timesTried:0
+    };
     // dispatch(newUserinfoEnter(currentUserEnter));
   };
 

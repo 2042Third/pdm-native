@@ -79,6 +79,9 @@ export class UserEnter {
   sess: string = "";
   timesTried: number = 0;
 }
+export class UserEnterExt extends UserEnter {
+  uName: string  = "";
+}
 
 export class NotesMenu {
   sortingBy: string = "id";

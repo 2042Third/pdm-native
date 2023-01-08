@@ -2,14 +2,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { dec } from "../../../handlers/user";
 import { EncryptedUserEnterArg, UserEnterLocalDec } from "../../../models";
-import { UserEnter, UserInfoGeneral } from "../../../types";
+import { UserEnter, UserEnterExt, UserInfoGeneral } from "../../../types";
 export const userEnterClearData = {
   umail: '',
   upw:'',
   upwServer:'',
   sess: '',
   timesTried: 0,
-} as UserEnter;
+  uName:""
+} as UserEnterExt;
 
 export const decryptLocal = createAsyncThunk('userinfoEnter/decryptLocal'
   , async (decLocal: UserEnterLocalDec) => {
@@ -30,8 +31,9 @@ export const UserinfoEnterSlice = createSlice({
     upw: '',
     upwServer: '',
     sess: '',
-    timesTried:0
-  } as UserEnter,
+    timesTried:0,
+    uName: ""
+  } as UserEnterExt,
   reducers: {
     newUserinfoEnter: (state, action) =>{
       return action.payload;
