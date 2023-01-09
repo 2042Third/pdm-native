@@ -16,14 +16,14 @@ export default class NetCalls {
   private static notesDeleteNoteType: string = 'delete';
 
 
-  static async signin(umail: any, upw: any) {
+  static async signin(umail: string, upw: string) {
     return Net.post(this.signinURL, JSON.stringify({ "umail": umail, "upw": upw }))
       .then(function (res:any) {
         return res.json();
       });
   }
 
-  static async signup(umail: any, upw: any, uname:string) {
+  static async signup(umail: string, upw: string, uname:string) {
     return Net.post(this.signupURL
       , JSON.stringify({
         "umail": umail,
