@@ -17,7 +17,9 @@ export default class NetCalls {
 
 
   static async signin(umail: string, upw: string) {
-    return Net.post(this.signinURL, JSON.stringify({ "umail": umail, "upw": upw }))
+    return Net.post(this.signinURL, JSON.stringify({
+      "umail": umail,
+      "upw": upw.toString() }))
       .then(function (res:any) {
         return res.json();
       });
