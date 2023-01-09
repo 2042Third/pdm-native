@@ -6,6 +6,10 @@ export default class Net {
           url,
           {
             method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
             body: arg1
           }
         );
