@@ -44,16 +44,16 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
   // Get heads from server
   const headsP = await NetCalls.notesGetHeads(user.sess, user.umail);
   const heads = await headsP?.json();
-  console.log(`Note received ${JSON.stringify(heads.content.length)}`);
+  console.log(`Note received ${JSON.stringify(heads.content)}`);
 
   // Check package integrity
   // Note: the incoming noteheads package lists the heads under "content" not "heads"
   const integ = await PdmNativeCryptModule.getHash(JSON.stringify(heads.content).toString());
-  console.log(`Note head integrety check passed.`);
-  if (integ !== heads.hash) {
-    throw new Error("Package integrety compromised, location: Note head \"getHeads\" thunk.");
-    return;
-  }
+  // console.log(`Note head integrety check passed.`);
+  // if (integ !== heads.hash) {
+  //   throw new Error("Package integrety compromised, location: Note head \"getHeads\" thunk.");
+  //   return;
+  // }
 
   // Make new object to store decrypted
   let load = new NoteHeadList;
