@@ -15,7 +15,11 @@ export const userEnterClearData = {
 export const decryptLocal = createAsyncThunk('userinfoEnter/decryptLocal'
   , async (decLocal: UserEnterLocalDec) => {
   console.log("Trying decrypt");
-  const decReturn = await dec(decLocal.epw, decLocal.encUserEnter);
+  const decReturn = await dec(decLocal.epw.toString(), decLocal.encUserEnter.toString())
+    .catch((error: any) => {
+      console.log("Decryption user logging failed!");
+      console.info(error);
+    });
   console.log("Decrypt => "+ decReturn);
   if(decReturn)
     return { ...JSON.parse(decReturn), sess: ''};
