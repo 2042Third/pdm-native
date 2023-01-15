@@ -85,10 +85,10 @@ const Nav = (props: {Drawer: any, Tab: any}) => {
   }, [userEnter]);
 
   const shouldUserEnterPass = () => {
-    console.log(`User Status: ${
-        userInfo.status === "fail" &&
-        eUserEnter.dateTimeUpdated > 0 &&
-        userEnter.sess === ''
+    console.log(`User Status: 
+        ${userInfo.status }, 
+        ${eUserEnter.dateTimeUpdated }, 
+        ${userEnter.sess}
       }`)
     return (
       userInfo.status === "fail" &&

@@ -114,9 +114,7 @@ const NotesMenu = ({  }) => {
   }
 
   const NoteItemCell = ({item}) => {
-    console.log("Rendering "+ item.toString());
     const itemObj = selectNoteByKey(noteHead, item);
-    console.log("       => "+ JSON.stringify(itemObj));
     return (
       <View
         key={itemObj.key}

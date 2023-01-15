@@ -25,6 +25,8 @@ import { formatDistanceToNowStrict } from "date-fns";
 import { ScrollView } from "react-native-gesture-handler";
 import { parseTime, parseTimeShort } from "../../handle/redux/reducers/helpers";
 import EnterModalOne from "../overlays/modalEnterOne";
+import { ActionSheet } from "react-native-ui-lib";
+import Progress from "react-native-progress";
 interface UserinfoArg  {
   userInfo: UserInfoGeneral,
 };
@@ -206,6 +208,9 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
   }, [userInfo]);
 
   return (
+    <KeyboardShift style={[styles.mainColor]}>
+      {()=>(
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={[styles.loginContainer, styles.mainColor, {flex:1}]}>
             {/* Alerts */}
             <Text style={[styles.normalText,{color:userInfo.status === "fail"?colors["--error-default"]:colors['--background-default']}]}>
@@ -220,8 +225,8 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
               style={[styles.loginInput, styles.inputAreaColor
                 , {
                   backgroundColor: isFocused1 ? colors['--background-tertiary'] : colors['--background-default']
-                ,
-              }]}
+                  ,
+                }]}
               onFocus={() => { onFocusingHeader1(true); }}
               onBlur={() => { onFocusingHeader1(false); }}
             />
@@ -235,9 +240,9 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
               secureTextEntry={true}
               style={[styles.loginInput, styles.inputAreaColor
                 , {
-                backgroundColor: isFocused2 ? colors['--background-tertiary'] : colors['--background-default']
-                ,
-              }]}
+                  backgroundColor: isFocused2 ? colors['--background-tertiary'] : colors['--background-default']
+                  ,
+                }]}
               onFocus={() => { onFocusingHeader2(true); }}
               onBlur={() => { onFocusingHeader2(false); }}
             ></TextInput>
@@ -251,9 +256,9 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
               secureTextEntry={true}
               style={[styles.loginInput, styles.inputAreaColor
                 , {
-                backgroundColor: isFocused3 ? colors['--background-tertiary'] : colors['--background-default'],
+                  backgroundColor: isFocused3 ? colors['--background-tertiary'] : colors['--background-default'],
 
-              }
+                }
               ]}
               onFocus={() => { onFocusingHeader3(true); }}
               onBlur={() => { onFocusingHeader3(false); }}
@@ -284,7 +289,11 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
 
             {/* modal */}
             {/* <EnterModalOne visible={shouldUserEnterPass()}/> */}
-        </View>
+          </View>
+
+        </TouchableWithoutFeedback>
+      )}
+    </KeyboardShift>
   );
 }
 

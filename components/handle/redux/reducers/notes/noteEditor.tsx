@@ -50,12 +50,12 @@ export const getNote = createAsyncThunk('noteHead/getNote', async (argu: GetNote
   if (load.content === null || load.content === '') {
     load.content = "";
   } else {
-    load.content = await PdmNativeCryptModule.dec(user.upw, load.content);
+    load.content = (await PdmNativeCryptModule.dec(user.upw, load.content)).toString();
   }
   if (load.head === null || load.head === '') {
     load.head = "";
   } else {
-    load.head = await PdmNativeCryptModule.dec(user.upw, load.head);
+    load.head = (await PdmNativeCryptModule.dec(user.upw, load.head)).toString();
   }
   console.log(`Note decrypted ${JSON.stringify(load)}`);
 
