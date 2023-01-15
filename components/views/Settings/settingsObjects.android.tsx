@@ -145,7 +145,7 @@ export function TestCppEncDec({...props}) {
   /**
    * Run the encryption decryption demo
    *
-  */
+   */
   const onPress = async () => {
     for (let i=0;i<timesEnc;i++){
       console.log(`Run onpress ${i}'s time oo=${timesEnc}`);
@@ -168,77 +168,77 @@ export function TestCppEncDec({...props}) {
   return (
     <KeyboardShift style={[styles.mainColor]}>
       {()=>(
-          <View style={[styles.mainColor, {flexDirection: 'column', flexGrow: 3}]}>
-              <View
-                {...props}
-                style={[lstyle.debugTextBoxOut, {flexGrow: 3, maxHeight: window.height / 5},]}>
-                <Text style={[styles.mainColor]}>XChaCha20 256-bit Stream Cypher :{' '}</Text>
-                <Text style={[styles.inputAreaColor, lstyle.debugTextBox]}>{outputText}</Text>
-              </View>
-              <View
-                {...props}
-                style={[lstyle.debugTextBoxOut, {flexGrow: 3, alignContent: 'stretch', maxHeight: window.height / 5},]}>
-                <Text style={[styles.mainColor]}>Decrypted: </Text>
-                <Text style={[styles.inputAreaColor, lstyle.debugTextBox]}>{dec}</Text>
-              </View>
-              <View
-                {...props}
-                style={[
-                  lstyle.debugTextBoxOut,
-                  {flexGrow: 3, maxHeight: window.height / 7},
-                ]}>
-                <Text style={[styles.mainColor]}>password: </Text>
-                <TextInput
-                  multiline={true}
-                  textAlignVertical={'top'}
-                  style={[styles.inputAreaColor, lstyle.debugTextBox]}
-                  onChangeText={onChangeps}
-                  value={psText}
-                />
-              </View>
-              <View
-                {...props}
-                style={[
-                  lstyle.debugTextBoxOut,
-                  {flexGrow: 3, maxHeight: window.height / 5},
-                ]}>
-                <Text style={[styles.mainColor]}>Type something to encrypt </Text>
-                <TextInput
-                  multiline={true}
-                  textAlignVertical={'top'}
-                  style={[lstyle.debugTextBox, styles.inputAreaColor]}
-                  onChangeText={onChangeInput}
-                  // onKeyDown={handleKeyDown}
-                  value={inputText}
-                />
-                <Picker
-                  selectedValue={timesEnc}
-                  onValueChange={(itemValue, itemIndex) =>
-                    onTimesEnc(itemValue)
-                  }>
-                  <Picker.Item label="1 times" value={1} />
-                  <Picker.Item label="5 times" value={5} />
-                  <Picker.Item label="10 times" value={10} />
-                  <Picker.Item label="20 times" value={20} />
-                  <Picker.Item label="200 times" value={200} />
-                  <Picker.Item label="2000 times" value={2000} />
-                </Picker>
-
-                <View style={[styles.mainColor,styles.centering, {padding:5,
-                  flexDirection: 'column',}]}>
-                  <Progress.Bar  progress={timesEncProgress/timesEnc} width={200}
-                  />
-                  <Text style={[styles.mainColor]}>
-                    {(timesEncProgress/timesEnc*100).toFixed(1)+"%"}
-                  </Text>
-                </View>
-                <View >
-                  <Button disabled={!(timesEncProgress==0||timesEncProgress==timesEnc)} title={'encrypt'} onPress={onPress} />
-                </View>
-
-              </View>
+        <View style={[styles.mainColor, {flexDirection: 'column', flexGrow: 3}]}>
+          <View
+            {...props}
+            style={[lstyle.debugTextBoxOut, {flexGrow: 3, maxHeight: window.height / 5},]}>
+            <Text style={[styles.mainColor]}>XChaCha20 256-bit Stream Cypher :{' '}</Text>
+            <Text style={[styles.inputAreaColor, lstyle.debugTextBox]}>{outputText}</Text>
           </View>
-        )}
+          <View
+            {...props}
+            style={[lstyle.debugTextBoxOut, {flexGrow: 3, alignContent: 'stretch', maxHeight: window.height / 5},]}>
+            <Text style={[styles.mainColor]}>Decrypted: </Text>
+            <Text style={[styles.inputAreaColor, lstyle.debugTextBox]}>{dec}</Text>
+          </View>
+          <View
+            {...props}
+            style={[
+              lstyle.debugTextBoxOut,
+              {flexGrow: 3, maxHeight: window.height / 7},
+            ]}>
+            <Text style={[styles.mainColor]}>password: </Text>
+            <TextInput
+              multiline={true}
+              textAlignVertical={'top'}
+              style={[styles.inputAreaColor, lstyle.debugTextBox]}
+              onChangeText={onChangeps}
+              value={psText}
+            />
+          </View>
+          <View
+            {...props}
+            style={[
+              lstyle.debugTextBoxOut,
+              {flexGrow: 3, maxHeight: window.height / 5},
+            ]}>
+            <Text style={[styles.mainColor]}>Type something to encrypt </Text>
+            <TextInput
+              multiline={true}
+              textAlignVertical={'top'}
+              style={[lstyle.debugTextBox, styles.inputAreaColor]}
+              onChangeText={onChangeInput}
+              // onKeyDown={handleKeyDown}
+              value={inputText}
+            />
+            <Picker
+              selectedValue={timesEnc}
+              onValueChange={(itemValue, itemIndex) =>
+                onTimesEnc(itemValue)
+              }>
+              <Picker.Item label="1 times" value={1} />
+              <Picker.Item label="5 times" value={5} />
+              <Picker.Item label="10 times" value={10} />
+              <Picker.Item label="20 times" value={20} />
+              <Picker.Item label="200 times" value={200} />
+              <Picker.Item label="2000 times" value={2000} />
+            </Picker>
+
+            <View style={[styles.mainColor,styles.centering, {padding:5,
+              flexDirection: 'column',}]}>
+              <Progress.Bar  progress={timesEncProgress/timesEnc} width={200}
+              />
+              <Text style={[styles.mainColor]}>
+                {(timesEncProgress/timesEnc*100).toFixed(1)+"%"}
+              </Text>
+            </View>
+            <View >
+              <Button disabled={!(timesEncProgress==0||timesEncProgress==timesEnc)} title={'encrypt'} onPress={onPress} />
+            </View>
+
+          </View>
+        </View>
+      )}
     </KeyboardShift>
   );
 }
