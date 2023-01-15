@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Component } from "react";
-import { Button, Modal, Text, TextInput, View } from "react-native";
+import { Button, Keyboard, KeyboardAvoidingView, Modal, Platform, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
 import connect from "react-redux/es/components/connect";
 import { colors, styles } from "../../../assets/Style";
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
@@ -88,6 +88,10 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
           visible={modalVisible}
           style={[]}
         >
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.container}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={[styles.loginContainer, styles.mainColor, { flex: 1 }]}>
             <Text style={[styles.mainColor]}>
             {"Encrypted local data from \n" + parseTimeShort(eUserEnter.dateTimeUpdated) +"\nPlease enter application password"}
@@ -123,6 +127,8 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
             ></Button>
           </View>
         </View>
+            </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>
       </Modal>
     );
 };

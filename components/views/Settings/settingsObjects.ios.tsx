@@ -172,7 +172,6 @@ export function TestCppEncDec({...props}) {
     <KeyboardShift style={[styles.mainColor]}>
       {()=>(
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-
           <View style={[styles.mainColor, {flexDirection: 'column', flexGrow: 3}]}>
             <View
               {...props}
