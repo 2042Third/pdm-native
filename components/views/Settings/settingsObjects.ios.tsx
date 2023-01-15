@@ -3,16 +3,17 @@ import {Picker} from '@react-native-picker/picker';
 import * as Progress from 'react-native-progress';
 import {
   Button,
+  Keyboard,
   KeyboardAvoidingView,
   NativeModules,
   ScrollView,
   SectionList,
   StyleSheet,
   Text,
-  TextInput,
+  TextInput, TouchableWithoutFeedback,
   useWindowDimensions,
   View,
-} from 'react-native';
+} from "react-native";
 import {styles} from '../../../assets/Style';
 // import PdmNativeCryptModule from '../../handle/native/NativeModule';
 import KeyboardShift from "../../uiControl/KeyboardShift";
@@ -170,84 +171,87 @@ export function TestCppEncDec({...props}) {
   return (
     <KeyboardShift style={[styles.mainColor]}>
       {()=>(
-        <View style={[styles.mainColor, {flexDirection: 'column', flexGrow: 3}]}>
-          <View
-            {...props}
-            style={[lstyle.debugTextBoxOut, {flexGrow: 3, maxHeight: window.height / 5},]}>
-            <Text style={[styles.mainColor]}>XChaCha20 256-bit Stream Cypher :{' '}</Text>
-            <Text style={[styles.inputAreaColor, lstyle.debugTextBox]}>{outputText}</Text>
-          </View>
-          <View
-            {...props}
-            style={[lstyle.debugTextBoxOut, {flexGrow: 3, alignContent: 'stretch', maxHeight: window.height / 5},]}>
-            <Text style={[styles.mainColor]}>Decrypted: </Text>
-            <Text style={[styles.inputAreaColor, lstyle.debugTextBox]}>{dec}</Text>
-          </View>
-          <View
-            {...props}
-            style={[
-              lstyle.debugTextBoxOut,
-              {flexGrow: 3, maxHeight: window.height / 7},
-            ]}>
-            <Text style={[styles.mainColor]}>password: </Text>
-            <TextInput
-              multiline={true}
-              textAlignVertical={'top'}
-              style={[styles.inputAreaColor, lstyle.debugTextBox]}
-              onChangeText={onChangeps}
-              value={psText}
-            />
-          </View>
-          <View
-            {...props}
-            style={[
-              lstyle.debugTextBoxOut,
-              {flexGrow: 3, maxHeight: window.height / 5},
-            ]}>
-            <Text style={[styles.mainColor]}>Type something to encrypt </Text>
-            <TextInput
-              multiline={true}
-              textAlignVertical={'top'}
-              style={[lstyle.debugTextBox, styles.inputAreaColor]}
-              onChangeText={onChangeInput}
-              // onKeyDown={handleKeyDown}
-              value={inputText}
-            />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
 
-            <ActionSheet
-              message={'Number of times to encrypt:'}
-              cancelButtonIndex={6}
-              style={[styles.mainColor]}
-              destructiveButtonIndex={0}
-              options={[
-                { label: '1 time', onPress: () => onTimesEnc(1) },
-                { label: '10 time', onPress: () => onTimesEnc(10) },
-                { label: '50 time', onPress: () => onTimesEnc(50) },
-                { label: '100 time', onPress: () => onTimesEnc(100) },
-                { label: '1000 time', onPress: () => onTimesEnc(1000) },
-              ]}
-              visible={encTimesSelect}
-              useNativeIOS
-              showCancelButton
-              onDismiss={() => setEncTimesSelect( false )}
-            />
-
-            <View style={[styles.mainColor,styles.centering, {padding:5,
-              flexDirection: 'column',}]}>
-              <Progress.Bar  progress={timesEncProgress/timesEnc} width={200}
+          <View style={[styles.mainColor, {flexDirection: 'column', flexGrow: 3}]}>
+            <View
+              {...props}
+              style={[lstyle.debugTextBoxOut, {flexGrow: 3, maxHeight: window.height / 5},]}>
+              <Text style={[styles.mainColor]}>XChaCha20 256-bit Stream Cypher :{' '}</Text>
+              <Text style={[styles.inputAreaColor, lstyle.debugTextBox]}>{outputText}</Text>
+            </View>
+            <View
+              {...props}
+              style={[lstyle.debugTextBoxOut, {flexGrow: 3, alignContent: 'stretch', maxHeight: window.height / 5},]}>
+              <Text style={[styles.mainColor]}>Decrypted: </Text>
+              <Text style={[styles.inputAreaColor, lstyle.debugTextBox]}>{dec}</Text>
+            </View>
+            <View
+              {...props}
+              style={[
+                lstyle.debugTextBoxOut,
+                {flexGrow: 3, maxHeight: window.height / 7},
+              ]}>
+              <Text style={[styles.mainColor]}>password: </Text>
+              <TextInput
+                multiline={true}
+                textAlignVertical={'top'}
+                style={[styles.inputAreaColor, lstyle.debugTextBox]}
+                onChangeText={onChangeps}
+                value={psText}
               />
-              <Text style={[styles.mainColor]}>
-                {(timesEncProgress/timesEnc*100).toFixed(1)+"%"}
-              </Text>
             </View>
-            <View >
-              <Button disabled={!(timesEncProgress==0||timesEncProgress==timesEnc)} title={'encrypt'} onPress={onPress} />
-              <Button disabled={!(timesEncProgress==0||timesEncProgress==timesEnc)}
-                      title={`${timesEnc} Times`} onPress={()=>setEncTimesSelect(true)} />
-            </View>
+            <View
+              {...props}
+              style={[
+                lstyle.debugTextBoxOut,
+                {flexGrow: 3, maxHeight: window.height / 5},
+              ]}>
+              <Text style={[styles.mainColor]}>Type something to encrypt </Text>
+              <TextInput
+                multiline={true}
+                textAlignVertical={'top'}
+                style={[lstyle.debugTextBox, styles.inputAreaColor]}
+                onChangeText={onChangeInput}
+                // onKeyDown={handleKeyDown}
+                value={inputText}
+              />
 
+              <ActionSheet
+                message={'Number of times to encrypt:'}
+                cancelButtonIndex={6}
+                style={[styles.mainColor]}
+                destructiveButtonIndex={0}
+                options={[
+                  { label: '1 time', onPress: () => onTimesEnc(1) },
+                  { label: '10 time', onPress: () => onTimesEnc(10) },
+                  { label: '50 time', onPress: () => onTimesEnc(50) },
+                  { label: '100 time', onPress: () => onTimesEnc(100) },
+                  { label: '1000 time', onPress: () => onTimesEnc(1000) },
+                ]}
+                visible={encTimesSelect}
+                useNativeIOS
+                showCancelButton
+                onDismiss={() => setEncTimesSelect( false )}
+              />
+
+              <View style={[styles.mainColor,styles.centering, {padding:5,
+                flexDirection: 'column',}]}>
+                <Progress.Bar  progress={timesEncProgress/timesEnc} width={200}
+                />
+                <Text style={[styles.mainColor]}>
+                  {(timesEncProgress/timesEnc*100).toFixed(1)+"%"}
+                </Text>
+              </View>
+              <View >
+                <Button disabled={!(timesEncProgress==0||timesEncProgress==timesEnc)} title={'encrypt'} onPress={onPress} />
+                <Button disabled={!(timesEncProgress==0||timesEncProgress==timesEnc)}
+                        title={`${timesEnc} Times`} onPress={()=>setEncTimesSelect(true)} />
+              </View>
+
+            </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       )}
     </KeyboardShift>
   );
