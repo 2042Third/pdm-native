@@ -70,8 +70,8 @@ export const updateNote = (noteValue: string, headerValue:string) => async (disp
   let noteMsg = beforeState.noteEditor;
 
   // Encrypt
-  const out = await PdmNativeCryptModule.enc(user.upw, noteValue);
-  const outhead = await PdmNativeCryptModule.enc(user.upw, headerValue);
+  const out = await PdmNativeCryptModule.enc(user.upw, noteValue.toString());
+  const outhead = await PdmNativeCryptModule.enc(user.upw, headerValue.toString());
   const newNote = {
     ...noteMsg,
     head: outhead,
@@ -91,12 +91,12 @@ export const updateNote = (noteValue: string, headerValue:string) => async (disp
   if (!load.content) {
     load.content = "";
   } else {
-    load.content = await PdmNativeCryptModule.dec(user.upw, load.content);
+    load.content = (await PdmNativeCryptModule.dec(user.upw, load.content)).toString();
   }
   if (!load.head) {
     load.head = "";
   } else {
-    load.head = await PdmNativeCryptModule.dec(user.upw, load.head);
+    load.head = (await PdmNativeCryptModule.dec(user.upw, load.head)).toString();
   }
   // load.update_time = parseFloat(load.update_time);
   console.log(`Note decrypted ${JSON.stringify(load)}`);

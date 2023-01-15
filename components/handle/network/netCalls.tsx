@@ -77,10 +77,10 @@ export default class NetCalls {
     return Net.post(this.notesGetHeadsURL,
       JSON.stringify({
         "username": "",
-        "head": noteMsg.head,
+        "head": noteMsg.head.toString(),
         "content": noteMsg.content,
         "sess": sessKey,
-        "ntype": this.notesUpdateNoteType,
+        "ntype": this.notesUpdateNoteType.toString(),
         "email": email,
         "note_id": noteMsg.note_id,
       }));

@@ -74,6 +74,11 @@ const Nav = (props: {Drawer: any, Tab: any}) => {
   */
   useEffect(() => {
     // the 'fail' checks if user is already signed in
+    console.log(`Sign in fail check Status: 
+        ${userEnter.umail }, 
+        ${userInfo.status }, 
+        ${userEnter.sess}
+      }`)
     if (userEnter.umail.length > 0 && userInfo.status === 'fail') {
       userSigninAction().then(() => {
         console.log("Signin Done");
