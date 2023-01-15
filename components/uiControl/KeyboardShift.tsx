@@ -21,7 +21,7 @@ export default class KeyboardShift extends Component {
   private keyboardDidShowSub: EmitterSubscription | undefined;
   private keyboardDidHideSub: EmitterSubscription | undefined;
   static propTypes = PropTypes;
-  private animationSpeed: number = 300;
+  private animationSpeed: number = 250;
 
   UNSAFE_componentWillMount() {
     this.keyboardDidShowSub = Keyboard.addListener('keyboardDidShow', this.handleKeyboardDidShow);
@@ -49,7 +49,7 @@ export default class KeyboardShift extends Component {
 
   handleKeyboardDidShow = (event) => {
     const { height: windowHeight } = Dimensions.get('window');
-    const keyboardHeight = event.endCoordinates.height;
+    const keyboardHeight = event.endCoordinates.height + event.endCoordinates.height/3; // Padding of 1/3 of the keyboard height
     const currentlyFocusedField = TextInputState.currentlyFocusedInput();
 
     currentlyFocusedField.measure((originX, originY, width, height, pageX, pageY) => {
