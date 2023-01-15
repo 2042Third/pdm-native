@@ -91,7 +91,8 @@ const NotesMenu = ({  }) => {
   const pickNoteOption = (option:string) => {
     console.log("picked note option "+option);
     const selectedHead = selectNoteByKey(noteHead, selectedNote);
-    dispatch(deleteNote({ user: user, noteMsg: selectedHead }));
+    if(option === "delete")
+      dispatch(deleteNote({ user: user, noteMsg: selectedHead }));
   };
 
   const getHeadsFromServer = () => {
@@ -158,16 +159,16 @@ const NotesMenu = ({  }) => {
       <View style={styles.noteMenuContent}>
         <ActionSheet
           title={selectedNote}
-          message={'Message of action sheet'}
+          message={`Note: #${selectedNote}`}
           cancelButtonIndex={2}
           style={[styles.mainColor]}
           destructiveButtonIndex={0}
           options={[
             { label: 'Delete', onPress: () => pickNoteOption('delete') },
-            { label: 'cancel', onPress: () => pickNoteOption('cancel') }
           ]}
           visible={noteOptionsMenu}
           useNativeIOS
+          showCancelButton
           onDismiss={() => setNoteOptionsMenu( false )}
         />
         <ActionSheet
@@ -182,10 +183,10 @@ const NotesMenu = ({  }) => {
             { label: 'by time created', onPress: () => setSortOption(NoteSortingTypes.SORT_BY_CREATE_TIME) },
             { label: 'by time updated', onPress: () => setSortOption(NoteSortingTypes.SORT_BY_UPDATE_TIME) },
             { label: 'by name', onPress: () => setSortOption(NoteSortingTypes.SORT_BY_NAME) },
-            { label: 'cancel', onPress: () => pickNoteOption('cancel') }
           ]}
           visible={sortOpetionMenu}
           useNativeIOS
+          showCancelButton
           onDismiss={() => setSortOptionsMenu( false )}
         />
         <TouchableOpacity

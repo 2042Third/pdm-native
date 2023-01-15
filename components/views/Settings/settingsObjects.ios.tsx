@@ -17,6 +17,7 @@ import {styles} from '../../../assets/Style';
 // import PdmNativeCryptModule from '../../handle/native/NativeModule';
 import KeyboardShift from "../../uiControl/KeyboardShift";
 import Slider from "@react-native-community/slider";
+import { ActionSheet } from "react-native-ui-lib";
 
 
 export function SettingList({navigation}) {
@@ -141,6 +142,7 @@ export function TestCppEncDec({...props}) {
   const [dec, onDec] = React.useState('');
   const [outputText, onChangeOutput] = React.useState('');
   const {PdmNativeCryptModule} = NativeModules;
+  const [encTimesSelect, setEncTimesSelect] = React.useState(false);
 
   /**
    * Run the encryption decryption demo
@@ -211,18 +213,24 @@ export function TestCppEncDec({...props}) {
               // onKeyDown={handleKeyDown}
               value={inputText}
             />
-            <Picker
-              selectedValue={timesEnc}
-              onValueChange={(itemValue, itemIndex) =>
-                onTimesEnc(itemValue)
-              }>
-              <Picker.Item label="1 times" value={1} />
-              <Picker.Item label="5 times" value={5} />
-              <Picker.Item label="10 times" value={10} />
-              <Picker.Item label="20 times" value={20} />
-              <Picker.Item label="200 times" value={200} />
-              <Picker.Item label="2000 times" value={2000} />
-            </Picker>
+
+            <ActionSheet
+              message={'Number of times to encrypt:'}
+              cancelButtonIndex={6}
+              style={[styles.mainColor]}
+              destructiveButtonIndex={0}
+              options={[
+                { label: '1 time', onPress: () => onTimesEnc(1) },
+                { label: '10 time', onPress: () => onTimesEnc(10) },
+                { label: '50 time', onPress: () => onTimesEnc(50) },
+                { label: '100 time', onPress: () => onTimesEnc(100) },
+                { label: '1000 time', onPress: () => onTimesEnc(1000) },
+              ]}
+              visible={encTimesSelect}
+              useNativeIOS
+              showCancelButton
+              onDismiss={() => setEncTimesSelect( false )}
+            />
 
             <View style={[styles.mainColor,styles.centering, {padding:5,
               flexDirection: 'column',}]}>
@@ -234,6 +242,8 @@ export function TestCppEncDec({...props}) {
             </View>
             <View >
               <Button disabled={!(timesEncProgress==0||timesEncProgress==timesEnc)} title={'encrypt'} onPress={onPress} />
+              <Button disabled={!(timesEncProgress==0||timesEncProgress==timesEnc)}
+                      title={`${timesEnc} Times`} onPress={()=>setEncTimesSelect(true)} />
             </View>
 
           </View>
