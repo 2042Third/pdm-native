@@ -1,8 +1,16 @@
 import { NativeModules } from "react-native";
 import { useSelector } from "react-redux";
+import { useRef } from "react";
 
 const { PdmNativeCryptModule } = NativeModules;
 export default PdmNativeCryptModule;
+
+export function useCancelToken() {
+  const token = useRef({ cancelled: false });
+  const cancel = () => token.current.cancelled = true;
+  return [token.current, cancel];
+}
+
 
 export const echoer = async (a:string) => {
   const { PdmNativeCryptModule } = NativeModules;

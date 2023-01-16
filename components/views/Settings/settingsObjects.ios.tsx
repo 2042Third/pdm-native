@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useRef } from "react";
-import {Picker} from '@react-native-picker/picker';
+
 import * as Progress from 'react-native-progress';
 import {
   Button,
@@ -15,11 +15,10 @@ import {
   View,
 } from "react-native";
 import {styles} from '../../../assets/Style';
-// import PdmNativeCryptModule from '../../handle/native/NativeModule';
 import KeyboardShift from "../../uiControl/KeyboardShift";
 import Slider from "@react-native-community/slider";
 import { ActionSheet } from "react-native-ui-lib";
-import { dec, enc } from "../../handle/handlers/user";
+import { dec, enc, useCancelToken } from "../../handle/handlers/user";
 
 
 export function SettingList({navigation}) {
@@ -147,28 +146,28 @@ export function TestCppEncDec({...props}) {
   const [encTimesSelect, setEncTimesSelect] = React.useState(false);
   const [startStop, setStartStop] = React.useState(false);
 
+
+  const [token, cancel] = useCancelToken();
   /**
    * Run the encryption decryption demo
    *
    */
-  const onPress = async () => {
-    await onTimesEncProgress(0);
-    await setStartStop(true);
-    for (let i=0;i<timesEnc;i++){
-      // if(! startStop)
-      //   break;
-
-      // const encBack:string = await PdmNativeCryptModule.enc(psText, inputText);
+  const onPress = async (t: { cancelled: boolean }) => {
+    onTimesEncProgress(0);
+    setStartStop(true);
+    t.cancelled = false;
+    for (let i=0;i<timesEnc; i++) {
+      if(t.cancelled) {
+        setStartStop(false);
+        break;
+      }
       const encBack:string = await enc(psText, inputText);
       onChangeOutput(encBack);
-      // const decBack:string = await PdmNativeCryptModule.dec(psText, encBack.toString());
-      const decBack:string = await dec(psText, encBack.toString());
+      const decBack:string = await dec(psText, encBack);
       onDec(decBack);
       onTimesEncProgress(i+1);
-
     }
     setStartStop(false);
-
   };
 
   const InteractionsComponent = ()=>{
@@ -182,9 +181,6 @@ export function TestCppEncDec({...props}) {
               {(timesEncProgress/timesEnc*100).toFixed(1)+"%"}
             </Text>
           </>
-          {/*<View>*/}
-          {/*  <Button title={`Cancel`} onPress={()=>onTimesEncProgress(timesEnc)} />*/}
-          {/*</View>*/}
         </View>
       );
     }
@@ -195,17 +191,11 @@ export function TestCppEncDec({...props}) {
     );
   };
 
-  const InteractionsControl = () => {
-    if(startStop)
-      return (<Button title={'Cancel'} onPress={()=>setStartStop(false)} />);
-    else
-      return(<Button title={'Encrypt'} onPress={onPress} />);
-  };
-
   useEffect(()=>{
     console.log("Times change");
     onTimesEncProgress(0);
   },[timesEnc]);
+
 
   const window = useWindowDimensions();
   // @ts-ignore
@@ -276,7 +266,10 @@ export function TestCppEncDec({...props}) {
               />
 
               <InteractionsComponent/>
-              <InteractionsControl/>
+              <>
+                <Button title={'Encrypt'} onPress={()=>onPress(token)} />
+                <Button title={'Cancel'}  onPress={ () => cancel()}/>
+              </>
             </View>
           </View>
         </TouchableWithoutFeedback>
