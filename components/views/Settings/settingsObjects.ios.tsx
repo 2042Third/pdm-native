@@ -169,27 +169,6 @@ export function TestCppEncDec({...props}) {
     return;
   };
 
-  const InteractionsComponent = ()=>{
-    if(!(timesEncProgress==0||timesEncProgress==timesEnc)){
-      return (
-        <View style={[styles.mainColor,styles.centering,
-          {padding:5, flexDirection: 'column',}]}>
-          <>
-            <Progress.Bar  progress={timesEncProgress/timesEnc} width={200} />
-            <Text style={[styles.mainColor]}>
-              {(timesEncProgress/timesEnc*100).toFixed(1)+"%"}
-            </Text>
-          </>
-        </View>
-      );
-    }
-    return (
-      <View >
-        <Button title={`${timesEnc} Times`} onPress={()=>setEncTimesSelect(true)} />
-      </View>
-    );
-  };
-
   useEffect(()=>{
     console.log("Times change");
     onTimesEncProgress(0);
