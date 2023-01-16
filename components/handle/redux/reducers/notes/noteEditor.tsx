@@ -110,11 +110,13 @@ export const updateEditsContent = (noteValue:string) => async (dispatch: (arg0: 
   await PdmNativeCryptModule.getHash(noteValue);
   if (noteValue === '' || beforeState.noteEditor.noteValue === null) {
     dispatch(changeNoteHead({
+      ...beforeState.noteEditor,
       content: beforeState.noteEditor.content,
       statusInfo: "rejected"
     }));
   }else {
     dispatch(changeNoteHead({
+      ...beforeState.noteEditor,
       content: noteValue,
       statusInfo: "fulfilled"
     }));

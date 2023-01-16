@@ -191,6 +191,7 @@ const NotesView = ({}) => {
       console.log(e);
       return;
     }
+    console.log(`Before finishing update dispatch all. Note obj => ${JSON.stringify(noteEditor)}`);
     await dispatch(updateNote(noteValue, headerValue));
     console.log(`Finished update dispatch all. Note obj => ${JSON.stringify(noteEditor)}`);
   }
