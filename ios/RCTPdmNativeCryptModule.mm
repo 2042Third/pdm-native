@@ -67,7 +67,7 @@ RCT_EXPORT_METHOD(
     rejecter:(RCTPromiseRejectBlock)reject
                   )
 {
-  RCTLogInfo(@"Native decryption receives %@, ps %@", b,a);
+//  RCTLogInfo(@"Native decryption receives %@, ps %@", b,a);
   std::string input_a = std::string([a UTF8String]);
   std::string input_b = std::string([b UTF8String]);
   std::string out_b = loader_out( input_a, input_b);

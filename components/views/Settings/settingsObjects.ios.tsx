@@ -19,6 +19,7 @@ import {styles} from '../../../assets/Style';
 import KeyboardShift from "../../uiControl/KeyboardShift";
 import Slider from "@react-native-community/slider";
 import { ActionSheet } from "react-native-ui-lib";
+import { dec, enc } from "../../handle/handlers/user";
 
 
 export function SettingList({navigation}) {
@@ -140,7 +141,7 @@ export function TestCppEncDec({...props}) {
   const [psText, onChangeps] = React.useState('12345');
   const [timesEnc, onTimesEnc] = React.useState(1);
   const [timesEncProgress, onTimesEncProgress] = React.useState(0);
-  const [dec, onDec] = React.useState('');
+  const [decStr, onDec] = React.useState('');
   const [outputText, onChangeOutput] = React.useState('');
   const {PdmNativeCryptModule} = NativeModules;
   const [encTimesSelect, setEncTimesSelect] = React.useState(false);
@@ -151,21 +152,48 @@ export function TestCppEncDec({...props}) {
    */
   const onPress = async () => {
     for (let i=0;i<timesEnc;i++){
-      console.log(`Run onpress ${i}'s time oo=${timesEnc}`);
-      const encBack:string = await PdmNativeCryptModule.enc(psText, inputText);
-      console.log(`encBack: \'${encBack}\'`);
+      if(timesEncProgress>=timesEnc)
+        break;
+      // const encBack:string = await PdmNativeCryptModule.enc(psText, inputText);
+      const encBack:string = await enc(psText, inputText);
       onChangeOutput(encBack);
-      const decBack:string = await PdmNativeCryptModule.dec(psText, encBack.toString());
-      console.log(`decBack: \'${decBack}\'`);
+      // const decBack:string = await PdmNativeCryptModule.dec(psText, encBack.toString());
+      const decBack:string = await dec(psText, encBack.toString());
       onDec(decBack);
       onTimesEncProgress(i+1);
     }
+  };
+
+  const InteractionsComponent = ()=>{
+    if(!(timesEncProgress==0||timesEncProgress==timesEnc)){
+      return (
+        <View style={[styles.mainColor,styles.centering,
+          {padding:5, flexDirection: 'column',}]}>
+          <>
+            <Progress.Bar  progress={timesEncProgress/timesEnc} width={200} />
+            <Text style={[styles.mainColor]}>
+              {(timesEncProgress/timesEnc*100).toFixed(1)+"%"}
+            </Text>
+          </>
+          <View>
+            <Button title={`Cancel`} onPress={()=>onTimesEncProgress(timesEnc)} />
+          </View>
+        </View>
+      );
+    }
+    return (
+      <View >
+        <Button title={`${timesEnc} Times`} onPress={()=>setEncTimesSelect(true)} />
+        <Button title={'Encrypt'} onPress={onPress} />
+      </View>
+    );
   };
 
   useEffect(()=>{
     console.log("Times change");
     onTimesEncProgress(0);
   },[timesEnc]);
+
   const window = useWindowDimensions();
   // @ts-ignore
   return (
@@ -183,7 +211,7 @@ export function TestCppEncDec({...props}) {
               {...props}
               style={[lstyle.debugTextBoxOut, {flexGrow: 3, alignContent: 'stretch', maxHeight: window.height / 5},]}>
               <Text style={[styles.mainColor]}>Decrypted: </Text>
-              <Text style={[styles.inputAreaColor, lstyle.debugTextBox]}>{dec}</Text>
+              <Text style={[styles.inputAreaColor, lstyle.debugTextBox]}>{decStr}</Text>
             </View>
             <View
               {...props}
@@ -234,20 +262,7 @@ export function TestCppEncDec({...props}) {
                 onDismiss={() => setEncTimesSelect( false )}
               />
 
-              <View style={[styles.mainColor,styles.centering, {padding:5,
-                flexDirection: 'column',}]}>
-                <Progress.Bar  progress={timesEncProgress/timesEnc} width={200}
-                />
-                <Text style={[styles.mainColor]}>
-                  {(timesEncProgress/timesEnc*100).toFixed(1)+"%"}
-                </Text>
-              </View>
-              <View >
-                <Button disabled={!(timesEncProgress==0||timesEncProgress==timesEnc)} title={'encrypt'} onPress={onPress} />
-                <Button disabled={!(timesEncProgress==0||timesEncProgress==timesEnc)}
-                        title={`${timesEnc} Times`} onPress={()=>setEncTimesSelect(true)} />
-              </View>
-
+              <InteractionsComponent/>
             </View>
           </View>
         </TouchableWithoutFeedback>
