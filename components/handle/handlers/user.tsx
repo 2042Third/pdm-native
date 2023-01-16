@@ -27,7 +27,7 @@ export const makeHash = async (a: string) => {
   }
   catch (e) {
     console.log(e);
-    return null;
+    return '';
   }
 }
 
@@ -41,7 +41,7 @@ export const dec = async (upw: string, a: string) => {
   }
   catch (e) {
     console.log(e);
-    return null;
+    return '';
   }
 }
 
@@ -54,7 +54,7 @@ export const enc = async (upw: string, plain: string) => {
   }
   catch (e) {
     console.log(e);
-    return null;
+    return '';
   }
 }
 
@@ -96,7 +96,7 @@ export const enc = async (upw: string, plain: string) => {
       }
       catch (e) {
         console.log(e);
-        return null;
+        return '';
       }
     }
 
@@ -108,7 +108,7 @@ export const enc = async (upw: string, plain: string) => {
      }
      catch (e) {
        console.log(e);
-       return null;
+       return '';
      }
    }
   }

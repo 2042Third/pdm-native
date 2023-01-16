@@ -5,7 +5,7 @@ import { GetNoteArg, UpdareNoteWithString, UpdateNoteArg } from "../../../models
 import NetCalls from "../../../network/netCalls";
 import { NoteHead, NotesMsg, UserEnter } from "../../../types";
 import { useAppDispatch } from "../../hooks";
-import { enc } from "../../../handlers/user";
+import { dec, enc } from "../../../handlers/user";
 
 const userNoteEditorClearData = {
   head:  '',
@@ -67,7 +67,6 @@ export const updateNote = (noteValue: string, headerValue:string) =>
 
   const beforeState = getState();
 // export const updateNote = createAsyncThunk('noteHead/updateNote', async (argu: UpdateNoteArg) => {
-  const { PdmNativeCryptModule } = NativeModules;
   const user = beforeState.userEnter;
   let noteMsg = beforeState.noteEditor;
 
@@ -93,12 +92,12 @@ export const updateNote = (noteValue: string, headerValue:string) =>
   if (!load.content) {
     load.content = "";
   } else {
-    load.content = await PdmNativeCryptModule.dec(user.upw, load.content);
+    load.content = await dec(user.upw, load.content);
   }
   if (!load.head) {
     load.head = "";
   } else {
-    load.head = await PdmNativeCryptModule.dec(user.upw, load.head);
+    load.head = await dec(user.upw, load.head);
   }
   // load.update_time = parseFloat(load.update_time);
   console.log(`Note decrypted ${JSON.stringify(load)}`);
