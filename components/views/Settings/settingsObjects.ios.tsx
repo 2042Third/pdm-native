@@ -264,8 +264,24 @@ export function TestCppEncDec({...props}) {
                 onDismiss={() => setEncTimesSelect( false )}
               />
 
-              <InteractionsComponent/>
+              {/*<InteractionsComponent/>*/}
               <>
+                {!(timesEncProgress==0||timesEncProgress==timesEnc) &&
+                  <View style={[styles.mainColor,styles.centering,
+                    {padding:5, flexDirection: 'column',}]}>
+                    <>
+                      <Progress.Bar  progress={timesEncProgress/timesEnc} width={200} />
+                      <Text style={[styles.mainColor]}>
+                        {(timesEncProgress/timesEnc*100).toFixed(1)+"%"}
+                      </Text>
+                    </>
+                  </View>
+                }
+                {(timesEncProgress==0||timesEncProgress==timesEnc||token.cancelled) &&
+                  <View >
+                    <Button title={`${timesEnc} Times`} onPress={()=>setEncTimesSelect(true)} />
+                  </View>
+                }
                 { token.cancelled && <Button title={'Encrypt'} onPress={()=>onPress(token)} />}
                 {!token.cancelled && <Button title={'Cancel'}  onPress={ () => cancel()}/>}
               </>
