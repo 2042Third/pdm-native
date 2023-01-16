@@ -151,6 +151,7 @@ export function TestCppEncDec({...props}) {
    *
    */
   const onPress = async () => {
+    onTimesEncProgress(0);
     for (let i=0;i<timesEnc;i++){
       if(timesEncProgress>=timesEnc)
         break;
@@ -175,16 +176,15 @@ export function TestCppEncDec({...props}) {
               {(timesEncProgress/timesEnc*100).toFixed(1)+"%"}
             </Text>
           </>
-          <View>
-            <Button title={`Cancel`} onPress={()=>onTimesEncProgress(timesEnc)} />
-          </View>
+          {/*<View>*/}
+          {/*  <Button title={`Cancel`} onPress={()=>onTimesEncProgress(timesEnc)} />*/}
+          {/*</View>*/}
         </View>
       );
     }
     return (
       <View >
         <Button title={`${timesEnc} Times`} onPress={()=>setEncTimesSelect(true)} />
-        <Button title={'Encrypt'} onPress={onPress} />
       </View>
     );
   };
@@ -263,6 +263,8 @@ export function TestCppEncDec({...props}) {
               />
 
               <InteractionsComponent/>
+              <Button title={(!(timesEncProgress==0||timesEncProgress==timesEnc))?'Cancel':'Encrypt'}
+                      onPress={(!(timesEncProgress==0||timesEncProgress==timesEnc))?(()=>onTimesEncProgress(timesEnc)):onPress} />
             </View>
           </View>
         </TouchableWithoutFeedback>
