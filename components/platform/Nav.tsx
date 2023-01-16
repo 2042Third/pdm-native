@@ -3,7 +3,7 @@ import {colors, styles} from '../../assets/Style';
 import ChatView from '../views/Chat/ChatPage';
 import UserView from '../views/User/UserPage';
 import SettingView from '../views/Settings/SettingPage';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer, TypedNavigator } from "@react-navigation/native";
 // import * as React from 'react';
 import {useWindowDimensions,  } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -21,7 +21,7 @@ import { setUserSess } from "../handle/redux/reducers/user/userinfoEnter";
 import Icon from "../icons/Icon";
 // const ChatView =  lazy(()=>import ("../views/Chat/ChatPage"));
 
-const Nav = (props: {Drawer: any, Tab: any}) => {
+const Nav = (props: {Drawer: TypedNavigator<any, any, any, any, any>, Tab: any}) => {
   const window = useWindowDimensions();
   const Drawer = props.Drawer;
   const Tab = props.Tab;

@@ -13,23 +13,11 @@ export const getHash = async (a:string) => {
   const { PdmNativeCryptModule } = NativeModules;
   return PdmNativeCryptModule.getHash(a);
 }
-export const dec = async (upw: string, a: string) => {
-  const { PdmNativeCryptModule } = NativeModules;
-  // console.log(`dec called with ps: ${upw}`);
-  try {
-    const out: string = PdmNativeCryptModule.dec(upw, a);
-    return out;
-  }
-  catch (e) {
-    console.log(e);
-    return null;
-  }
-}
 
 /**
  * Same as getHash, but return a promise,
  *
-*/
+ */
 export const makeHash = async (a: string) => {
   const { PdmNativeCryptModule } = NativeModules;
   // console.log(`dec called with ps: ${upw}`);
@@ -43,13 +31,25 @@ export const makeHash = async (a: string) => {
   }
 }
 
+export const dec = async (upw: string, a: string) => {
+  const { PdmNativeCryptModule } = NativeModules;
+  // console.log(`dec called with ps: ${upw}`);
+  try {
+    const out: string = PdmNativeCryptModule.dec(upw, a);
+    console.log(`Dec requested => ${out}\n \ttype: ${typeof out}`);
+    return out;
+  }
+  catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
 export const enc = async (upw: string, plain: string) => {
   const { PdmNativeCryptModule } = NativeModules;
-  // return PdmNativeCryptModule.enc(upw, plain, (a: string) => {
-  //   return a;
-  // });
   try {
     const out: string = PdmNativeCryptModule.enc(upw, plain);
+    console.log(`Enc requested => ${out}\n \ttype: ${typeof out}`);
     return out;
   }
   catch (e) {
@@ -91,6 +91,7 @@ export const enc = async (upw: string, plain: string) => {
     async enc(upw: string, plain: string) {
       try {
         const out: string = this.PdmNativeCryptModule.enc(upw, plain);
+        console.log(`Enc requested => ${out}\n \ttype: ${typeof out}`);
         return out;
       }
       catch (e) {
@@ -102,6 +103,7 @@ export const enc = async (upw: string, plain: string) => {
    async dec (upw: string, a: string) {
      try {
        const out: string = this.PdmNativeCryptModule.dec(upw, a);
+       console.log(`Dec requested => ${out}\n \ttype: ${typeof out}`);
        return out;
      }
      catch (e) {
