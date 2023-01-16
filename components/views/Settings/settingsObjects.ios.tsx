@@ -152,10 +152,11 @@ export function TestCppEncDec({...props}) {
    *
    */
   const onPress = async () => {
-    onTimesEncProgress(0);
-    setStartStop(true);
+    await onTimesEncProgress(0);
+    await setStartStop(true);
     for (let i=0;i<timesEnc;i++){
-
+      // if(! startStop)
+      //   break;
 
       // const encBack:string = await PdmNativeCryptModule.enc(psText, inputText);
       const encBack:string = await enc(psText, inputText);
@@ -164,8 +165,7 @@ export function TestCppEncDec({...props}) {
       const decBack:string = await dec(psText, encBack.toString());
       onDec(decBack);
       onTimesEncProgress(i+1);
-      // if(! startStop)
-      //   break;
+
     }
     setStartStop(false);
 
