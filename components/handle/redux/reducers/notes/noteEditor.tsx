@@ -125,6 +125,7 @@ export const updateEditsHead = (header:string) => async (dispatch: (arg0: { payl
   const { PdmNativeCryptModule } = NativeModules;
   const beforeState = getState();
   await PdmNativeCryptModule.getHash(header);
+  console.log(`Redux update head: ${header}, before: ${beforeState.noteEditor.head}`);
   if (header === '' || beforeState.noteEditor.head === null) {
     dispatch(changeNoteHead({
       ...beforeState.noteEditor,

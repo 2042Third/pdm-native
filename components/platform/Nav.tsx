@@ -102,7 +102,7 @@ const Nav = (props: {Drawer: TypedNavigator<any, any, any, any, any>, Tab: any})
     );
   }
 
-  const ModalObj = React.memo(() => {
+  const ModalObj = () => {
     const cond = shouldUserEnterPass();
     if(!cond){
       return <></>
@@ -110,7 +110,7 @@ const Nav = (props: {Drawer: TypedNavigator<any, any, any, any, any>, Tab: any})
     return (
       <EnterModalOne visible={cond} />
     );
-  })
+  }
 
   React.useEffect(
   ()=>{

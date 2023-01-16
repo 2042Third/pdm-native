@@ -211,13 +211,13 @@ const NotesView = ({}) => {
    * */
   useEffect(() => {
     onChangeNote(noteEditor.content);
-    console.log(`There is editing, head \"${noteEditor.head}\", content: \"${noteEditor.content}\"`);
+    console.log(`There is editing content, head \"${noteEditor.head}\", content: \"${noteEditor.content}\"`);
   }, [noteEditor.content]);
 
   useEffect(() => {
 
     onChangeText(noteEditor.head);
-    console.log(`There is editing, head \"${noteEditor.head}\", content: \"${noteEditor.content}\"`);
+    console.log(`There is editing head, head \"${noteEditor.head}\", content: \"${noteEditor.content}\"`);
   }, [noteEditor.head]);
 
   return (

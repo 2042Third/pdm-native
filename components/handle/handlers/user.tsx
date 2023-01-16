@@ -35,8 +35,8 @@ export const dec = async (upw: string, a: string) => {
   const { PdmNativeCryptModule } = NativeModules;
   // console.log(`dec called with ps: ${upw}`);
   try {
-    const out: string = PdmNativeCryptModule.dec(upw, a);
-    console.log(`Dec requested => ${out}\n \ttype: ${typeof out}`);
+    const out: string = (await PdmNativeCryptModule.dec(upw, a)).toString();
+    // console.log(`Dec requested => ${out}\n \ttype: ${typeof out}`);
     return out;
   }
   catch (e) {
@@ -48,8 +48,8 @@ export const dec = async (upw: string, a: string) => {
 export const enc = async (upw: string, plain: string) => {
   const { PdmNativeCryptModule } = NativeModules;
   try {
-    const out: string = PdmNativeCryptModule.enc(upw, plain);
-    console.log(`Enc requested => ${out}\n \ttype: ${typeof out}`);
+    const out: string = (await PdmNativeCryptModule.enc(upw, plain)).toString();
+    // console.log(`Enc requested => ${out}\n \ttype: ${typeof out}`);
     return out;
   }
   catch (e) {
@@ -90,8 +90,8 @@ export const enc = async (upw: string, plain: string) => {
 
     async enc(upw: string, plain: string) {
       try {
-        const out: string = this.PdmNativeCryptModule.enc(upw, plain);
-        console.log(`Enc requested => ${out}\n \ttype: ${typeof out}`);
+        const out: string = (await this.PdmNativeCryptModule.enc(upw, plain)).toString();
+        // console.log(`Enc requested => ${out}\n \ttype: ${typeof out}`);
         return out;
       }
       catch (e) {
@@ -102,8 +102,8 @@ export const enc = async (upw: string, plain: string) => {
 
    async dec (upw: string, a: string) {
      try {
-       const out: string = this.PdmNativeCryptModule.dec(upw, a);
-       console.log(`Dec requested => ${out}\n \ttype: ${typeof out}`);
+       const out: string = (await this.PdmNativeCryptModule.dec(upw, a)).toString();
+       // console.log(`Dec requested => ${out}\n \ttype: ${typeof out}`);
        return out;
      }
      catch (e) {
