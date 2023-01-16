@@ -5,6 +5,7 @@ import { GetNoteArg, UpdareNoteWithString, UpdateNoteArg } from "../../../models
 import NetCalls from "../../../network/netCalls";
 import { NoteHead, NotesMsg, UserEnter } from "../../../types";
 import { useAppDispatch } from "../../hooks";
+import { enc } from "../../../handlers/user";
 
 const userNoteEditorClearData = {
   head:  '',
@@ -61,7 +62,8 @@ export const getNote = createAsyncThunk('noteHead/getNote', async (argu: GetNote
 
   return load;
 });
-export const updateNote = (noteValue: string, headerValue:string) => async (dispatch: (arg0: { payload: any; type: string; }) => void, getState: () => any) =>{
+export const updateNote = (noteValue: string, headerValue:string) =>
+  async (dispatch: (arg0: { payload: any; type: string; }) => void, getState: () => any) =>{
 
   const beforeState = getState();
 // export const updateNote = createAsyncThunk('noteHead/updateNote', async (argu: UpdateNoteArg) => {
@@ -70,14 +72,14 @@ export const updateNote = (noteValue: string, headerValue:string) => async (disp
   let noteMsg = beforeState.noteEditor;
 
   // Encrypt
-  const out = await PdmNativeCryptModule.enc(user.upw, noteValue.toString());
-  const outhead = await PdmNativeCryptModule.enc(user.upw, headerValue.toString());
+  const out = await enc(user.upw, noteValue);
+  const outhead = await enc(user.upw, headerValue);
   const newNote = {
     ...noteMsg,
     head: outhead,
     content: out,
   };
-
+  // ERROR UPDATING START HERE, END BEFORE THE NEXT console.log()
   // Get note from server
   const netReturn = await NetCalls.notesUpdateNote(user.sess, user.umail, newNote);
   const note = await netReturn?.json();
@@ -91,12 +93,12 @@ export const updateNote = (noteValue: string, headerValue:string) => async (disp
   if (!load.content) {
     load.content = "";
   } else {
-    load.content = (await PdmNativeCryptModule.dec(user.upw, load.content)).toString();
+    load.content = await PdmNativeCryptModule.dec(user.upw, load.content);
   }
   if (!load.head) {
     load.head = "";
   } else {
-    load.head = (await PdmNativeCryptModule.dec(user.upw, load.head)).toString();
+    load.head = await PdmNativeCryptModule.dec(user.upw, load.head);
   }
   // load.update_time = parseFloat(load.update_time);
   console.log(`Note decrypted ${JSON.stringify(load)}`);

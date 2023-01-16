@@ -11,7 +11,7 @@ export const echoer = async (a:string) => {
 
 export const getHash = async (a:string) => {
   const { PdmNativeCryptModule } = NativeModules;
-  return PdmNativeCryptModule.getHash(a);
+  return (await PdmNativeCryptModule.getHash(a)).toString();
 }
 
 /**
@@ -79,7 +79,7 @@ export const enc = async (upw: string, plain: string) => {
 
     async getHash(a:string){
       try {
-        const out: string = this.PdmNativeCryptModule.getHash(a);
+        const out: string =(await this.PdmNativeCryptModule.getHash(a)).toString();
         return out;
       }
       catch (e) {

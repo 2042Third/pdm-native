@@ -19,7 +19,7 @@ export default class NetCalls {
   static async signin(umail: string, upw: string) {
     return Net.post(this.signinURL, JSON.stringify({
       "umail": umail,
-      "upw": upw.toString() }))
+      "upw": upw }))
       .then(function (res:any) {
         return res.json();
       });
@@ -77,10 +77,10 @@ export default class NetCalls {
     return Net.post(this.notesGetHeadsURL,
       JSON.stringify({
         "username": "",
-        "head": noteMsg.head.toString(),
+        "head": noteMsg.head,
         "content": noteMsg.content,
         "sess": sessKey,
-        "ntype": this.notesUpdateNoteType.toString(),
+        "ntype": this.notesUpdateNoteType,
         "email": email,
         "note_id": noteMsg.note_id,
       }));
