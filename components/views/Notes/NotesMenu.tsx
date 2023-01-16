@@ -158,21 +158,22 @@ const NotesMenu = ({  }) => {
         <ActionSheet
           title={selectedNote}
           message={`Note: #${selectedNote}`}
-          cancelButtonIndex={2}
+          cancelButtonIndex={1}
           style={[styles.mainColor]}
           destructiveButtonIndex={0}
           options={[
             { label: 'Delete', onPress: () => pickNoteOption('delete') },
+            {label: 'Cancel', onPress: () => console.log('cancel')}
           ]}
           visible={noteOptionsMenu}
           useNativeIOS
-          showCancelButton
+          // showCancelButton
           onDismiss={() => setNoteOptionsMenu( false )}
         />
         <ActionSheet
           title={'Sort'}
           message={'Select sorting option'}
-          cancelButtonIndex={5}
+          cancelButtonIndex={4}
           // containerStyle={[styles.mainColor]}
           // ViewStyle={[styles.mainColor]}
           destructiveButtonIndex={0}
@@ -181,10 +182,11 @@ const NotesMenu = ({  }) => {
             { label: 'by time created', onPress: () => setSortOption(NoteSortingTypes.SORT_BY_CREATE_TIME) },
             { label: 'by time updated', onPress: () => setSortOption(NoteSortingTypes.SORT_BY_UPDATE_TIME) },
             { label: 'by name', onPress: () => setSortOption(NoteSortingTypes.SORT_BY_NAME) },
+            {label: 'Cancel', onPress: () => console.log('cancel')}
           ]}
           visible={sortOpetionMenu}
           useNativeIOS
-          showCancelButton
+          // showCancelButton
           onDismiss={() => setSortOptionsMenu( false )}
         />
         <TouchableOpacity
