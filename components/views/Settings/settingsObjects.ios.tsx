@@ -142,11 +142,8 @@ export function TestCppEncDec({...props}) {
   const [timesEncProgress, onTimesEncProgress] = React.useState(0);
   const [decStr, onDec] = React.useState('');
   const [outputText, onChangeOutput] = React.useState('');
-  const {PdmNativeCryptModule} = NativeModules;
   const [encTimesSelect, setEncTimesSelect] = React.useState(false);
   const [startStop, setStartStop] = React.useState(false);
-
-
   const [token, cancel] = useCancelToken();
   /**
    * Run the encryption decryption demo
@@ -158,7 +155,7 @@ export function TestCppEncDec({...props}) {
     t.cancelled = false;
     for (let i=0;i<timesEnc; i++) {
       if(t.cancelled) {
-        setStartStop(false);
+        // setStartStop(false);
         break;
       }
       const encBack:string = await enc(psText, inputText);
@@ -167,7 +164,9 @@ export function TestCppEncDec({...props}) {
       onDec(decBack);
       onTimesEncProgress(i+1);
     }
+    t.cancelled = true;
     setStartStop(false);
+    return;
   };
 
   const InteractionsComponent = ()=>{
@@ -267,8 +266,8 @@ export function TestCppEncDec({...props}) {
 
               <InteractionsComponent/>
               <>
-                <Button title={'Encrypt'} onPress={()=>onPress(token)} />
-                <Button title={'Cancel'}  onPress={ () => cancel()}/>
+                { token.cancelled && <Button title={'Encrypt'} onPress={()=>onPress(token)} />}
+                {!token.cancelled && <Button title={'Cancel'}  onPress={ () => cancel()}/>}
               </>
             </View>
           </View>

@@ -6,7 +6,7 @@ const { PdmNativeCryptModule } = NativeModules;
 export default PdmNativeCryptModule;
 
 export function useCancelToken() {
-  const token = useRef({ cancelled: false });
+  const token = useRef({ cancelled: true });
   const cancel = () => token.current.cancelled = true;
   return [token.current, cancel];
 }
