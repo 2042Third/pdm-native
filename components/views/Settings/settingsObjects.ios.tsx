@@ -145,6 +145,7 @@ export function TestCppEncDec({...props}) {
   const [outputText, onChangeOutput] = React.useState('');
   const {PdmNativeCryptModule} = NativeModules;
   const [encTimesSelect, setEncTimesSelect] = React.useState(false);
+  const [startStop, setStartStop] = React.useState(false);
 
   /**
    * Run the encryption decryption demo
@@ -152,9 +153,10 @@ export function TestCppEncDec({...props}) {
    */
   const onPress = async () => {
     onTimesEncProgress(0);
+    setStartStop(true);
     for (let i=0;i<timesEnc;i++){
-      if(timesEncProgress>=timesEnc)
-        break;
+
+
       // const encBack:string = await PdmNativeCryptModule.enc(psText, inputText);
       const encBack:string = await enc(psText, inputText);
       onChangeOutput(encBack);
@@ -162,7 +164,11 @@ export function TestCppEncDec({...props}) {
       const decBack:string = await dec(psText, encBack.toString());
       onDec(decBack);
       onTimesEncProgress(i+1);
+      // if(! startStop)
+      //   break;
     }
+    setStartStop(false);
+
   };
 
   const InteractionsComponent = ()=>{
@@ -187,6 +193,13 @@ export function TestCppEncDec({...props}) {
         <Button title={`${timesEnc} Times`} onPress={()=>setEncTimesSelect(true)} />
       </View>
     );
+  };
+
+  const InteractionsControl = () => {
+    if(startStop)
+      return (<Button title={'Cancel'} onPress={()=>setStartStop(false)} />);
+    else
+      return(<Button title={'Encrypt'} onPress={onPress} />);
   };
 
   useEffect(()=>{
@@ -263,8 +276,7 @@ export function TestCppEncDec({...props}) {
               />
 
               <InteractionsComponent/>
-              <Button title={(!(timesEncProgress==0||timesEncProgress==timesEnc))?'Cancel':'Encrypt'}
-                      onPress={(!(timesEncProgress==0||timesEncProgress==timesEnc))?(()=>onTimesEncProgress(timesEnc)):onPress} />
+              <InteractionsControl/>
             </View>
           </View>
         </TouchableWithoutFeedback>
