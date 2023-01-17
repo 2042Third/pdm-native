@@ -21,11 +21,7 @@ const NotesMenu = ({  }) => {
   const user = useAppSelector(state => state.userEnter);
   const noteHead = useAppSelector(state => state.noteHeads);
   const navigation = useNavigation();
-
-
-
   const noteids = useAppSelector(state=>getSortedNotes(state));
-
 
   const [refreshing, setRefreshing] = React.useState(false);
   const [selectedNote, setSelectedNote] = React.useState('');
