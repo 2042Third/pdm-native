@@ -229,7 +229,7 @@ const NotesMenu = ({  }) => {
                 onRefresh={onRefresh}
               />
             }
-            removeClippedSubviews={true}
+            // removeClippedSubviews={true}
             keyExtractor={noteItemKeyExtractor}
             extraData={noteids}
           >

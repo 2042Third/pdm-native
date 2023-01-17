@@ -12,10 +12,18 @@ export const userInfoStatus = (state:RootState) => state.userinfo.status;
 // Sorting
 export const getSortedNotes = createSelector(
   [selectNoteId, noteMenuOptions],
-  (noteIDs, sort) =>(
-    [...noteIDs.heads]
-      .sort((a,b)=> (orderByType(a,sort)>orderByType(b,sort)))
-      .map((head) => head.key ))
+  (noteIDs, sort) => {
+    return [...noteIDs.heads]
+      .sort((a, b) => {
+        if(orderByType(a, sort) > orderByType(b, sort))
+          return 1;
+        else if(orderByType(a, sort) < orderByType(b, sort))
+          return -1;
+        else
+          return 0;
+      })
+      .map((head) => head.key)
+  }
 );
 
 // Sorting helper
