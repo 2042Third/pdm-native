@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import { FlatList, Keyboard, Pressable, RefreshControl, Text } from "react-native";
 import { ActionSheet, View } from "react-native-ui-lib";
-import { styles } from "../../../assets/Style";
+import { colors, styles } from "../../../assets/Style";
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
 import { getNote } from "../../handle/redux/reducers/notes/noteEditor";
 import { deleteNote, getHeads, newNote, selectNoteByKey } from "../../handle/redux/reducers/notes/notesHeadsReducer";
@@ -138,7 +138,7 @@ const NotesMenu = ({  }) => {
           style={({ pressed }) => [{ width: 40, opacity: pressed ? 0.5 : 1.0, flexShrink: 1 }]}
           onPress={() => { onLongPressNote(itemObj.key) }}
         >
-          <Icon style={[styles.menuButton]}
+          <Icon style={[styles.menuButton, {color:colors['--foreground-default']}]}
             name={'dots-vertical'} size={30}
           />
         </Pressable>
@@ -196,7 +196,7 @@ const NotesMenu = ({  }) => {
           ]}
           onPress={createNewNote}
         >
-          <Icon style={[styles.menuButton]}
+          <Icon style={[styles.menuButton, {color:colors['--foreground-default']}]}
                 name={'playlist-plus'} size={30}
           />
           <Text style={[styles.normalText]}>New Note</Text>
@@ -208,7 +208,8 @@ const NotesMenu = ({  }) => {
           ]}
           onPress={onSetSortOptionMenu}
         >
-          <Icon style={[styles.menuButton]}
+          <Icon style={[styles.menuButton,
+            {color:colors['--foreground-default']}]}
                 name={'sort'} size={30}
           />
         </TouchableOpacity>
