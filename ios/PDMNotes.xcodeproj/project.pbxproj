@@ -11,6 +11,8 @@
 		7699B88040F8A987B510C191 /* libPods-PDMNotes-PDMNotesTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-PDMNotes-PDMNotesTests.a */; };
 		A7AF24D2803390C0F03B705D /* libPods-PDMNotes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-PDMNotes.a */; };
 		D558AF962A35C43C007AFA73 /* hermes.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = D558AF952A35C43C007AFA73 /* hermes.xcframework */; };
+		D571C22A2A36E59B00C631DC /* Images.xcassets in Headers */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		D571C22D2A36F17700C631DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		D5B834DE28A88E0C005AF1C0 /* RCTPdmNativeCryptModule.h in Sources */ = {isa = PBXBuildFile; fileRef = D5E308BE28A21440008EEEF8 /* RCTPdmNativeCryptModule.h */; };
 		D5B834DF28A88E0C005AF1C0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		D5B834E028A88E0C005AF1C0 /* RCTPdmNativeCryptModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5E308BF28A2155A008EEEF8 /* RCTPdmNativeCryptModule.mm */; };
@@ -305,6 +307,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		D571C2292A36E56D00C631DC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D571C22A2A36E59B00C631DC /* Images.xcassets in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		00E356ED1AD99517003FC87E /* PDMNotesTests */ = {
 			isa = PBXNativeTarget;
@@ -333,6 +346,7 @@
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
+				D571C2292A36E56D00C631DC /* Headers */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
@@ -340,6 +354,7 @@
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
 				D57DABCE28A6B53C00B9124F /* Embed Libraries */,
 				D5B834D428A8392E005AF1C0 /* Embed Foundation Extensions */,
+				D571C22C2A36F16C00C631DC /* Resources */,
 			);
 			buildRules = (
 			);
@@ -391,6 +406,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D571C22C2A36F16C00C631DC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D571C22D2A36F17700C631DC /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,6 +670,7 @@
 			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-PDMNotes.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphoneos*]" = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_ENABLE_MODULES = YES;
@@ -812,6 +836,7 @@
 			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-PDMNotes.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphoneos*]" = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_ENABLE_MODULES = YES;
