@@ -61,24 +61,44 @@ RCT_EXPORT_METHOD(
 }
 
 RCT_EXPORT_METHOD(
-    dec:( NSString*)a
-    data:(NSString*)b
-    resolver:(RCTPromiseResolveBlock)resolve
-    rejecter:(RCTPromiseRejectBlock)reject
-                  )
+  dec:(NSString*)a
+  data:(NSString*)b
+  resolver:(RCTPromiseResolveBlock)resolve
+  rejecter:(RCTPromiseRejectBlock)reject
+)
 {
-//  RCTLogInfo(@"Native decryption receives %@, ps %@", b,a);
-  std::string input_a = std::string([a UTF8String]);
-  std::string input_b = std::string([b UTF8String]);
-  std::string out_b = loader_out( input_a, input_b);
-  NSString *out_a = [NSString stringWithCString:out_b.c_str()
-                                     encoding:[NSString defaultCStringEncoding]];
-  if (out_a){
-    resolve(@[out_a]);
+  RCTLogInfo(@"Native decryption receives %@, ps %@", b, a);
+  
+  if (!a || !b) {
+    reject(@"Invalid inputs", @"One or more inputs are null", nil);
+    return;
   }
-  else {
-    reject(@"Decryption failure",@"password incorrect",nil);
+  
+  const char *c_string_a = [a UTF8String];
+  const char *c_string_b = [b UTF8String];
+  
+  if (!c_string_a || !c_string_b) {
+    reject(@"Conversion failure", @"Failed to convert one or more inputs to UTF8", nil);
+    return;
   }
+  
+  std::string input_a(c_string_a);
+  std::string input_b(c_string_b);
+  
+  try {
+      std::string out_b = loader_out(input_a, input_b);
+      NSString *out_a = [NSString stringWithCString:out_b.c_str()
+                                           encoding:[NSString defaultCStringEncoding]];
+      
+      if (out_a){
+        resolve(@[out_a]);
+      }
+      else {
+        reject(@"Decryption failure", @"password incorrect", nil);
+      }
+    } catch (const std::exception& e) {
+      reject(@"Decryption failure", [NSString stringWithUTF8String:e.what()], nil);
+    }
 }
 
 @end

@@ -1,5 +1,5 @@
 import {useSelector} from 'react-redux';
-import {FlatList, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import React, { useEffect } from "react";
 import {colors, styles} from '../../../assets/Style';
 import { ChatStore } from "../../handle/types";

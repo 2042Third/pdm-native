@@ -44,12 +44,12 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
   // Get heads from server
   const headsP = await NetCalls.notesGetHeads(user.sess, user.umail);
   const heads = await headsP?.json();
-  console.log(`Note received ${JSON.stringify(heads.content)}`);
+  console.log(`[NoteHeadsReducer] Note received ${JSON.stringify(heads.content)}`);
 
   // Check package integrity
   // Note: the incoming noteheads package lists the heads under "content" not "heads"
   const integ = await PdmNativeCryptModule.getHash(JSON.stringify(heads.content).toString());
-  // console.log(`Note head integrety check passed.`);
+  console.log(`Note head integrety check passed.`);
   // if (integ !== heads.hash) {
   //   throw new Error("Package integrety compromised, location: Note head \"getHeads\" thunk.");
   //   return;
@@ -66,6 +66,7 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
   for (let i = 0; i < a.length; i++) {
     let h: NoteHead = JSON.parse(JSON.stringify(a[i]));
     let tmpH: NoteHead = new NoteHead;
+    console.log("[NoteHeadsReducer] Decrypting note head"+h.note_id+".");
     tmpH = h;
     tmpH.time = parseFloat(h.time);
     tmpH.id = parseInt(h.note_id);
@@ -76,7 +77,7 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
     if (h.head != null){
       try {
         decO = await PdmNativeCryptModule.dec(user.upw, h.head);
-      } catch (e) { console.log(e) ; return;}
+      } catch (e) { console.log("Note head decryption error: ");console.log(e) ; return;}
     }
     tmpH.head = decO;
     // console.log(`tmpH ${JSON.stringify(tmpH)}`);

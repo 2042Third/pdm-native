@@ -42,7 +42,7 @@ export const getNote = createAsyncThunk('noteHead/getNote', async (argu: GetNote
   // Get note from server
   const netReturn = await NetCalls.notesGetNote(user.sess, user.umail, note_id);
   const note = await netReturn?.json();
-  console.log(`Note received ${JSON.stringify(note)}`);
+  console.log(`[NoteEditor] Note received ${JSON.stringify(note)}`);
 
   // Decrypt
   // Make new object to store decrypted
