@@ -1,8 +1,6 @@
 import {
   Button,
   Keyboard,
-  KeyboardAvoidingView,
-  Platform,
   Text,
   TextInput,
   TouchableWithoutFeedback,
@@ -10,23 +8,17 @@ import {
 } from "react-native";
 import { colors, styles } from "../../../assets/Style";
 import React, { useEffect } from 'react';
-import NetCalls from "../../handle/network/netCalls";
 import { getHash} from "../../handle/handlers/user";
-import { EncrptedUserEnter, UserEnter, UserInfoGeneral } from "../../handle/types";
-import { signinUser,  updateUserStatus, userClearData } from "../../handle/redux/reducers/user/userinfoReducer";
-import userinfoEnter, { newUserinfoEnter, setUserSess, userEnterClearData } from "../../handle/redux/reducers/user/userinfoEnter";
+import { UserEnter, UserInfoGeneral } from "../../handle/types";
+import { updateUserStatus, userClearData } from "../../handle/redux/reducers/user/userinfoReducer";
+import { newUserinfoEnter, setUserSess, userEnterClearData } from "../../handle/redux/reducers/user/userinfoEnter";
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
 import { useFocusEffect } from "@react-navigation/native";
-import { recordPageChange } from "../../handle/handlers/records";
 import { changePageOpened } from "../../handle/redux/reducers/settings/appSettings";
-import encryptedUserEnter, { saveUserEnter } from "../../handle/redux/reducers/user/encryptedUserEnter";
+import { saveUserEnter } from "../../handle/redux/reducers/user/encryptedUserEnter";
 import KeyboardShift from "../../uiControl/KeyboardShift";
-import { formatDistanceToNowStrict } from "date-fns";
 import { ScrollView } from "react-native-gesture-handler";
 import { parseTime, parseTimeShort } from "../../handle/redux/reducers/helpers";
-import EnterModalOne from "../overlays/modalEnterOne";
-import { ActionSheet } from "react-native-ui-lib";
-import Progress from "react-native-progress";
 interface UserinfoArg  {
   userInfo: UserInfoGeneral,
 };

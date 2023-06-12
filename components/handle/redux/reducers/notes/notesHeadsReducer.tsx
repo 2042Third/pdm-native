@@ -64,31 +64,32 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
   const a = load.heads;
   let b = [];
   for (let i = 0; i < a.length; i++) {
-    let h: NoteHead = JSON.parse(JSON.stringify(a[i]));
-    let tmpH: NoteHead = new NoteHead;
-    console.log("[NoteHeadsReducer] Decrypting note head"+h.note_id+".");
-    tmpH = h;
-    tmpH.time = parseFloat(h.time);
-    tmpH.id = parseInt(h.note_id);
-    tmpH.update_time = parseFloat(h.update_time);
-    tmpH.key = nextNoteHeadId(b);
+    let receivedHead: NoteHead = structuredClone (a[i]);
+    let interpretedHead: NoteHead = new NoteHead;
+    console.log("[NoteHeadsReducer] Decrypting note head"+receivedHead.note_id+".");
+    interpretedHead = receivedHead;
+    interpretedHead.time = parseFloat(String(receivedHead.time));
+    interpretedHead.id = parseInt(receivedHead.note_id);
+    interpretedHead.update_time = parseFloat(String(receivedHead.update_time));
+    interpretedHead.key = nextNoteHeadId(b);
     let decO='';
 
-    if (h.head != null){
+    if (receivedHead.head != null){
       try {
-        decO = await PdmNativeCryptModule.dec(user.upw, h.head);
-      } catch (e) { console.log("Note head decryption error: ");console.log(e) ; return;}
+        decO = await PdmNativeCryptModule.dec(user.upw, receivedHead.head);
+      } catch (e) {
+        console.log("Note head decryption error, replacing with empty string instead: ");
+        console.log(e) ;
+        decO = ""; // replace with an empty string.
+      }
     }
-    tmpH.head = decO;
-    // console.log(`tmpH ${JSON.stringify(tmpH)}`);
+    interpretedHead.head = decO;
 
     // Get the time stamps
-    tmpH.ctime = parseTime(tmpH.time);
-    tmpH.utime = parseTime(tmpH.update_time);
-    // console.log(`Created at ${tmpH.ctime}`);
-    // console.log(`Updated at ${tmpH.utime}`);
+    interpretedHead.ctime = parseTime(interpretedHead.time);
+    interpretedHead.utime = parseTime(interpretedHead.update_time);
 
-    b.push(tmpH);
+    b.push(interpretedHead);
   }
 
   load.heads = b;
@@ -105,7 +106,6 @@ export const newNote = createAsyncThunk('noteHead/newNote', async (argu: UpdateN
   const netReturn = await NetCalls.notesGetNewNote(user.sess, user.umail, noteMsg);
   const note: NotesMsg = await netReturn?.json();
   console.log(`New Note received ${JSON.stringify(note)}`);
-  // const note = newNote; // FAKE
 
   return JSON.parse(JSON.stringify(note));
 });
@@ -118,7 +118,6 @@ export const deleteNote = createAsyncThunk('noteHead/deleteNote', async (argu: U
   const netReturn = await NetCalls.notesDeleteNote(user.sess, user.umail, noteMsg);
   const note: NotesMsg = await netReturn?.json();
   console.log(`Delete Note received ${JSON.stringify(note)}`);
-  // const note = newNote; // FAKE
 
   return JSON.parse(JSON.stringify(note));
   });
@@ -144,7 +143,8 @@ export const NotesHeadsSlice = createSlice({
       .addCase(getHeads.fulfilled, (state, action) => {
         state = {
           heads: action.payload.heads,
-          netHash: action.payload.netHash
+          netHash: action.payload.netHash,
+          netStatus: "fulfilled"
         };
         return state;
       })

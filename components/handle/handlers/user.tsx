@@ -28,15 +28,8 @@ export const getHash = async (a:string) => {
  */
 export const makeHash = async (a: string) => {
   const { PdmNativeCryptModule } = NativeModules;
-  // console.log(`dec called with ps: ${upw}`);
-  try {
-    const out: string = PdmNativeCryptModule.getHash( a);
-    return out;
-  }
-  catch (e) {
-    console.log(e);
-    return '';
-  }
+  const out: string = PdmNativeCryptModule.getHash( a);
+  return out;
 }
 
 export const dec = async (upw: string, a: string) => {

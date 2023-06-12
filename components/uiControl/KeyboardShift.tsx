@@ -23,6 +23,10 @@ export default class KeyboardShift extends Component {
   static propTypes = PropTypes;
   private animationSpeed: number = 250;
 
+  constructor(props: any, context: any) {
+    super(props, context);
+  }
+
   UNSAFE_componentWillMount() {
     this.keyboardDidShowSub = Keyboard.addListener('keyboardDidShow', this.handleKeyboardDidShow);
     this.keyboardDidHideSub = Keyboard.addListener('keyboardDidHide', this.handleKeyboardDidHide);

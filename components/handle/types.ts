@@ -57,12 +57,12 @@ export class NotesMsg extends NoteHead{
   session: string = '';
   ntype: string = ''; // 0 update, 1 new, 2 heads, 3 retrieve
   sess: string = '';
-  h: string = '';
+  h: string = ''; // unencrypted hash
   username: string = '';
   status: string = '';
   statusInfo: string = 'none';
   encry: string = "yes";
-  hash: string = '';
+  hash: string = ''; // Should use "h" for unencrypted hash.
   // pdm security version should be tracked always whenever there is an encryption
   // pdmSecurityVersion;
 }

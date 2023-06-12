@@ -5,7 +5,7 @@ import { GetNoteArg, UpdareNoteWithString, UpdateNoteArg } from "../../../models
 import NetCalls from "../../../network/netCalls";
 import { NoteHead, NotesMsg, UserEnter } from "../../../types";
 import { useAppDispatch } from "../../hooks";
-import { dec, enc } from "../../../handlers/user";
+import { dec, enc, makeHash } from "../../../handlers/user";
 
 const userNoteEditorClearData = {
   head:  '',
@@ -47,7 +47,7 @@ export const getNote = createAsyncThunk('noteHead/getNote', async (argu: GetNote
   // Decrypt
   // Make new object to store decrypted
   let load = new NotesMsg;
-  load = JSON.parse(JSON.stringify(note));
+  load = structuredClone (note);
   if (load.content === null || load.content === '') {
     load.content = "";
   } else {
@@ -66,29 +66,32 @@ export const updateNote = (noteValue: string, headerValue:string) =>
   async (dispatch: (arg0: { payload: any; type: string; }) => void, getState: () => any) =>{
 
   const beforeState = getState();
-// export const updateNote = createAsyncThunk('noteHead/updateNote', async (argu: UpdateNoteArg) => {
   const user = beforeState.userEnter;
   let noteMsg = beforeState.noteEditor;
 
   // Encrypt
   const out = await enc(user.upw, noteValue);
   const outhead = await enc(user.upw, headerValue);
+  const h = await makeHash(noteValue);
+
+  // Make new object to store encrypted
   const newNote = {
     ...noteMsg,
     head: outhead,
     content: out,
+    h: h,
   };
+
   // ERROR UPDATING START HERE, END BEFORE THE NEXT console.log()
   // Get note from server
   const netReturn = await NetCalls.notesUpdateNote(user.sess, user.umail, newNote);
   const note = await netReturn?.json();
   console.log(`Update Note received ${JSON.stringify(note)}`);
-  // const note = newNote; // FAKE
 
   // Decrypt
   // Make new object to store decrypted
   let load:NotesMsg = new NotesMsg;
-  load = JSON.parse(JSON.stringify(note)) as NotesMsg;
+  load = structuredClone (note) as NotesMsg;
   if (!load.content) {
     load.content = "";
   } else {

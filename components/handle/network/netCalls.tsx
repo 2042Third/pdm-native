@@ -83,6 +83,7 @@ export default class NetCalls {
         "ntype": this.notesUpdateNoteType,
         "email": email,
         "note_id": noteMsg.note_id,
+        "h": noteMsg.h // hash
       }));
   }
 
