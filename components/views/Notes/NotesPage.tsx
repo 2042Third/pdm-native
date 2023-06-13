@@ -113,11 +113,13 @@ const NotesView = ({}) => {
               if (noteEditor.status === 'fail'){
                 // dispatch(updateNotesHeaderInfo(noteEditor.status));
                 dispatch(updateNotesHeaderInfo(updateStatus.UpdateFail));
+                console.log("[NotesPage] Update failed: server responds a failure status.");
               }else {
                 dispatch(updateNotesHeaderInfo(updateStatus.AllUpdated));
               }
             })
             .catch(e=>{
+              console.log("[NotesPage] Update failed, cannot dispatch updateNote().");
               console.log(e);
               dispatch(updateNotesHeaderInfo(updateStatus.UpdateFail))
             });

@@ -47,7 +47,7 @@ export const getNote = createAsyncThunk('noteHead/getNote', async (argu: GetNote
   // Decrypt
   // Make new object to store decrypted
   let load = new NotesMsg;
-  load = structuredClone (note);
+  load = JSON.parse(JSON.stringify(note));
   if (load.content === null || load.content === '') {
     load.content = "";
   } else {
@@ -64,24 +64,25 @@ export const getNote = createAsyncThunk('noteHead/getNote', async (argu: GetNote
 });
 export const updateNote = (noteValue: string, headerValue:string) =>
   async (dispatch: (arg0: { payload: any; type: string; }) => void, getState: () => any) =>{
-
   const beforeState = getState();
   const user = beforeState.userEnter;
-  let noteMsg = beforeState.noteEditor;
+  let noteMsg:NotesMsg = beforeState.noteEditor;
+  console.log("[Update Note] Note to be updated: " + JSON.stringify(noteMsg));
 
   // Encrypt
   const out = await enc(user.upw, noteValue);
   const outhead = await enc(user.upw, headerValue);
-  const h = await makeHash(noteValue);
+  const hash:string = await makeHash(noteValue);
 
   // Make new object to store encrypted
-  const newNote = {
-    ...noteMsg,
-    head: outhead,
-    content: out,
-    h: h,
-  };
+  const newNote: NotesMsg = JSON.parse(JSON.stringify(noteMsg)); // Make a copy first.
+  newNote.content = out;
+  newNote.head = outhead;
+  newNote.h = hash.toString();
 
+  // newNote.h=hash; // Above doesn't work, makes it a list of one string element. Why?
+  console.log("[Update Note] Hash to be sent: " + hash);
+  console.log(`[Update Note] Note to be sent: ${JSON.stringify(newNote)}`);
   // ERROR UPDATING START HERE, END BEFORE THE NEXT console.log()
   // Get note from server
   const netReturn = await NetCalls.notesUpdateNote(user.sess, user.umail, newNote);
@@ -91,7 +92,7 @@ export const updateNote = (noteValue: string, headerValue:string) =>
   // Decrypt
   // Make new object to store decrypted
   let load:NotesMsg = new NotesMsg;
-  load = structuredClone (note) as NotesMsg;
+  load = JSON.parse(JSON.stringify (note) )as NotesMsg;
   if (!load.content) {
     load.content = "";
   } else {
