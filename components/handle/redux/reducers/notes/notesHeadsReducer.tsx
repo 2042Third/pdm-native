@@ -49,7 +49,7 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
   // Check package integrity
   // Note: the incoming noteheads package lists the heads under "content" not "heads"
   const integ = await PdmNativeCryptModule.getHash(JSON.stringify(heads.content).toString());
-  console.log(`Note head integrety check passed.`);
+  console.log(`[NoteHeadsReducer] Note head integrety check passed.`);
   // if (integ !== heads.hash) {
   //   throw new Error("Package integrety compromised, location: Note head \"getHeads\" thunk.");
   //   return;
@@ -63,8 +63,10 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
   // decrypt
   const a = load.heads;
   let b = [];
+  console.log("[NoteHeadsReducer] a.length: "+a.length);
   for (let i = 0; i < a.length; i++) {
-    let receivedHead: NoteHead = structuredClone (a[i]);
+    console.log("[NoteHeadsReducer] Decrypting note head "+a[i].note_id+".");
+    let receivedHead: NoteHead = JSON.parse(JSON.stringify(a[i]));
     let interpretedHead: NoteHead = new NoteHead;
     console.log("[NoteHeadsReducer] Decrypting note head"+receivedHead.note_id+".");
     interpretedHead = receivedHead;
@@ -78,7 +80,7 @@ export const getHeads = createAsyncThunk('notesHead/getHeads', async (hua:HeadsU
       try {
         decO = await PdmNativeCryptModule.dec(user.upw, receivedHead.head);
       } catch (e) {
-        console.log("Note head decryption error, replacing with empty string instead: ");
+        console.log("[NoteHeadsReducer] ERROR! Note head decryption error, replacing with empty string instead: ");
         console.log(e) ;
         decO = ""; // replace with an empty string.
       }
