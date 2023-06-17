@@ -100,6 +100,13 @@ const EnterModalOne = ({ visible }: EnterModalOneType ) => {
           <Text style={[styles.normalText,{color:userEnter.timesTried>0?colors["--error-default"]:colors['--background-default']}]}>
             {modalErrors+userEnter.timesTried}
           </Text>
+          {/* Status */}
+          <Text style={[styles.normalText, { color: colors['--foreground-tertiary'] }]}>
+            Encrypted Storage status: {userEnter.loadStatus}
+          </Text>
+          <Text style={[styles.normalText, { color: colors['--foreground-tertiary'] }]}>
+            Login status: {userInfo.netStatus}
+          </Text>
           {/* Input */}
           <TextInput
             value={epw}

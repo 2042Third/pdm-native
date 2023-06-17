@@ -9,7 +9,8 @@ export const userEnterClearData = {
   upwServer:'',
   sess: '',
   timesTried: 0,
-  uName:""
+  uName:"",
+  loadStatus:"",
 } as UserEnterExt;
 
 export const decryptLocal = createAsyncThunk('userinfoEnter/decryptLocal'
@@ -21,6 +22,8 @@ export const decryptLocal = createAsyncThunk('userinfoEnter/decryptLocal'
       console.info(error);
     });
   console.log("Decrypt => "+ decReturn);
+  await new Promise(r => setTimeout(r, 200));
+
   if(decReturn)
     return { ...JSON.parse(decReturn), sess: ''};
   else {
@@ -36,7 +39,8 @@ export const UserinfoEnterSlice = createSlice({
     upwServer: '',
     sess: '',
     timesTried:0,
-    uName: ""
+    uName: "",
+    loadStatus: "",
   } as UserEnterExt,
   reducers: {
     newUserinfoEnter: (state, action) =>{
@@ -54,8 +58,17 @@ export const UserinfoEnterSlice = createSlice({
     builder
       .addCase(decryptLocal.fulfilled, (state, action) => {
 
-        return { ...action.payload };
+        return {
+          ...action.payload,
+          loadStatus: "fulfilled",
+        };
       })
+      .addCase(decryptLocal.pending,(state, action)=> {
+        return {
+          ...state,
+          loadStatus: "pending",
+        }
+      } )
   },
 });
 

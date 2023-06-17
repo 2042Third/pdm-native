@@ -51,9 +51,10 @@ export const signinUser = createAsyncThunk('userStatus/signinUser'
       netReturn.username = userName;
     } else {
       netReturn.status = "fail";
+      console.log("UserInfo update failure: " + JSON.stringify(netReturn));
+      // Reject
       return netReturn;
     }
-
     if (netReturn.time !== null) {
       netReturn.ctime = parseTimeShort(parseFloat(netReturn.time));
     }
@@ -108,11 +109,23 @@ export const UserinfoStatusSlice = createSlice({
   },
   extraReducers(builder ){
     builder
-    .addCase(signinUser.fulfilled, (state, action) => {
-      let load:UserInfoGeneral=action.payload;
-      load.netStatus = 'success';
-      return load;
-    })
+      .addCase(signinUser.fulfilled, (state, action) => {
+        let load:UserInfoGeneral=action.payload;
+        load.netStatus = 'idle';
+        return load;
+      })
+      .addCase(signinUser.pending, (state, action) => {
+        return {
+          ...state,
+          netStatus: 'pending',
+        };
+      })
+      .addCase(signinUser.rejected, (state, action) => {
+        return {
+          ...state,
+          netStatus: 'idle',
+        };
+      })
   },
 });
 

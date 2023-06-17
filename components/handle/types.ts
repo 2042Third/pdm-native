@@ -81,6 +81,7 @@ export class UserEnter {
 }
 export class UserEnterExt extends UserEnter {
   uName: string  = "";
+  loadStatus = "";
 }
 
 export class NotesMenu {
