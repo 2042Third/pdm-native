@@ -123,7 +123,7 @@ export const UserinfoStatusSlice = createSlice({
       .addCase(signinUser.rejected, (state, action) => {
         return {
           ...state,
-          netStatus: 'idle',
+          netStatus: 'fail',
         };
       })
   },

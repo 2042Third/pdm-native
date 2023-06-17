@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Button,
   Keyboard,
   Text,
@@ -163,8 +164,95 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
     && epw !== '';
   };
 
-  //
+  const UserEnterView = () => {
+    if (userInfo.netStatus === 'loading'){
+      return (
+        <View style={[styles.loginContainer, styles.mainColor, {flex:1}]}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      );
+    } else {
+      return (
+        <View style={[styles.loginContainer, styles.mainColor, {flex:1}]}>
+          {/* Alerts */}
+          <Text style={[styles.normalText,{color:userInfo.status === "fail"?colors["--error-default"]:colors['--background-default']}]}>
+            {userInfo.statusInfo}
+          </Text>
+          {/*email*/}
+          <TextInput
+            value={umail}
+            onChangeText={onUmail}
+            placeholderTextColor={colors['--foreground-tertiary']}
+            placeholder={emailPlaceHolder}
+            style={[styles.loginInput, styles.inputAreaColor
+              , {
+                backgroundColor: isFocused1 ? colors['--background-tertiary'] : colors['--background-default']
+                ,
+              }]}
+            onFocus={() => { onFocusingHeader1(true); }}
+            onBlur={() => { onFocusingHeader1(false); }}
+          />
 
+          {/* password input */}
+          <TextInput
+            value={upw}
+            onChangeText={onUpw}
+            placeholderTextColor={colors['--foreground-tertiary']}
+            placeholder={passwordPlaceHolder}
+            secureTextEntry={true}
+            style={[styles.loginInput, styles.inputAreaColor
+              , {
+                backgroundColor: isFocused2 ? colors['--background-tertiary'] : colors['--background-default']
+                ,
+              }]}
+            onFocus={() => { onFocusingHeader2(true); }}
+            onBlur={() => { onFocusingHeader2(false); }}
+          ></TextInput>
+
+          {/* app password input */}
+          <TextInput
+            value={epw}
+            onChangeText={onEpw}
+            placeholderTextColor={colors['--foreground-tertiary']}
+            placeholder={appPasswordPlaceHolder}
+            secureTextEntry={true}
+            style={[styles.loginInput, styles.inputAreaColor
+              , {
+                backgroundColor: isFocused3 ? colors['--background-tertiary'] : colors['--background-default'],
+
+              }
+            ]}
+            onFocus={() => { onFocusingHeader3(true); }}
+            onBlur={() => { onFocusingHeader3(false); }}
+          ></TextInput>
+
+          {/* Buttons */}
+          <View style={[styles.btnContainer]}>
+            <Button title={loginPlaceholder} color={colors['--background-light']}
+                    onPress={onSubmit}
+            ></Button>
+            <Button title={signupPlaceholder} color={colors['--background-light']}
+                    onPress={onSignup}
+            ></Button>
+          </View>
+
+          {/* Debug info */}
+          <ScrollView style={[ styles.plainViewPortLimitedHeight]}>
+            <>
+              <Text style={[styles.inputAreaColor]} >{userInfo.status}</Text>
+              <Text style={[styles.inputAreaColor]} >
+                {eUserEnter ? ("local store time: "+parseTimeShort(eUserEnter.dateTimeUpdated)):""}
+              </Text>
+              <Text style={[styles.inputAreaColor, ]} >
+                {eUserEnter ? ("local store :" + JSON.stringify(eUserEnter)) : ""}
+              </Text>
+            </>
+          </ ScrollView>
+
+        </View>
+      );
+    }
+  }
 
   /**
    * Checks user status after each signin action
@@ -174,8 +262,6 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
     if (userInfo.status === 'success' && userEnter.sess === '') {
       console.log("dispatching user sess");
       dispatch(setUserSess(userInfo.sess)); // Signin
-
-
       /**
      * After receiving success signin info from server, and updated the session key,
      * try to ask user to encrypt the data stored locally.
@@ -205,6 +291,8 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={[styles.loginContainer, styles.mainColor, {flex:1}]}>
             {/* Alerts */}
+            {userInfo.netStatus === 'pending' && <ActivityIndicator size="large" color="#0000ff" />}
+
             <Text style={[styles.normalText,{color:userInfo.status === "fail"?colors["--error-default"]:colors['--background-default']}]}>
               {userInfo.statusInfo}
             </Text>
@@ -279,10 +367,7 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
               </>
             </ ScrollView>
 
-            {/* modal */}
-            {/* <EnterModalOne visible={shouldUserEnterPass()}/> */}
           </View>
-
         </TouchableWithoutFeedback>
       )}
     </KeyboardShift>

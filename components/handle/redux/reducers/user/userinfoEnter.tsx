@@ -40,7 +40,7 @@ export const UserinfoEnterSlice = createSlice({
     sess: '',
     timesTried:0,
     uName: "",
-    loadStatus: "",
+    loadStatus: "idle",
   } as UserEnterExt,
   reducers: {
     newUserinfoEnter: (state, action) =>{
@@ -66,9 +66,15 @@ export const UserinfoEnterSlice = createSlice({
       .addCase(decryptLocal.pending,(state, action)=> {
         return {
           ...state,
-          loadStatus: "pending",
+          loadStatus: "idle",
         }
       } )
+      .addCase(decryptLocal.rejected, (state, action) => {
+        return {
+          ...state,
+          loadStatus: "fail",
+        }
+      })
   },
 });
 
