@@ -1,4 +1,4 @@
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, KeyboardAvoidingView, View } from "react-native";
 // import { View, TextInput} from 'react-native';
 import {styles, colors} from '../../../assets/Style';
 import React, { useEffect, Suspense, useState } from "react";
@@ -224,7 +224,7 @@ const NotesView = ({}) => {
   }, [noteEditor.head]);
 
   return (
-    <View style={[{flex:1},styles.notesBox, styles.container]}>
+    <KeyboardAvoidingView style={[{flex:1},styles.notesBox, styles.container]}>
       {/*Header Start*/}
       <TextInput
         style={[
@@ -258,9 +258,10 @@ const NotesView = ({}) => {
         autoCorrect={false}
         onEndEditing={(!isDuplicateContent())?onFinishedEditContent:noUpdateContent}
         value={noteValue}
+        rejectResponderTermination={true}
       />
       {/*Notes Edit End*/}
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

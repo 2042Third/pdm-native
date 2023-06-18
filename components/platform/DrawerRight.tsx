@@ -1,6 +1,6 @@
 import { createDrawerNavigator, DrawerToggleButton } from "@react-navigation/drawer";
-import React from "react";
-import { SafeAreaView, Text, useWindowDimensions, View } from 'react-native';
+import React, { useEffect } from "react";
+import { SafeAreaView, Text, useWindowDimensions, View, Keyboard } from 'react-native';
 import { colors, styles } from "../../assets/Style";
 import NotesView from "../views/Notes/NotesPage";
 import CustomDrawerContentRight from "./drawerContent/DrawerContentRight";
@@ -9,9 +9,18 @@ import { useAppSelector } from "../handle/redux/hooks";
 
 const DrawerRightMenu = createDrawerNavigator();
 
-const DrawerRight = () => {
+const DrawerRight = ({ navigation }) => {
   const window = useWindowDimensions();
   const header = useAppSelector(state => state.notesHeaderInfo);
+
+  useEffect(() => {
+    // const unsubscribe = navigation.addListener('drawerOpen', () => {
+      Keyboard.dismiss();
+    // });
+
+    // return unsubscribe;
+  }, [navigation]);
+
   return (
     <DrawerRightMenu.Navigator
       screenOptions={{
@@ -23,7 +32,6 @@ const DrawerRight = () => {
         headerShown: true,
         drawerPosition: "right",
         swipeMinDistance: window.width / 7,
-        // defaultStatus: window.width >= 768 ? 'open' : 'closed',
         swipeEdgeWidth: window.width,
       }}
       initialRouteName="NotesEdit"
@@ -45,12 +53,10 @@ const DrawerRight = () => {
           headerLeft: () => null,
           headerRight: () => <DrawerToggleButton tintColor={colors['--foreground-default']}/>,
 
-          })}/>
+        })}/>
     </DrawerRightMenu.Navigator>
 
   );
 }
 
 export default DrawerRight;
-
-
