@@ -7,7 +7,7 @@ import Animated, {
   useSharedValue,
   useAnimatedGestureHandler,
   useAnimatedStyle,
-  withSpring, useAnimatedReaction, runOnJS, withDecay, withTiming,
+  withSpring, useAnimatedReaction, runOnJS, withDecay, withTiming, useAnimatedProps,
 } from "react-native-reanimated";
 
 const { width } = Dimensions.get('window');
@@ -20,16 +20,58 @@ const CustomTextInput = () => {
   const snapThreshold = 0.21;
   const initialDirection = useSharedValue('none'); // 'none', 'horizontal', 'vertical'
 
+  const [editable, setEditable] = useState(true);
+
+  useEffect(() => {
+    console.log(`editable=${editable}`);
+  }, [editable]);
+
+  const setEditableWithDelay = (value:boolean, delay:number) => {
+    setTimeout(() => {
+      setEditable(value);
+    }, delay);
+  };
+
+  const callSetEditable = (value:boolean) => {
+    setEditable(value);
+  }
+
+  useAnimatedReaction(() => {
+    return { isGestureActive: isGestureActive.value };
+  }, (current, previous) => {
+    console.log(`isGestureActive=${current.isGestureActive}, initialDirection=${initialDirection.value}`);
+    console.log(`displacement=${displacement.value}, translateX=${translateX.value}`)
+    if (previous) {
+      if (current.isGestureActive === 1) {
+        // Gesture is active, dismiss the keyboard
+        console.log("Calling setEditable");
+
+        runOnJS(callSetEditable)(false);
+
+      } else{
+        // Gesture is not active but TextInput is focused
+        // Delay keyboard appearance
+        console.log("Calling setEditable");
+        runOnJS(setEditableWithDelay)(true, 400);
+
+      }
+    }
+  });
+
+
+
   // Keyboard listeners
   const keyboardShowListener = Keyboard.addListener(
-    'keyboardDidShow',
+    'keyboardWillShow',
     () => {
+      console.log("Keyboard will be visible");
       isKeyboardVisible.value = 1;
     }
   );
   const keyboardHideListener = Keyboard.addListener(
     'keyboardDidHide',
     () => {
+      console.log("Keyboard is hidden");
       isKeyboardVisible.value = 0;
     }
   );
@@ -63,14 +105,17 @@ const CustomTextInput = () => {
     return Math.round(num);
   }
 
+
   const gestureHandler = useAnimatedGestureHandler({
     onStart: (_, ctx) => {
+      console.log("Start");
       ctx.startX = translateX.value;
-      isGestureActive.value=1;
       initialDirection.value = 'none';
       displacement.value = 0;
     },
     onActive: (event, ctx) => {
+      console.log("Active");
+      isGestureActive.value=1;
       translateX.value = ctx.startX + event.translationX;
       displacement.value = event.translationX;
 
@@ -92,6 +137,8 @@ const CustomTextInput = () => {
       }
     },
     onEnd: ({ velocityX }) => {
+
+      console.log("End");
       const t = Math.abs(translateX.value / velocityX);
       const decel = (displacement.value/Math.abs(displacement.value))
         *(Math.abs(velocityX)/(0.01+t*0.1));
@@ -130,13 +177,7 @@ const CustomTextInput = () => {
 
   });
 
-  useAnimatedReaction(() => {
-    return isGestureActive.value;
-  }, (result) => {
-    if (result === 0) {
-      runOnJS(dismissKeyboard)();
-    }
-  });
+
 
 
   const style = useAnimatedStyle(() => {
@@ -146,6 +187,7 @@ const CustomTextInput = () => {
       transform: [{ translateX: translateX.value }],
     };
   });
+
 
   return (
     <PanGestureHandler
@@ -177,6 +219,7 @@ const CustomTextInput = () => {
               { height:'100%', padding: 10, color: 'black', backgroundColor: 'gray', margin: 20},
             ]}
             placeholder="2 Type here..."
+            editable={editable}
           />
         </View>
 
@@ -187,6 +230,7 @@ const CustomTextInput = () => {
               { height:'100%', padding: 10, color: 'black', backgroundColor: 'gray', margin: 20},]}
             placeholder="3 Type here..."
             scrollEnabled={initialDirection.value === 'vertical'}
+            editable={editable}
           />
         </View>
       </Animated.View>
