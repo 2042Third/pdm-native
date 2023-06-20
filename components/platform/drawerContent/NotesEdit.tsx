@@ -15,16 +15,15 @@ const { width } = Dimensions.get('window');
 const CustomTextInput = () => {
   const translateX = useSharedValue(0);
   const displacement = useSharedValue(0);
+  const velocity = useSharedValue(0);
   const isGestureActive = useSharedValue(0);
   const isKeyboardVisible = useSharedValue(0);
-  const snapThreshold = 0.21;
+  const snapThreshold = 0.45;
   const initialDirection = useSharedValue('none'); // 'none', 'horizontal', 'vertical'
-
   const [editable, setEditable] = useState(true);
+  const MAX_SCREENS = 3;
+  const currentScreen = useSharedValue(0);
 
-  useEffect(() => {
-    console.log(`editable=${editable}`);
-  }, [editable]);
 
   const setEditableWithDelay = (value:boolean, delay:number) => {
     setTimeout(() => {
@@ -39,44 +38,33 @@ const CustomTextInput = () => {
   useAnimatedReaction(() => {
     return { isGestureActive: isGestureActive.value };
   }, (current, previous) => {
-    console.log(`isGestureActive=${current.isGestureActive}, initialDirection=${initialDirection.value}`);
-    console.log(`displacement=${displacement.value}, translateX=${translateX.value}`)
     if (previous) {
       if (current.isGestureActive === 1) {
         // Gesture is active, dismiss the keyboard
-        console.log("Calling setEditable");
-
         runOnJS(callSetEditable)(false);
 
       } else{
         // Gesture is not active but TextInput is focused
         // Delay keyboard appearance
-        console.log("Calling setEditable");
-        runOnJS(setEditableWithDelay)(true, 400);
-
+        runOnJS(setEditableWithDelay)(true, 100);
       }
     }
   });
-
-
 
   // Keyboard listeners
   const keyboardShowListener = Keyboard.addListener(
     'keyboardWillShow',
     () => {
-      console.log("Keyboard will be visible");
       isKeyboardVisible.value = 1;
     }
   );
+
   const keyboardHideListener = Keyboard.addListener(
     'keyboardDidHide',
     () => {
-      console.log("Keyboard is hidden");
       isKeyboardVisible.value = 0;
     }
   );
-
-
 
   const dismissKeyboard = () => {
     if(isKeyboardVisible.value === 1)
@@ -85,10 +73,17 @@ const CustomTextInput = () => {
 
   const customRound = (num:number,displacementRatio:number) => {
     'worklet';
+    let lowerBound = Math.floor(num)<(-1*(MAX_SCREENS-1))?(-1*(MAX_SCREENS-1)):Math.floor(num);
+    let upperBound = Math.ceil(num)>0?0:Math.ceil(num);
 
-    const lowerBound = Math.floor(num);
-    const upperBound = Math.ceil(num);
+    if(displacementRatio>1){
+      return lowerBound;
+    }
+    else if(displacementRatio<-1){
+      return upperBound;
+    }
 
+    console.log(`num: ${num}, lowerBound: ${lowerBound}, upperBound: ${upperBound}`);
     if (displacementRatio> 0){
       if(Math.abs(displacementRatio) >= snapThreshold){
         return upperBound;
@@ -105,19 +100,18 @@ const CustomTextInput = () => {
     return Math.round(num);
   }
 
-
   const gestureHandler = useAnimatedGestureHandler({
     onStart: (_, ctx) => {
-      console.log("Start");
       ctx.startX = translateX.value;
+      ctx.velocityX = velocity.value;
       initialDirection.value = 'none';
       displacement.value = 0;
     },
     onActive: (event, ctx) => {
-      console.log("Active");
       isGestureActive.value=1;
       translateX.value = ctx.startX + event.translationX;
       displacement.value = event.translationX;
+      velocity.value = event.velocityX;
 
       // Check if we've set an initial direction yet
       if (initialDirection.value === 'none') {
@@ -138,47 +132,65 @@ const CustomTextInput = () => {
     },
     onEnd: ({ velocityX }) => {
 
-      console.log("End");
       const t = Math.abs(translateX.value / velocityX);
-      const decel = (displacement.value/Math.abs(displacement.value))
-        *(Math.abs(velocityX)/(0.01+t*0.1));
-      // const decel = (displacement.value/Math.abs(displacement.value))*width*80;
+      const decel = (displacement.value/Math.abs(displacement.value)) *(Math.abs(velocityX)/(0.1+t*0.1));
       const tts = Math.abs(velocityX / decel);
       const projection = (translateX.value + decel*tts * tts);
       const projectedDisplacement = (displacement.value + decel*tts * tts);
-      console.log('........................................................................');
-      console.log(`Width: ${width}`);
-      console.log(`displacement: ${displacement.value}`);
-      console.log(`velocityX: ${velocityX}, translateX: ${translateX.value}`);
-      console.log(`ratio:${translateX.value / width}`);
+      // console.log('........................................................................');
+      // console.log(`Width: ${width}`);
+      // console.log(`displacement: ${displacement.value}`);
+      // console.log(`velocityX: ${velocityX}, translateX: ${translateX.value}`);
+      // console.log(`ratio:${translateX.value / width}`);
       console.log(`displacement ratio: ${displacement.value / width}`)
-      console.log(`Time length: ${t}`);
-      console.log(`acceleration: ${velocityX / t}`);
-      console.log(`decel time: ${tts}`);
-      console.log(`projection: ${projection}`);
-      console.log(`projection ratio: ${projection/width}`);
-      console.log(`projected displacement: ${projectedDisplacement}`);
+      // console.log(`Time length: ${t}`);
+      // console.log(`acceleration: ${velocityX / t}`);
+      // console.log(`decel time: ${tts}`);
+      // console.log(`projection: ${projection}`);
+      // console.log(`projection ratio: ${projection/width}`);
+      // console.log(`projected displacement: ${projectedDisplacement}`);
       console.log(`projected displacement ratio: ${projectedDisplacement/width}`);
       const approxEndPos = translateX.value ; // where it would be in 0.01s
       const approxEndPosRelativeToWidth = approxEndPos / width;
-      const snapPoint = (velocityX===0 || displacement.value ===0)?
-        customRound(approxEndPosRelativeToWidth, displacement.value / width) * width
-        : customRound(projection/width, projectedDisplacement/width) * width
+      const approxScreen = customRound(approxEndPosRelativeToWidth, displacement.value / width);
+      const projectionScreen = customRound(projection/width, projectedDisplacement/width);
+
+      let snapScreen= (velocityX===0 || displacement.value ===0)?
+        approxScreen
+        : projectionScreen
       ;
+      console.log(`snapScreen: ${snapScreen}`);
+      console.log(`currentScreen.value!=0 : ${Math.abs(snapScreen-currentScreen.value)>1 &&currentScreen.value!=0 && currentScreen.value!=MAX_SCREENS-1}`);
+
+      if (snapScreen!=currentScreen.value ){
+        if (displacement.value>=0) {
+          if (currentScreen.value===0)
+            snapScreen = 0;
+          else
+            snapScreen=currentScreen.value+1;
+        }
+        else{
+          if (currentScreen.value===-1*(MAX_SCREENS-1))
+            snapScreen = -1*(MAX_SCREENS-1);
+          else
+            snapScreen=currentScreen.value-1;
+        }
+      }
+
+      console.log(`currentScreen: ${currentScreen.value}`);
+      console.log(`snapScreen: ${snapScreen}`);
+      currentScreen.value = snapScreen;
+      const snapPoint = snapScreen*width;
 
       translateX.value = withSpring(snapPoint
-        , { damping: 20, stiffness: 50, mass: 0.52 }
+        , { damping: 10, stiffness: 20, mass: 0.1 }
         , () => {
           // We only dismiss the keyboard after the animation has finished.
           runOnJS(dismissKeyboard)();
         });
       isGestureActive.value = 0;
     },
-
   });
-
-
-
 
   const style = useAnimatedStyle(() => {
     return {
@@ -187,7 +199,6 @@ const CustomTextInput = () => {
       transform: [{ translateX: translateX.value }],
     };
   });
-
 
   return (
     <PanGestureHandler
