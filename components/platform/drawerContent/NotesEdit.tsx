@@ -21,14 +21,24 @@ const CustomTextInput = () => {
 
 
 // Define your custom rounding function
-  const customRound = (num:number) => {
+  const customRound = (num:number,displacementRatio:number) => {
     'worklet';
 
     const lowerBound = Math.floor(num);
     const upperBound = Math.ceil(num);
 
-    if (num - lowerBound < snapThreshold) return lowerBound;
-    if (upperBound - num < snapThreshold) return upperBound;
+    if (displacementRatio> 0){
+      if(Math.abs(displacementRatio) >= snapThreshold){
+        return upperBound;
+      }
+      return lowerBound;
+    }
+    else if (displacementRatio < 0){
+      if(Math.abs(displacementRatio) >= snapThreshold){
+        return lowerBound;
+      }
+      return upperBound;
+    }
 
     return Math.round(num);
   }
@@ -64,8 +74,9 @@ const CustomTextInput = () => {
     onEnd: (_) => {
       console.log(`displacement/width=${displacement.value/width}`);
       translateX.value
-        = withSpring(customRound(translateX.value / width) * width
-      , { damping: 20, stiffness: 50, mass: 0.52 }
+        = withSpring(customRound(translateX.value / width
+                      ,displacement.value/width) * width
+      , { damping: 15, stiffness: 30, mass: 1 }
       , () => {
         // We only dismiss the keyboard after the animation has finished.
         runOnJS(Keyboard.dismiss)();
