@@ -145,6 +145,8 @@ export function TestCppEncDec({...props}) {
   const [encTimesSelect, setEncTimesSelect] = React.useState(false);
   const [startStop, setStartStop] = React.useState(false);
   const [token, cancel] = useCancelToken();
+  const inputRef = React.createRef();
+  const inputRef2 = React.createRef();
   /**
    * Run the encryption decryption demo
    *
@@ -179,7 +181,7 @@ export function TestCppEncDec({...props}) {
   // @ts-ignore
   return (
     <KeyboardShift style={[styles.mainColor]}>
-      {()=>(
+      {(onFocus)=>(
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={[styles.mainColor, {flexDirection: 'column', flexGrow: 3}]}>
             <View
@@ -202,11 +204,13 @@ export function TestCppEncDec({...props}) {
               ]}>
               <Text style={[styles.mainColor]}>password: </Text>
               <TextInput
+                ref={inputRef}
                 multiline={true}
                 textAlignVertical={'top'}
                 style={[styles.inputAreaColor, lstyle.debugTextBox]}
                 onChangeText={onChangeps}
                 value={psText}
+                onFocus={()=>onFocus(inputRef)}
               />
             </View>
             <View
@@ -217,12 +221,14 @@ export function TestCppEncDec({...props}) {
               ]}>
               <Text style={[styles.mainColor]}>Type something to encrypt </Text>
               <TextInput
+                ref={inputRef2}
                 multiline={true}
                 textAlignVertical={'top'}
                 style={[lstyle.debugTextBox, styles.inputAreaColor]}
                 onChangeText={onChangeInput}
                 // onKeyDown={handleKeyDown}
                 value={inputText}
+                onFocus={()=>onFocus(inputRef2)}
               />
 
               <ActionSheet

@@ -1,13 +1,13 @@
 
 
-import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, View, Keyboard, Text, Easing } from "react-native";
-import { PanGestureHandler, State, TextInput } from "react-native-gesture-handler";
+import React, { useState } from "react";
+import { Dimensions, View, Keyboard, Text, SafeAreaView, Platform, KeyboardAvoidingView } from "react-native";
+import { PanGestureHandler, TextInput } from "react-native-gesture-handler";
 import Animated, {
   useSharedValue,
   useAnimatedGestureHandler,
   useAnimatedStyle,
-  withSpring, useAnimatedReaction, runOnJS, withDecay, withTiming, useAnimatedProps,
+  withSpring, useAnimatedReaction, runOnJS
 } from "react-native-reanimated";
 
 const { width } = Dimensions.get('window');
@@ -17,7 +17,6 @@ const CustomTextInput = () => {
   const displacement = useSharedValue(0);
   const velocity = useSharedValue(0);
   const isGestureActive = useSharedValue(0);
-  const isKeyboardVisible = useSharedValue(0);
   const snapThreshold = 0.45;
   const initialDirection = useSharedValue('none'); // 'none', 'horizontal', 'vertical'
   const [editable, setEditable] = useState(true);
@@ -50,26 +49,6 @@ const CustomTextInput = () => {
       }
     }
   });
-
-  // Keyboard listeners
-  const keyboardShowListener = Keyboard.addListener(
-    'keyboardWillShow',
-    () => {
-      isKeyboardVisible.value = 1;
-    }
-  );
-
-  const keyboardHideListener = Keyboard.addListener(
-    'keyboardDidHide',
-    () => {
-      isKeyboardVisible.value = 0;
-    }
-  );
-
-  const dismissKeyboard = () => {
-    if(isKeyboardVisible.value === 1)
-      Keyboard.dismiss();
-  };
 
   const customRound = (num:number,displacementRatio:number) => {
     'worklet';
@@ -223,19 +202,23 @@ const CustomTextInput = () => {
           >Some texts here...</Text>
         </View>
 
-        <View
-          style={[{width, height:'100%'}]}
-        >
-          <TextInput
-            multiline={true}
-            style={[
-              { height:'100%', padding: 10, color: 'black', backgroundColor: 'gray', margin: 20},
-            ]}
-            placeholder="2 Type here..."
-            editable={editable}
-          />
-        </View>
-
+        {/*<View style={[{width, height:'100%'}]}>*/}
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={{ flex: 1, margin: 20 }}
+          >
+            <SafeAreaView style={{ flex: 1 }}>
+              <TextInput
+                multiline={true}
+                style={[
+                  { flex:1, padding: 10, color: 'black', backgroundColor: 'gray'},
+                ]}
+                placeholder="2 Type here..."
+                editable={editable}
+              />
+            </SafeAreaView>
+          </KeyboardAvoidingView>
+        {/*</View>*/}
         <View style={[{width, height:'100%'}]}>
           <TextInput
             multiline={true}

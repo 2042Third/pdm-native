@@ -140,7 +140,10 @@ export function TestCppEncDec({...props}) {
   const [timesEncProgress, onTimesEncProgress] = React.useState(0);
   const [dec, onDec] = React.useState('');
   const [outputText, onChangeOutput] = React.useState('');
+  const inputRef = React.createRef();
   const {PdmNativeCryptModule} = NativeModules;
+
+
 
   /**
    * Run the encryption decryption demo
@@ -167,7 +170,7 @@ export function TestCppEncDec({...props}) {
   // @ts-ignore
   return (
     <KeyboardShift style={[styles.mainColor]}>
-      {()=>(
+      {(onFocus)=>(
         <View style={[styles.mainColor, {flexDirection: 'column', flexGrow: 3}]}>
           <View
             {...props}
@@ -194,6 +197,7 @@ export function TestCppEncDec({...props}) {
               style={[styles.inputAreaColor, lstyle.debugTextBox]}
               onChangeText={onChangeps}
               value={psText}
+
             />
           </View>
           <View
@@ -204,12 +208,14 @@ export function TestCppEncDec({...props}) {
             ]}>
             <Text style={[styles.mainColor]}>Type something to encrypt </Text>
             <TextInput
+              ref={inputRef}
               multiline={true}
               textAlignVertical={'top'}
               style={[lstyle.debugTextBox, styles.inputAreaColor]}
               onChangeText={onChangeInput}
               // onKeyDown={handleKeyDown}
               value={inputText}
+              onFocus={() => {onFocus(inputRef);}}
             />
             <Picker
               selectedValue={timesEnc}

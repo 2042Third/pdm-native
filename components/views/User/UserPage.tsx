@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import { colors, styles } from "../../../assets/Style";
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from "react";
 import { getHash} from "../../handle/handlers/user";
 import { UserEnter, UserInfoGeneral } from "../../handle/types";
 import { updateUserStatus, userClearData } from "../../handle/redux/reducers/user/userinfoReducer";
@@ -123,6 +123,10 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
   const userEnter = useAppSelector(state => state.userEnter);
   const eUserEnter = useAppSelector(state => state.encryptedUserEnter);
 
+  // Keyboardshift
+  const inputRefEmail = React.createRef();
+  const inputRefPassword = React.createRef();
+  const inputRefAppPassword = React.createRef();
   /**
    * Makes the password that can be sent to server securely,
    * and signin.
@@ -197,7 +201,7 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
 
   return (
     <KeyboardShift style={[styles.mainColor]}>
-      {()=>(
+      {(onFocus)=>(
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={[styles.loginContainer, styles.mainColor, {flex:1}]}>
             {/* Alerts */}
@@ -208,6 +212,8 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
             </Text>
             {/*email*/}
             <TextInput
+              ref={inputRefEmail}
+
               value={umail}
               onChangeText={onUmail}
               placeholderTextColor={colors['--foreground-tertiary']}
@@ -217,12 +223,14 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
                   backgroundColor: isFocused1 ? colors['--background-tertiary'] : colors['--background-default']
                   ,
                 }]}
-              onFocus={() => { onFocusingHeader1(true); }}
+              onFocus={() => { onFocusingHeader1(true); onFocus(inputRefEmail);}}
               onBlur={() => { onFocusingHeader1(false); }}
+              onLayout={() => {}}
             />
 
             {/* password input */}
             <TextInput
+              ref={inputRefPassword}
               value={upw}
               onChangeText={onUpw}
               placeholderTextColor={colors['--foreground-tertiary']}
@@ -233,12 +241,14 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
                   backgroundColor: isFocused2 ? colors['--background-tertiary'] : colors['--background-default']
                   ,
                 }]}
-              onFocus={() => { onFocusingHeader2(true); }}
+              onFocus={() => { onFocusingHeader2(true); onFocus(inputRefPassword);}}
               onBlur={() => { onFocusingHeader2(false); }}
+              onLayout={() => {}}
             ></TextInput>
 
             {/* app password input */}
             <TextInput
+              ref={inputRefAppPassword}
               value={epw}
               onChangeText={onEpw}
               placeholderTextColor={colors['--foreground-tertiary']}
@@ -250,8 +260,9 @@ const UserPageSignin = ({ userInfo }: UserinfoArg )=> {
 
                 }
               ]}
-              onFocus={() => { onFocusingHeader3(true); }}
+              onFocus={() => { onFocusingHeader3(true); onFocus(inputRefAppPassword);}}
               onBlur={() => { onFocusingHeader3(false); }}
+              onLayout={() => {}}
             ></TextInput>
 
             {/* Buttons */}
