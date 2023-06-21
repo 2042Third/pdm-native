@@ -46,7 +46,7 @@ const CustomTextInput = () => {
       } else{
         // Gesture is not active but TextInput is focused
         // Delay keyboard appearance
-        runOnJS(setEditableWithDelay)(true, 100);
+        runOnJS(setEditableWithDelay)(true, 400);
       }
     }
   });
@@ -186,7 +186,9 @@ const CustomTextInput = () => {
         , { damping: 10, stiffness: 20, mass: 0.1 }
         , () => {
           // We only dismiss the keyboard after the animation has finished.
-          runOnJS(dismissKeyboard)();
+          // NOW, this is achieved through changing the "editable" prop of the TextInput
+          // console.log("[withSpring callback] dismissing keyboard, currently removed.");
+          // runOnJS(dismissKeyboard)();
         });
       isGestureActive.value = 0;
     },
