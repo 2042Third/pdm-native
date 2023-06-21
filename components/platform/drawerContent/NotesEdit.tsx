@@ -142,14 +142,14 @@ const CustomTextInput = () => {
       // console.log(`displacement: ${displacement.value}`);
       // console.log(`velocityX: ${velocityX}, translateX: ${translateX.value}`);
       // console.log(`ratio:${translateX.value / width}`);
-      console.log(`displacement ratio: ${displacement.value / width}`)
+      // console.log(`displacement ratio: ${displacement.value / width}`)
       // console.log(`Time length: ${t}`);
       // console.log(`acceleration: ${velocityX / t}`);
       // console.log(`decel time: ${tts}`);
       // console.log(`projection: ${projection}`);
       // console.log(`projection ratio: ${projection/width}`);
       // console.log(`projected displacement: ${projectedDisplacement}`);
-      console.log(`projected displacement ratio: ${projectedDisplacement/width}`);
+      // console.log(`projected displacement ratio: ${projectedDisplacement/width}`);
       const approxEndPos = translateX.value ; // where it would be in 0.01s
       const approxEndPosRelativeToWidth = approxEndPos / width;
       const approxScreen = customRound(approxEndPosRelativeToWidth, displacement.value / width);
@@ -159,8 +159,8 @@ const CustomTextInput = () => {
         approxScreen
         : projectionScreen
       ;
-      console.log(`snapScreen: ${snapScreen}`);
-      console.log(`currentScreen.value!=0 : ${Math.abs(snapScreen-currentScreen.value)>1 &&currentScreen.value!=0 && currentScreen.value!=MAX_SCREENS-1}`);
+      // console.log(`snapScreen: ${snapScreen}`);
+      // console.log(`currentScreen.value!=0 : ${Math.abs(snapScreen-currentScreen.value)>1 &&currentScreen.value!=0 && currentScreen.value!=MAX_SCREENS-1}`);
 
       if (snapScreen!=currentScreen.value ){
         if (displacement.value>=0) {
@@ -177,8 +177,8 @@ const CustomTextInput = () => {
         }
       }
 
-      console.log(`currentScreen: ${currentScreen.value}`);
-      console.log(`snapScreen: ${snapScreen}`);
+      // console.log(`currentScreen: ${currentScreen.value}`);
+      // console.log(`snapScreen: ${snapScreen}`);
       currentScreen.value = snapScreen;
       const snapPoint = snapScreen*width;
 
