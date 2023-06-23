@@ -132,7 +132,7 @@ const Nav = (props: {Drawer: TypedNavigator<any, any, any, any, any>, Tab: any})
             tabBarItemStyle: styles.drawerItemStyle,
             tabBarInactiveTintColor: colors['--foreground-default'],
             tabBarType: window.width >= 768 ? 'permanent' : 'slide',
-            tabBarHideOnKeyboard: true,
+            tabBarHideOnKeyboard: false,
             // defaultStatus: window.width >= 768 ? 'open' : 'closed',
             swipeMinDistance: window.width/7,
             swipeEdgeWidth: window.width,
