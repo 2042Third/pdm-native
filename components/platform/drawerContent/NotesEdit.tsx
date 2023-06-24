@@ -1,6 +1,6 @@
 
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Dimensions, View, Keyboard, Text, SafeAreaView, Platform, KeyboardAvoidingView } from "react-native";
 import { PanGestureHandler, TextInput } from "react-native-gesture-handler";
 import Animated, {
@@ -18,15 +18,21 @@ const CustomTextInput = () => {
   const velocity = useSharedValue(0);
   const isGestureActive = useSharedValue(0);
   const snapThreshold = 0.45;
-  const initialDirection = useSharedValue('none'); // 'none', 'horizontal', 'vertical'
+  const [initialDirection, setInitialDirection] = useState('none'); // 'none', 'horizontal', 'vertical'
+  // const initialDirection = useSharedValue('none'); // 'none', 'horizontal', 'vertical'
   const [editable, setEditable] = useState(true);
   const MAX_SCREENS = 3;
   const currentScreen = useSharedValue(0);
+  // Refs for waitFor
+  const input1Ref = useRef(null);
+  const input2Ref = useRef(null);
+  const input3Ref = useRef(null);
 
 
   const setEditableWithDelay = (value:boolean, delay:number) => {
     setTimeout(() => {
       setEditable(value);
+      console.log("Editability changed to " + value + " after " + delay + "ms");
     }, delay);
   };
 
@@ -37,6 +43,7 @@ const CustomTextInput = () => {
   useAnimatedReaction(() => {
     return { isGestureActive: isGestureActive.value };
   }, (current, previous) => {
+    console.log("Gesture active callback");
     if (previous) {
       if (current.isGestureActive === 1) {
         // Gesture is active, dismiss the keyboard
@@ -83,7 +90,8 @@ const CustomTextInput = () => {
     onStart: (_, ctx) => {
       ctx.startX = translateX.value;
       ctx.velocityX = velocity.value;
-      initialDirection.value = 'none';
+      runOnJS(setInitialDirection)('none');
+      // initialDirection.value = 'none';
       displacement.value = 0;
     },
     onActive: (event, ctx) => {
@@ -93,20 +101,17 @@ const CustomTextInput = () => {
       velocity.value = event.velocityX;
 
       // Check if we've set an initial direction yet
-      if (initialDirection.value === 'none') {
+      if (initialDirection === 'none') {
         // Calculate the ratio of the absolute x/y translation
         // to determine the general direction
         const ratio = Math.abs(event.translationX) / Math.abs(event.translationY);
         if (ratio > 1) {
-          initialDirection.value = 'horizontal';
+          runOnJS(setInitialDirection)('horizontal');
+          // initialDirection.value = 'horizontal';
         } else {
-          initialDirection.value = 'vertical';
+          runOnJS(setInitialDirection)('vertical');
+          // initialDirection.value = 'vertical';
         }
-      }
-
-      // If we're moving horizontally and there's vertical input, ignore it
-      if (initialDirection.value === 'horizontal' && event.translationY !== 0) {
-        event.translationY = 0;
       }
     },
     onEnd: ({ velocityX }) => {
@@ -116,7 +121,7 @@ const CustomTextInput = () => {
       const tts = Math.abs(velocityX / decel);
       const projection = (translateX.value + decel*tts * tts);
       const projectedDisplacement = (displacement.value + decel*tts * tts);
-      // console.log('........................................................................');
+      console.log('........................................................................');
       // console.log(`Width: ${width}`);
       // console.log(`displacement: ${displacement.value}`);
       // console.log(`velocityX: ${velocityX}, translateX: ${translateX.value}`);
@@ -170,6 +175,8 @@ const CustomTextInput = () => {
           // runOnJS(dismissKeyboard)();
         });
       isGestureActive.value = 0;
+      runOnJS(setInitialDirection)('none');
+      // initialDirection.value = 'none';
     },
   });
 
@@ -184,6 +191,7 @@ const CustomTextInput = () => {
   return (
     <PanGestureHandler
       onGestureEvent={gestureHandler}
+      waitFor={[input1Ref, input2Ref, input3Ref]}
     >
       <Animated.View style={style}>
         {/* Your TextInputs */}
@@ -209,6 +217,16 @@ const CustomTextInput = () => {
           >
             <SafeAreaView style={{ flex: 1 }}>
               <TextInput
+                ref={input1Ref}
+                multiline={true}
+                style={[
+                  { flex:1, padding: 10, color: 'black', backgroundColor: 'gray'},
+                ]}
+                placeholder="2 Type here..."
+                editable={editable }
+              />
+              <TextInput
+                ref={input2Ref}
                 multiline={true}
                 style={[
                   { flex:1, padding: 10, color: 'black', backgroundColor: 'gray'},
@@ -221,11 +239,11 @@ const CustomTextInput = () => {
         {/*</View>*/}
         <View style={[{width, height:'100%'}]}>
           <TextInput
+            ref={input3Ref}
             multiline={true}
             style={[
               { height:'100%', padding: 10, color: 'black', backgroundColor: 'gray', margin: 20},]}
             placeholder="3 Type here..."
-            scrollEnabled={initialDirection.value === 'vertical'}
             editable={editable}
           />
         </View>
