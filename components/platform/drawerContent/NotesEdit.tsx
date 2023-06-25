@@ -10,7 +10,7 @@ import Animated, {
   withSpring, useAnimatedReaction, runOnJS
 } from "react-native-reanimated";
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const CustomTextInput = () => {
   const translateX = useSharedValue(0);
@@ -27,7 +27,13 @@ const CustomTextInput = () => {
   const [isScrolling, setIsScrolling] = useState(false);
   const scrollViewRef = useRef(null);
 
-  // ...
+  const [scrollViewHeight, setScrollViewHeight] = useState(0);
+
+  const handleScrollViewLayout = event => {
+    const { height } = event.nativeEvent.layout;
+    setScrollViewHeight(height);
+  };
+
 
   const handleScroll = () => {
     // If the ScrollView starts scrolling, we disable the TextInput
@@ -262,30 +268,33 @@ const CustomTextInput = () => {
         {/*    editable={editable}*/}
         {/*  />*/}
         {/*</View>*/}
-        <ScrollView
-          style={{width, height:'100%'}}
-          ref={scrollViewRef}
-          onScroll={handleScroll}
-          onScrollEndDrag={handleScrollEnd}
-          scrollEventThrottle={16}
-        >
+
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={{ width,height:'100%', padding: 10, backgroundColor: 'gray', margin: 20 }}
+            style={{ width, height:'100%', padding: 20 }}
           >
             <SafeAreaView style={{ flex: 1 }}>
 
+              <ScrollView
+                onLayout={handleScrollViewLayout}
+                style={{ height:'100%' , backgroundColor: 'gray'}}
+                ref={scrollViewRef}
+                onScroll={handleScroll}
+                onScrollEndDrag={handleScrollEnd}
+                scrollEventThrottle={16}
+              >
               <TextInput
                 multiline={true}
                 style={[
-                  { flex:1, padding: 10, color: 'black', backgroundColor: 'gray'},
+                  { height:'100%' , padding: 10, color: 'black', backgroundColor: 'gray', minHeight: scrollViewHeight}, // Use the window height as a minimum height
                 ]}
                 placeholder="3 Type here..."
                 editable={editable}
+                scrollEnabled={false}
               />
+              </ScrollView>
             </SafeAreaView>
           </KeyboardAvoidingView>
-        </ScrollView>
 
       </Animated.View>
     </PanGestureHandler>
