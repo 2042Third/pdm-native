@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import { Dimensions, View, Keyboard, Text, SafeAreaView, Platform, KeyboardAvoidingView } from "react-native";
-import { PanGestureHandler, TextInput } from "react-native-gesture-handler";
+import { PanGestureHandler, ScrollView, TextInput } from "react-native-gesture-handler";
 import Animated, {
   useSharedValue,
   useAnimatedGestureHandler,
@@ -23,11 +23,29 @@ const CustomTextInput = () => {
   const [editable, setEditable] = useState(true);
   const MAX_SCREENS = 3;
   const currentScreen = useSharedValue(0);
-  // Refs for waitFor
-  const input1Ref = useRef(null);
-  const input2Ref = useRef(null);
-  const input3Ref = useRef(null);
 
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollViewRef = useRef(null);
+
+  // ...
+
+  const handleScroll = () => {
+    // If the ScrollView starts scrolling, we disable the TextInput
+    if (!isScrolling) {
+      setIsScrolling(true);
+      setEditable(false);
+    }
+  }
+
+  const handleScrollEnd = () => {
+    // Once the ScrollView stops scrolling, we delay the re-enabling of the TextInput
+    if (isScrolling) {
+      setIsScrolling(false);
+      setTimeout(() => {
+        setEditable(true);
+      }, 400);
+    }
+  }
 
   const setEditableWithDelay = (value:boolean, delay:number) => {
     setTimeout(() => {
@@ -183,6 +201,7 @@ const CustomTextInput = () => {
   const style = useAnimatedStyle(() => {
     return {
       flexDirection: 'row',
+      height: '100%',
       width: width * 3, // for 3 TextInputs
       transform: [{ translateX: translateX.value }],
     };
@@ -191,7 +210,6 @@ const CustomTextInput = () => {
   return (
     <PanGestureHandler
       onGestureEvent={gestureHandler}
-      waitFor={[input1Ref, input2Ref, input3Ref]}
     >
       <Animated.View style={style}>
         {/* Your TextInputs */}
@@ -213,11 +231,10 @@ const CustomTextInput = () => {
         {/*<View style={[{width, height:'100%'}]}>*/}
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={{ flex: 1, margin: 20 }}
+            style={{ width, height:'100%', padding: 20 }}
           >
             <SafeAreaView style={{ flex: 1 }}>
               <TextInput
-                ref={input1Ref}
                 multiline={true}
                 style={[
                   { flex:1, padding: 10, color: 'black', backgroundColor: 'gray'},
@@ -226,7 +243,6 @@ const CustomTextInput = () => {
                 editable={editable }
               />
               <TextInput
-                ref={input2Ref}
                 multiline={true}
                 style={[
                   { flex:1, padding: 10, color: 'black', backgroundColor: 'gray'},
@@ -237,16 +253,40 @@ const CustomTextInput = () => {
             </SafeAreaView>
           </KeyboardAvoidingView>
         {/*</View>*/}
-        <View style={[{width, height:'100%'}]}>
-          <TextInput
-            ref={input3Ref}
-            multiline={true}
-            style={[
-              { height:'100%', padding: 10, color: 'black', backgroundColor: 'gray', margin: 20},]}
-            placeholder="3 Type here..."
-            editable={editable}
-          />
-        </View>
+        {/*<View style={[{width, height:'100%'}]}>*/}
+        {/*  <TextInput*/}
+        {/*    multiline={true}*/}
+        {/*    style={[*/}
+        {/*      { height:'100%', padding: 10, color: 'black', backgroundColor: 'gray', margin: 20},]}*/}
+        {/*    placeholder="3 Type here..."*/}
+        {/*    editable={editable}*/}
+        {/*  />*/}
+        {/*</View>*/}
+        <ScrollView
+          style={{width, height:'100%'}}
+          ref={scrollViewRef}
+          onScroll={handleScroll}
+          onScrollEndDrag={handleScrollEnd}
+          scrollEventThrottle={16}
+        >
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={{ width,height:'100%', padding: 10, backgroundColor: 'gray', margin: 20 }}
+          >
+            <SafeAreaView style={{ flex: 1 }}>
+
+              <TextInput
+                multiline={true}
+                style={[
+                  { flex:1, padding: 10, color: 'black', backgroundColor: 'gray'},
+                ]}
+                placeholder="3 Type here..."
+                editable={editable}
+              />
+            </SafeAreaView>
+          </KeyboardAvoidingView>
+        </ScrollView>
+
       </Animated.View>
     </PanGestureHandler>
   );
