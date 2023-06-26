@@ -1,6 +1,6 @@
 
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, View, Keyboard, Text, SafeAreaView, Platform, KeyboardAvoidingView } from "react-native";
 import { PanGestureHandler, ScrollView, TextInput } from "react-native-gesture-handler";
 import Animated, {
@@ -9,10 +9,16 @@ import Animated, {
   useAnimatedStyle,
   withSpring, useAnimatedReaction, runOnJS
 } from "react-native-reanimated";
-
+import NotesMenuEditor from "../../views/Notes/NotesMenuEditor";
+import { colors, styles } from "../../../assets/Style";
+import { NotesMsg } from "../../handle/types";
+import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
+import { userInfoStatus } from "../../handle/redux/selectors/selectorNoteHeads";
+import { dispatch } from "react-native-navigation-drawer-extension/lib/events";
 const { width, height } = Dimensions.get('window');
+import { updateEditsContent, updateEditsHead, updateNote } from '../../handle/redux/reducers/notes/noteEditor';
 
-const CustomTextInput = () => {
+const NotesCustomEditor = () => {
   const translateX = useSharedValue(0);
   const displacement = useSharedValue(0);
   const velocity = useSharedValue(0);
@@ -28,6 +34,47 @@ const CustomTextInput = () => {
   const scrollViewRef = useRef(null);
 
   const [scrollViewHeight, setScrollViewHeight] = useState(0);
+
+  const noteEditor:NotesMsg = useAppSelector(state => state.noteEditor);
+  const userStatus: string = useAppSelector(state => userInfoStatus);
+
+  const [headerValue, onChangeText] = React.useState(noteEditor.head);
+  const [noteValue, onChangeNote] = React.useState(noteEditor.content);
+  const [dirty, onDirty] = React.useState(false);
+  const [waitValue, onWaitValue] = React.useState(0);
+  const [isFocused, onFocusingHeader] = React.useState(false);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+
+    onChangeText(noteEditor.head);
+    console.log(`There is editing head, head \"${noteEditor.head}\", content: \"${noteEditor.content}\"`);
+  }, [noteEditor.head]);
+  /**
+   * Condition checkers.
+   * */
+  const shouldNotUpdateNote = () => {
+    return noteEditor.status === "fail" || noteEditor.note_id === '';
+  }
+  /**
+   * Only used in "on end edit"
+   * */
+  const onFinishedEditHead= async () => {
+    if (shouldNotUpdateNote()) {
+      return;
+    }
+    try {
+      await dispatch(updateEditsHead(headerValue));
+    }
+    catch (e) {
+      console.log("Dispatch update head failed.");
+      console.log(e);
+      return;
+    }
+
+    await dispatch(updateNote(noteValue, headerValue));
+    console.log(`Finished update dispatch head. Note obj => ${JSON.stringify(noteEditor)}`);
+  };
 
   const handleScrollViewLayout = event => {
     const { height } = event.nativeEvent.layout;
@@ -145,19 +192,6 @@ const CustomTextInput = () => {
       const tts = Math.abs(velocityX / decel);
       const projection = (translateX.value + decel*tts * tts);
       const projectedDisplacement = (displacement.value + decel*tts * tts);
-      console.log('........................................................................');
-      // console.log(`Width: ${width}`);
-      // console.log(`displacement: ${displacement.value}`);
-      // console.log(`velocityX: ${velocityX}, translateX: ${translateX.value}`);
-      // console.log(`ratio:${translateX.value / width}`);
-      // console.log(`displacement ratio: ${displacement.value / width}`)
-      // console.log(`Time length: ${t}`);
-      // console.log(`acceleration: ${velocityX / t}`);
-      // console.log(`decel time: ${tts}`);
-      // console.log(`projection: ${projection}`);
-      // console.log(`projection ratio: ${projection/width}`);
-      // console.log(`projected displacement: ${projectedDisplacement}`);
-      // console.log(`projected displacement ratio: ${projectedDisplacement/width}`);
       const approxEndPos = translateX.value ; // where it would be in 0.01s
       const approxEndPosRelativeToWidth = approxEndPos / width;
       const approxScreen = customRound(approxEndPosRelativeToWidth, displacement.value / width);
@@ -167,8 +201,6 @@ const CustomTextInput = () => {
         approxScreen
         : projectionScreen
       ;
-      // console.log(`snapScreen: ${snapScreen}`);
-      // console.log(`currentScreen.value!=0 : ${Math.abs(snapScreen-currentScreen.value)>1 &&currentScreen.value!=0 && currentScreen.value!=MAX_SCREENS-1}`);
 
       if (snapScreen!=currentScreen.value ){
         if (displacement.value>=0) {
@@ -185,8 +217,6 @@ const CustomTextInput = () => {
         }
       }
 
-      // console.log(`currentScreen: ${currentScreen.value}`);
-      // console.log(`snapScreen: ${snapScreen}`);
       currentScreen.value = snapScreen;
       const snapPoint = snapScreen*width;
 
@@ -218,71 +248,21 @@ const CustomTextInput = () => {
       onGestureEvent={gestureHandler}
     >
       <Animated.View style={style}>
-        {/* Your TextInputs */}
 
-        <View style={[{width, height:'100%'}]}>
-          {/*<TextInput*/}
-          {/*  multiline={true}*/}
-          {/*  style={[*/}
-          {/*    { flex:1, padding: 10, color: 'black', backgroundColor: 'gray', margin: 20},]}*/}
-          {/*  placeholder="1 Type here..."*/}
-          {/*  scrollEnabled={initialDirection.value === 'vertical'}*/}
-          {/*/>*/}
-          <Text
-            style={[
-              { flex:1, padding: 10, color: 'black', backgroundColor: 'gray', margin: 20},]}
-          >Some texts here...</Text>
-        </View>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={{ width, height:'100%', padding: 20 }}
+        >
+          <SafeAreaView style={{ flex: 1 }}>
 
-        {/*<View style={[{width, height:'100%'}]}>*/}
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={{ width, height:'100%', padding: 20 }}
-          >
-            <SafeAreaView style={{ flex: 1 }}>
-              <TextInput
-                multiline={true}
-                style={[
-                  { flex:1, padding: 10, color: 'black', backgroundColor: 'gray'},
-                ]}
-                placeholder="2 Type here..."
-                editable={editable }
-              />
-              <TextInput
-                multiline={true}
-                style={[
-                  { flex:1, padding: 10, color: 'black', backgroundColor: 'gray'},
-                ]}
-                placeholder="2 Type here..."
-                editable={editable}
-              />
-            </SafeAreaView>
-          </KeyboardAvoidingView>
-        {/*</View>*/}
-        {/*<View style={[{width, height:'100%'}]}>*/}
-        {/*  <TextInput*/}
-        {/*    multiline={true}*/}
-        {/*    style={[*/}
-        {/*      { height:'100%', padding: 10, color: 'black', backgroundColor: 'gray', margin: 20},]}*/}
-        {/*    placeholder="3 Type here..."*/}
-        {/*    editable={editable}*/}
-        {/*  />*/}
-        {/*</View>*/}
-
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={{ width, height:'100%', padding: 20 }}
-          >
-            <SafeAreaView style={{ flex: 1 }}>
-
-              <ScrollView
-                onLayout={handleScrollViewLayout}
-                style={{ height:'100%' , backgroundColor: 'gray'}}
-                ref={scrollViewRef}
-                onScroll={handleScroll}
-                onScrollEndDrag={handleScrollEnd}
-                scrollEventThrottle={16}
-              >
+            <ScrollView
+              onLayout={handleScrollViewLayout}
+              style={{ height:'100%' , backgroundColor: 'gray'}}
+              ref={scrollViewRef}
+              onScroll={handleScroll}
+              onScrollEndDrag={handleScrollEnd}
+              scrollEventThrottle={16}
+            >
               <TextInput
                 multiline={true}
                 style={[
@@ -292,13 +272,66 @@ const CustomTextInput = () => {
                 editable={editable}
                 scrollEnabled={false}
               />
-              </ScrollView>
+            </ScrollView>
+          </SafeAreaView>
+        </KeyboardAvoidingView>
+
+        <View style={[{width, height:'100%'},styles.notesBox, styles.container]}>
+
+          <NotesMenuEditor></NotesMenuEditor>
+        </View>
+
+        {/*<View style={[{width, height:'100%'}]}>*/}
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={[{ width, height:'100%', padding: 20 },styles.notesBox, styles.container]}
+          >
+            <SafeAreaView style={{ flex: 1 }}>
+              {/*<TextInput*/}
+              {/*  multiline={true}*/}
+              {/*  style={[*/}
+              {/*    { flex:1, padding: 10, color: 'black', backgroundColor: 'gray'},*/}
+              {/*  ]}*/}
+              {/*  placeholder="2 Type here..."*/}
+              {/*  editable={editable }*/}
+              {/*/>*/}
+              {/*Header Start*/}
+              <TextInput
+                style={[
+                  styles.notesHeaderStyle,
+                  styles.inputAreaColorSecond,
+                  {
+                    backgroundColor: isFocused ?
+                      colors['--background-tertiary'] : colors['--background-default'],
+                  },]}
+                onFocus={() => { onFocusingHeader(true); }}
+                onBlur={() => { onFocusingHeader(false); }}
+                onChangeText={onChangeText}
+                // onKeyPress={onStartingWrite}
+                // onEndEditing={(!isDuplicateHead)?onFinishedEditHead:noUpdate}
+                onEndEditing={onFinishedEditHead}
+                placeholder={noteEditor.head === "" || noteEditor.head === null ? "Unnamed Note " + noteEditor.note_id : noteEditor.head}
+                placeholderTextColor={colors['--foreground-tertiary']}
+                value={headerValue}
+                editable={editable }
+              />
+              {/*Header End*/}
+              <TextInput
+                multiline={true}
+                style={[
+                  { flex:1, padding: 10, color: 'black', backgroundColor: 'gray'},
+                ]}
+                placeholder="2 Type here..."
+                editable={editable}
+              />
             </SafeAreaView>
           </KeyboardAvoidingView>
+
+
 
       </Animated.View>
     </PanGestureHandler>
   );
 };
 
-export default CustomTextInput;
+export default NotesCustomEditor;

@@ -20,7 +20,7 @@ import { signinUser } from '../handle/redux/reducers/user/userinfoReducer';
 import { setUserSess } from "../handle/redux/reducers/user/userinfoEnter";
 import Icon from "../icons/Icon";
 import NotesEdit from "./drawerContent/NotesEdit";
-import CustomTextInput from "./drawerContent/NotesEdit";
+import NotesCustomEditor from "./drawerContent/NotesEdit";
 // const ChatView =  lazy(()=>import ("../views/Chat/ChatPage"));
 
 const Nav = (props: {Drawer: TypedNavigator<any, any, any, any, any>, Tab: any}) => {
@@ -161,11 +161,15 @@ const Nav = (props: {Drawer: TypedNavigator<any, any, any, any, any>, Tab: any})
           />
           < Tab.Screen
             name="Notes2"
-            component={CustomTextInput}
+            component={NotesCustomEditor}
             options={{
-              keyboardDismissMode: "none",
+              // keyboardDismissMode: "none",
+              // tabBarLabel: ()=>null,
+              // headerShown: false,
+
               tabBarLabel: ()=>null,
-              headerShown: false,
+              headerStyle: styles.drawerHeaderStyle,
+              headerTitleStyle: styles.drawerHeaderTitleStyle,
               tabBarIcon: (props: boolean|string|number)  => <Icon
                 name={'note-text-outline'}
                 {...props}
