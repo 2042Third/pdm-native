@@ -146,27 +146,25 @@ const Nav = (props: {Drawer: TypedNavigator<any, any, any, any, any>, Tab: any})
         >
           {/*############################## LEFT DRAWER ##############################*/}
           {/*Notes*/}
+
+          {/*< Tab.Screen*/}
+          {/*  name="Notes"*/}
+          {/*  component={DrawerRight}*/}
+          {/*  options={{*/}
+          {/*    keyboardDismissMode: "none",*/}
+          {/*    tabBarLabel: ()=>null,*/}
+          {/*    headerShown: false,*/}
+          {/*    tabBarIcon: (props: boolean|string|number)  => <Icon*/}
+          {/*      name={'note-text-outline'}*/}
+          {/*      {...props}*/}
+          {/*    />*/}
+          {/*  }}*/}
+          {/*/>*/}
+
           < Tab.Screen
             name="Notes"
-            component={DrawerRight}
-            options={{
-              keyboardDismissMode: "none",
-              tabBarLabel: ()=>null,
-              headerShown: false,
-              tabBarIcon: (props: boolean|string|number)  => <Icon
-                name={'note-text-outline'}
-                {...props}
-              />
-            }}
-          />
-          < Tab.Screen
-            name="Notes2"
             component={NotesCustomEditor}
             options={{
-              // keyboardDismissMode: "none",
-              // tabBarLabel: ()=>null,
-              // headerShown: false,
-
               tabBarLabel: ()=>null,
               headerStyle: styles.drawerHeaderStyle,
               headerTitleStyle: styles.drawerHeaderTitleStyle,
