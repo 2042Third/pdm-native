@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import { FlatList, Keyboard, Pressable, RefreshControl, Text } from "react-native";
+import { Button, FlatList, Keyboard, Modal, Pressable, RefreshControl, StyleSheet, Text } from "react-native";
 import { ActionSheet, View } from "react-native-ui-lib";
 
 import { colors, styles } from "../../../assets/Style";
@@ -13,6 +13,29 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { changePageOpened } from "../../handle/redux/reducers/settings/appSettings";
 import { NoteSortingTypes, updateNotesSorting } from "../../handle/redux/reducers/notes/notesMenuReducer";
 import { getSortedNotes } from "../../handle/redux/selectors/selectorNoteHeads";
+
+const buttonStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // Other styles for your container
+  },
+  fabContainer: {
+    position: 'absolute',
+    right: 20,
+    bottom: 60,
+    zIndex: 1000,
+  },
+  fabButton: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#5067FF',
+    marginBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 8,
+  },
+});
 
 const NotesMenuEditor = ({  }) => {
   const dispatch = useAppDispatch();
@@ -47,6 +70,7 @@ const NotesMenuEditor = ({  }) => {
       };
     }, [])
   );
+
 
   const onSelectNote = (key: string) => {
     navigation.navigate("NotesEdit", {});
@@ -176,30 +200,22 @@ const NotesMenuEditor = ({  }) => {
           // showCancelButton
           onDismiss={() => setSortOptionsMenu( false )}
         />
-        <TouchableOpacity
-          style={[
-            styles.lightContainerColor,
-            styles.centerTextContainer,
-          ]}
-          onPress={createNewNote}
-        >
-          <Icon style={[styles.menuButton, {color:colors['--foreground-default']}]}
-                name={'playlist-plus'} size={30}
-          />
-          <Text style={[styles.normalText]}>New Note</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.lightContainerColor,
-            styles.centerTextContainer,
-          ]}
-          onPress={onSetSortOptionMenu}
-        >
-          <Icon style={[styles.menuButton,
-            {color:colors['--foreground-default']}]}
-                name={'sort'} size={30}
-          />
-        </TouchableOpacity>
+
+
+        <View style={buttonStyles.fabContainer}>
+          <TouchableOpacity style={[buttonStyles.fabButton,{backgroundColor: '#0000ff'}]}
+                            onPress={createNewNote}
+          >
+            <Icon style={[styles.menuButton, {color:colors['--foreground-default']}]} name={'playlist-plus'} size={30} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={[buttonStyles.fabButton,{backgroundColor: colors['--background-light']}]}
+                            onPress={onSetSortOptionMenu}
+          >
+            <Icon style={[styles.menuButton, {color:colors['--foreground-default']}]} name={'sort'} size={30}/>
+          </TouchableOpacity>
+        </View>
+
         <View
           style={[{height:600}]}
         >
