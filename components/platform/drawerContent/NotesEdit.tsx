@@ -17,7 +17,12 @@ import { userInfoStatus } from "../../handle/redux/selectors/selectorNoteHeads";
 import { dispatch } from "react-native-navigation-drawer-extension/lib/events";
 const { width, height } = Dimensions.get('window');
 import { updateEditsContent, updateEditsHead, updateNote } from '../../handle/redux/reducers/notes/noteEditor';
-
+import { updateNotesHeaderInfo } from "../../handle/redux/reducers/notes/notesHeaderInfo";
+enum updateStatus{
+  AllUpdated = "Up to date",
+  Updating = "Updating...",
+  UpdateFail = "Error Updating"
+}
 const NotesCustomEditor = () => {
   const translateX = useSharedValue(0);
   const displacement = useSharedValue(0);
@@ -27,7 +32,7 @@ const NotesCustomEditor = () => {
   const [initialDirection, setInitialDirection] = useState('none'); // 'none', 'horizontal', 'vertical'
   // const initialDirection = useSharedValue('none'); // 'none', 'horizontal', 'vertical'
   const [editable, setEditable] = useState(true);
-  const MAX_SCREENS = 3;
+  const MAX_SCREENS = 2;
   const currentScreen = useSharedValue(0);
 
   const [isScrolling, setIsScrolling] = useState(false);
@@ -56,6 +61,55 @@ const NotesCustomEditor = () => {
   const shouldNotUpdateNote = () => {
     return noteEditor.status === "fail" || noteEditor.note_id === '';
   }
+
+  const onStartingWrite = () => {
+    if(!dirty){
+      onWaitValue(waitValue=>0);
+      onDirty(dirty=>true);
+      dispatch(updateNotesHeaderInfo(updateStatus.Updating));
+      console.log(`pushing value => ${waitValue}, dirty=${dirty}`);
+    }
+  }
+
+  const noUpdate = () => {
+    console.log(`No update: head=${noteEditor.head}, noteHead=${headerValue}`)
+  }
+  const noUpdateContent = () => {
+    console.log(`No update: Content=${noteEditor.content},\n noteContent=${noteValue}`)
+  }
+  /**
+   * Update operations.
+   *
+   * */
+  const onFinishedEditContent = async () => {
+    if (shouldNotUpdateNote()) {
+      return;
+    }
+    try {
+      await dispatch(updateEditsContent( noteValue))
+    }
+    catch (e) {
+      console.log("Dispatch update content failed.");
+      console.log(e);
+      return;
+    }
+
+    await dispatch(updateNote(noteValue,headerValue));
+    console.log(`Finished update dispatch content. Note obj => ${JSON.stringify(noteEditor)}`);
+  };
+
+  const isDuplicateHead = () => {
+    return headerValue === noteEditor.head;
+  }
+
+  const isDuplicateContent = () => {
+    return noteValue === noteEditor.content;
+  }
+
+  const isDuplicateAll =() => {
+    return isDuplicateContent() && isDuplicateHead();
+  }
+
   /**
    * Only used in "on end edit"
    * */
@@ -247,86 +301,58 @@ const NotesCustomEditor = () => {
     <PanGestureHandler
       onGestureEvent={gestureHandler}
     >
-      <Animated.View style={style}>
-
+      <Animated.View style={[style,]}>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={{ width, height:'100%', padding: 20 }}
+          style={[{ width, height:'100%',
+            backgroundColor: colors['--background-default'],},styles.notesBox]}
         >
           <SafeAreaView style={{ flex: 1 }}>
 
-            <ScrollView
-              onLayout={handleScrollViewLayout}
-              style={{ height:'100%' , backgroundColor: 'gray'}}
-              ref={scrollViewRef}
-              onScroll={handleScroll}
-              onScrollEndDrag={handleScrollEnd}
-              scrollEventThrottle={16}
-            >
-              <TextInput
-                multiline={true}
-                style={[
-                  { height:'100%' , padding: 10, color: 'black', backgroundColor: 'gray', minHeight: scrollViewHeight}, // Use the window height as a minimum height
-                ]}
-                placeholder="3 Type here..."
-                editable={editable}
-                scrollEnabled={false}
-              />
-            </ScrollView>
+            {/*Header Start*/}
+            <TextInput
+              style={[
+                styles.notesHeaderStyle,
+                styles.inputAreaColorSecond,
+                {
+                  backgroundColor: isFocused ? colors['--background-tertiary'] : colors['--background-default'],
+                },]}
+              onFocus={() => { onFocusingHeader(true); }}
+              onBlur={() => { onFocusingHeader(false); }}
+              onChangeText={onChangeText}
+              // onKeyPress={onStartingWrite}
+              // onEndEditing={(!isDuplicateHead)?onFinishedEditHead:noUpdate}
+              onEndEditing={onFinishedEditHead}
+              placeholder={noteEditor.head === "" || noteEditor.head === null ? "Unnamed Note " + noteEditor.note_id : noteEditor.head}
+              placeholderTextColor={colors['--foreground-tertiary']}
+              value={headerValue}
+              editable={editable }
+            />
+            {/*Header End*/}
+
+            {/*Notes Edit Start*/}
+            <TextInput
+              multiline={true}
+              scrollEnabled={true}
+              contextMenuHidden={true}
+              textAlignVertical={'top'}
+              onKeyPress={onStartingWrite}
+              style={[styles.notesEditStyle, styles.inputAreaColor]}
+              onChangeText={onChangeNote}
+              autoCorrect={false}
+              onEndEditing={(!isDuplicateContent())?onFinishedEditContent:noUpdateContent}
+              value={noteValue}
+              rejectResponderTermination={true}
+              editable={editable}
+            />
+            {/*Notes Edit End*/}
           </SafeAreaView>
         </KeyboardAvoidingView>
 
-        <View style={[{width, height:'100%'},styles.notesBox, styles.container]}>
-
+        <View style={[{ width, height:'100%',
+          backgroundColor: colors['--background-default'],},styles.notesBox]}>
           <NotesMenuEditor></NotesMenuEditor>
         </View>
-
-        {/*<View style={[{width, height:'100%'}]}>*/}
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={[{ width, height:'100%', padding: 20 },styles.notesBox, styles.container]}
-          >
-            <SafeAreaView style={{ flex: 1 }}>
-              {/*<TextInput*/}
-              {/*  multiline={true}*/}
-              {/*  style={[*/}
-              {/*    { flex:1, padding: 10, color: 'black', backgroundColor: 'gray'},*/}
-              {/*  ]}*/}
-              {/*  placeholder="2 Type here..."*/}
-              {/*  editable={editable }*/}
-              {/*/>*/}
-              {/*Header Start*/}
-              <TextInput
-                style={[
-                  styles.notesHeaderStyle,
-                  styles.inputAreaColorSecond,
-                  {
-                    backgroundColor: isFocused ?
-                      colors['--background-tertiary'] : colors['--background-default'],
-                  },]}
-                onFocus={() => { onFocusingHeader(true); }}
-                onBlur={() => { onFocusingHeader(false); }}
-                onChangeText={onChangeText}
-                // onKeyPress={onStartingWrite}
-                // onEndEditing={(!isDuplicateHead)?onFinishedEditHead:noUpdate}
-                onEndEditing={onFinishedEditHead}
-                placeholder={noteEditor.head === "" || noteEditor.head === null ? "Unnamed Note " + noteEditor.note_id : noteEditor.head}
-                placeholderTextColor={colors['--foreground-tertiary']}
-                value={headerValue}
-                editable={editable }
-              />
-              {/*Header End*/}
-              <TextInput
-                multiline={true}
-                style={[
-                  { flex:1, padding: 10, color: 'black', backgroundColor: 'gray'},
-                ]}
-                placeholder="2 Type here..."
-                editable={editable}
-              />
-            </SafeAreaView>
-          </KeyboardAvoidingView>
-
 
 
       </Animated.View>
