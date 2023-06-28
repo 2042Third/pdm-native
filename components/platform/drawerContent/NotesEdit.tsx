@@ -68,8 +68,13 @@ const NotesCustomEditor = () => {
 
   useEffect(() => {
     console.log(`Note status changed to ${noteEditor.status}`);
+    console.log(`Note status info is ${noteEditor.statusInfo}`);
     console.log(`ntype noteEditor.statusInfo is ${ noteEditor.ntype}`);
-  }, [noteEditor.statusInfo])
+    if(noteEditor.ntype === "retrieve_return" && noteEditor.statusInfo === "fulfilled"){
+      handleNavigation("first");
+      console.log(`Navigation action triggered`);
+    }
+    }, [noteEditor.statusInfo])
 
   /**
    * Condition checkers.
