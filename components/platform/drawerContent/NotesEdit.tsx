@@ -50,6 +50,9 @@ const NotesCustomEditor = () => {
   const [isFocused, onFocusingHeader] = React.useState(false);
   const dispatch = useAppDispatch();
 
+  const mainNoteTextInputRef = useRef(null);
+  const [mainInputFocused,setMainInputFocus] = useState(false);
+
   useEffect(() => {
 
     onChangeText(noteEditor.head);
@@ -75,6 +78,29 @@ const NotesCustomEditor = () => {
       console.log(`Navigation action triggered`);
     }
     }, [noteEditor.statusInfo])
+
+
+  /*
+  * Main note editor's scrollView text input touch action.
+  * **/
+  const onScrollTouch = () => {
+    console.log(`onScrollTouch called, focusing to main note text input`);
+    if (mainInputFocused) {
+      console.log(`main note text input is already focused`);
+    }
+    else {
+      console.log(`main note text input is not focused`);
+      if (mainNoteTextInputRef.current!==null && isGestureActive.value===0) {
+        mainNoteTextInputRef.current.focus();
+        setMainInputFocus(true);
+        console.log(`main note text input is focused`);
+      }
+    }
+  }
+  const mainNoteTextInputFocus = () => {
+    console.log(`mainNoteTextInputFocus called`);
+
+  }
 
   /**
    * Condition checkers.
@@ -293,10 +319,8 @@ const NotesCustomEditor = () => {
         const ratio = Math.abs(event.translationX) / Math.abs(event.translationY);
         if (ratio > 1) {
           runOnJS(setInitialDirection)('horizontal');
-          // initialDirection.value = 'horizontal';
         } else {
           runOnJS(setInitialDirection)('vertical');
-          // initialDirection.value = 'vertical';
         }
       }
     },
@@ -402,10 +426,12 @@ const NotesCustomEditor = () => {
               onScroll={handleScroll}
               onScrollEndDrag={handleScrollEnd}
               scrollEventThrottle={16}
+              onTouchEnd={()=>{onScrollTouch()}}
             >
               <TextInput
+                ref={mainNoteTextInputRef}
                 multiline={true}
-                contextMenuHidden={true}
+                contextMenuHidden={false}
                 textAlignVertical={'top'}
                 onKeyPress={onStartingWrite}
                 style={[ styles.inputAreaColor]}
@@ -415,6 +441,8 @@ const NotesCustomEditor = () => {
                 value={noteValue}
                 editable={editable}
                 scrollEnabled={false}
+                onFocus={()=>{mainNoteTextInputFocus()}}
+                onBlur={()=>{setMainInputFocus(false)}}
               />
             </ScrollView>
             {/*Notes Edit End*/}
