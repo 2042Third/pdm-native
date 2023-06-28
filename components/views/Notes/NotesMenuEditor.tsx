@@ -96,7 +96,8 @@ const NotesMenuEditor = ({ isGestureActive }:NotesMenuEditorT) => {
 
   const onLongPressNote = (key: string) => {
     console.log(`Long press note item ${key}`);
-    setSelectedNote(key);
+    setSelectedNote(key.toString());
+    console.log(`Set note item ${selectedNote} as selected`);
     setNoteOptionsMenu(true);
   };
 
