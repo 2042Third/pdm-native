@@ -37,7 +37,11 @@ const buttonStyles = StyleSheet.create({
   },
 });
 
-const NotesMenuEditor = ({  }) => {
+class NotesMenuEditorT {
+  isGestureActive: number = 0;
+}
+
+const NotesMenuEditor = ({ isGestureActive }:NotesMenuEditorT) => {
   const dispatch = useAppDispatch();
   const userinfo = useAppSelector(state => state.userinfo);
   const user = useAppSelector(state => state.userEnter);
@@ -73,7 +77,11 @@ const NotesMenuEditor = ({  }) => {
 
 
   const onSelectNote = (key: string) => {
-    navigation.navigate("NotesEdit", {});
+    if(isGestureActive === 1 ){
+      console.log(`Selected note item ${key}, but gesture is active`);
+      return;
+    }
+    console.log(`Selected note item ${key}, and gesture is ${isGestureActive}`);
     const selectedHead = selectNoteByKey(noteHead, key);
     console.log(JSON.stringify(selectedHead));
     dispatch(getNote({ user: user, note_id: selectedHead.note_id }));

@@ -6,12 +6,6 @@ import SettingView from '../views/Settings/SettingPage';
 import { NavigationContainer, TypedNavigator } from "@react-navigation/native";
 // import * as React from 'react';
 import {useWindowDimensions,  } from "react-native";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {
-  DrawerToggleButton,
-} from "@react-navigation/drawer";
-import CustomDrawerContent from './drawerContent/DrawerContentLeft';
-import DrawerRight from './DrawerRight';
 import { useAppDispatch, useAppSelector } from '../handle/redux/hooks';
 import EnterModalOne from '../views/overlays/modalEnterOne';
 import { useEffect } from 'react';
@@ -19,13 +13,10 @@ import { UserEnter } from '../handle/types';
 import { signinUser } from '../handle/redux/reducers/user/userinfoReducer';
 import { setUserSess } from "../handle/redux/reducers/user/userinfoEnter";
 import Icon from "../icons/Icon";
-import NotesEdit from "./drawerContent/NotesEdit";
 import NotesCustomEditor from "./drawerContent/NotesEdit";
-// const ChatView =  lazy(()=>import ("../views/Chat/ChatPage"));
 
 const Nav = (props: {Drawer: TypedNavigator<any, any, any, any, any>, Tab: any}) => {
   const window = useWindowDimensions();
-  const Drawer = props.Drawer;
   const Tab = props.Tab;
 
   const currentPageOpened = useAppSelector(state => state.appSettings);
@@ -165,9 +156,12 @@ const Nav = (props: {Drawer: TypedNavigator<any, any, any, any, any>, Tab: any})
             name="Notes"
             component={NotesCustomEditor}
             options={{
-              tabBarLabel: ()=>null,
-              headerStyle: styles.drawerHeaderStyle,
-              headerTitleStyle: styles.drawerHeaderTitleStyle,
+                keyboardDismissMode: "none",
+                tabBarLabel: ()=>null,
+                headerShown: false,
+              // tabBarLabel: ()=>null,
+              // headerStyle: styles.drawerHeaderStyle,
+              // headerTitleStyle: styles.drawerHeaderTitleStyle,
               tabBarIcon: (props: boolean|string|number)  => <Icon
                 name={'note-text-outline'}
                 {...props}

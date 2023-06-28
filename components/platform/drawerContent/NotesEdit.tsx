@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, View, Keyboard, Text, SafeAreaView, Platform, KeyboardAvoidingView } from "react-native";
-import { PanGestureHandler, ScrollView, TextInput } from "react-native-gesture-handler";
+import { PanGestureHandler, ScrollView, TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import Animated, {
   useSharedValue,
   useAnimatedGestureHandler,
@@ -55,6 +55,16 @@ const NotesCustomEditor = () => {
     onChangeText(noteEditor.head);
     console.log(`There is editing head, head \"${noteEditor.head}\", content: \"${noteEditor.content}\"`);
   }, [noteEditor.head]);
+
+  /**
+   * When receiving from the web
+   *
+   * */
+  useEffect(() => {
+    onChangeNote(noteEditor.content);
+    console.log(`There is editing content, head \"${noteEditor.head}\", content: \"${noteEditor.content}\"`);
+  }, [noteEditor.content]);
+
   /**
    * Condition checkers.
    * */
@@ -70,6 +80,7 @@ const NotesCustomEditor = () => {
       console.log(`pushing value => ${waitValue}, dirty=${dirty}`);
     }
   }
+
 
   const noUpdate = () => {
     console.log(`No update: head=${noteEditor.head}, noteHead=${headerValue}`)
@@ -153,6 +164,47 @@ const NotesCustomEditor = () => {
       }, 400);
     }
   }
+
+  /**
+   * Navigation function that move the screen the position of snapPoint.
+   * */
+  const navigateTo = (snapPoint:number) => {
+    'worklet';
+
+    translateX.value = withSpring(snapPoint, { damping: 10, stiffness: 20, mass: 0.1 }, () => {
+      console.log("[withSpring callback] snapping point achieved");
+    });
+  };
+
+  /**
+   * Handle navigation to a screen.
+   * */
+  const handleNavigation = (destination:string) => {
+    let snapPoint;
+
+    // Define snapPoints according to your screens, e.g.:
+    switch(destination) {
+      case 'first':
+        currentScreen.value = 0;
+        snapPoint = 0;
+        break;
+      case 'second':
+        currentScreen.value = 1;
+        snapPoint = -width;
+        break;
+      case 'third':
+        currentScreen.value = 2;
+        snapPoint = -width*2;
+        break;
+      default:
+        currentScreen.value = 0;
+        snapPoint = 0;
+        break;
+    }
+
+    runOnJS(navigateTo)(snapPoint);
+  }
+
 
   const setEditableWithDelay = (value:boolean, delay:number) => {
     setTimeout(() => {
@@ -256,7 +308,7 @@ const NotesCustomEditor = () => {
         : projectionScreen
       ;
 
-      if (snapScreen!=currentScreen.value ){
+      if (snapScreen!=currentScreen.value ){ // Just making sure no weird stuff.
         if (displacement.value>=0) {
           if (currentScreen.value===0)
             snapScreen = 0;
@@ -328,30 +380,43 @@ const NotesCustomEditor = () => {
               value={headerValue}
               editable={editable }
             />
+
             {/*Header End*/}
 
             {/*Notes Edit Start*/}
-            <TextInput
-              multiline={true}
-              scrollEnabled={true}
-              contextMenuHidden={true}
-              textAlignVertical={'top'}
-              onKeyPress={onStartingWrite}
-              style={[styles.notesEditStyle, styles.inputAreaColor]}
-              onChangeText={onChangeNote}
-              autoCorrect={false}
-              onEndEditing={(!isDuplicateContent())?onFinishedEditContent:noUpdateContent}
-              value={noteValue}
-              rejectResponderTermination={true}
-              editable={editable}
-            />
+
+
+            <ScrollView
+              onLayout={handleScrollViewLayout}
+              style={[{ height:'100%' , backgroundColor: 'gray'},styles.notesEditStyle, styles.inputAreaColor]}
+              ref={scrollViewRef}
+              onScroll={handleScroll}
+              onScrollEndDrag={handleScrollEnd}
+              scrollEventThrottle={16}
+            >
+              <TextInput
+                multiline={true}
+                contextMenuHidden={true}
+                textAlignVertical={'top'}
+                onKeyPress={onStartingWrite}
+                style={[ styles.inputAreaColor]}
+                onChangeText={onChangeNote}
+                autoCorrect={false}
+                onEndEditing={(!isDuplicateContent())?onFinishedEditContent:noUpdateContent}
+                value={noteValue}
+                editable={editable}
+                scrollEnabled={false}
+              />
+            </ScrollView>
             {/*Notes Edit End*/}
           </SafeAreaView>
         </KeyboardAvoidingView>
 
         <View style={[{ width, height:'100%',
           backgroundColor: colors['--background-default'],},styles.notesBox]}>
-          <NotesMenuEditor></NotesMenuEditor>
+          <SafeAreaView style={{ flex: 1 }}>
+            <NotesMenuEditor isGestureActive={isGestureActive.value} ></NotesMenuEditor>
+          </SafeAreaView>
         </View>
 
 

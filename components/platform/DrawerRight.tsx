@@ -8,7 +8,9 @@ import NotesHeader from "./drawerContent/notes/NotesHeader";
 import { useAppSelector } from "../handle/redux/hooks";
 
 const DrawerRightMenu = createDrawerNavigator();
-
+/**
+ * Deprecated, currently only used for reference.
+ * */
 const DrawerRight = ({ navigation }) => {
   const window = useWindowDimensions();
   const header = useAppSelector(state => state.notesHeaderInfo);
