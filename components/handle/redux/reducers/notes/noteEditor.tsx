@@ -204,10 +204,25 @@ export const NoteEditorSlice = createSlice({
   extraReducers(builder) { // pending/fulfilled/rejected
     builder
 
-      // Get Note
-      .addCase(getNote.fulfilled, (state, action) => {
-        return action.payload;
-      })
+    // Get Note
+    .addCase(getNote.fulfilled, (state, action) => {
+      return {
+        ...action.payload,
+        statusInfo: "fulfilled",
+      }
+    })
+    .addCase(getNote.pending, (state, action) => {  // pending/fulfilled/rejected
+      return {
+        ...state,
+        statusInfo: "pending"
+      }
+    })
+    .addCase(getNote.rejected, (state, action) => {
+      return {
+        ...state,
+        statusInfo: "rejected"
+      }
+    })
 
       // // Update Note
       // .addCase(updateNote.pending, (state, action)=>{

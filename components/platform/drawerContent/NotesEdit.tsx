@@ -65,6 +65,12 @@ const NotesCustomEditor = () => {
     console.log(`There is editing content, head \"${noteEditor.head}\", content: \"${noteEditor.content}\"`);
   }, [noteEditor.content]);
 
+
+  useEffect(() => {
+    console.log(`Note status changed to ${noteEditor.status}`);
+    console.log(`ntype noteEditor.statusInfo is ${ noteEditor.ntype}`);
+  }, [noteEditor.statusInfo])
+
   /**
    * Condition checkers.
    * */
@@ -209,7 +215,6 @@ const NotesCustomEditor = () => {
   const setEditableWithDelay = (value:boolean, delay:number) => {
     setTimeout(() => {
       setEditable(value);
-      console.log("Editability changed to " + value + " after " + delay + "ms");
     }, delay);
   };
 
@@ -220,7 +225,6 @@ const NotesCustomEditor = () => {
   useAnimatedReaction(() => {
     return { isGestureActive: isGestureActive.value };
   }, (current, previous) => {
-    console.log("Gesture active callback");
     if (previous) {
       if (current.isGestureActive === 1) {
         // Gesture is active, dismiss the keyboard

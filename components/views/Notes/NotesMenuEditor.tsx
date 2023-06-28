@@ -81,7 +81,6 @@ const NotesMenuEditor = ({ isGestureActive }:NotesMenuEditorT) => {
       console.log(`Selected note item ${key}, but gesture is active`);
       return;
     }
-    console.log(`Selected note item ${key}, and gesture is ${isGestureActive}`);
     const selectedHead = selectNoteByKey(noteHead, key);
     console.log(JSON.stringify(selectedHead));
     dispatch(getNote({ user: user, note_id: selectedHead.note_id }));
@@ -95,9 +94,7 @@ const NotesMenuEditor = ({ isGestureActive }:NotesMenuEditorT) => {
   };
 
   const onLongPressNote = (key: string) => {
-    console.log(`Long press note item ${key}`);
     setSelectedNote(key.toString());
-    console.log(`Set note item ${selectedNote} as selected`);
     setNoteOptionsMenu(true);
   };
 
