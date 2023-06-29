@@ -39,9 +39,18 @@ const buttonStyles = StyleSheet.create({
 
 class NotesMenuEditorT {
   isGestureActive: number = 0;
+  isAnimationActive: number =0;
+  translationX: number = 0;
+  displacementX: number = 0;
+  velocityX: number = 0;
 }
 
-const NotesMenuEditor = ({ isGestureActive }:NotesMenuEditorT) => {
+const NotesMenuEditor = ({ isGestureActive
+                           ,isAnimationActive
+                           ,translationX
+                           ,displacementX
+                           ,velocityX
+                         }:NotesMenuEditorT) => {
   const dispatch = useAppDispatch();
   const userinfo = useAppSelector(state => state.userinfo);
   const user = useAppSelector(state => state.userEnter);
@@ -81,6 +90,14 @@ const NotesMenuEditor = ({ isGestureActive }:NotesMenuEditorT) => {
       console.log(`Selected note item ${key}, but gesture is active`);
       return;
     }
+    console.log(`Selected note item ${key}, gesture is not active: ${isGestureActive}`);
+
+    console.log(`Selected note's list position information:`);
+    console.log(`Selected note's translationX: ${translationX}`);
+    console.log(`Selected note's displacementX: ${displacementX}`);
+    console.log(`Selected note's velocityX: ${velocityX}`);
+    console.log(`Selected note's isAnimationActive: ${isAnimationActive}`);
+
     const selectedHead = selectNoteByKey(noteHead, key);
     console.log(JSON.stringify(selectedHead));
     dispatch(getNote({ user: user, note_id: selectedHead.note_id }));

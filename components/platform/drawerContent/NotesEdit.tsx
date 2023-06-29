@@ -34,7 +34,7 @@ const NotesCustomEditor = () => {
   const [editable, setEditable] = useState(true);
   const MAX_SCREENS = 2;
   const currentScreen = useSharedValue(0);
-
+  const [isAnimationActive, setIsAnimationActive] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
   const scrollViewRef = useRef(null);
 
@@ -80,6 +80,23 @@ const NotesCustomEditor = () => {
     }, [noteEditor.statusInfo])
 
 
+  useAnimatedReaction(
+    () => translateX.value,
+    (data, prevData) => {
+      if (data !== prevData) {
+        if (isAnimationActive !== 1) {
+          runOnJS(setIsAnimationActive)(1);
+          console.log("[Selected] Start Animation");
+        }
+      } else {
+        if (isAnimationActive === 1) {
+          runOnJS(setIsAnimationActive)(0);
+          console.log("[Selected] End Animation");
+        }
+      }
+    }
+  );
+
   /*
   * Main note editor's scrollView text input touch action.
   * **/
@@ -90,7 +107,10 @@ const NotesCustomEditor = () => {
     }
     else {
       console.log(`main note text input is not focused`);
-      if (mainNoteTextInputRef.current!==null && isGestureActive.value===0) {
+      if (mainNoteTextInputRef.current!==null
+        && isGestureActive.value===0
+        && velocity.value ===0
+      ) {
         mainNoteTextInputRef.current.focus();
         setMainInputFocus(true);
         console.log(`main note text input is focused`);
@@ -366,10 +386,12 @@ const NotesCustomEditor = () => {
           // NOW, this is achieved through changing the "editable" prop of the TextInput
           // console.log("[withSpring callback] dismissing keyboard, currently removed.");
           // runOnJS(dismissKeyboard)();
+
+
         });
       isGestureActive.value = 0;
       runOnJS(setInitialDirection)('none');
-      // initialDirection.value = 'none';
+
     },
   });
 
@@ -452,7 +474,13 @@ const NotesCustomEditor = () => {
         <View style={[{ width, height:'100%',
           backgroundColor: colors['--background-default'],},styles.notesBox]}>
           <SafeAreaView style={{ flex: 1 }}>
-            <NotesMenuEditor isGestureActive={isGestureActive.value} ></NotesMenuEditor>
+            <NotesMenuEditor
+              isGestureActive={isGestureActive.value}
+              isAnimationActive={isAnimationActive}
+              translationX={translateX.value}
+              velocityX={velocity.value}
+              displacementX={displacement.value}
+            ></NotesMenuEditor>
           </SafeAreaView>
         </View>
 
