@@ -240,7 +240,7 @@ const NotesMenuEditor = ({ isGestureActive
         </View>
 
         <View
-          style={[{height:600}]}
+          style={[{height:'100%'}]}
         >
           <FlatList
             data={noteids}
