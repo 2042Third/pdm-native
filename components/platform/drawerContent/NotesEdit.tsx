@@ -18,6 +18,7 @@ import { dispatch } from "react-native-navigation-drawer-extension/lib/events";
 const { width, height } = Dimensions.get('window');
 import { updateEditsContent, updateEditsHead, updateNote } from '../../handle/redux/reducers/notes/noteEditor';
 import { updateNotesHeaderInfo } from "../../handle/redux/reducers/notes/notesHeaderInfo";
+import { currentNotePage } from "../../handle/redux/reducers/notes/notesMenuReducer";
 enum updateStatus{
   AllUpdated = "Up to date",
   Updating = "Updating...",
@@ -41,7 +42,7 @@ const NotesCustomEditor = () => {
   const [scrollViewHeight, setScrollViewHeight] = useState(0);
 
   const noteEditor:NotesMsg = useAppSelector(state => state.noteEditor);
-  const userStatus: string = useAppSelector(state => userInfoStatus);
+  const noteMenu = useAppSelector(state => state.notesMenu);
 
   const [headerValue, onChangeText] = React.useState(noteEditor.head);
   const [noteValue, onChangeNote] = React.useState(noteEditor.content);
@@ -77,25 +78,36 @@ const NotesCustomEditor = () => {
       handleNavigation("first");
       console.log(`Navigation action triggered`);
     }
-    }, [noteEditor.statusInfo])
+    }, [noteEditor.statusInfo]);
+
+  useEffect(() => {
+    console.log(`[useEffect->noteMenu.currentNotePage]  currentNotePage = ${noteMenu.currentNotePage}`);
+  }, [noteMenu.currentNotePage]);
 
 
-  useAnimatedReaction(
-    () => translateX.value,
-    (data, prevData) => {
-      if (data !== prevData) {
-        if (isAnimationActive !== 1) {
-          runOnJS(setIsAnimationActive)(1);
-          console.log("[Selected] Start Animation");
-        }
-      } else {
-        if (isAnimationActive === 1) {
-          runOnJS(setIsAnimationActive)(0);
-          console.log("[Selected] End Animation");
-        }
-      }
-    }
-  );
+  // useAnimatedReaction(
+  //   () => translateX.value,
+  //   (data, prevData) => {
+  //     if (data !== prevData) {
+  //       if (isAnimationActive !== 1) {
+  //         runOnJS(setIsAnimationActive)(1);
+  //         console.log("[Selected] Start Animation");
+  //       }
+  //     } else {
+  //       if (isAnimationActive === 1) {
+  //         runOnJS(setIsAnimationActive)(0);
+  //         console.log("[Selected] End Animation");
+  //       }
+  //     }
+  //   }
+  // );
+
+  /**
+   * Sets the index of the current screen in redux; it doesn't change the screen.
+   * */
+  const setCurrentScreen = (index:number ) => {
+    dispatch(currentNotePage(index));
+  }
 
   /*
   * Main note editor's scrollView text input touch action.
@@ -228,7 +240,9 @@ const NotesCustomEditor = () => {
   const navigateTo = (snapPoint:number) => {
     'worklet';
 
-    translateX.value = withSpring(snapPoint, { damping: 10, stiffness: 20, mass: 0.1 }, () => {
+    translateX.value = withSpring(snapPoint, { damping: 10, stiffness: 20, mass: 0.1 }
+      , () => {
+      runOnJS(setIsAnimationActive)(0);
       console.log("[withSpring callback] snapping point achieved");
     });
   };
@@ -376,19 +390,14 @@ const NotesCustomEditor = () => {
         }
       }
 
+      if (isAnimationActive !== 1) {
+        runOnJS(setIsAnimationActive)(1);
+        console.log("[Selected] Start Animation");
+      }
       currentScreen.value = snapScreen;
+      runOnJS(setCurrentScreen)(snapScreen);
       const snapPoint = snapScreen*width;
-
-      translateX.value = withSpring(snapPoint
-        , { damping: 10, stiffness: 20, mass: 0.1 }
-        , () => {
-          // We only dismiss the keyboard after the animation has finished.
-          // NOW, this is achieved through changing the "editable" prop of the TextInput
-          // console.log("[withSpring callback] dismissing keyboard, currently removed.");
-          // runOnJS(dismissKeyboard)();
-
-
-        });
+      navigateTo(snapPoint);
       isGestureActive.value = 0;
       runOnJS(setInitialDirection)('none');
 
@@ -439,8 +448,6 @@ const NotesCustomEditor = () => {
             {/*Header End*/}
 
             {/*Notes Edit Start*/}
-
-
             <ScrollView
               onLayout={handleScrollViewLayout}
               style={[{ height:'100%' , backgroundColor: 'gray'},styles.notesEditStyle, styles.inputAreaColor]}

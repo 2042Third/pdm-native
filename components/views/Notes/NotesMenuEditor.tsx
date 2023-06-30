@@ -86,7 +86,7 @@ const NotesMenuEditor = ({ isGestureActive
 
 
   const onSelectNote = (key: string) => {
-    if(isGestureActive === 1 ){
+    if(isGestureActive === 1 || isAnimationActive === 1) {
       console.log(`Selected note item ${key}, but gesture is active`);
       return;
     }

@@ -86,6 +86,8 @@ export class UserEnterExt extends UserEnter {
 
 export class NotesMenu {
   sortingBy: string = "id";
+  sortingOrder: string = "desc";
+  currentNotePage: number = 0;
 }
 
 export class AppSettings{
