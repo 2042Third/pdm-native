@@ -391,7 +391,7 @@ const NotesCustomEditor = () => {
             snapScreen=-1*(currentScreen.value-1);
         }
         else{
-          if (currentScreen.value===-1*(MAX_SCREENS-1))
+          if (currentScreen.value===(MAX_SCREENS-1))
             snapScreen = -1*(MAX_SCREENS-1);
           else
             snapScreen=-1*(currentScreen.value+1);
