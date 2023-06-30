@@ -81,26 +81,20 @@ const NotesCustomEditor = () => {
     }, [noteEditor.statusInfo]);
 
   useEffect(() => {
-    console.log(`[useEffect->noteMenu.currentNotePage]  currentNotePage = ${noteMenu.currentNotePage}`);
-  }, [noteMenu.currentNotePage]);
-
-
-  // useAnimatedReaction(
-  //   () => translateX.value,
-  //   (data, prevData) => {
-  //     if (data !== prevData) {
-  //       if (isAnimationActive !== 1) {
-  //         runOnJS(setIsAnimationActive)(1);
-  //         console.log("[Selected] Start Animation");
-  //       }
-  //     } else {
-  //       if (isAnimationActive === 1) {
-  //         runOnJS(setIsAnimationActive)(0);
-  //         console.log("[Selected] End Animation");
-  //       }
-  //     }
-  //   }
-  // );
+      console.log(`[useEffect->noteMenu.currentNotePage]  currentNotePage = ${noteMenu.currentNotePage}`);
+      if (isAnimationActive===0 && isGestureActive.value===0){
+        console.log(`[useEffect->noteMenu.currentNotePage] Should have changed the screen to ${noteMenu.currentNotePage}`);
+        if (noteMenu.currentNotePage === 0) {
+          handleNavigation("first");
+        }
+        else if (noteMenu.currentNotePage === 1) {
+          handleNavigation("second");
+        }
+      }
+      else {
+        console.log(`[useEffect->noteMenu.currentNotePage] Animation or gesture is active, not changing the screen`);
+      }
+    }, [noteMenu.currentNotePage]);
 
   /**
    * Sets the index of the current screen in redux; it doesn't change the screen.
@@ -114,6 +108,13 @@ const NotesCustomEditor = () => {
   * **/
   const onScrollTouch = () => {
     console.log(`onScrollTouch called, focusing to main note text input`);
+    if (noteEditor.statusInfo === "rejected" || noteEditor.statusInfo === "none"){ // No note open, goto note list.
+      dispatch(currentNotePage(1));
+      // Make it blur
+      if (mainNoteTextInputRef.current!==null)
+        mainNoteTextInputRef.current.blur();
+      return;
+    }
     if (mainInputFocused) {
       console.log(`main note text input is already focused`);
     }
@@ -130,8 +131,13 @@ const NotesCustomEditor = () => {
     }
   }
   const mainNoteTextInputFocus = () => {
-    console.log(`mainNoteTextInputFocus called`);
-
+    console.log(`mainNoteTextInputFocus called, noteEditor.statusInfo=${noteEditor.statusInfo}`);
+    if (noteEditor.statusInfo === "rejected" || noteEditor.statusInfo === "none"){ // No note open, goto note list.
+      dispatch(currentNotePage(1));
+      // Make it blur
+      if (mainNoteTextInputRef.current!==null)
+        mainNoteTextInputRef.current.blur();
+    }
   }
 
   /**
@@ -374,27 +380,30 @@ const NotesCustomEditor = () => {
         approxScreen
         : projectionScreen
       ;
+      console.log(`[Before Making animation] SnapScreen: ${snapScreen}, currentScreen: ${currentScreen.value} `);
+      console.log(`[Before Making animation] velocityX: ${velocityX}, displacement: ${displacement.value} `);
 
       if (snapScreen!=currentScreen.value ){ // Just making sure no weird stuff.
         if (displacement.value>=0) {
           if (currentScreen.value===0)
             snapScreen = 0;
           else
-            snapScreen=currentScreen.value+1;
+            snapScreen=-1*(currentScreen.value-1);
         }
         else{
           if (currentScreen.value===-1*(MAX_SCREENS-1))
             snapScreen = -1*(MAX_SCREENS-1);
           else
-            snapScreen=currentScreen.value-1;
+            snapScreen=-1*(currentScreen.value+1);
         }
       }
+      console.log(`[Making animation] SnapScreen: ${snapScreen}, currentScreen: ${currentScreen.value} `);
 
       if (isAnimationActive !== 1) {
         runOnJS(setIsAnimationActive)(1);
         console.log("[Selected] Start Animation");
       }
-      currentScreen.value = snapScreen;
+      currentScreen.value = Math.abs(snapScreen);
       runOnJS(setCurrentScreen)(snapScreen);
       const snapPoint = snapScreen*width;
       navigateTo(snapPoint);
