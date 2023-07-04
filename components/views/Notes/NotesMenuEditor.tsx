@@ -248,20 +248,17 @@ const NotesMenuEditor = ({ isGestureActive
             maxToRenderPerBatch={20}
             windowSize={3}
             initialNumToRender={20}
-            // renderItem={({ item }) => <NoteItemCell item={item} />}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}
                 onRefresh={onRefresh}
               />
             }
-            // removeClippedSubviews={true}
             keyExtractor={noteItemKeyExtractor}
             extraData={noteids}
           >
           </FlatList>
         </View>
-        {/* <NoteItem noteids={noteids}></NoteItem> */}
       </View>
     </View>
   )
