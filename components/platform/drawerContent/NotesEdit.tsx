@@ -249,7 +249,7 @@ const NotesCustomEditor = () => {
     translateX.value = withSpring(snapPoint, { damping: 10, stiffness: 20, mass: 0.1 }
       , () => {
       runOnJS(setIsAnimationActive)(0);
-      console.log("[withSpring callback] snapping point achieved");
+      // console.log("[withSpring callback] snapping point achieved");
     });
   };
 
@@ -380,8 +380,8 @@ const NotesCustomEditor = () => {
         approxScreen
         : projectionScreen
       ;
-      console.log(`[Before Making animation] SnapScreen: ${snapScreen}, currentScreen: ${currentScreen.value} `);
-      console.log(`[Before Making animation] velocityX: ${velocityX}, displacement: ${displacement.value} `);
+      // console.log(`[Before Making animation] SnapScreen: ${snapScreen}, currentScreen: ${currentScreen.value} `);
+      // console.log(`[Before Making animation] velocityX: ${velocityX}, displacement: ${displacement.value} `);
 
       if (snapScreen!=currentScreen.value ){ // Just making sure no weird stuff.
         if (displacement.value>=0) {
@@ -397,7 +397,7 @@ const NotesCustomEditor = () => {
             snapScreen=-1*(currentScreen.value+1);
         }
       }
-      console.log(`[Making animation] SnapScreen: ${snapScreen}, currentScreen: ${currentScreen.value} `);
+      // console.log(`[Making animation] SnapScreen: ${snapScreen}, currentScreen: ${currentScreen.value} `);
 
       if (isAnimationActive !== 1) {
         runOnJS(setIsAnimationActive)(1);
