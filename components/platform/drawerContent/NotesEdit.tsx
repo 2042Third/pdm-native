@@ -13,8 +13,6 @@ import NotesMenuEditor from "../../views/Notes/NotesMenuEditor";
 import { colors, styles } from "../../../assets/Style";
 import { NotesMsg } from "../../handle/types";
 import { useAppDispatch, useAppSelector } from "../../handle/redux/hooks";
-import { userInfoStatus } from "../../handle/redux/selectors/selectorNoteHeads";
-import { dispatch } from "react-native-navigation-drawer-extension/lib/events";
 const { width, height } = Dimensions.get('window');
 import { updateEditsContent, updateEditsHead, updateNote } from '../../handle/redux/reducers/notes/noteEditor';
 import { updateNotesHeaderInfo } from "../../handle/redux/reducers/notes/notesHeaderInfo";
