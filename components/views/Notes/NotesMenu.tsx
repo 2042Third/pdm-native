@@ -92,7 +92,6 @@ const NotesMenu = ({  }) => {
   };
 
   const getHeadsFromServer = () => {
-    // console.log(`Getting heads with sess \"${JSON.stringify(user)}\"`);
     if (user.sess !== '') {
       // console.log(`Notes Menu update: ${userinfo.status}`);
       if (userinfo.status === "success") {
