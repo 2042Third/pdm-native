@@ -321,7 +321,7 @@ const NotesCustomEditor = () => {
       return upperBound;
     }
 
-    console.log(`num: ${num}, lowerBound: ${lowerBound}, upperBound: ${upperBound}`);
+    // console.log(`num: ${num}, lowerBound: ${lowerBound}, upperBound: ${upperBound}`);
     if (displacementRatio> 0){
       if(Math.abs(displacementRatio) >= snapThreshold){
         return upperBound;
