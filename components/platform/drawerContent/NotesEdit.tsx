@@ -74,6 +74,11 @@ const NotesCustomEditor = () => {
     // console.log(`ntype noteEditor.statusInfo is ${ noteEditor.ntype}`);
     if(noteEditor.ntype === "retrieve_return" && noteEditor.statusInfo === "fulfilled"){
       handleNavigation("first");
+      if (mainNoteTextInputRef.current!==null) {
+        mainNoteTextInputRef.current.blur();
+        console.log(`Note Focus blurred.`);
+      }
+
       console.log(`Navigation action triggered`);
     }
     }, [noteEditor.statusInfo]);
@@ -121,8 +126,8 @@ const NotesCustomEditor = () => {
     else {
       console.log(`main note text input is not focused`);
       if (mainNoteTextInputRef.current!==null
-        && isGestureActive.value===0
-        && velocity.value ===0
+        // && isGestureActive.value===0
+        // && velocity.value ===0
       ) {
         mainNoteTextInputRef.current.focus();
         setMainInputFocus(true);
@@ -131,6 +136,10 @@ const NotesCustomEditor = () => {
     }
   }
 
+  /**
+   * Make the main note text input blur if editable is set to false.
+   * This is to make sure that focus is not on textEdit even if it is not editable.
+   * */
   useEffect (() => {
     if (!editable){
       if (mainNoteTextInputRef.current!==null) {
@@ -140,6 +149,11 @@ const NotesCustomEditor = () => {
     }
   }, [editable]);
 
+  /**
+   * Controls what happens when scrolling through the note.
+   * If the keyboard is out and the focus is already on a note,
+   * we don't blur the focus.
+   * */
   const handleScroll = () => {
     // If the ScrollView starts scrolling, we disable the TextInput
     if (!isScrolling) {
@@ -151,6 +165,9 @@ const NotesCustomEditor = () => {
     }
   }
 
+  /**
+   * Handles the end of the scroll.
+   * */
   const handleScrollEnd = () => {
     // Once the ScrollView stops scrolling, we delay the re-enabling of the TextInput
     if (isScrolling) {
@@ -161,6 +178,10 @@ const NotesCustomEditor = () => {
     }
   }
 
+  /**
+   * Controls what happens when focus is on the main note text input.
+   * Currently, it only goes to the note list when no note is open.
+   * */
   const mainNoteTextInputFocus = () => {
     console.log(`mainNoteTextInputFocus called, noteEditor.statusInfo=${noteEditor.statusInfo}`);
     if (noteEditor.statusInfo === "rejected" || noteEditor.statusInfo === "none"){ // No note open, goto note list.
