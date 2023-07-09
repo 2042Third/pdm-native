@@ -144,7 +144,10 @@ const NotesCustomEditor = () => {
     // If the ScrollView starts scrolling, we disable the TextInput
     if (!isScrolling) {
       setIsScrolling(true);
-      setEditable(false);
+      if (!mainInputFocused) {
+        console.log(`main note text scrolling, thus input is not focused`);
+        setEditable(false);
+      }
     }
   }
 
