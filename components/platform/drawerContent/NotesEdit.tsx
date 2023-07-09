@@ -132,7 +132,7 @@ const NotesCustomEditor = () => {
   }
 
   useEffect (() => {
-    if (editable){
+    if (!editable){
       if (mainNoteTextInputRef.current!==null) {
         mainNoteTextInputRef.current.blur();
         console.log(`Editable Focus blurred.`);
