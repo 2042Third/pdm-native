@@ -109,8 +109,10 @@ const NotesCustomEditor = () => {
     if (noteEditor.statusInfo === "rejected" || noteEditor.statusInfo === "none"){ // No note open, goto note list.
       dispatch(currentNotePage(1));
       // Make it blur
-      if (mainNoteTextInputRef.current!==null)
+      if (mainNoteTextInputRef.current!==null) {
         mainNoteTextInputRef.current.blur();
+        console.log(`Focus blurred.`);
+      }
       return;
     }
     if (mainInputFocused) {
@@ -128,13 +130,43 @@ const NotesCustomEditor = () => {
       }
     }
   }
+
+  useEffect (() => {
+    if (editable){
+      if (mainNoteTextInputRef.current!==null) {
+        mainNoteTextInputRef.current.blur();
+        console.log(`Editable Focus blurred.`);
+      }
+    }
+  }, [editable]);
+
+  const handleScroll = () => {
+    // If the ScrollView starts scrolling, we disable the TextInput
+    if (!isScrolling) {
+      setIsScrolling(true);
+      setEditable(false);
+    }
+  }
+
+  const handleScrollEnd = () => {
+    // Once the ScrollView stops scrolling, we delay the re-enabling of the TextInput
+    if (isScrolling) {
+      setIsScrolling(false);
+      setTimeout(() => {
+        setEditable(true);
+      }, 400);
+    }
+  }
+
   const mainNoteTextInputFocus = () => {
     console.log(`mainNoteTextInputFocus called, noteEditor.statusInfo=${noteEditor.statusInfo}`);
     if (noteEditor.statusInfo === "rejected" || noteEditor.statusInfo === "none"){ // No note open, goto note list.
       dispatch(currentNotePage(1));
       // Make it blur
-      if (mainNoteTextInputRef.current!==null)
+      if (mainNoteTextInputRef.current!==null) {
         mainNoteTextInputRef.current.blur();
+        console.log(`mainText Focus blurred.`);
+      }
     }
   }
 
@@ -159,7 +191,7 @@ const NotesCustomEditor = () => {
     console.log(`No update: head=${noteEditor.head}, noteHead=${headerValue}`)
   }
   const noUpdateContent = () => {
-    console.log(`No update: Content=${noteEditor.content},\n noteContent=${noteValue}`)
+    console.log(`No update.`)
   }
   /**
    * Update operations.
@@ -219,24 +251,6 @@ const NotesCustomEditor = () => {
     setScrollViewHeight(height);
   };
 
-
-  const handleScroll = () => {
-    // If the ScrollView starts scrolling, we disable the TextInput
-    if (!isScrolling) {
-      setIsScrolling(true);
-      setEditable(false);
-    }
-  }
-
-  const handleScrollEnd = () => {
-    // Once the ScrollView stops scrolling, we delay the re-enabling of the TextInput
-    if (isScrolling) {
-      setIsScrolling(false);
-      setTimeout(() => {
-        setEditable(true);
-      }, 400);
-    }
-  }
 
   /**
    * Navigation function that move the screen the position of snapPoint.
